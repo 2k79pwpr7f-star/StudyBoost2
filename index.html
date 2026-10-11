@@ -15,79 +15,100 @@
 <body>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">✦</div>StudyBoost</div>
-  <nav class="nav" aria-label="Navigation">
-    <button class="active" data-page="home">◫ &nbsp; Tableau de bord</button>
-    <button data-page="notes">▤ &nbsp; Mes fiches</button>
-    <button data-page="cards">▧ &nbsp; Flashcards</button>
-    <button data-page="quiz">☑ &nbsp; Quiz</button>
-    <button data-page="library">📚 &nbsp; Bibliothèque</button>
-    <button data-page="progress">◷ &nbsp; Mes progrès</button>
-  </nav>
-  <div class="side-note"><strong>💡 Le conseil du jour</strong>Révise en petites sessions régulières. Dix minutes de rappel actif peuvent être plus efficaces qu'une longue relecture passive.</div>
+<div class="brand"><div class="logo">✦</div>StudyBoost</div>
+<nav class="nav" aria-label="Navigation">
+<button class="active" data-page="home">◫ &nbsp; Tableau de bord</button>
+<button data-page="notes">▤ &nbsp; Mes fiches</button>
+<button data-page="cards">▧ &nbsp; Flashcards</button>
+<button data-page="quiz">☑ &nbsp; Quiz</button>
+<button data-page="library">📚 &nbsp; Bibliothèque</button>
+<button data-page="progress">◷ &nbsp; Mes progrès</button>
+</nav>
+<div class="side-note"><strong>💡 Le conseil du jour</strong>Révise en petites sessions régulières. Dix minutes de rappel actif peuvent être plus efficaces qu'une longue relecture passive.</div>
 </aside>
 <main class="main">
 <header class="top"><div><div class="eyebrow">Ton espace de révision</div><h1 id="greeting">Salut, étudiant 👋</h1><p class="sub">Un petit pas aujourd'hui, de grands progrès demain.</p></div><div class="avatar">SB</div></header>
 
 <section class="page active" id="page-home">
-  <div class="hero"><div><h2>Prêt à faire décoller tes notes ?</h2><p>Organise tes cours, entraîne ta mémoire et suis tes progrès au même endroit.</p><button class="btn btn-white" data-go="notes">Créer ma première fiche&nbsp; →</button></div><div class="hero-icon">🎓</div></div>
-  <div class="stats">
-    <div class="stat"><div class="stat-top">Fiches créées <span class="stat-icon">📚</span></div><strong id="stat-notes">0</strong><small>Ton savoir, bien organisé</small></div>
-    <div class="stat"><div class="stat-top">Flashcards <span class="stat-icon">🧠</span></div><strong id="stat-cards">0</strong><small>Notions à mémoriser</small></div>
-    <div class="stat"><div class="stat-top">Quiz terminés <span class="stat-icon">⚡</span></div><strong id="stat-quizzes">0</strong><small>Sessions d'entraînement</small></div>
-    <div class="stat"><div class="stat-top">Meilleur score <span class="stat-icon">🏆</span></div><strong id="stat-best">—</strong><small>Continue comme ça !</small></div>
-  </div>
-  <div class="section-head"><h2>Ton espace de travail</h2><span class="tiny">Tout commence ici</span></div>
-  <div class="features">
-    <article class="feature"><div class="feature-ico">📝</div><h3>Fiches de révision</h3><p>Note les idées essentielles de tes cours et retrouve-les facilement.</p><button class="btn btn-light" data-go="notes">Ouvrir mes fiches →</button></article>
-    <article class="feature"><div class="feature-ico">🃏</div><h3>Flashcards</h3><p>Transforme les définitions en cartes question-réponse.</p><button class="btn btn-light" data-go="cards">Mémoriser →</button></article>
-    <article class="feature"><div class="feature-ico">🎯</div><h3>Quiz express</h3><p>Teste tes connaissances avec des questions à choix multiples.</p><button class="btn btn-light" data-go="quiz">Lancer un quiz →</button></article>
-  </div>
-  <div class="section-head"><h2>Récemment ajouté</h2><button class="btn btn-outline" data-go="notes">Voir les fiches</button></div>
-  <div class="panel" id="recent-list"><div class="empty">Tes fiches apparaîtront ici.<br>Commence par en créer une !</div></div>
+<div class="hero"><div><h2>Prêt à faire décoller tes notes ?</h2><p>Organise tes cours, entraîne ta mémoire et suis tes progrès au même endroit.</p><button class="btn btn-white" data-go="notes">Créer ma première fiche&nbsp; →</button></div><div class="hero-icon">🎓</div></div>
+<div class="stats">
+<div class="stat"><div class="stat-top">Fiches créées <span class="stat-icon">📚</span></div><strong id="stat-notes">0</strong><small>Ton savoir, bien organisé</small></div>
+<div class="stat"><div class="stat-top">Flashcards <span class="stat-icon">🧠</span></div><strong id="stat-cards">0</strong><small>Notions à mémoriser</small></div>
+<div class="stat"><div class="stat-top">Quiz terminés <span class="stat-icon">⚡</span></div><strong id="stat-quizzes">0</strong><small>Sessions d'entraînement</small></div>
+<div class="stat"><div class="stat-top">Meilleur score <span class="stat-icon">🏆</span></div><strong id="stat-best">—</strong><small>Continue comme ça !</small></div>
+</div>
+<div class="section-head"><h2>Ton espace de travail</h2><span class="tiny">Tout commence ici</span></div>
+<div class="features">
+<article class="feature"><div class="feature-ico">📝</div><h3>Fiches de révision</h3><p>Note les idées essentielles de tes cours et retrouve-les facilement.</p><button class="btn btn-light" data-go="notes">Ouvrir mes fiches →</button></article>
+<article class="feature"><div class="feature-ico">🃏</div><h3>Flashcards</h3><p>Transforme les définitions en cartes question-réponse.</p><button class="btn btn-light" data-go="cards">Mémoriser →</button></article>
+<article class="feature"><div class="feature-ico">⚡</div><h3>Quiz intelligents</h3><p>Teste tes connaissances et comprends tes erreurs.</p><button class="btn btn-light" data-go="quiz">Lancer un quiz →</button></article>
+</div>
+<div class="section-head"><h2>Dernières fiches</h2><button class="btn btn-outline" data-go="notes">Tout voir</button></div>
+<div class="panel"><div id="recent-list" class="item-list"><div class="empty">Tes fiches apparaîtront ici.</div></div></div>
 </section>
 
 <section class="page" id="page-notes">
-  <div class="section-head"><div><h2>Mes fiches de révision</h2><p class="sub">Rassemble tes cours et tes idées importantes.</p></div></div>
-  <div class="content-grid">
-    <div class="panel"><h3>Créer une fiche</h3><p class="muted">Garde l'essentiel à portée de main.</p>
-      <form id="note-form"><div class="field"><label for="note-title">Titre de la fiche</label><input id="note-title" placeholder="Ex. : Les dérivées" required maxlength="100"></div>
-      <div class="field"><label for="note-subject">Matière</label><select id="note-subject"><option>Mathématiques</option><option>Physique-chimie</option><option>Français</option><option>Histoire-géographie</option><option>Langues</option><option>Anglais</option><option>Allemand</option><option>Espagnol</option><option>SVT</option><option>Chimie</option><option>Philosophie</option><option>SES</option><option>Économie</option><option>Droit</option><option>Sciences de l’ingénieur</option><option>Technologie</option><option>Arts</option><option>Musique</option><option>Informatique</option><option>Autre</option></select></div>
-      <div class="field"><label for="note-body">Contenu du cours</label><textarea id="note-body" placeholder="Écris ici les définitions, formules et exemples…" required></textarea></div><button class="btn btn-primary" type="submit">＋ Enregistrer la fiche</button></form>
-    </div>
-    <div class="panel"><h3>Ma bibliothèque</h3><p class="muted">Tes fiches enregistrées sur cet appareil.</p><input class="search" id="note-search" placeholder="Rechercher une fiche…"><div class="item-list" id="notes-list"></div></div>
-  </div>
+<div class="section-head"><div><h2>Mes fiches de révision</h2><p class="sub">Crée, organise et retrouve tes résumés.</p></div></div>
+<div class="content-grid">
+<div class="panel"><h3>Créer une fiche</h3><p class="muted">Garde l'essentiel de chaque cours.</p>
+<div class="field"><label for="note-title">Titre</label><input id="note-title" placeholder="Ex. Les fonctions dérivées"></div>
+<div class="row"><div class="field"><label for="note-subject">Matière</label><select id="note-subject"></select></div><div class="field"><label for="note-level">Niveau</label><select id="note-level"><option>Primaire</option><option>Collège</option><option>Lycée</option><option>Supérieur</option></select></div></div>
+<div class="field"><label for="note-body">Contenu de la fiche</label><textarea id="note-body" placeholder="Définitions, formules, exemples…"></textarea></div>
+<button class="btn btn-primary" id="save-note">Enregistrer la fiche</button>
+</div>
+<div class="panel"><h3>Mes fiches</h3><input class="search" id="note-search" placeholder="Rechercher une fiche…"><div id="notes-list" class="item-list"></div></div>
+</div>
 </section>
 
 <section class="page" id="page-cards">
-  <div class="section-head"><div><h2>Mes flashcards 🃏</h2><p class="sub">Question devant, réponse derrière. Clique sur la carte pour la retourner.</p></div></div>
-  <div class="content-grid">
-    <div class="panel"><h3>Créer une flashcard</h3><form id="card-form"><div class="field"><label for="card-q">Question / notion</label><input id="card-q" placeholder="Ex. : Dérivée de x² ?" required maxlength="180"></div><div class="field"><label for="card-a">Réponse</label><textarea id="card-a" placeholder="Ex. : 2x" required></textarea></div><button class="btn btn-primary" type="submit">＋ Ajouter la carte</button></form><div class="section-head"><h3>Réviser</h3><span id="card-count" class="tiny">0 carte</span></div><div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="Retourner la flashcard"><div><div class="word" id="flash-word">Ajoute ta première carte</div><div class="hint" id="flash-hint">La question apparaîtra ici</div></div></div><div class="row"><button class="btn btn-outline" id="prev-card">← Précédente</button><button class="btn btn-light" id="flip-card">Retourner</button><button class="btn btn-primary" id="next-card">Suivante →</button></div></div>
-    <div class="panel"><h3>Toutes mes cartes</h3><p class="muted">Ajoute des cartes au fil de tes cours.</p><div class="item-list" id="cards-list"></div></div>
-  </div>
+<div class="section-head"><div><h2>Mes flashcards</h2><p class="sub">Retourne les cartes pour révéler la réponse.</p></div></div>
+<div class="content-grid">
+<div class="panel"><h3>Créer une flashcard</h3>
+<div class="field"><label for="card-question">Question ou notion</label><input id="card-question" placeholder="Ex. Dérivée de x² ?"></div>
+<div class="field"><label for="card-answer">Réponse</label><textarea id="card-answer" placeholder="Ex. 2x"></textarea></div>
+<div class="field"><label for="card-subject">Matière</label><select id="card-subject"></select></div>
+<button class="btn btn-primary" id="save-card">Ajouter la flashcard</button>
+</div>
+<div class="panel"><h3>Entraînement</h3><p class="muted" id="card-counter">0 carte</p>
+<div class="flashcard" id="flashcard" role="button" tabindex="0"><div><div class="word" id="flash-word">Aucune carte</div><div class="hint" id="flash-hint">Ajoute une carte pour commencer.</div></div></div>
+<div class="row"><button class="btn btn-outline" id="card-prev">← Précédente</button><button class="btn btn-light" id="card-flip">Retourner</button><button class="btn btn-outline" id="card-next">Suivante →</button></div>
+<div class="item-list" id="cards-list"></div>
+</div>
+</div>
 </section>
 
 <section class="page" id="page-quiz">
-  <div class="section-head"><div><h2>Quiz express ⚡</h2><p class="sub">Choisis ton niveau et ta matière pour t'entraîner avec les questions intégrées.</p></div></div>
-  <div class="panel" style="margin-bottom:16px"><div class="row"><div class="field"><label for="quiz-level">Niveau</label><select id="quiz-level"><option value="all">Tous les niveaux</option><option value="Primaire">Primaire</option><option value="Collège">Collège</option><option value="Lycée">Lycée</option><option value="Supérieur">Études supérieures</option></select></div><div class="field"><label for="quiz-subject">Matière</label><select id="quiz-subject"><option value="all">Toutes les matières</option></select></div></div><button class="btn btn-primary" id="apply-quiz-filters">Lancer un quiz adapté →</button><p class="tiny">Le nombre de questions disponibles dépend de la matière et du niveau sélectionnés.</p></div>
-  <div class="content-grid"><div class="panel"><div class="row" style="justify-content:space-between"><span class="eyebrow" id="quiz-category">Quiz découverte</span><span class="tiny" id="quiz-count">Question 1/5</span></div><div class="progress"><span id="quiz-progress"></span></div><h3 id="quiz-question" style="font-size:22px;line-height:1.4;margin:22px 0">Prêt à tester tes connaissances ?</h3><div id="quiz-options"></div><p id="quiz-feedback" class="muted" aria-live="polite"></p><div class="row"><button class="btn btn-outline" id="quiz-restart">Recommencer</button><button class="btn btn-primary" id="quiz-next" disabled>Suivant →</button></div></div>
-  <div class="panel"><h3>Conseil de révision</h3><p class="muted" style="line-height:1.7">Essaie de répondre sans regarder ton cours. Une erreur est une occasion d'identifier une notion à revoir. Recommence le quiz pour t'entraîner à nouveau.</p><div class="empty">🎯 <strong>Objectif :</strong><br>comprendre, pas seulement retenir.</div></div></div>
+<div class="section-head"><div><h2>Quiz</h2><p class="sub">Cinq questions tirées de la bibliothèque selon tes filtres.</p></div></div>
+<div class="panel">
+<div class="row">
+<div class="field"><label for="quiz-level">Niveau</label><select id="quiz-level"><option value="all">Tous les niveaux</option><option>Primaire</option><option>Collège</option><option>Lycée</option><option>Supérieur</option></select></div>
+<div class="field"><label for="quiz-subject">Matière</label><select id="quiz-subject"><option value="all">Toutes les matières</option></select></div>
+<div class="field"><label>&nbsp;</label><button class="btn btn-primary" id="apply-quiz-filters">Démarrer le quiz</button></div>
+</div>
+<div class="progress"><span id="quiz-progress"></span></div>
+<p class="tiny" id="quiz-category">Toutes les matières · Tous niveaux</p>
+<h3 id="quiz-count">Prêt à commencer ?</h3>
+<h2 id="quiz-question">Choisis tes filtres puis démarre un quiz.</h2>
+<div id="quiz-options"></div>
+<p id="quiz-feedback" class="muted"></p>
+<button class="btn btn-primary" id="quiz-next" disabled>Suivant →</button>
+<button class="btn btn-outline" id="quiz-restart">Recommencer</button>
+</div>
 </section>
-
 <section class="page" id="page-library">
-  <div class="section-head"><div><h2>Bibliothèque de révision 📚</h2><p class="sub">Des ressources prêtes à réviser, classées par niveau et matière. Ajoute-les à ton espace personnel.</p></div></div>
-  <div class="panel"><div class="row"><div class="field"><label for="library-level">Niveau</label><select id="library-level"><option value="all">Tous les niveaux</option><option value="Primaire">Primaire</option><option value="Collège">Collège</option><option value="Lycée">Lycée</option><option value="Supérieur">Études supérieures</option></select></div><div class="field"><label for="library-subject">Matière</label><select id="library-subject"><option value="all">Toutes les matières</option></select></div></div></div>
-  <div class="section-head"><h2>Fiches de révision</h2><span id="library-note-count" class="tiny"></span></div><div id="library-notes" class="features"></div>
-  <div class="section-head"><h2>Flashcards prêtes à l'emploi</h2><span id="library-card-count" class="tiny"></span></div><div id="library-cards" class="features"></div>
-  <div class="section-head"><h2>Quiz disponibles</h2><span id="library-quiz-count" class="tiny"></span></div><div class="panel"><p class="muted">Lance un quiz correspondant aux filtres sélectionnés.</p><button class="btn btn-primary" id="library-start-quiz">Lancer ce quiz →</button></div>
-  <p class="tiny" style="margin-top:16px">Cette bibliothèque constitue une base initiale de ressources originales. Elle ne remplace pas encore l'intégralité des programmes officiels ni tous les chapitres de chaque classe.</p>
+<div class="section-head"><div><h2>Bibliothèque de révision 📚</h2><p class="sub">Des ressources prêtes à réviser, classées par niveau et matière. Ajoute-les à ton espace personnel.</p></div></div>
+<div class="panel"><div class="row"><div class="field"><label for="library-level">Niveau</label><select id="library-level"><option value="all">Tous les niveaux</option><option value="Primaire">Primaire</option><option value="Collège">Collège</option><option value="Lycée">Lycée</option><option value="Supérieur">Études supérieures</option></select></div><div class="field"><label for="library-subject">Matière</label><select id="library-subject"><option value="all">Toutes les matières</option></select></div></div></div>
+<div class="section-head"><h2>Fiches de révision</h2><span id="library-note-count" class="tiny"></span></div><div id="library-notes" class="features"></div>
+<div class="section-head"><h2>Flashcards prêtes à l'emploi</h2><span id="library-card-count" class="tiny"></span></div><div id="library-cards" class="features"></div>
+<div class="section-head"><h2>Quiz disponibles</h2><span id="library-quiz-count" class="tiny"></span></div><div class="panel"><p class="muted">Lance un quiz correspondant aux filtres sélectionnés.</p><button class="btn btn-primary" id="library-start-quiz">Lancer ce quiz →</button></div>
+<p class="tiny" style="margin-top:16px">Cette bibliothèque constitue une base initiale de ressources originales. Elle ne remplace pas encore l'intégralité des programmes officiels ni tous les chapitres de chaque classe.</p>
 </section>
 
 <section class="page" id="page-progress">
-  <div class="section-head"><div><h2>Mes progrès 📈</h2><p class="sub">Un aperçu de ton travail sur cet appareil.</p></div></div>
-  <div class="stats"><div class="stat"><div class="stat-top">Fiches <span class="stat-icon">📚</span></div><strong id="p-notes">0</strong><small>Créées</small></div><div class="stat"><div class="stat-top">Cartes <span class="stat-icon">🧠</span></div><strong id="p-cards">0</strong><small>À réviser</small></div><div class="stat"><div class="stat-top">Quiz <span class="stat-icon">⚡</span></div><strong id="p-quizzes">0</strong><small>Terminés</small></div><div class="stat"><div class="stat-top">Moyenne <span class="stat-icon">🌟</span></div><strong id="p-average">—</strong><small>Sur tes quiz</small></div></div>
-  <div class="panel"><h3>Historique des quiz</h3><p class="muted">Tes résultats s'affichent ici après chaque quiz terminé.</p><div id="history-list" class="item-list"></div></div>
-  <div class="panel" style="margin-top:16px"><h3>Exporter mes données</h3><p class="muted">Télécharge une copie de tes fiches, flashcards et résultats.</p><button class="btn btn-primary" id="export-data">Exporter mes données (.json)</button> <button class="btn btn-outline" id="clear-data">Effacer mes données</button></div>
+<div class="section-head"><div><h2>Mes progrès 📈</h2><p class="sub">Un aperçu de ton travail sur cet appareil.</p></div></div>
+<div class="stats"><div class="stat"><div class="stat-top">Fiches <span class="stat-icon">📚</span></div><strong id="p-notes">0</strong><small>Créées</small></div><div class="stat"><div class="stat-top">Cartes <span class="stat-icon">🧠</span></div><strong id="p-cards">0</strong><small>À réviser</small></div><div class="stat"><div class="stat-top">Quiz <span class="stat-icon">⚡</span></div><strong id="p-quizzes">0</strong><small>Terminés</small></div><div class="stat"><div class="stat-top">Moyenne <span class="stat-icon">🌟</span></div><strong id="p-average">—</strong><small>Sur tes quiz</small></div></div>
+<div class="panel"><h3>Historique des quiz</h3><p class="muted">Tes résultats s'affichent ici après chaque quiz terminé.</p><div id="history-list" class="item-list"></div></div>
+<div class="panel" style="margin-top:16px"><h3>Exporter mes données</h3><p class="muted">Télécharge une copie de tes fiches, flashcards et résultats.</p><button class="btn btn-primary" id="export-data">Exporter mes données (.json)</button> <button class="btn btn-outline" id="clear-data">Effacer mes données</button></div>
 </section>
 <footer class="tiny" style="padding:28px 0 12px;text-align:center">StudyBoost · Ton espace d'apprentissage · Tes données restent dans ce navigateur. · <a href="./confidentialite.html">Politique de confidentialité</a></footer>
 </main>
@@ -182,18 +203,76 @@ const revisionSheets=[
 {title:'Coût d’opportunité',subject:'Économie',level:'Supérieur',body:'Le coût d’opportunité est la valeur de la meilleure alternative à laquelle on renonce en faisant un choix. Il permet de comparer les options, même lorsque certaines ressources ne donnent pas lieu à une dépense monétaire directe. Distingue coût comptable et coût économique.'},
 {title:'Hiérarchie des normes : repère',subject:'Droit',level:'Supérieur',body:'La hiérarchie des normes organise la place relative des règles juridiques. En France, la Constitution occupe une place supérieure dans l’ordre interne ; viennent ensuite notamment les engagements internationaux et le droit de l’Union selon leurs règles d’articulation, puis les lois et règlements. Les cas concrets exigent une analyse précise.'}
 ];
+
 const flashcardBank=[
 ['Mathématiques','Primaire','Combien font 9 × 6 ?','54'],['Français','Primaire','Qu’est-ce qu’un adjectif ?','Un mot qui apporte une précision sur un nom.'],['SVT','Primaire','Quel organe pompe le sang ?','Le cœur.'],['Anglais','Primaire','Comment dit-on « chien » en anglais ?','Dog.'],['Mathématiques','Collège','Quelle est la formule de l’aire d’un rectangle ?','Longueur × largeur.'],['Physique-chimie','Collège','Quelle est l’unité de la masse dans le SI ?','Le kilogramme (kg).'],['SVT','Collège','Quel est le rôle des globules rouges ?','Transporter notamment le dioxygène grâce à l’hémoglobine.'],['Histoire-géographie','Collège','En quelle année débute la Première Guerre mondiale ?','1914.'],['Anglais','Collège','Quel est le prétérit de “go” ?','Went.'],['Allemand','Lycée','Quel est le genre grammatical de “Mädchen” ?','Neutre : das Mädchen.'],['Mathématiques','Lycée','Dérivée de x³ ?','3x².'],['Mathématiques','Lycée','Que vaut cos(0) ?','1.'],['Physique-chimie','Lycée','Quelle est l’unité de la puissance ?','Le watt (W).'],['Physique-chimie','Lycée','Formule de la quantité de matière à partir de la masse m et de la masse molaire M ?','n = m/M.'],['SVT','Lycée','Quel processus produit des gamètes ?','La méiose.'],['Philosophie','Lycée','Que signifie « cogito » chez Descartes ?','« Je pense » ; le fait de penser atteste l’existence du sujet pensant.'],['SES','Lycée','Qu’est-ce qu’une norme sociale ?','Une règle de conduite partagée qui oriente les comportements.'],['Espagnol','Lycée','Comment conjuguer “ser” à la première personne du présent ?','Soy.'],['Informatique','Lycée','En Python, à quoi sert == ?','À comparer deux valeurs pour tester leur égalité.'],['Histoire-géographie','Lycée','En quelle année tombe le mur de Berlin ?','1989.'],['Mathématiques','Supérieur','Condition d’inversibilité d’une matrice carrée ?','Son déterminant est non nul, de façon équivalente elle admet une inverse.'],['Informatique','Supérieur','Complexité usuelle de la recherche dichotomique ?','O(log n) sur un tableau trié.'],['Physique-chimie','Supérieur','Énergie cinétique d’une masse m à la vitesse v ?','Ec = 1/2 mv².'],['Sciences de l’ingénieur','Supérieur','Quelle loi exprime la conservation de la charge à un nœud ?','La loi des nœuds : somme algébrique des courants nulle.'],['Économie','Supérieur','Qu’est-ce que le coût d’opportunité ?','La valeur de la meilleure option abandonnée.'],['Droit','Supérieur','Qu’est-ce que la hiérarchie des normes ?','L’organisation des règles juridiques selon leur autorité relative.'],['Français','Lycée','À quoi sert une problématique ?','À formuler le problème directeur auquel le raisonnement doit répondre.'],['Physique-chimie','Collège','Quelle est la formule de la masse volumique ?','ρ = m/V.'],['Mathématiques','Collège','Comment calculer une moyenne simple ?','Additionner les valeurs puis diviser par leur nombre.'],['Technologie','Collège','Que décrit un cahier des charges ?','Le besoin à satisfaire et les fonctions/contraintes attendues d’un objet ou système.'],['Arts','Collège','Qu’est-ce qu’un contraste en arts visuels ?','Une différence marquée entre des éléments, par exemple clair/foncé ou chaud/froid.'],['Musique','Collège','Combien de demi-tons séparent deux notes d’une octave tempérée ?','12 demi-tons.'],['Mathématiques','Lycée','Relation entre ln et exp ?','ln(exp(x))=x et exp(ln(x))=x pour x>0 dans le second cas.'],['SVT','Lycée','Quel est le rôle de l’ADN ?','Porter l’information génétique.'],['Histoire-géographie','Primaire','Sur une carte, à quoi sert la légende ?','À expliquer la signification des couleurs et symboles utilisés.'],['Anglais','Lycée','Quelle forme utilise-t-on après “doesn’t” ?','La base verbale : “doesn’t play”, pas “doesn’t plays”.'],['Allemand','Collège','Comment dit-on « merci » en allemand ?','Danke.'],['Espagnol','Collège','Comment dit-on « bonjour » en espagnol ?','Hola.'],['Philosophie','Supérieur','Qu’est-ce qu’un argument ?','Une raison avancée pour soutenir une thèse.'],['Informatique','Supérieur','Différence entre = et == en Python ?','= affecte une valeur ; == compare deux valeurs.']
 ].map((x,i)=>({id:'bank-card-'+i,subject:x[0],level:x[1],q:x[2],a:x[3]}));
 let quizQuestions=[],quizPos=0,quizScore=0,quizAnswered=false,quizStarted=false;
 function getFilters(prefix){const level=document.getElementById(prefix+'-level')?.value||'all';const subject=document.getElementById(prefix+'-subject')?.value||'all';return {level,subject}}
 function matches(item,filters){return (filters.level==='all'||item.level===filters.level)&&(filters.subject==='all'||item.subject===filters.subject)}
-function startQuiz(){const f=getFilters('quiz');const matching=questions.filter(q=>matches(q,f));if(!matching.length){toast('Aucune question pour ces filtres. Choisis une autre matière ou un autre niveau.');return}let pool=[...matching];if(pool.length<20){const sameLevel=questions.filter(q=>q.level===f.level&&!pool.includes(q));pool.push(...sameLevel.sort(()=>Math.random()-.5));}if(pool.length<20){const remaining=questions.filter(q=>!pool.includes(q));pool.push(...remaining.sort(()=>Math.random()-.5));}pool=pool.sort(()=>Math.random()-.5);quizQuestions=pool.slice(0,Math.min(20,pool.length));if(quizQuestions.length<20){toast('Il faut au moins 20 questions dans la banque pour lancer un quiz.');return}if(matching.length<20){toast('Pour atteindre 20 questions, le quiz a ajouté des questions d’autres matières ou niveaux.');}quizPos=0;quizScore=0;quizAnswered=false;quizStarted=true;renderQuiz()}
+function startQuiz() {
+const f = getFilters('quiz');
+
+const matching = questions.filter(q => matches(q, f));
+
+if (!matching.length) {
+toast('Aucune question pour ces filtres. Choisis une autre matière ou un autre niveau.');
+return;
+}
+
+// On commence par les questions correspondant aux filtres.
+let pool = [...matching];
+
+// On complète avec des questions du même niveau.
+if (pool.length < 20) {
+const sameLevel = questions.filter(
+q => (f.level === 'all' || q.level === f.level) &&
+!pool.includes(q)
+);
+
+pool.push(...sameLevel.sort(() => Math.random() - 0.5));
+}
+
+// Si nécessaire, on complète avec les autres questions disponibles.
+if (pool.length < 20) {
+const remaining = questions.filter(q => !pool.includes(q));
+pool.push(...remaining.sort(() => Math.random() - 0.5));
+}
+
+// Mélange et sélection de 20 questions.
+pool = pool.sort(() => Math.random() - 0.5);
+
+if (pool.length < 20) {
+toast('Il faut au moins 20 questions dans la banque pour lancer un quiz.');
+return;
+}
+
+quizQuestions = pool.slice(0, 20);
+
+if (matching.length < 20) {
+toast('Pour atteindre 20 questions, des questions d’autres matières ou niveaux ont été ajoutées.');
+}
+
+quizPos = 0;
+quizScore = 0;
+quizAnswered = false;
+quizStarted = true;
+
+renderQuiz();
+}
+
 function fillSubjectFilters(){['quiz-subject','library-subject'].forEach(id=>{const el=document.getElementById(id);if(!el)return;const value=el.value||'all';el.innerHTML='<option value="all">Toutes les matières</option>'+subjects.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');if([...el.options].some(o=>o.value===value))el.value=value})}
 function renderLibrary(){const f=getFilters('library');const ns=revisionSheets.filter(x=>matches(x,f));const cs=flashcardBank.filter(x=>matches(x,f));const qs=questions.filter(x=>matches(x,f));document.getElementById('library-note-count').textContent=ns.length+' fiche(s)';document.getElementById('library-card-count').textContent=cs.length+' carte(s)';document.getElementById('library-quiz-count').textContent=qs.length+' question(s)';document.getElementById('library-notes').innerHTML=ns.length?ns.map((n,i)=>`<article class="feature"><div class="feature-ico">📘</div><h3>${esc(n.title)}</h3><p class="tiny">${esc(n.subject)} · ${esc(n.level)}</p><p>${esc(n.body)}</p><button class="btn btn-light" onclick="addBankNote(${revisionSheets.indexOf(n)})">Ajouter à mes fiches</button></article>`).join(''):'<div class="empty">Aucune fiche avec ces filtres.</div>';document.getElementById('library-cards').innerHTML=cs.length?cs.map(c=>`<article class="feature"><div class="feature-ico">🧠</div><h3>${esc(c.q)}</h3><p class="tiny">${esc(c.subject)} · ${esc(c.level)}</p><p>${esc(c.a)}</p><button class="btn btn-light" onclick="addBankCard('${c.id}')">Ajouter à mes flashcards</button></article>`).join(''):'<div class="empty">Aucune carte avec ces filtres.</div>'}
 function addBankNote(index){const n=revisionSheets[index];if(!n)return;if(data.notes.some(x=>x.title===n.title&&x.subject===n.subject)){toast('Cette fiche est déjà dans tes fiches.');return}data.notes.unshift({id:Date.now()+Math.random(),title:n.title,subject:n.subject,body:n.body,date:new Date().toISOString()});save();toast('Fiche ajoutée à ton espace !')}
 function addBankCard(id){const c=flashcardBank.find(x=>x.id===id);if(!c)return;if(data.cards.some(x=>x.q===c.q&&x.a===c.a)){toast('Cette flashcard est déjà dans ton espace.');return}data.cards.push({id:Date.now()+Math.random(),q:c.q,a:c.a,subject:c.subject,level:c.level});cardIndex=data.cards.length-1;cardFlipped=false;save();toast('Flashcard ajoutée !')}
-document.getElementById('apply-quiz-filters').addEventListener('click',startQuiz);document.getElementById('library-start-quiz').addEventListener('click',()=>{document.getElementById('quiz-level').value=document.getElementById('library-level').value;document.getElementById('quiz-subject').value=document.getElementById('library-subject').value;go('quiz');startQuiz()});document.getElementById('library-level').addEventListener('change',renderLibrary);document.getElementById('library-subject').addEventListener('change',renderLibrary);document.getElementById('quiz-level').addEventListener('change',()=>{});document.getElementById('quiz-subject').addEventListener('change',()=>{});fillSubjectFilters();renderLibrary();
+document.getElementById('apply-quiz-filters').addEventListener('click',startQuiz);
+document.getElementById('library-start-quiz').addEventListener('click',()=>{document.getElementById('quiz-level').value=document.getElementById('library-level').value;document.getElementById('quiz-subject').value=document.getElementById('library-subject').value;go('quiz');startQuiz()});
+document.getElementById('library-level').addEventListener('change',renderLibrary);
+document.getElementById('library-subject').addEventListener('change',renderLibrary);
+document.getElementById('quiz-level').addEventListener('change',()=>{});
+document.getElementById('quiz-subject').addEventListener('change',()=>{});
+fillSubjectFilters();
+renderLibrary();
 function renderQuiz(){const q=quizQuestions[quizPos];if(!q)return;document.getElementById('quiz-category').textContent=[document.getElementById('quiz-subject').value==='all'?'Toutes les matières':document.getElementById('quiz-subject').value,document.getElementById('quiz-level').value==='all'?'Tous niveaux':document.getElementById('quiz-level').value].join(' · ');document.getElementById('quiz-count').textContent=`Question ${quizPos+1}/${quizQuestions.length}`;document.getElementById('quiz-progress').style.width=(quizPos/quizQuestions.length*100)+'%';document.getElementById('quiz-question').textContent=q.q;document.getElementById('quiz-feedback').textContent='';document.getElementById('quiz-next').disabled=true;document.getElementById('quiz-next').textContent=quizPos===quizQuestions.length-1?'Voir mon résultat':'Suivant →';document.getElementById('quiz-options').innerHTML=q.o.map((o,i)=>`<button class="quiz-option" data-answer="${i}">${esc(o)}</button>`).join('');document.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>answerQuiz(Number(b.dataset.answer))))}
 function answerQuiz(index){if(quizAnswered)return;quizAnswered=true;const q=quizQuestions[quizPos];if(index===q.a)quizScore++;document.querySelectorAll('[data-answer]').forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add('correct');else if(i===index)b.classList.add('wrong')});document.getElementById('quiz-feedback').textContent=(index===q.a?'✅ Bonne réponse ! ':'❌ Pas tout à fait. ')+q.e;document.getElementById('quiz-next').disabled=false;document.getElementById('quiz-progress').style.width=((quizPos+1)/quizQuestions.length*100)+'%'}
 document.getElementById('quiz-next').addEventListener('click',()=>{if(!quizAnswered)return;if(quizPos<quizQuestions.length-1){quizPos++;quizAnswered=false;renderQuiz()}else{const pct=Math.round(quizScore/quizQuestions.length*100);data.quizzes.unshift({date:new Date().toISOString(),score:quizScore,total:quizQuestions.length,pct});save();document.getElementById('quiz-question').textContent=`${quizScore}/${quizQuestions.length} — ${pct}%`;document.getElementById('quiz-options').innerHTML='<div class="empty">'+(pct>=80?'Excellent travail ! Continue comme ça.':pct>=60?'Bon travail ! Revois les questions manquées.':'Continue à t’entraîner, tu vas progresser !')+'</div>';document.getElementById('quiz-feedback').textContent='Ton résultat a été enregistré dans Mes progrès.';document.getElementById('quiz-next').disabled=true;document.getElementById('quiz-next').textContent='Quiz terminé';document.getElementById('quiz-count').textContent='Terminé';document.getElementById('quiz-progress').style.width='100%';quizStarted=false;renderStats();renderHistory()}});
