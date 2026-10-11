@@ -2,121 +2,220 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#635bff">
-<title>StudyBoost — Révise en jouant</title>
+<title>StudyBoost Maths | Lycée</title>
 <style>
-:root{--primary:#635bff;--bg:#f5f6ff;--text:#20213a;--card:#fff;--muted:#71738c}
+:root{--p:#635bff;--bg:#f5f6ff;--ink:#20213a;--muted:#777991;--card:#fff}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
-header{background:linear-gradient(135deg,#635bff,#9b69ff);color:white;padding:25px max(20px,calc((100% - 1000px)/2))}
-header h1{margin:0;font-size:30px}header p{margin:8px 0 0}
-main{max-width:1000px;margin:auto;padding:22px}
-.card{background:var(--card);padding:20px;border-radius:18px;margin-bottom:18px;box-shadow:0 5px 20px #25245b0d}
-h2{margin-top:0;font-size:20px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stat{background:#f0efff;border-radius:13px;padding:14px;text-align:center}
-.stat strong{display:block;font-size:24px;color:var(--primary)}
-button,select{font:inherit;border-radius:10px;padding:12px;border:1px solid #deddf5}
-button{background:var(--primary);color:white;border:0;cursor:pointer;font-weight:bold}
-button:disabled{opacity:.5;cursor:not-allowed}
-select{background:white;width:100%;margin:6px 0 14px}
-.primary{width:100%;margin-top:12px}
-.option{display:block;width:100%;margin:8px 0;background:#f0efff;color:var(--text);text-align:left;border:2px solid transparent}
-.option:hover{border-color:var(--primary)}
-.option.correct{background:#d9fbe5;border-color:#28a65a}
-.option.wrong{background:#ffe1e1;border-color:#d94a4a}
-.small{color:var(--muted);font-size:14px}
-.progress{height:10px;background:#e7e7f5;border-radius:20px;overflow:hidden}
-.progress div{height:100%;background:var(--primary);width:0;transition:width .3s}
-.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.quest{padding:12px 0;border-bottom:1px solid #eee}
-footer{text-align:center;color:var(--muted);padding:20px;font-size:13px}
-@media(max-width:550px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}main{padding:14px}}
+body{margin:0;font-family:system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,#5148ed,#a26bff);color:white;padding:30px 20px}
+.wrap{max-width:950px;margin:auto}
+header h1{margin:0;font-size:clamp(27px,5vw,38px)}
+header p{margin-bottom:0}
+main{max-width:950px;margin:22px auto;padding:0 16px}
+.card{background:var(--card);padding:22px;border-radius:20px;margin-bottom:18px;box-shadow:0 5px 22px #27265b0b}
+h2{margin:0 0 14px;font-size:21px}
+label{display:block;font-weight:600;margin:12px 0 7px}
+select{width:100%;padding:12px;border:1px solid #dddaf7;border-radius:10px;background:white;font:inherit}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.stat{background:#f0efff;border-radius:14px;padding:14px;text-align:center}
+.stat strong{display:block;color:var(--p);font-size:25px}
+.muted{color:var(--muted);font-size:14px}
+button{font:inherit;cursor:pointer;border:0;border-radius:11px;padding:12px 16px;background:var(--p);color:white;font-weight:650}
+button:disabled{cursor:not-allowed;opacity:.55}
+.full{width:100%;margin-top:12px}
+.option{display:block;width:100%;margin:9px 0;text-align:left;background:#f1f0ff;color:var(--ink);border:2px solid transparent}
+.option:hover{border-color:var(--p)}
+.option.good{background:#d9fbe5;border-color:#2da66a}
+.option.bad{background:#ffe1e1;border-color:#d94a4a}
+.progress{height:9px;background:#e8e7f6;border-radius:20px;overflow:hidden;margin:14px 0}
+.progress div{height:100%;width:0;background:var(--p);transition:width .2s}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tag{display:inline-block;background:#efedff;color:#5148d8;padding:5px 10px;border-radius:20px;font-size:13px}
+#feedback{line-height:1.6}
+.topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.topic{padding:13px;background:#f5f4ff;border-radius:12px}
+.topic strong{display:block}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+@media(min-width:650px){.topic-grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
 <header>
-<h1>🚀 StudyBoost</h1>
-<p>Révise un peu chaque jour. Progresse à ton rythme.</p>
+<div class="wrap">
+<h1>🚀 StudyBoost Maths</h1>
+<p>Comprends, entraîne-toi et progresse en mathématiques.</p>
+</div>
 </header>
+
 <main>
 <section class="card">
 <div class="row">
-<div><h2>Salut, champion ! 👋</h2><p class="small">Chaque bonne réponse te fait progresser.</p></div>
-<div style="font-size:38px">🎓</div>
+<div>
+<h2>Bienvenue sur ton espace de révision 👋</h2>
+<p class="muted">Mathématiques • Niveau lycée</p>
 </div>
-<label for="level">Ton niveau d'études</label>
-<select id="level">
-<option value="college">Collège</option>
-<option value="lycee" selected>Lycée</option>
-<option value="sup">Études supérieures</option>
+<span class="tag">Version bêta</span>
+</div>
+<label for="topic">Choisis ton chapitre</label>
+<select id="topic">
+<option value="all">Tous les chapitres</option>
+<option value="fonctions">Fonctions et équations</option>
+<option value="derivees">Dérivation</option>
+<option value="suites">Suites numériques</option>
+<option value="probas">Probabilités</option>
+<option value="trigo">Trigonométrie</option>
 </select>
 <div class="stats">
 <div class="stat">⭐ XP<strong id="xp">0</strong></div>
 <div class="stat">🪙 Pièces<strong id="coins">0</strong></div>
-<div class="stat">🔥 Série<strong id="streak">0</strong></div>
+<div class="stat">📚 Réussites<strong id="wins">0</strong></div>
 </div>
 </section>
 
 <section class="card">
-<div class="row"><h2>📚 Quiz du jour</h2><span class="small" id="counter">Question 1</span></div>
+<h2>🗺️ Tes chapitres</h2>
+<div class="topic-grid">
+<div class="topic">📈 <strong>Fonctions</strong><span class="muted">Équations et images</span></div>
+<div class="topic">⚡ <strong>Dérivation</strong><span class="muted">Tangentes et variations</span></div>
+<div class="topic">🔢 <strong>Suites</strong><span class="muted">Arithmétiques et géométriques</span></div>
+<div class="topic">🎲 <strong>Probabilités</strong><span class="muted">Événements et calculs</span></div>
+<div class="topic">📐 <strong>Trigonométrie</strong><span class="muted">Angles remarquables</span></div>
+</div>
+</section>
+
+<section class="card">
+<div class="row">
+<h2>🧠 Quiz de maths</h2>
+<span class="muted" id="counter">Prêt à commencer</span>
+</div>
 <div class="progress"><div id="bar"></div></div>
-<h3 id="question">Prêt à relever le défi ?</h3>
+<h3 id="question">Teste tes connaissances !</h3>
 <div id="answers"></div>
 <p id="feedback" aria-live="polite"></p>
-<button id="next" class="primary" hidden>Question suivante →</button>
-<button id="start" class="primary">Commencer le quiz</button>
+<button id="start" class="full">Commencer le quiz</button>
+<button id="next" class="full" hidden>Question suivante →</button>
 </section>
 
 <section class="card">
-<h2>🎯 Tes missions</h2>
-<div class="quest">📖 Réponds à 3 questions <span class="small">+30 XP</span></div>
-<div class="quest">🧠 Apprends quelque chose aujourd'hui <span class="small">+20 XP</span></div>
-<div class="quest">🔥 Reviens demain pour continuer ta série</div>
+<h2>🎯 Ta mission du jour</h2>
+<p>Termine un quiz et comprends tes erreurs pour mieux retenir tes cours.</p>
+<p class="muted">Chaque bonne réponse rapporte 10 XP et 5 pièces. Les réponses sont expliquées pour t'aider à apprendre.</p>
 </section>
 
-<section class="card">
-<h2>⏱️ Focus 25 minutes</h2>
-<p class="small">Concentre-toi sur une seule tâche, puis prends une pause.</p>
-<div class="row"><strong id="timer" style="font-size:30px">25:00</strong><button id="timerBtn">Démarrer</button><button id="resetTimer" style="background:#eee;color:#333">Réinitialiser</button></div>
-</section>
-<footer>StudyBoost • Apprendre en progressant 🌱</footer>
+<footer>StudyBoost Maths • Apprendre un peu chaque jour 🌱</footer>
 </main>
+
 <script>
-const bank={
-college:[
-{q:"Combien font 7 × 8 ?",a:["54","56","64","48"],c:1,e:"7 × 8 = 56."},
-{q:"Quel est le sujet dans « Le chat dort » ?",a:["dort","Le chat","chat dort","Le"],c:1,e:"Le sujet est « Le chat »."},
-{q:"Quelle planète est surnommée la planète rouge ?",a:["Vénus","Jupiter","Mars","Mercure"],c:2,e:"Mars paraît rouge à cause des oxydes de fer de son sol."},
-{q:"Combien de côtés possède un hexagone ?",a:["5","6","7","8"],c:1,e:"Un hexagone possède six côtés."}],
-lycee:[
-{q:"Quelle est la dérivée de x² ?",a:["x","2x","x³","2"],c:1,e:"La dérivée de x² est 2x."},
-{q:"Quelle est l'unité de la force ?",a:["Joule","Watt","Newton","Pascal"],c:2,e:"La force se mesure en newtons (N)."},
-{q:"Combien vaut sin(π/2) ?",a:["0","1","−1","1/2"],c:1,e:"sin(π/2) = 1."},
-{q:"Quel organite produit l'essentiel de l'ATP dans une cellule ?",a:["Noyau","Mitochondrie","Ribosome","Membrane"],c:1,e:"La mitochondrie est un site majeur de production d'ATP."}],
-sup:[
-{q:"Quelle est la dérivée de eˣ ?",a:["xeˣ","eˣ","1/x","ln(x)"],c:1,e:"La dérivée de eˣ est eˣ."},
-{q:"Quel est le déterminant de [[1,2],[3,4]] ?",a:["2","−2","10","−10"],c:1,e:"Le déterminant vaut 1×4 − 2×3 = −2."},
-{q:"Quelle est l'unité SI de la puissance ?",a:["Joule","Newton","Watt","Volt"],c:2,e:"La puissance se mesure en watts (W)."},
-{q:"Si f(x)=x³, quelle est f'(x) ?",a:["x²","3x²","3x","x⁴"],c:1,e:"La dérivée de x³ est 3x²."}]
-};
-let xp=Number(localStorage.getItem("sb_xp")||0),coins=Number(localStorage.getItem("sb_coins")||0),streak=Number(localStorage.getItem("sb_streak")||0);
-let questions=[],index=0,answered=false,correctCount=0;
-const $=id=>document.getElementById(id);
-function stats(){$("xp").textContent=xp;$("coins").textContent=coins;$("streak").textContent=streak;}
-function save(){localStorage.setItem("sb_xp",xp);localStorage.setItem("sb_coins",coins);localStorage.setItem("sb_streak",streak);}
-function start(){questions=[...bank[$("level").value]].sort(()=>Math.random()-.5);index=0;correctCount=0;$("start").hidden=true;show();}
-function show(){answered=false;const q=questions[index];$("question").textContent=q.q;$("counter").textContent=`Question ${index+1}/${questions.length}`;$("bar").style.width=`${index/questions.length*100}%`;$("feedback").textContent="";$("next").hidden=true;$("answers").innerHTML="";q.a.forEach((a,i)=>{const b=document.createElement("button");b.className="option";b.textContent=a;b.onclick=()=>answer(i,b);$("answers").appendChild(b)});}
-function answer(i,btn){if(answered)return;answered=true;const q=questions[index];[...$("answers").children].forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct")});if(i===q.c){xp+=10;coins+=5;correctCount++;streak++;$("feedback").textContent="✅ Bonne réponse ! +10 XP et +5 pièces."; }else{$("feedback").textContent="❌ Pas tout à fait. "+q.e;streak=0;}stats();save();$("bar").style.width=`${(index+1)/questions.length*100}%`;$("next").hidden=false;$("next").textContent=index===questions.length-1?"Terminer le quiz":"Question suivante →";}
-$("start").onclick=start;
-$("next").onclick=()=>{index++;if(index<questions.length){show();}else{$("question").textContent=`Quiz terminé ! ${correctCount}/${questions.length} bonnes réponses.`;$("answers").innerHTML="";$("feedback").textContent="Bravo pour tes efforts ! Recommence pour t'entraîner."; $("counter").textContent="Terminé";$("bar").style.width="100%";$("next").hidden=true;$("start").hidden=false;$("start").textContent="Recommencer le quiz";}};
-stats();
-let seconds=1500,interval=null;
-function renderTimer(){$("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");}
-$("timerBtn").onclick=()=>{if(interval){clearInterval(interval);interval=null;$("timerBtn").textContent="Reprendre";return;}if(seconds===0)seconds=1500;$("timerBtn").textContent="Pause";interval=setInterval(()=>{seconds--;renderTimer();if(seconds<=0){clearInterval(interval);interval=null;$("timerBtn").textContent="Démarrer";alert("Bravo ! Ta session de concentration est terminée.");}},1000)};
-$("resetTimer").onclick=()=>{clearInterval(interval);interval=null;seconds=1500;renderTimer();$("timerBtn").textContent="Démarrer"};
-renderTimer();
+const bank = [
+{t:"fonctions",q:"Soit f(x) = 3x − 5. Quelle est l'image de 4 ?",a:["7","12","−1","−17"],c:0,e:"f(4) = 3 × 4 − 5 = 12 − 5 = 7."},
+{t:"fonctions",q:"Résous 2x + 6 = 0.",a:["x = 3","x = −3","x = −6","x = 6"],c:1,e:"2x = −6, donc x = −3."},
+{t:"fonctions",q:"Quelle est la forme factorisée de x² − 9 ?",a:["(x − 3)²","(x − 9)(x + 1)","(x − 3)(x + 3)","(x + 9)(x − 1)"],c:2,e:"C'est une différence de deux carrés : x² − 3² = (x − 3)(x + 3)."},
+{t:"derivees",q:"Quelle est la dérivée de f(x) = x² ?",a:["x","2x","x²","2"],c:1,e:"La règle de dérivation donne (x²)' = 2x."},
+{t:"derivees",q:"Quelle est la dérivée de f(x) = 5x + 4 ?",a:["5x","4","5","x + 4"],c:2,e:"La dérivée de ax + b est a. Ici, f'(x) = 5."},
+{t:"derivees",q:"Pour f(x) = x², quelle est la pente de la tangente au point d'abscisse 3 ?",a:["3","6","9","12"],c:1,e:"La pente vaut f'(3). Comme f'(x) = 2x, on obtient f'(3) = 6."},
+{t:"suites",q:"Une suite arithmétique commence par 4 et sa raison est 3. Quel est son troisième terme ?",a:["7","10","12","13"],c:1,e:"On ajoute 3 à chaque étape : 4, 7, 10. Le troisième terme est 10."},
+{t:"suites",q:"Une suite géométrique a pour premier terme 2 et pour raison 3. Quel est son troisième terme, en commençant à u₀ ?",a:["6","8","18","54"],c:2,e:"u₁ = 2 × 3 = 6 puis u₂ = 6 × 3 = 18."},
+{t:"suites",q:"Une suite arithmétique vérifie u₀ = 7 et r = −2. Combien vaut u₃ ?",a:["1","−1","13","−6"],c:0,e:"u₃ = u₀ + 3r = 7 + 3 × (−2) = 1."},
+{t:"probas",q:"Un dé équilibré à six faces est lancé une fois. Quelle est la probabilité d'obtenir un nombre pair ?",a:["1/6","1/3","1/2","2/3"],c:2,e:"Les issues paires sont 2, 4 et 6 : trois issues sur six, donc 3/6 = 1/2."},
+{t:"probas",q:"Une urne contient 3 boules rouges et 2 bleues. On tire une boule au hasard. Quelle est la probabilité de tirer une bleue ?",a:["2/3","2/5","3/5","1/2"],c:1,e:"Il y a 2 boules bleues sur 5 boules au total : P = 2/5."},
+{t:"probas",q:"Deux événements A et B sont indépendants, avec P(A) = 0,5 et P(B) = 0,2. Que vaut P(A ∩ B) ?",a:["0,7","0,3","0,1","0,25"],c:2,e:"Pour des événements indépendants, P(A ∩ B) = P(A) × P(B) = 0,5 × 0,2 = 0,1."},
+{t:"trigo",q:"Combien vaut cos(0) ?",a:["0","1","−1","1/2"],c:1,e:"Le cosinus de 0 radian vaut 1."},
+{t:"trigo",q:"Combien vaut sin(π/2) ?",a:["0","1","−1","√2/2"],c:1,e:"Sur le cercle trigonométrique, sin(π/2) = 1."},
+{t:"trigo",q:"Quelle est la période de la fonction cosinus ?",a:["π/2","π","2π","4π"],c:2,e:"Le cosinus vérifie cos(x + 2π) = cos(x) : sa période est 2π."}
+];
+
+const $ = id => document.getElementById(id);
+const defaults = {xp:0,coins:0,wins:0};
+function load(key){try{return Number(localStorage.getItem("sbmath_"+key))||0}catch(e){return 0}}
+let xp=load("xp"), coins=load("coins"), wins=load("wins");
+let questions=[], index=0, answered=false, correct=0;
+
+function save(){
+try{
+localStorage.setItem("sbmath_xp",xp);
+localStorage.setItem("sbmath_coins",coins);
+localStorage.setItem("sbmath_wins",wins);
+}catch(e){}
+}
+function renderStats(){
+$("xp").textContent=xp;
+$("coins").textContent=coins;
+$("wins").textContent=wins;
+}
+function startQuiz(){
+const topic=$("topic").value;
+questions=bank.filter(q=>topic==="all"||q.t===topic);
+questions=[...questions].sort(()=>Math.random()-0.5);
+index=0;correct=0;
+$("start").hidden=true;
+showQuestion();
+}
+function showQuestion(){
+answered=false;
+const q=questions[index];
+$("question").textContent=q.q;
+$("counter").textContent=`Question ${index+1}/${questions.length}`;
+$("bar").style.width=`${index/questions.length*100}%`;
+$("feedback").textContent="";
+$("answers").innerHTML="";
+$("next").hidden=true;
+q.a.forEach((answer,i)=>{
+const b=document.createElement("button");
+b.className="option";
+b.textContent=String.fromCharCode(65+i)+". "+answer;
+b.onclick=()=>answerQuestion(i);
+$("answers").appendChild(b);
+});
+}
+function answerQuestion(choice){
+if(answered)return;
+answered=true;
+const q=questions[index];
+[...$("answers").children].forEach((b,i)=>{
+b.disabled=true;
+if(i===q.c)b.classList.add("good");
+else if(i===choice)b.classList.add("bad");
+});
+if(choice===q.c){
+xp+=10;coins+=5;wins++;correct++;
+$("feedback").textContent="✅ Bonne réponse ! +10 XP et +5 pièces. "+q.e;
+}else{
+$("feedback").textContent="❌ Pas tout à fait. "+q.e;
+}
+renderStats();save();
+$("bar").style.width=`${(index+1)/questions.length*100}%`;
+$("next").hidden=false;
+$("next").textContent=index===questions.length-1?"Voir mon résultat":"Question suivante →";
+}
+function nextQuestion(){
+index++;
+if(index<questions.length){showQuestion();return}
+$("question").textContent=`Quiz terminé : ${correct}/${questions.length} bonnes réponses !`;
+$("counter").textContent="Terminé";
+$("answers").innerHTML="";
+$("feedback").textContent=correct===questions.length
+?"Excellent ! Tu as répondu juste à toutes les questions."
+:"Continue à t'entraîner : relis les corrections et recommence quand tu veux.";
+$("bar").style.width="100%";
+$("next").hidden=true;
+$("start").hidden=false;
+$("start").textContent="Recommencer le quiz";
+}
+$("start").addEventListener("click",startQuiz);
+$("next").addEventListener("click",nextQuestion);
+$("topic").addEventListener("change",()=>{
+$("question").textContent="Prêt à réviser ce chapitre ?";
+$("answers").innerHTML="";
+$("feedback").textContent="";
+$("counter").textContent="Prêt à commencer";
+$("bar").style.width="0";
+$("start").hidden=false;
+$("start").textContent="Commencer le quiz";
+$("next").hidden=true;
+});
+renderStats();
 </script>
 </body>
 </html>
