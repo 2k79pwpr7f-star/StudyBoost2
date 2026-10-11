@@ -2,251 +2,121 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StudyBoost — Révise intelligemment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#635bff">
+<title>StudyBoost — Révise en jouant</title>
 <style>
-:root{--p:#6558e8;--bg:#f6f7fb;--ink:#20213a;--line:#e8e9f1}
+:root{--primary:#635bff;--bg:#f5f6ff;--text:#20213a;--card:#fff;--muted:#71738c}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:system-ui,Arial,sans-serif;color:var(--ink)}
-header{background:white;padding:18px 5%;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.brand{font-size:23px;font-weight:850;color:var(--p)}
-nav{display:flex;gap:7px;flex-wrap:wrap}
-button{cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:700;font-size:14px}
-nav button,.light{background:#eeecff;color:var(--p)}
-nav button.active,.primary{background:var(--p);color:white}
-main{max-width:1050px;margin:auto;padding:28px 18px}
-.hero{background:linear-gradient(120deg,#6558e8,#9885ff);color:white;border-radius:22px;padding:28px;margin-bottom:20px}
-.hero h1{margin:0 0 8px;font-size:clamp(25px,5vw,36px)}
-.hero p{line-height:1.6;margin-bottom:20px}
-.stats,.columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.stat,.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:20px;margin-bottom:16px}
-.stat strong{display:block;font-size:29px;margin-top:8px}
-.muted{color:#777b91}
-h2{font-size:22px}
-.page{display:none}.page.active{display:block}
-label{display:block;font-weight:700;margin:13px 0 6px}
-input,textarea,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:white}
-textarea{min-height:110px;resize:vertical}
-form button{margin-top:12px}
-.item{border:1px solid var(--line);border-radius:12px;padding:13px;margin-top:10px;overflow-wrap:anywhere}
-.item p{white-space:pre-wrap;line-height:1.5}
-.item button{margin-top:8px}
-.flash{background:#f3f0ff;border:1px solid #ded8ff;border-radius:18px;padding:38px 18px;text-align:center;cursor:pointer;min-height:150px;display:grid;place-content:center;margin:15px 0}
-.flash strong{font-size:26px}
-.option{display:block;width:100%;text-align:left;background:white;border:1px solid var(--line);margin:8px 0}
-.option:hover{border-color:var(--p)}
-.notice{padding:12px;background:#f3f0ff;border-radius:10px;margin:12px 0}
-footer{text-align:center;padding:20px;color:#777b91;font-size:13px}
-@media(max-width:650px){.stats,.columns{grid-template-columns:1fr}.hero{padding:22px}header{align-items:flex-start}nav{width:100%}nav button{flex:1}}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,#635bff,#9b69ff);color:white;padding:25px max(20px,calc((100% - 1000px)/2))}
+header h1{margin:0;font-size:30px}header p{margin:8px 0 0}
+main{max-width:1000px;margin:auto;padding:22px}
+.card{background:var(--card);padding:20px;border-radius:18px;margin-bottom:18px;box-shadow:0 5px 20px #25245b0d}
+h2{margin-top:0;font-size:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:#f0efff;border-radius:13px;padding:14px;text-align:center}
+.stat strong{display:block;font-size:24px;color:var(--primary)}
+button,select{font:inherit;border-radius:10px;padding:12px;border:1px solid #deddf5}
+button{background:var(--primary);color:white;border:0;cursor:pointer;font-weight:bold}
+button:disabled{opacity:.5;cursor:not-allowed}
+select{background:white;width:100%;margin:6px 0 14px}
+.primary{width:100%;margin-top:12px}
+.option{display:block;width:100%;margin:8px 0;background:#f0efff;color:var(--text);text-align:left;border:2px solid transparent}
+.option:hover{border-color:var(--primary)}
+.option.correct{background:#d9fbe5;border-color:#28a65a}
+.option.wrong{background:#ffe1e1;border-color:#d94a4a}
+.small{color:var(--muted);font-size:14px}
+.progress{height:10px;background:#e7e7f5;border-radius:20px;overflow:hidden}
+.progress div{height:100%;background:var(--primary);width:0;transition:width .3s}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.quest{padding:12px 0;border-bottom:1px solid #eee}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:13px}
+@media(max-width:550px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}main{padding:14px}}
 </style>
 </head>
 <body>
 <header>
-<div class="brand">✦ StudyBoost</div>
-<nav>
-<button class="active" data-tab="home">Accueil</button>
-<button data-tab="notes">Mes fiches</button>
-<button data-tab="cards">Flashcards</button>
-<button data-tab="quiz">Quiz</button>
-</nav>
+<h1>🚀 StudyBoost</h1>
+<p>Révise un peu chaque jour. Progresse à ton rythme.</p>
 </header>
 <main>
-<section class="page active" id="home">
-<div class="hero">
-<h1>Révise plus intelligemment 🎓</h1>
-<p>Organise tes cours, mémorise les notions essentielles et teste tes connaissances avec StudyBoost.</p>
-<button class="light" data-open="notes">Créer ma première fiche →</button>
+<section class="card">
+<div class="row">
+<div><h2>Salut, champion ! 👋</h2><p class="small">Chaque bonne réponse te fait progresser.</p></div>
+<div style="font-size:38px">🎓</div>
 </div>
-<div class="stats">
-<div class="stat">📚 Fiches créées<strong id="nCount">0</strong></div>
-<div class="stat">🧠 Flashcards<strong id="cCount">0</strong></div>
-<div class="stat">🏆 Quiz terminés<strong id="qCount">0</strong></div>
-</div>
-<div class="panel">
-<h2>Bienvenue sur StudyBoost !</h2>
-<p class="muted">Commence par enregistrer une fiche de cours, puis transforme tes définitions en flashcards pour mieux les retenir.</p>
-<p>💡 Conseil : révise un peu chaque jour et essaie de retrouver les réponses de mémoire.</p>
-</div>
-<div class="panel">
-<h2>Dernières fiches</h2>
-<div id="recent" class="muted">Tes fiches apparaîtront ici.</div>
-</div>
-</section>
-
-<section class="page" id="notes">
-<h1>📝 Mes fiches de révision</h1>
-<div class="panel">
-<h2>Créer une fiche</h2>
-<form id="noteForm">
-<label for="noteTitle">Titre du cours</label>
-<input id="noteTitle" placeholder="Ex. Les dérivées" required maxlength="100">
-<label for="noteSubject">Matière</label>
-<select id="noteSubject">
-<option>Mathématiques</option><option>Physique</option>
-<option>Informatique</option><option>Langues</option>
-<option>Histoire</option><option>Autre</option>
+<label for="level">Ton niveau d'études</label>
+<select id="level">
+<option value="college">Collège</option>
+<option value="lycee" selected>Lycée</option>
+<option value="sup">Études supérieures</option>
 </select>
-<label for="noteBody">Résumé du cours</label>
-<textarea id="noteBody" placeholder="Écris ici les points importants..." required></textarea>
-<button class="primary">Enregistrer la fiche</button>
-</form>
-</div>
-<div class="panel">
-<h2>Toutes mes fiches</h2>
-<input id="searchNotes" placeholder="Rechercher une fiche...">
-<div id="notesList"></div>
+<div class="stats">
+<div class="stat">⭐ XP<strong id="xp">0</strong></div>
+<div class="stat">🪙 Pièces<strong id="coins">0</strong></div>
+<div class="stat">🔥 Série<strong id="streak">0</strong></div>
 </div>
 </section>
 
-<section class="page" id="cards">
-<h1>🃏 Mes flashcards</h1>
-<div class="panel">
-<h2>Créer une carte</h2>
-<form id="cardForm">
-<label for="cardQ">Question ou notion</label>
-<input id="cardQ" placeholder="Ex. Dérivée de x² ?" required>
-<label for="cardA">Réponse</label>
-<textarea id="cardA" placeholder="Ex. 2x" required></textarea>
-<button class="primary">Ajouter la carte</button>
-</form>
-</div>
-<div class="panel">
-<h2>Entraînement mémoire</h2>
-<p id="cardCount" class="muted">0 carte</p>
-<div id="flash" class="flash" tabindex="0">
-<strong id="flashText">Ajoute ta première carte</strong>
-<span id="flashHint">La question apparaîtra ici.</span>
-</div>
-<div class="columns">
-<button class="light" id="prev">← Précédente</button>
-<button class="primary" id="flip">Voir la réponse</button>
-<button class="light" id="next">Suivante →</button>
-</div>
-<div id="cardsList"></div>
-</div>
-</section>
-
-<section class="page" id="quiz">
-<h1>⚡ Quiz de connaissances</h1>
-<div class="panel">
-<p id="quizCount" class="muted">5 questions pour t'entraîner</p>
-<h2 id="question">Prêt à commencer ?</h2>
-<div id="options"></div>
+<section class="card">
+<div class="row"><h2>📚 Quiz du jour</h2><span class="small" id="counter">Question 1</span></div>
+<div class="progress"><div id="bar"></div></div>
+<h3 id="question">Prêt à relever le défi ?</h3>
+<div id="answers"></div>
 <p id="feedback" aria-live="polite"></p>
-<button class="primary" id="nextQuestion">Commencer le quiz →</button>
-<button class="light" id="restart">Recommencer</button>
-</div>
-<div class="panel">
-<h2>Mes résultats</h2>
-<div id="history" class="muted">Aucun quiz terminé.</div>
-</div>
+<button id="next" class="primary" hidden>Question suivante →</button>
+<button id="start" class="primary">Commencer le quiz</button>
 </section>
+
+<section class="card">
+<h2>🎯 Tes missions</h2>
+<div class="quest">📖 Réponds à 3 questions <span class="small">+30 XP</span></div>
+<div class="quest">🧠 Apprends quelque chose aujourd'hui <span class="small">+20 XP</span></div>
+<div class="quest">🔥 Reviens demain pour continuer ta série</div>
+</section>
+
+<section class="card">
+<h2>⏱️ Focus 25 minutes</h2>
+<p class="small">Concentre-toi sur une seule tâche, puis prends une pause.</p>
+<div class="row"><strong id="timer" style="font-size:30px">25:00</strong><button id="timerBtn">Démarrer</button><button id="resetTimer" style="background:#eee;color:#333">Réinitialiser</button></div>
+</section>
+<footer>StudyBoost • Apprendre en progressant 🌱</footer>
 </main>
-<footer>StudyBoost · Ton espace de révision personnel</footer>
-
 <script>
-const KEY="studyboost_v1";
-let data;
-try{data=JSON.parse(localStorage.getItem(KEY))||{notes:[],cards:[],quizzes:[]}}
-catch(e){data={notes:[],cards:[],quizzes:[]}}
-function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
-function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function openTab(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
-document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
-if(id==="quiz"&&!finished)startQuiz();
-window.scrollTo(0,0);
-}
-document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>openTab(b.dataset.tab));
-document.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openTab(b.dataset.open));
-
-document.getElementById("noteForm").onsubmit=e=>{
-e.preventDefault();
-data.notes.unshift({id:Date.now(),title:document.getElementById("noteTitle").value.trim(),subject:document.getElementById("noteSubject").value,body:document.getElementById("noteBody").value.trim()});
-e.target.reset();save();
+const bank={
+college:[
+{q:"Combien font 7 × 8 ?",a:["54","56","64","48"],c:1,e:"7 × 8 = 56."},
+{q:"Quel est le sujet dans « Le chat dort » ?",a:["dort","Le chat","chat dort","Le"],c:1,e:"Le sujet est « Le chat »."},
+{q:"Quelle planète est surnommée la planète rouge ?",a:["Vénus","Jupiter","Mars","Mercure"],c:2,e:"Mars paraît rouge à cause des oxydes de fer de son sol."},
+{q:"Combien de côtés possède un hexagone ?",a:["5","6","7","8"],c:1,e:"Un hexagone possède six côtés."}],
+lycee:[
+{q:"Quelle est la dérivée de x² ?",a:["x","2x","x³","2"],c:1,e:"La dérivée de x² est 2x."},
+{q:"Quelle est l'unité de la force ?",a:["Joule","Watt","Newton","Pascal"],c:2,e:"La force se mesure en newtons (N)."},
+{q:"Combien vaut sin(π/2) ?",a:["0","1","−1","1/2"],c:1,e:"sin(π/2) = 1."},
+{q:"Quel organite produit l'essentiel de l'ATP dans une cellule ?",a:["Noyau","Mitochondrie","Ribosome","Membrane"],c:1,e:"La mitochondrie est un site majeur de production d'ATP."}],
+sup:[
+{q:"Quelle est la dérivée de eˣ ?",a:["xeˣ","eˣ","1/x","ln(x)"],c:1,e:"La dérivée de eˣ est eˣ."},
+{q:"Quel est le déterminant de [[1,2],[3,4]] ?",a:["2","−2","10","−10"],c:1,e:"Le déterminant vaut 1×4 − 2×3 = −2."},
+{q:"Quelle est l'unité SI de la puissance ?",a:["Joule","Newton","Watt","Volt"],c:2,e:"La puissance se mesure en watts (W)."},
+{q:"Si f(x)=x³, quelle est f'(x) ?",a:["x²","3x²","3x","x⁴"],c:1,e:"La dérivée de x³ est 3x²."}]
 };
-document.getElementById("searchNotes").oninput=renderNotes;
-function deleteNote(id){data.notes=data.notes.filter(n=>n.id!==id);save()}
-function renderNotes(){
-const q=(document.getElementById("searchNotes").value||"").toLowerCase();
-const found=data.notes.filter(n=>(n.title+" "+n.subject+" "+n.body).toLowerCase().includes(q));
-document.getElementById("notesList").innerHTML=found.length?found.map(n=>`<div class="item"><strong>${safe(n.title)}</strong><p>${safe(n.subject)} · ${safe(n.body)}</p><button class="light" onclick="deleteNote(${n.id})">Supprimer</button></div>`).join(""):"<p class='muted'>Aucune fiche trouvée.</p>";
-}
-document.getElementById("cardForm").onsubmit=e=>{
-e.preventDefault();
-data.cards.push({id:Date.now(),q:document.getElementById("cardQ").value.trim(),a:document.getElementById("cardA").value.trim()});
-index=data.cards.length-1;flipped=false;e.target.reset();save();
-};
-let index=0,flipped=false;
-function showCard(){
-const c=data.cards[index];
-document.getElementById("cardCount").textContent=data.cards.length+" carte(s)";
-document.getElementById("flashText").textContent=c?(flipped?c.a:c.q):"Ajoute ta première carte";
-document.getElementById("flashHint").textContent=c?(flipped?"Réponse — clique pour revoir la question":"Clique pour voir la réponse"):"Les cartes que tu crées apparaîtront ici.";
-document.getElementById("cardsList").innerHTML=data.cards.map(c=>`<div class="item"><strong>${safe(c.q)}</strong><p>${safe(c.a)}</p><button class="light" onclick="deleteCard(${c.id})">Supprimer</button></div>`).join("");
-}
-function deleteCard(id){data.cards=data.cards.filter(c=>c.id!==id);index=Math.max(0,Math.min(index,data.cards.length-1));save()}
-function flip(){if(data.cards.length){flipped=!flipped;showCard()}}
-document.getElementById("flash").onclick=flip;
-document.getElementById("flip").onclick=flip;
-document.getElementById("prev").onclick=()=>{if(data.cards.length){index=(index-1+data.cards.length)%data.cards.length;flipped=false;showCard()}};
-document.getElementById("next").onclick=()=>{if(data.cards.length){index=(index+1)%data.cards.length;flipped=false;showCard()}};
-
-const questions=[
-{q:"Quelle est la dérivée de x² ?",o:["x","2x","2","x³"],a:1,e:"La dérivée de x² est 2x."},
-{q:"Quelle est l'unité d'une force ?",o:["Joule","Watt","Newton","Pascal"],a:2,e:"La force se mesure en newtons (N)."},
-{q:"Combien vaut sin(π/2) ?",o:["0","1/2","1","−1"],a:2,e:"sin(π/2) = 1."},
-{q:"Quel organe produit principalement l'insuline ?",o:["Foie","Pancréas","Cœur","Rein"],a:1,e:"L'insuline est produite par le pancréas."},
-{q:"En Python, quel symbole teste l'égalité ?",o:["=","==","!=","=>"],a:1,e:"== compare deux valeurs."},
-{q:"Quelle planète est la plus proche du Soleil ?",o:["Vénus","Mars","Mercure","Terre"],a:2,e:"C'est Mercure."},
-{q:"Une primitive de 2x est…",o:["x²","2x²","x","2"],a:0,e:"La dérivée de x² est 2x."}
-];
-let round=[],pos=0,score=0,answered=false,finished=true;
-function startQuiz(){
-round=[...questions].sort(()=>Math.random()-.5).slice(0,5);
-pos=0;score=0;answered=false;finished=false;showQuestion();
-}
-function showQuestion(){
-const q=round[pos];
-document.getElementById("quizCount").textContent=`Question ${pos+1}/${round.length}`;
-document.getElementById("question").textContent=q.q;
-document.getElementById("feedback").textContent="";
-document.getElementById("nextQuestion").textContent="Valider / Suivant →";
-document.getElementById("options").innerHTML=q.o.map((o,i)=>`<button class="option" data-answer="${i}">${safe(o)}</button>`).join("");
-document.querySelectorAll("[data-answer]").forEach(b=>b.onclick=()=>answer(Number(b.dataset.answer)));
-}
-function answer(i){
-if(answered)return;
-answered=true;const q=round[pos];
-if(i===q.a)score++;
-document.querySelectorAll("[data-answer]").forEach((b,j)=>{b.disabled=true;if(j===q.a)b.style.background="#e6f8ef";else if(j===i)b.style.background="#ffeded"});
-document.getElementById("feedback").textContent=(i===q.a?"✅ Bonne réponse ! ":"❌ Pas tout à fait. ")+q.e;
-}
-document.getElementById("nextQuestion").onclick=()=>{
-if(finished){startQuiz();return}
-if(!answered){document.getElementById("feedback").textContent="Choisis une réponse avant de continuer.";return}
-if(pos<round.length-1){pos++;answered=false;showQuestion()}
-else{
-const pct=Math.round(score/round.length*100);
-data.quizzes.unshift({id:Date.now(),score,total:round.length,pct,date:new Date().toLocaleDateString("fr-FR")});
-finished=true;save();
-document.getElementById("question").textContent=`Résultat : ${score}/${round.length} — ${pct}%`;
-document.getElementById("options").innerHTML="";
-document.getElementById("feedback").textContent=pct>=80?"Excellent travail !":pct>=60?"Bien joué, continue tes révisions !":"Continue à t'entraîner, tu vas progresser !";
-document.getElementById("nextQuestion").textContent="Refaire un quiz →";
-}
-};
-document.getElementById("restart").onclick=startQuiz;
-function render(){
-document.getElementById("nCount").textContent=data.notes.length;
-document.getElementById("cCount").textContent=data.cards.length;
-document.getElementById("qCount").textContent=data.quizzes.length;
-renderNotes();showCard();
-document.getElementById("recent").innerHTML=data.notes.length?data.notes.slice(0,3).map(n=>`<div class="item"><strong>${safe(n.title)}</strong><p>${safe(n.subject)}</p></div>`).join(""):"Tes fiches apparaîtront ici.";
-document.getElementById("history").innerHTML=data.quizzes.length?data.quizzes.map(q=>`<div class="item"><strong>${q.pct}% — ${q.score}/${q.total}</strong><p>${safe(q.date)}</p></div>`).join(""):"Aucun quiz terminé.";
-}
-render();
+let xp=Number(localStorage.getItem("sb_xp")||0),coins=Number(localStorage.getItem("sb_coins")||0),streak=Number(localStorage.getItem("sb_streak")||0);
+let questions=[],index=0,answered=false,correctCount=0;
+const $=id=>document.getElementById(id);
+function stats(){$("xp").textContent=xp;$("coins").textContent=coins;$("streak").textContent=streak;}
+function save(){localStorage.setItem("sb_xp",xp);localStorage.setItem("sb_coins",coins);localStorage.setItem("sb_streak",streak);}
+function start(){questions=[...bank[$("level").value]].sort(()=>Math.random()-.5);index=0;correctCount=0;$("start").hidden=true;show();}
+function show(){answered=false;const q=questions[index];$("question").textContent=q.q;$("counter").textContent=`Question ${index+1}/${questions.length}`;$("bar").style.width=`${index/questions.length*100}%`;$("feedback").textContent="";$("next").hidden=true;$("answers").innerHTML="";q.a.forEach((a,i)=>{const b=document.createElement("button");b.className="option";b.textContent=a;b.onclick=()=>answer(i,b);$("answers").appendChild(b)});}
+function answer(i,btn){if(answered)return;answered=true;const q=questions[index];[...$("answers").children].forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct")});if(i===q.c){xp+=10;coins+=5;correctCount++;streak++;$("feedback").textContent="✅ Bonne réponse ! +10 XP et +5 pièces."; }else{$("feedback").textContent="❌ Pas tout à fait. "+q.e;streak=0;}stats();save();$("bar").style.width=`${(index+1)/questions.length*100}%`;$("next").hidden=false;$("next").textContent=index===questions.length-1?"Terminer le quiz":"Question suivante →";}
+$("start").onclick=start;
+$("next").onclick=()=>{index++;if(index<questions.length){show();}else{$("question").textContent=`Quiz terminé ! ${correctCount}/${questions.length} bonnes réponses.`;$("answers").innerHTML="";$("feedback").textContent="Bravo pour tes efforts ! Recommence pour t'entraîner."; $("counter").textContent="Terminé";$("bar").style.width="100%";$("next").hidden=true;$("start").hidden=false;$("start").textContent="Recommencer le quiz";}};
+stats();
+let seconds=1500,interval=null;
+function renderTimer(){$("timer").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0");}
+$("timerBtn").onclick=()=>{if(interval){clearInterval(interval);interval=null;$("timerBtn").textContent="Reprendre";return;}if(seconds===0)seconds=1500;$("timerBtn").textContent="Pause";interval=setInterval(()=>{seconds--;renderTimer();if(seconds<=0){clearInterval(interval);interval=null;$("timerBtn").textContent="Démarrer";alert("Bravo ! Ta session de concentration est terminée.");}},1000)};
+$("resetTimer").onclick=()=>{clearInterval(interval);interval=null;seconds=1500;renderTimer();$("timerBtn").textContent="Démarrer"};
+renderTimer();
 </script>
 </body>
 </html>
-
