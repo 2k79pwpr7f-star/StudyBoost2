@@ -181,7 +181,7 @@ Progresse chaque jour, révise un chapitre à la fois et gagne de l'XP !
 <div class="field"><label for="quizSubject">Matière</label><select id="quizSubject" onchange="updateChapters('quiz')"></select></div>
 <div class="field"><label for="quizChapter">Chapitre</label><select id="quizChapter"></select></div>
 <div class="field full"><label for="quizCount">Nombre de questions</label>
-<select id="quizCount"><option value="5">5 questions</option><option value="10">10 questions</option><option value="15">15 questions</option></select>
+<select id="quizCount"><option value="10">10 questions</option><option value="20" selected>20 questions</option><option value="30">30 questions</option></select>
 </div>
 <div class="full"><button class="btn btn-primary" onclick="startQuiz()">Lancer le quiz 🚀</button></div>
 </div>
@@ -267,7 +267,6 @@ Progresse chaque jour, révise un chapitre à la fois et gagne de l'XP !
 </section>
 </main>
 </div>
-
 <script>
 "use strict";
 
@@ -559,12 +558,10 @@ document.getElementById("quizSubject").value=subject;
 updateChapters("quiz");
 page("quiz");
 }
-
-/* =========================
+  /* =========================
 BANQUE DE QUESTIONS
-Les quiz intégrés sont des exemples.
-Les matières sans questions dédiées affichent
-une proposition honnête plutôt que des questions hors sujet.
+Questions écrites à la main (exemples) + générateurs
+pour les matières à 100+ questions.
 ========================= */
 const quizBank={
 "Mathématiques":[
@@ -648,18 +645,82 @@ const quizBank={
 ]
 };
 
-let currentQuiz=null;
+/* ===== GÉNÉRATEURS (100+ questions) ===== */
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+function numOpts(v,s=1){const o=new Set();let t=0;while(o.size<3&&t++<80){const w=v+R(1,5)*s*(Math.random()<.5?-1:1);if(w!==v&&(v<0||w>=0))o.add(w)}return[...o]}
+const Q=(q,a,o,e,c,l)=>({q,a:String(a),o:o.map(String),e,c,l});
+const Qn=(q,v,e,c,l,u="",s=1)=>{const f=x=>u?x+" "+u:String(x);return Q(q,f(v),numOpts(v,s).map(f),e,c,l)};
+const rep=fns=>{const out=[],seen=new Set();for(let i=0;i<800&&out.length<200;i++){const q=fns[i%fns.length]();if(!seen.has(q.q)){seen.add(q.q);out.push(q)}}return out};
+
+const genMath=[
+()=>{const a=R(6,19),b=R(6,19);return Qn(`Combien vaut ${a} × ${b} ?`,a*b,`${a} × ${b} = ${a*b}.`,"Nombres et calculs","Primaire")},
+()=>{const a=R(2,9),x=R(1,12),b=R(1,20);return Q(`Résous : ${a}x + ${b} = ${a*x+b}.`,`x = ${x}`,numOpts(x).map(v=>`x = ${v}`),`${a}x = ${a*x}, donc x = ${x}.`,"Équations","Collège")},
+()=>{const t=[[3,4,5],[5,12,13],[8,15,17],[6,8,10],[7,24,25]][R(0,4)],k=R(1,4);return Qn(`Un triangle rectangle a deux côtés de l'angle droit de ${t[0]*k} cm et ${t[1]*k} cm. Quelle est son hypoténuse ?`,t[2]*k,"Théorème de Pythagore : c² = a² + b².","Théorème de Pythagore","Collège","cm")},
+()=>{const a=R(2,9),n=R(3,8);return Q(`Quelle est la dérivée de f(x) = ${a}x^${n} ?`,`${a*n}x^${n-1}`,[`${a}x^${n-1}`,`${a*n}x^${n}`,`${a*(n-1)}x^${n-1}`],"(a·xⁿ)' = a·n·xⁿ⁻¹.","Fonctions et dérivation","Lycée")},
+()=>{const p=[5,10,20,25,50][R(0,4)],n=R(1,30)*20;return Qn(`Quel est ${p} % de ${n} ?`,p*n/100,`${p} % de ${n} = ${n} × ${p}/100 = ${p*n/100}.`,"Proportionnalité","Collège","",2)},
+()=>{const r=R(1,9);let b=R(1,9);if(b===r)b++;return Q(`Une urne contient ${r} boule(s) rouge(s) et ${b} boule(s) bleue(s). Quelle est la probabilité de tirer une rouge ?`,`${r}/${r+b}`,[`${b}/${r+b}`,`${r}/${b}`,`${r+b}/${r}`],"Probabilité = cas favorables / cas possibles.","Probabilités conditionnelles","Lycée")},
+()=>{const u=R(1,9);let v=R(1,9);if(v===u)v++;return Q(`Résous x² - ${u+v}x + ${u*v} = 0.`,`x = ${u} ou x = ${v}`,[`x = ${-u} ou x = ${-v}`,`x = ${u} ou x = ${-v}`,`x = ${-u} ou x = ${v}`],`Somme ${u+v} et produit ${u*v} : les racines sont ${u} et ${v}.`,"Second degré","Lycée")},
+()=>{const a=R(1,10),r=R(2,7),n=R(5,20);return Qn(`Dans une suite arithmétique, u₀ = ${a} et la raison vaut ${r}. Que vaut u${n} ?`,a+r*n,`uₙ = u₀ + n·r = ${a} + ${n}×${r} = ${a+r*n}.`,"Suites numériques","Lycée","",r)}
+];
+const genPhys=[
+()=>{const v=R(2,15),t=R(2,9);return Qn(`Un mobile parcourt ${v*t} m en ${t} s. Quelle est sa vitesse moyenne ?`,v,"v = d / t.","Mouvement et vitesse","Collège","m/s")},
+()=>{const r=R(2,20)*5,i=R(1,6);return Qn(`Un conducteur ohmique de ${r} Ω est parcouru par un courant de ${i} A. Quelle est la tension à ses bornes ?`,r*i,"Loi d'Ohm : U = R × I.","Tension et intensité","Collège","V",5)},
+()=>{const m=R(1,10)*2,v=R(2,10);return Qn(`Quelle est l'énergie cinétique d'un objet de ${m} kg lancé à ${v} m/s ?`,m*v*v/2,"Ec = ½ m v².","Énergie et travail","Lycée","J",5)},
+()=>{const m=R(2,90);return Qn(`Quel est le poids d'un objet de ${m} kg (g = 10 N/kg) ?`,m*10,"P = m × g.","Forces et interactions","Collège","N",10)},
+()=>{const M=[["H₂O",18],["CO₂",44],["O₂",32],["CH₄",16],["NaOH",40]][R(0,4)],k=R(1,9);return Qn(`Quelle quantité de matière représente ${M[1]*k} g de ${M[0]} (M = ${M[1]} g/mol) ?`,k,"n = m / M.","Quantité de matière","Lycée","mol")}
+];
+const genPy=c=>[
+()=>{const n=R(3,9),l=Array.from({length:n},()=>R(1,9));return Qn(`Que renvoie len([${l}]) en Python ?`,n,"len() donne le nombre d'éléments.",c,"Lycée")},
+()=>{const a=R(10,99),b=R(2,9);return Qn(`Que renvoie ${a} % ${b} en Python ?`,a%b,"% donne le reste de la division.",c,"Lycée")},
+()=>{const a=R(10,99),b=R(2,9);return Qn(`Que renvoie ${a} // ${b} en Python ?`,Math.floor(a/b),"// donne le quotient entier.",c,"Lycée")},
+()=>{const a=R(2,9),b=R(2,4);return Qn(`Que renvoie ${a} ** ${b} en Python ?`,a**b,"** est la puissance.",c,"Lycée")},
+()=>{const n=R(3,15);return Qn(`s = 0 ; for i in range(${n}): s += i ; print(s). Que s'affiche-t-il ?`,n*(n-1)/2,`On additionne 0, 1, ..., ${n-1}.`,c,"Lycée")},
+()=>{const n=R(5,60);return Q(`Écris ${n} en binaire.`,n.toString(2),[n+1,n-1,n+2].map(x=>x.toString(2)),`${n} s'écrit ${n.toString(2)} en base 2.`,c,"Lycée")}
+];
+
+const sp=s=>s.split(",");
+const FR=sp("maison,chien,chat,livre,école,ami,eau,pain,voiture,fenêtre,porte,soleil,lune,pomme,fille,garçon,mer,montagne,ville,travail,rue,tête,main,nuit,cheval,lait,table,chaise,père,mère,frère,sœur,arbre,fleur,ciel,feu,jardin,fromage,oiseau,poisson,chemin,pont,église,gare,clé,lettre,musique,argent,heure,jour");
+const EN=sp("house,dog,cat,book,school,friend,water,bread,car,window,door,sun,moon,apple,girl,boy,sea,mountain,city,work,street,head,hand,night,horse,milk,table,chair,father,mother,brother,sister,tree,flower,sky,fire,garden,cheese,bird,fish,path,bridge,church,station,key,letter,music,money,hour,day");
+const ES=sp("casa,perro,gato,libro,escuela,amigo,agua,pan,coche,ventana,puerta,sol,luna,manzana,niña,niño,mar,montaña,ciudad,trabajo,calle,cabeza,mano,noche,caballo,leche,mesa,silla,padre,madre,hermano,hermana,árbol,flor,cielo,fuego,jardín,queso,pájaro,pez,camino,puente,iglesia,estación,llave,carta,música,dinero,hora,día");
+const DE=sp("Haus,Hund,Katze,Buch,Schule,Freund,Wasser,Brot,Auto,Fenster,Tür,Sonne,Mond,Apfel,Mädchen,Junge,Meer,Berg,Stadt,Arbeit,Straße,Kopf,Hand,Nacht,Pferd,Milch,Tisch,Stuhl,Vater,Mutter,Bruder,Schwester,Baum,Blume,Himmel,Feuer,Garten,Käse,Vogel,Fisch,Weg,Brücke,Kirche,Bahnhof,Schlüssel,Brief,Musik,Geld,Stunde,Tag");
+function vocabQs(L,lang,c){const out=[];const o=(a,j)=>shuf(a.filter((_,k)=>k!==j)).slice(0,3);
+FR.forEach((f,i)=>{out.push(Q(`Comment dit-on « ${f} » en ${lang} ?`,L[i],o(L,i),`« ${f} » se dit « ${L[i]} ».`,c,"Collège"));
+out.push(Q(`Que signifie « ${L[i]} » ?`,f,o(FR,i),`« ${L[i]} » signifie « ${f} ».`,c,"Collège"))});return out}
+const IV=("go,went,gone;see,saw,seen;take,took,taken;write,wrote,written;eat,ate,eaten;drink,drank,drunk;speak,spoke,spoken;break,broke,broken;buy,bought,bought;bring,brought,brought;think,thought,thought;teach,taught,taught;catch,caught,caught;run,ran,run;swim,swam,swum;begin,began,begun;give,gave,given;know,knew,known;grow,grew,grown;fly,flew,flown;drive,drove,driven;choose,chose,chosen;forget,forgot,forgotten;sing,sang,sung;wear,wore,worn;win,won,won;lose,lost,lost;build,built,built;send,sent,sent;leave,left,left").split(";").map(sp);
+function verbQs(){const out=[];IV.forEach((v,i)=>[1,2].forEach(k=>{const w=shuf([...new Set(IV.filter((_,j)=>j!==i).map(x=>x[k]).filter(x=>x!==v[k]))]).slice(0,3);
+out.push(Q(`Quel est le ${k===1?"prétérit":"participe passé"} de « ${v[0]} » ?`,v[k],w,`${v[0]} – ${v[1]} – ${v[2]}.`,"Prétérit","Collège"))}));return out}
+const CAP=("France,Paris;Allemagne,Berlin;Espagne,Madrid;Italie,Rome;Portugal,Lisbonne;Belgique,Bruxelles;Suisse,Berne;Pays-Bas,Amsterdam;Royaume-Uni,Londres;Irlande,Dublin;Norvège,Oslo;Suède,Stockholm;Finlande,Helsinki;Danemark,Copenhague;Pologne,Varsovie;Autriche,Vienne;Grèce,Athènes;Hongrie,Budapest;Tchéquie,Prague;Russie,Moscou;Turquie,Ankara;Égypte,Le Caire;Maroc,Rabat;Algérie,Alger;Tunisie,Tunis;Sénégal,Dakar;Nigeria,Abuja;Kenya,Nairobi;Éthiopie,Addis-Abeba;Afrique du Sud,Pretoria;États-Unis,Washington;Canada,Ottawa;Mexique,Mexico;Brésil,Brasilia;Argentine,Buenos Aires;Chili,Santiago;Pérou,Lima;Colombie,Bogota;Cuba,La Havane;Chine,Pékin;Japon,Tokyo;Inde,New Delhi;Corée du Sud,Séoul;Thaïlande,Bangkok;Vietnam,Hanoï;Indonésie,Jakarta;Australie,Canberra;Nouvelle-Zélande,Wellington;Arabie saoudite,Riyad;Iran,Téhéran").split(";").map(sp);
+function capQs(){const out=[];CAP.forEach((p,i)=>{const o=k=>shuf(CAP.filter((_,j)=>j!==i).map(x=>x[k])).slice(0,3);
+out.push(Q(`Quelle est la capitale de ce pays : ${p[0]} ?`,p[1],o(1),`La capitale est ${p[1]}.`,"Mondialisation","Collège"));
+out.push(Q(`${p[1]} est la capitale de quel pays ?`,p[0],o(0),`${p[1]} est la capitale : ${p[0]}.`,"Mondialisation","Collège"))});return out}
+
+const pools={
+"Mathématiques":()=>rep(genMath),
+"Physique-chimie":()=>rep(genPhys),
+"Informatique":()=>rep(genPy("Python")),
+"Programmation":()=>rep(genPy("Python et variables")),
+"Anglais":()=>[...verbQs(),...vocabQs(EN,"anglais","Vocabulaire courant")],
+"Espagnol":()=>vocabQs(ES,"espagnol","Vocabulaire courant"),
+"Allemand":()=>vocabQs(DE,"allemand","Vocabulaire quotidien"),
+"Géographie":()=>capQs()
+};
+function pickQuestions(subject,level,chapter,count){
+const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
+const lv=q=>!q.l||q.l===level||(level==="Primaire"&&q.l==="Collège");
+const ch=q=>!q.c||q.c===chapter||chapter==="Révisions générales";
+const seen=new Set(),out=[];
+for(const list of [pool.filter(q=>lv(q)&&ch(q)),pool.filter(lv),pool]){
+for(const q of shuf(list)){if(out.length>=count)return out;if(!seen.has(q.q)){seen.add(q.q);out.push(q)}}}
+return out}
+  let currentQuiz=null;
 function startQuiz(){
 const level=document.getElementById("quizLevel").value;
 const grade=document.getElementById("quizClass").value;
 const subject=document.getElementById("quizSubject").value;
 const chapter=document.getElementById("quizChapter").value;
 const count=Number(document.getElementById("quizCount").value);
-const bank=(quizBank[subject]||[]).filter(q=>{
-const levelOK=!q.l || q.l===level || (level==="Primaire"&&q.l==="Collège");
-const chapterOK=!q.c || q.c===chapter || chapter==="Révisions générales";
-return levelOK&&chapterOK;
-});
+const bank=pickQuestions(subject,level,chapter,count);
 if(!bank.length){
 document.getElementById("quizArea").style.display="block";
 document.getElementById("quizArea").innerHTML=`
@@ -671,7 +732,7 @@ document.getElementById("quizArea").innerHTML=`
 <button class="btn btn-primary" onclick="page('cards')">Créer des flashcards</button></div>`;
 return;
 }
-const questions=[...bank].sort(()=>Math.random()-.5).slice(0,Math.min(count,bank.length));
+const questions=bank;
 currentQuiz={level,grade,subject,chapter,questions,index:0,score:0,answered:false};
 document.getElementById("quizSetup").style.display="none";
 document.getElementById("quizArea").style.display="block";
@@ -929,4 +990,3 @@ updateTimerDisplay();
 </script>
 </body>
 </html>
-
