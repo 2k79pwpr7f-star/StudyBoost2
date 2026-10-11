@@ -705,6 +705,244 @@ const pools={
 "Allemand":()=>vocabQs(DE,"allemand","Vocabulaire quotidien"),
 "Géographie":()=>capQs()
 };
+  /* ===== QUESTIONS POUR TOUTES LES MATIÈRES (format : question|bonne réponse|faux1|faux2|faux3|explication) ===== */
+const compact={
+"Biologie":[
+"Quel organite produit l'essentiel de l'ATP dans la cellule ?|La mitochondrie|Le ribosome|L'appareil de Golgi|Le lysosome|La mitochondrie réalise la respiration cellulaire.",
+"Quelle molécule transporte l'oxygène dans le sang ?|L'hémoglobine|L'insuline|La kératine|Le collagène|L'hémoglobine des globules rouges fixe le dioxygène.",
+"Combien de chromosomes compte une cellule humaine normale ?|46|23|44|48|Elle possède 23 paires, soit 46 chromosomes.",
+"Quel processus produit des cellules filles identiques à la cellule mère ?|La mitose|La méiose|La fécondation|La transcription|La mitose conserve le nombre de chromosomes.",
+"Quelle molécule transporte l'information génétique du noyau vers les ribosomes ?|L'ARN messager|L'ATP|Le glucose|L'amidon|L'ARNm est lu par les ribosomes pour fabriquer les protéines."],
+"Chimie":[
+"Quel est le symbole chimique du sodium ?|Na|So|S|Sn|Na vient du latin natrium.",
+"Combien d'électrons de valence possède l'atome d'oxygène ?|6|2|8|4|Configuration 2s² 2p⁴ : 6 électrons de valence.",
+"Quelle est la formule de l'acide chlorhydrique ?|HCl|NaCl|H₂SO₄|NaOH|L'acide chlorhydrique est HCl en solution.",
+"Dans quelle colonne du tableau périodique se trouvent les gaz nobles ?|La colonne 18|La colonne 1|La colonne 17|La colonne 2|Leur couche externe est complète.",
+"Quelle liaison met des électrons en commun entre deux atomes ?|La liaison covalente|La liaison ionique|La gravitation|La force nucléaire|Dans une liaison covalente, des électrons sont partagés."],
+"Géologie":[
+"Comment appelle-t-on une roche formée par refroidissement du magma ?|Une roche magmatique|Une roche sédimentaire|Une roche métamorphique|Un fossile|Le magma refroidi forme des roches magmatiques.",
+"Quelle échelle mesure la dureté des minéraux ?|L'échelle de Mohs|L'échelle de Richter|L'échelle de Beaufort|L'échelle de Kelvin|Mohs va de 1 (talc) à 10 (diamant).",
+"Comment s'appelle la couche terrestre située entre la croûte et le noyau ?|Le manteau|L'atmosphère|L'hydrosphère|La biosphère|Le manteau est la couche intermédiaire de la Terre.",
+"Le granite est une roche…|Magmatique plutonique|Sédimentaire|Métamorphique|Volcanique|Il cristallise lentement en profondeur.",
+"Quelle est la dureté du quartz sur l'échelle de Mohs ?|7|1|5|10|Le quartz a une dureté de 7."],
+"Mécanique":[
+"Quelle est la deuxième loi de Newton ?|ΣF = m·a|F = m/a|ΣF = m·v|F = a/m|La somme des forces est égale à la masse fois l'accélération.",
+"Quelle est l'unité du moment d'une force ?|Le newton-mètre (N·m)|Le newton (N)|Le pascal|Le watt|Moment = force × distance.",
+"Un objet de 5 kg subit une accélération de 2 m/s². Quelle force résultante ?|10 N|2,5 N|7 N|0,4 N|F = 5 × 2 = 10 N.",
+"Dans un mouvement rectiligne uniforme, l'accélération est…|Nulle|Constante non nulle|Croissante|Infinie|La vitesse est constante, donc a = 0.",
+"Comment s'écrit l'énergie potentielle de pesanteur ?|m·g·h|½·m·v²|m·a|F/S|Ep = m × g × h."],
+"Électronique":[
+"Quel composant limite l'intensité du courant ?|La résistance|Le fil conducteur|L'interrupteur fermé|La pile|La résistance s'oppose au passage du courant.",
+"Quelle est la loi d'Ohm ?|U = R·I|U = R + I|U = R/I|U = I/R|La tension est égale à la résistance fois l'intensité.",
+"Quel composant ne laisse passer le courant que dans un sens ?|La diode|Le condensateur|La résistance|L'interrupteur|La diode est un composant polarisé.",
+"Quelle est l'unité de capacité d'un condensateur ?|Le farad|Le henry|L'ohm|Le watt|Le farad (F) mesure la capacité.",
+"Deux résistances de 100 Ω en série. Quelle résistance équivalente ?|200 Ω|50 Ω|100 Ω|10 000 Ω|En série, les résistances s'additionnent."],
+"Sciences de l'ingénieur":[
+"Que décrit un diagramme de blocs ?|Les fonctions d'un système et leurs échanges|Le budget d'un projet|L'emploi du temps|La couleur d'un produit|Il représente les blocs fonctionnels et leurs liaisons.",
+"Quel est le rôle d'un actionneur ?|Convertir l'énergie pour agir sur le système|Mesurer une grandeur|Stocker des données|Afficher un message|L'actionneur produit une action (mouvement, chaleur...).",
+"Quel est le rôle d'un capteur ?|Prélever une information et la transformer en signal|Fournir l'énergie|Produire un mouvement|Protéger le système|Le capteur mesure une grandeur physique.",
+"Que décrit le cahier des charges ?|Les besoins et contraintes à satisfaire|Le manuel d'utilisation|La facture|La publicité|Il formalise ce que le système doit faire.",
+"Un système asservi compare…|La consigne et la mesure|Deux prix|Deux matériaux|Deux logiciels|L'écart consigne − mesure corrige la commande."],
+"Technologie":[
+"Que signifie USB ?|Universal Serial Bus|Ultra Secure Box|United System Base|Universal Signal Booster|USB = Universal Serial Bus.",
+"Quel matériau est un bon conducteur électrique ?|Le cuivre|Le bois|Le verre|Le caoutchouc|Le cuivre conduit très bien le courant.",
+"Que fait un processeur (CPU) ?|Il exécute les instructions d'un programme|Il stocke définitivement les fichiers|Il affiche l'image|Il alimente l'ordinateur|Le CPU est le cerveau de calcul.",
+"Qu'est-ce que la RAM ?|Une mémoire vive temporaire|Un disque dur|Un processeur|Un écran|La RAM perd son contenu à l'extinction.",
+"Quelle unité mesure la fréquence d'un processeur ?|Le hertz (Hz)|Le watt|L'octet|Le pixel|La fréquence se mesure en hertz."],
+"Algorithmique":[
+"Quelle est la complexité du parcours d'un tableau de n éléments ?|O(n)|O(1)|O(n²)|O(log n)|On visite chaque élément une fois.",
+"Quelle est la complexité de la recherche dichotomique (tableau trié) ?|O(log n)|O(n)|O(n²)|O(1)|On divise l'intervalle par 2 à chaque étape.",
+"Quel tri compare des éléments adjacents et les échange ?|Le tri à bulles|Le tri fusion|La dichotomie|Le hachage|Le tri à bulles échange les voisins mal ordonnés.",
+"Une pile fonctionne selon le principe…|LIFO (dernier entré, premier sorti)|FIFO|Aléatoire|Alphabétique|Dans une pile, le dernier élément ajouté sort en premier.",
+"Une file fonctionne selon le principe…|FIFO (premier entré, premier sorti)|LIFO|Aléatoire|Alphabétique|Dans une file, on sort dans l'ordre d'arrivée."],
+"Statistiques et probabilités":[
+"Quelle est la moyenne de 2, 4, 6, 8 ?|5|4|6|20|(2+4+6+8)/4 = 5.",
+"Quelle est la médiane de 1, 3, 5, 7, 9 ?|5|3|7|25|C'est la valeur centrale de la série ordonnée.",
+"Quelle est la probabilité d'obtenir pile avec une pièce équilibrée ?|1/2|1/3|1|1/4|Deux issues équiprobables.",
+"Quelle est la probabilité d'obtenir un 6 avec un dé équilibré à 6 faces ?|1/6|1/3|6|1/2|Une issue favorable sur six.",
+"Que mesure l'écart-type ?|La dispersion des valeurs autour de la moyenne|La valeur la plus fréquente|Le nombre de valeurs|Le milieu de la série|Plus il est grand, plus les valeurs sont dispersées."],
+"Littérature":[
+"Qui a écrit « Les Misérables » ?|Victor Hugo|Émile Zola|Gustave Flaubert|Stendhal|Roman de Victor Hugo publié en 1862.",
+"Qui a écrit « Madame Bovary » ?|Gustave Flaubert|Honoré de Balzac|Marcel Proust|Alexandre Dumas|Roman publié en 1857.",
+"Qui est l'auteur de « L'Étranger » ?|Albert Camus|Jean-Paul Sartre|André Gide|Louis Aragon|Roman d'Albert Camus (1942).",
+"Molière est surtout connu comme auteur de…|Comédies|Romans policiers|Essais scientifiques|Opéras|Il a écrit Le Misanthrope, L'Avare, Tartuffe...",
+"Quel mouvement littéraire du XIXe siècle met en avant l'expression des sentiments ?|Le romantisme|Le classicisme|Le surréalisme|Le naturalisme|Le romantisme valorise le lyrisme et le « moi »."],
+"Grammaire et orthographe":[
+"Complète : « Ils ___ partis. »|sont|ont|son|sons|Le verbe partir se conjugue avec être.",
+"Quel est le participe passé de « prendre » ?|pris|prit|prendu|prenu|Prendre → pris.",
+"Complète : « Il ___ faim. »|a|à|as|ah|« a » est le verbe avoir.",
+"Complète : « Les fleurs que j'ai ___ »|cueillies|cueilli|cueillis|cueillit|Le COD « que » est placé avant : accord au féminin pluriel.",
+"Quelle phrase est correcte ?|Je me suis lavé les mains.|Je m'ai lavé les mains.|Je me est lavé les mains.|Je me suis lavés le mains.|Le COD vient après : le participe reste invariable."],
+"Latin":[
+"Que signifie « rosa » ?|La rose|Le roi|La route|La rivière|Rosa, rosae : la rose.",
+"Que signifie « aqua » ?|L'eau|L'aigle|L'or|L'âme|Aqua = eau.",
+"Quel cas exprime en général le complément d'objet direct ?|L'accusatif|Le nominatif|Le génitif|L'ablatif|L'accusatif marque le COD.",
+"Que signifie « Veni, vidi, vici » ?|Je suis venu, j'ai vu, j'ai vaincu|Je viens, je vois, je vis|Il vint, il vit, il vécut|Viens, vois, vis|Formule attribuée à Jules César.",
+"Que signifie « Carpe diem » ?|Cueille le jour|Pêche la carpe|Le jour est long|Vis sans peur|Expression d'Horace."],
+"Grec ancien":[
+"Quelle est la première lettre de l'alphabet grec ?|Alpha|Bêta|Oméga|Gamma|Alpha (Α) ouvre l'alphabet.",
+"Que signifie « logos » ?|Parole, raison|Loi|Lieu|Vie|Logos désigne la parole et la raison.",
+"Quelle est la dernière lettre de l'alphabet grec ?|Oméga|Delta|Sigma|Psi|Oméga (Ω) termine l'alphabet.",
+"« Philosophia » signifie littéralement…|Amour de la sagesse|Science des astres|Art de parler|Étude de la nature|Philo = aimer, sophia = sagesse.",
+"« Démocratie » vient de…|Dêmos (peuple) et kratos (pouvoir)|Dêmos et logos|Polis et nomos|Autos et kratos|Le pouvoir du peuple."],
+"Italien":[
+"Que signifie « Buongiorno » ?|Bonjour|Bonsoir|Au revoir|Merci|Buongiorno = bonjour.",
+"Que signifie « Grazie » ?|Merci|S'il vous plaît|Pardon|Bonjour|Grazie = merci.",
+"Comment dit-on « je suis » en italien ?|Io sono|Io ho|Io vado|Io faccio|Essere : io sono.",
+"Que signifie « acqua » ?|Eau|Air|Or|Âme|Acqua = eau.",
+"Comment dit-on « au revoir » ?|Arrivederci|Benvenuto|Prego|Buonanotte|Arrivederci = au revoir."],
+"Arabe":[
+"Que signifie « شكرا » (shukran) ?|Merci|Bonjour|Pardon|Au revoir|Shukran = merci.",
+"Que signifie « مرحبا » (marhaba) ?|Bonjour / salut|Merci|Eau|Maison|Marhaba est une salutation courante.",
+"Dans quel sens s'écrit l'arabe ?|De droite à gauche|De gauche à droite|De haut en bas|En spirale|L'écriture arabe va de droite à gauche.",
+"Que signifie « ماء » (maa') ?|Eau|Pain|Maison|Livre|Maa' = eau.",
+"Que signifie « كتاب » (kitab) ?|Livre|École|Table|Porte|Kitab = livre."],
+"Portugais":[
+"Que signifie « obrigado » ?|Merci|S'il vous plaît|Bonjour|Pardon|Obrigado = merci (dit par un homme).",
+"Que signifie « bom dia » ?|Bonjour|Bonsoir|Bonne nuit|Au revoir|Bom dia = bonjour.",
+"Que signifie « casa » ?|Maison|Voiture|Chat|Table|Casa = maison.",
+"Quelle est la capitale du Portugal ?|Lisbonne|Porto|Madrid|Brasilia|Lisbonne est la capitale.",
+"Que signifie « água » ?|Eau|Air|Feu|Terre|Água = eau."],
+"Chinois":[
+"Que signifie « 你好 » (nǐ hǎo) ?|Bonjour|Merci|Au revoir|Pardon|Nǐ hǎo = bonjour.",
+"Que signifie « 谢谢 » (xièxie) ?|Merci|Bonjour|S'il te plaît|Oui|Xièxie = merci.",
+"Quel nombre représente « 三 » ?|Trois|Deux|Dix|Cinq|三 = 3.",
+"Comment s'appelle la transcription du chinois en alphabet latin ?|Le pinyin|Le kanji|Le hangeul|Le romaji|Le pinyin note la prononciation.",
+"Que signifie « 水 » (shuǐ) ?|Eau|Feu|Arbre|Montagne|水 = eau."],
+"Japonais":[
+"Que signifie « ありがとう » ?|Merci|Bonjour|Au revoir|Pardon|Arigatō = merci.",
+"Que signifie « こんにちは » ?|Bonjour|Bonne nuit|Merci|Oui|Konnichiwa = bonjour.",
+"Comment appelle-t-on les caractères d'origine chinoise en japonais ?|Les kanji|Les hiragana|Le romaji|Le pinyin|Les kanji viennent de la Chine.",
+"Que signifie « 水 » (mizu) ?|Eau|Feu|Terre|Ciel|Mizu = eau.",
+"Que signifie « はい » ?|Oui|Non|Merci|Pardon|Hai = oui."],
+"Russe":[
+"Que signifie « Спасибо » (spasibo) ?|Merci|Bonjour|Au revoir|S'il vous plaît|Spasibo = merci.",
+"Que signifie « Привет » (privet) ?|Salut|Merci|Non|Pardon|Privet est un salut informel.",
+"Quel alphabet utilise le russe ?|Cyrillique|Latin|Grec|Arabe|Le russe s'écrit en cyrillique.",
+"Que signifie « Да » (da) ?|Oui|Non|Merci|Bonjour|Da = oui.",
+"Quelle est la capitale de la Russie ?|Moscou|Saint-Pétersbourg|Kiev|Minsk|Moscou est la capitale."],
+"EMC":[
+"Quelle est la devise de la République française ?|Liberté, Égalité, Fraternité|Travail, Famille, Patrie|Unité, Paix, Progrès|Honneur et Patrie|Devise inscrite dans la Constitution.",
+"À partir de quel âge peut-on voter en France ?|18 ans|16 ans|21 ans|15 ans|La majorité électorale est fixée à 18 ans.",
+"Quel principe sépare les Églises et l'État ?|La laïcité|La fraternité|La souveraineté|La parité|Loi de 1905.",
+"Qui vote les lois en France ?|Le Parlement|Le maire|Le préfet|Le tribunal|Assemblée nationale et Sénat.",
+"En quelle année a été adoptée la Déclaration des droits de l'homme et du citoyen ?|1789|1848|1905|1946|Elle date du 26 août 1789."],
+"Économie":[
+"Que mesure le PIB ?|La richesse produite dans un pays sur une période|La dette de l'État|Le nombre d'habitants|Le taux de chômage|PIB = produit intérieur brut.",
+"Que désigne l'inflation ?|Une hausse générale et durable des prix|Une baisse des prix|Une hausse du chômage|Une baisse des salaires|L'inflation fait baisser le pouvoir d'achat de la monnaie.",
+"Si la demande augmente et l'offre reste constante, le prix tend à…|Augmenter|Baisser|Disparaître|Rester nul|Plus de demande pour la même offre fait monter le prix.",
+"Qu'est-ce qu'un monopole ?|Un marché avec un seul offreur|Un marché avec beaucoup de vendeurs|Un impôt|Un type de monnaie|Un seul vendeur contrôle l'offre.",
+"Quelle institution fixe les taux directeurs de la zone euro ?|La Banque centrale européenne|Le FMI|L'OMC|La Commission européenne|C'est la BCE."],
+"Sociologie":[
+"Qui est considéré comme l'un des fondateurs de la sociologie française ?|Émile Durkheim|Karl Popper|René Descartes|Adam Smith|Durkheim a fondé la sociologie académique.",
+"Que désigne la socialisation ?|L'apprentissage des normes et valeurs d'une société|Le fait de voter|Le commerce|L'immigration|Elle fait de l'individu un membre de la société.",
+"Qu'est-ce qu'une norme sociale ?|Une règle de conduite attendue dans un groupe|Une loi pénale uniquement|Un prix|Une statistique|Les normes encadrent les comportements.",
+"Qui a développé la notion d'habitus ?|Pierre Bourdieu|Max Weber|Auguste Comte|Raymond Aron|L'habitus désigne des dispositions durables intériorisées.",
+"Qui est l'auteur du « Suicide » (1897) ?|Émile Durkheim|Pierre Bourdieu|Max Weber|Karl Marx|Étude sociologique majeure de Durkheim."],
+"HGGSP et géopolitique":[
+"Quel traité a été signé avec l'Allemagne en 1919 ?|Le traité de Versailles|Le traité de Rome|Le traité de Maastricht|Le traité de Westphalie|Il met fin à la Première Guerre mondiale avec l'Allemagne.",
+"Comment appelle-t-on la période d'opposition États-Unis / URSS de 1947 à 1991 environ ?|La Guerre froide|La Belle Époque|L'entre-deux-guerres|La Renaissance|Un conflit sans affrontement direct entre les deux superpuissances.",
+"En quelle année le mur de Berlin est-il tombé ?|1989|1961|1991|1975|Le 9 novembre 1989.",
+"Quelle organisation internationale a été créée en 1945 ?|L'ONU|L'OTAN|L'Union européenne|L'OMC|L'OTAN date de 1949.",
+"Que désigne le « soft power » ?|La capacité d'influence par la culture et la diplomatie|La puissance militaire|Un embargo|Un traité commercial|Concept de Joseph Nye."],
+"Psychologie":[
+"Qui est le fondateur de la psychanalyse ?|Sigmund Freud|Jean Piaget|Ivan Pavlov|B. F. Skinner|Freud a fondé la psychanalyse.",
+"Qui est célèbre pour ses expériences sur le conditionnement classique chez le chien ?|Ivan Pavlov|Carl Rogers|Albert Bandura|Jean Piaget|Le réflexe conditionné de Pavlov.",
+"Qui a décrit les stades du développement cognitif de l'enfant ?|Jean Piaget|Sigmund Freud|Carl Jung|B. F. Skinner|Piaget a décrit 4 stades.",
+"Le conditionnement opérant est associé à…|B. F. Skinner|Freud|Piaget|Pavlov|Skinner a étudié le renforcement.",
+"Quelle structure du cerveau est fortement liée à la mémoire ?|L'hippocampe|Le cervelet|Le bulbe rachidien|Le nerf optique|L'hippocampe participe à la formation des souvenirs."],
+"Arts plastiques":[
+"Quelles sont les couleurs primaires en peinture (modèle traditionnel) ?|Rouge, jaune, bleu|Vert, orange, violet|Noir, blanc, gris|Rose, vert, marron|Les autres couleurs s'obtiennent par mélange.",
+"Qui a peint « La Joconde » ?|Léonard de Vinci|Michel-Ange|Raphaël|Botticelli|Elle est exposée au Louvre.",
+"Que donne le mélange du bleu et du jaune ?|Du vert|De l'orange|Du violet|Du marron|Bleu + jaune = vert.",
+"Qui a peint « Guernica » ?|Pablo Picasso|Salvador Dalí|Henri Matisse|Claude Monet|Œuvre de 1937.",
+"Quel mouvement est associé à « Impression, soleil levant » de Monet ?|L'impressionnisme|Le cubisme|Le surréalisme|Le fauvisme|Le nom du mouvement vient de ce tableau."],
+"Histoire des arts":[
+"Quel style architectural est associé aux cathédrales aux arcs brisés ?|Le gothique|Le baroque|Le néoclassique|Le roman|Le gothique utilise l'arc brisé et les voûtes sur croisée d'ogives.",
+"Qui a sculpté le « David » de Florence (1501-1504) ?|Michel-Ange|Rodin|Canova|Bernin|Il est conservé à la Galerie de l'Académie.",
+"Qui a peint « La Nuit étoilée » ?|Vincent van Gogh|Paul Cézanne|Édouard Manet|Gustave Courbet|Tableau de 1889.",
+"Quel mouvement est associé à Picasso et Braque ?|Le cubisme|L'impressionnisme|Le romantisme|Le baroque|Le cubisme décompose les formes en volumes géométriques.",
+"Qui a construit la tour Eiffel (1889) ?|La société de Gustave Eiffel|Haussmann|Le Corbusier|Garnier|Elle a été bâtie pour l'Exposition universelle de 1889."],
+"Design":[
+"Que signifie UX ?|User Experience|Universal Exchange|Ultra Extended|User Extension|L'expérience utilisateur.",
+"Que désigne une police « serif » ?|Une police avec empattements|Une police sans aucun trait|Une police manuscrite uniquement|Une police en gras|Times New Roman est une police serif.",
+"Quel modèle de couleur est utilisé pour les écrans ?|RVB (RGB)|CMJN|Pantone uniquement|Niveaux de gris|Les écrans émettent de la lumière rouge, verte et bleue.",
+"Quel modèle de couleur est utilisé en impression ?|CMJN|RVB|HSV|YUV|Cyan, magenta, jaune, noir.",
+"Qu'est-ce qu'un wireframe ?|Une maquette schématique d'une interface|Une police|Un logo final|Un code couleur|Il sert à planifier la structure d'une page."],
+"EPS et sport":[
+"Combien de joueurs par équipe sont sur le terrain au football (gardien compris) ?|11|9|7|15|Une équipe compte 11 joueurs.",
+"Quelle distance fait un marathon ?|42,195 km|21 km|10 km|50 km|Distance officielle du marathon.",
+"À quoi sert l'échauffement ?|Préparer les muscles et réduire le risque de blessure|Fatiguer le corps|Remplacer l'hydratation|Rallonger la récupération|Il augmente la température musculaire.",
+"Quelle est la durée d'un match de handball senior ?|2 × 30 minutes|2 × 45 minutes|4 × 12 minutes|3 × 20 minutes|Deux mi-temps de 30 minutes.",
+"Combien de joueurs par équipe sont sur le terrain au basket ?|5|6|7|11|Cinq joueurs par équipe."],
+"Santé et prévention":[
+"Quelle quantité d'eau boire par jour (repère courant pour un adulte) ?|Environ 1,5 L|0,2 L|5 L|10 L|C'est un repère courant, variable selon les personnes.",
+"Quel nutriment est la principale source d'énergie rapide ?|Les glucides|Les vitamines|Les minéraux|L'eau|Les glucides fournissent de l'énergie rapidement.",
+"Combien d'heures de sommeil sont recommandées pour un adulte ?|7 à 9 heures|3 à 4 heures|12 heures|5 heures|Repère généralement admis.",
+"Quel geste limite la transmission de nombreux virus ?|Se laver les mains|Partager ses verres|Tousser sans se couvrir|Éviter l'eau|L'hygiène des mains est une base de la prévention.",
+"Quel est le numéro d'urgence européen ?|112|15|110|911|Le 112 fonctionne dans toute l'Union européenne."],
+"Gestion":[
+"Que mesure le chiffre d'affaires ?|Les ventes totales sur une période|Le bénéfice net|Les dettes|Les salaires|C'est le total des ventes hors taxes.",
+"Comment calcule-t-on le résultat ?|Produits − charges|Charges − produits|Produits + charges|Capital − dettes|Résultat = produits − charges.",
+"Que signifie le seuil de rentabilité ?|Le niveau d'activité où le résultat est nul|Le prix maximum|Le nombre d'employés|Le stock minimal|En dessous, l'entreprise perd de l'argent.",
+"Que représente le fonds de roulement ?|Une ressource stable qui finance le cycle d'exploitation|Le salaire annuel|Le chiffre d'affaires|Un impôt|FR = ressources stables − emplois stables.",
+"Que désigne la trésorerie ?|Les liquidités disponibles|Les stocks|Les brevets|Les bâtiments|C'est l'argent disponible rapidement."],
+"Comptabilité":[
+"En partie double, chaque opération comptabilise…|Un débit et un crédit de même montant|Uniquement un débit|Uniquement un crédit|Deux crédits|Les totaux débit et crédit sont égaux.",
+"Que présente le bilan ?|L'actif et le passif à une date donnée|Les ventes d'un mois|Les salaires|Les clients seulement|Il photographie le patrimoine de l'entreprise.",
+"À quoi est égal l'actif d'un bilan ?|Capitaux propres + dettes|Charges|Produits|Résultat seul|Actif = passif.",
+"Que présente le compte de résultat ?|Les charges et produits d'une période|Les stocks|Le capital|Les dettes uniquement|Il permet de calculer le résultat.",
+"Qu'est-ce qu'une charge ?|Une dépense qui diminue le résultat|Une vente|Un placement|Un prêt reçu|Les charges s'opposent aux produits."],
+"Marketing":[
+"Que désignent les « 4P » du marketing mix ?|Produit, prix, place, promotion|Prix, plan, personne, process|Public, produit, plan, profit|Pub, presse, prix, point|Les 4 leviers du marketing mix.",
+"Que désigne la segmentation ?|Diviser un marché en groupes homogènes|Baisser les prix|Créer un logo|Fermer un magasin|Elle permet de mieux cibler.",
+"Qu'est-ce qu'une cible ?|Le segment visé par l'entreprise|Un produit défectueux|Un concurrent|Un budget|C'est le groupe de clients prioritaire.",
+"Que mesure le taux de conversion ?|La part de visiteurs qui réalisent l'action souhaitée|Le nombre de produits|Le budget|La taille d'un marché|Par exemple, acheter ou s'inscrire.",
+"Que signifie SEO ?|Search Engine Optimization|Sales Event Online|Social Email Outreach|Secure Entry Option|Optimisation pour les moteurs de recherche."],
+"Management":[
+"Quelles sont les quatre fonctions classiques du management ?|Planifier, organiser, diriger, contrôler|Acheter, vendre, stocker, livrer|Lire, écrire, compter, dessiner|Créer, copier, coller, supprimer|Le cycle classique du management.",
+"Que désigne le leadership ?|La capacité d'influencer et guider un groupe|Une loi|Un impôt|Un logiciel|Le leader fédère et oriente une équipe.",
+"Que signifie SMART pour un objectif ?|Spécifique, mesurable, atteignable, réaliste, temporel|Simple, minimal, actif, rapide, total|Sûr, moderne, agile, riche, tendu|Stable, mobile, ancré, rentable, tarifé|Une méthode pour formuler des objectifs.",
+"Que représente un organigramme ?|La structure hiérarchique d'une organisation|Les ventes|Le stock|Un trajet|Il montre qui dépend de qui.",
+"Que signifie KPI ?|Indicateur clé de performance|Capital de production interne|Contrôle par inspection|Kit de projet intégré|Key Performance Indicator."],
+"Ingénierie":[
+"Quelle unité mesure la contrainte mécanique ?|Le pascal|Le newton|Le joule|Le watt|Contrainte = force / surface, en pascals.",
+"Que représente le coefficient de sécurité ?|Le rapport entre la résistance et la charge admise|Le prix d'un matériau|La durée d'un chantier|Le poids d'un pont|Il garantit une marge de sécurité.",
+"Quel matériau résiste le mieux à la traction parmi ces choix ?|L'acier|Le béton non armé|Le verre|La céramique|L'acier est ductile et résiste bien à la traction.",
+"Que signifie CAO ?|Conception assistée par ordinateur|Calcul automatique de l'objet|Contrôle assisté d'organisation|Chaîne d'assemblage optimale|La CAO sert à modéliser des pièces.",
+"Que sont les tolérances dimensionnelles ?|Des écarts admis autour d'une cote nominale|Des remises|Des couleurs|Des matériaux|Elles définissent la précision demandée."],
+"Méthodologie":[
+"Quelle technique consiste à réviser à intervalles espacés ?|La répétition espacée|Le bachotage|La lecture rapide|La copie|Elle améliore la mémorisation à long terme.",
+"En quoi consiste la méthode Pomodoro ?|Alterner travail concentré et courtes pauses|Réviser toute la nuit|Travailler sans pause|Lire en diagonale|Par exemple 25 min de travail, 5 min de pause.",
+"Qu'est-ce qu'une carte mentale ?|Un schéma qui organise les idées autour d'un thème|Une carte routière|Un résumé de 10 pages|Une dictée|Elle relie visuellement les notions.",
+"Quelle stratégie aide le plus à mémoriser durablement ?|Se tester activement|Relire passivement|Surligner tout|Réviser la veille|Le rappel actif est très efficace.",
+"Pourquoi planifier ses révisions ?|Pour répartir l'effort sur la durée|Pour réviser plus tard|Pour supprimer les pauses|Pour dormir moins|Un planning évite le travail de dernière minute."],
+"Orientation professionnelle":[
+"Que signifie CV ?|Curriculum vitae|Carte de visite|Contrat de vente|Certificat de validation|Il résume votre parcours.",
+"Que doit contenir une lettre de motivation ?|Les raisons de votre candidature et vos atouts|Votre mot de passe|Une liste de courses|Un contrat|Elle explique pourquoi vous êtes le bon candidat.",
+"Qu'est-ce qu'un stage ?|Une période de formation en entreprise|Un contrat à vie|Un examen|Un impôt|Il permet d'appliquer ses connaissances.",
+"Que signifie CDI ?|Contrat à durée indéterminée|Contrat de durée intermédiaire|Certificat de diplôme initial|Convention de développement individuel|Contrat sans date de fin fixée.",
+"Comment préparer un entretien d'embauche ?|Se renseigner sur l'entreprise|Arriver sans préparation|Ne pas relire l'offre|Éviter les questions|Une bonne préparation montre votre motivation."],
+"Histoire":[
+"En quelle année Louis XVI a-t-il été guillotiné ?|1793|1789|1804|1815|Il est exécuté le 21 janvier 1793.",
+"Qui a été sacré empereur des Français en 1804 ?|Napoléon Bonaparte|Louis XIV|Charlemagne|Louis-Philippe|Le sacre a lieu à Notre-Dame.",
+"En quelle année a commencé la Seconde Guerre mondiale ?|1939|1914|1945|1933|Elle débute en septembre 1939."],
+"SVT":[
+"Quel gaz les plantes absorbent-elles pour la photosynthèse ?|Le dioxyde de carbone|Le dioxygène|L'azote|L'hélium|Elles utilisent le CO₂ et la lumière.",
+"Quel organe filtre le sang pour produire l'urine ?|Le rein|Le foie|Le poumon|Le cœur|Les reins éliminent les déchets du sang.",
+"Quelle cellule sanguine transporte l'oxygène ?|Le globule rouge|Le globule blanc|La plaquette|Le neurone|Les globules rouges contiennent l'hémoglobine."],
+"Musique":[
+"Combien de notes différentes compte la gamme majeure (sans l'octave) ?|7|5|8|12|Do, ré, mi, fa, sol, la, si.",
+"Qui a composé la 9e symphonie avec l'« Ode à la joie » ?|Beethoven|Mozart|Bach|Chopin|Symphonie n° 9 de Beethoven.",
+"Combien de cordes a une guitare classique ?|6|4|5|8|Six cordes, accordées mi la ré sol si mi."],
+"Droit":[
+"À quel âge est-on majeur en France ?|18 ans|16 ans|21 ans|15 ans|La majorité civile est fixée à 18 ans.",
+"Que sanctionne le droit pénal ?|Les infractions|Les contrats|Les héritages|Les mariages|Le droit pénal punit contraventions, délits et crimes.",
+"Quelle juridiction juge les litiges entre un citoyen et l'administration ?|Le tribunal administratif|Le tribunal de commerce|Le conseil de prud'hommes|La cour d'assises|C'est la juridiction administrative."]
+};
+for(const s in compact){
+quizBank[s]=[...(quizBank[s]||[]),...compact[s].map(r=>{const p=r.split("|");return{q:p[0],a:p[1],o:[p[2],p[3],p[4]],e:p[5]||""}})];
+}
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level||(level==="Primaire"&&q.l==="Collège");
