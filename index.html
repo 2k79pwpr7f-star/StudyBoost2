@@ -2,281 +2,472 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#6558e8">
 <title>StudyBoost — Révise plus intelligemment</title>
 <style>
-:root{--bg:#f6f7fb;--panel:#fff;--ink:#20213a;--muted:#777b91;--primary:#6558e8;--pale:#eeecff;--line:#e8e9f1;--green:#20a779;--shadow:0 10px 30px #29235d0a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.sidebar{background:#fff;border-right:1px solid var(--line);padding:26px 16px;display:flex;flex-direction:column;gap:24px}.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:850;letter-spacing:-.7px;padding:0 10px}.logo{width:38px;height:38px;border-radius:13px;background:var(--primary);color:white;display:grid;place-items:center;font-size:21px;box-shadow:0 7px 15px #6558e83d}.nav{display:grid;gap:6px}.nav button{display:flex;align-items:center;gap:12px;background:transparent;color:#696d82;text-align:left;padding:13px 14px;border-radius:12px;font-weight:650}.nav button.active,.nav button:hover{background:var(--pale);color:var(--primary)}.side-note{margin-top:auto;background:#f6f4ff;padding:16px;border-radius:16px;font-size:13px;color:#65617d;line-height:1.5}.side-note strong{display:block;color:var(--ink);font-size:14px;margin-bottom:5px}.main{padding:28px clamp(18px,4vw,54px);max-width:1400px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:28px}.eyebrow{font-size:12px;color:var(--primary);font-weight:800;text-transform:uppercase;letter-spacing:1.4px}.top h1{font-size:clamp(25px,3vw,34px);letter-spacing:-1.2px;margin:6px 0}.sub{color:var(--muted);margin:0;line-height:1.5}.avatar{height:44px;width:44px;border-radius:15px;background:#e4f6ee;color:#16875f;display:grid;place-items:center;font-weight:850}.hero{background:linear-gradient(115deg,#6558e8,#8d7df6);border-radius:24px;padding:28px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;position:relative;box-shadow:0 16px 35px #6558e826}.hero:after{content:"✦";position:absolute;font-size:170px;right:20%;top:-60px;color:#ffffff12}.hero h2{font-size:clamp(22px,3vw,30px);margin:0 0 9px;letter-spacing:-.8px}.hero p{color:#eeebff;margin:0 0 20px;max-width:460px;line-height:1.55}.btn{border-radius:11px;padding:11px 16px;font-weight:750;transition:.15s}.btn:hover{transform:translateY(-1px)}.btn-white{background:#fff;color:var(--primary)}.btn-primary{background:var(--primary);color:#fff}.btn-light{background:var(--pale);color:var(--primary)}.btn-outline{border:1px solid var(--line);background:#fff;color:var(--ink)}.hero-icon{position:relative;z-index:1;font-size:84px;margin:0 22px;filter:drop-shadow(0 10px 12px #34258b30)}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0 28px}.stat,.panel,.feature{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.stat{padding:18px}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px;font-weight:650}.stat-icon{height:34px;width:34px;display:grid;place-items:center;border-radius:11px;background:var(--pale);font-size:17px}.stat strong{display:block;font-size:27px;margin-top:12px;letter-spacing:-1px}.stat small{color:var(--muted)}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:26px 0 14px}.section-head h2{font-size:20px;margin:0;letter-spacing:-.5px}.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.feature{padding:20px;transition:.2s}.feature:hover{transform:translateY(-3px);box-shadow:0 15px 35px #29235d10}.feature-ico{height:46px;width:46px;display:grid;place-items:center;border-radius:14px;background:var(--pale);font-size:23px;margin-bottom:17px}.feature h3{margin:0 0 7px;font-size:17px}.feature p{margin:0 0 17px;color:var(--muted);font-size:14px;line-height:1.5}.feature button{width:100%}.panel{padding:22px}.panel h3{margin:0 0 6px}.muted{color:var(--muted)}.page{display:none}.page.active{display:block}.content-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.field{display:grid;gap:7px;margin:14px 0}.field label{font-weight:700;font-size:13px}.field input,.field textarea,.field select,.search{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px 13px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field textarea:focus,.field select:focus,.search:focus{border-color:var(--primary);box-shadow:0 0 0 3px #6558e815}.field textarea{min-height:120px;resize:vertical}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.item-list{display:grid;gap:10px;margin-top:16px}.item{border:1px solid var(--line);padding:14px;border-radius:13px;display:flex;justify-content:space-between;align-items:center;gap:10px}.item p{margin:5px 0 0;color:var(--muted);font-size:13px;white-space:pre-wrap}.tiny{font-size:12px;color:var(--muted)}.flashcard{min-height:220px;border:1px solid #e2ddff;background:linear-gradient(145deg,#f5f3ff,#fff);border-radius:20px;display:grid;place-items:center;text-align:center;padding:28px;margin:18px 0;cursor:pointer}.flashcard .word{font-size:clamp(24px,4vw,34px);font-weight:850;letter-spacing:-1px}.flashcard .hint{color:var(--muted);font-size:13px;margin-top:14px}.quiz-option{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;margin:6px 0;color:var(--ink)}.quiz-option:hover{border-color:var(--primary);background:#faf9ff}.quiz-option.correct{border-color:#20a779;background:#eaf9f3}.quiz-option.wrong{border-color:#e66b79;background:#fff0f1}.progress{height:8px;background:#eeedf5;border-radius:99px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;width:0;background:var(--primary);border-radius:99px;transition:width .25s}.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;line-height:1.6}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#24233b;color:white;padding:12px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.2s;box-shadow:var(--shadow);z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile-menu{display:none}
-@media(max-width:950px){.app{grid-template-columns:1fr}.sidebar{padding:12px 14px;border-right:0;border-bottom:1px solid var(--line);gap:10px}.brand{padding:2px 5px}.nav{display:flex;overflow:auto;gap:4px}.nav button{white-space:nowrap;padding:10px 12px}.side-note{display:none}.main{padding-top:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.features{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid{grid-template-columns:1fr}}
-@media(max-width:520px){.hero{padding:22px}.hero-icon{display:none}.features{grid-template-columns:1fr}.top{align-items:flex-start}.avatar{display:none}.stat{padding:14px}.stat strong{font-size:24px}.panel{padding:16px}.section-head{align-items:flex-start}.row>*{flex-basis:100%}}
+:root{--bg:#f6f7fb;--panel:#fff;--ink:#22213b;--muted:#777b91;--primary:#6558e8;--pale:#efedff;--line:#e7e8f0;--green:#1b9b70;--red:#d94c60}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:230px minmax(0,1fr)}
+.sidebar{background:white;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:22px}
+.brand{font-size:22px;font-weight:850;padding:0 8px;letter-spacing:-1px}
+.logo{display:inline-grid;place-items:center;background:var(--primary);color:white;border-radius:12px;width:36px;height:36px;margin-right:8px}
+nav{display:grid;gap:5px}
+nav button{border:0;background:white;color:#65677d;text-align:left;padding:12px;border-radius:11px;font-weight:650}
+nav button.active,nav button:hover{background:var(--pale);color:var(--primary)}
+.tip{margin-top:auto;background:#f4f2ff;padding:15px;border-radius:14px;font-size:13px;line-height:1.6;color:#65617c}
+main{padding:26px clamp(14px,4vw,45px);width:100%;max-width:1400px;margin:auto}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;color:var(--primary)}
+h1{font-size:clamp(25px,4vw,34px);margin:5px 0}
+h2{font-size:22px;margin:0 0 14px}
+h3{margin:0 0 8px}
+p{line-height:1.55}
+.muted,.sub{color:var(--muted)}
+.sub{margin:0}
+.avatar{background:#e7f8f0;color:#16845c;padding:12px;border-radius:13px;font-weight:800}
+.page{display:none}
+.page.active{display:block}
+.hero{background:linear-gradient(115deg,#6558e8,#9282fa);color:white;border-radius:22px;padding:26px;margin-bottom:20px}
+.hero h2{font-size:clamp(23px,3vw,31px);margin-bottom:8px}
+.hero p{max-width:650px;color:#f0edff}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 28px}
+.stat,.panel,.feature{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 6px 24px #27204c08}
+.stat small{color:var(--muted)}
+.stat strong{display:block;font-size:27px;margin:8px 0}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.feature{padding:18px}
+.feature p{font-size:14px;color:var(--muted)}
+.feature-icon{font-size:28px;margin-bottom:12px}
+.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:750}
+.primary{background:var(--primary);color:white}
+.light{background:var(--pale);color:var(--primary)}
+.white{background:white;color:var(--primary)}
+.outline{background:white;border:1px solid var(--line);color:var(--ink)}
+.danger{background:#fff0f2;color:var(--red)}
+.btn:hover{filter:brightness(.97)}
+.feature .btn{width:100%}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:25px 0 13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{display:grid;gap:6px;margin:13px 0}
+.field label{font-weight:700;font-size:13px}
+.field input,.field select,.field textarea,.search{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px;background:white;color:var(--ink)}
+.field textarea{min-height:130px;resize:vertical}
+.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1}
+.list{display:grid;gap:10px;margin-top:14px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:13px;background:white}
+.item p{margin:5px 0 0;color:var(--muted);font-size:13px;white-space:pre-wrap}
+.item button{flex-shrink:0}
+.empty{border:1px dashed #d9d9e7;border-radius:13px;padding:22px;text-align:center;color:var(--muted);line-height:1.6}
+.flashcard{margin:17px 0;min-height:210px;display:grid;place-content:center;text-align:center;padding:24px;border-radius:18px;border:1px solid #dcd7ff;background:linear-gradient(145deg,#f1efff,white);cursor:pointer}
+.flashcard strong{font-size:clamp(23px,4vw,33px)}
+.flashcard small{color:var(--muted);margin-top:12px}
+.quiz-option{display:block;width:100%;text-align:left;padding:13px;margin:8px 0;border:1px solid var(--line);border-radius:11px;background:white;color:var(--ink)}
+.quiz-option:hover:not(:disabled){border-color:var(--primary);background:#faf9ff}
+.quiz-option.correct{border-color:var(--green);background:#e9f9f2}
+.quiz-option.wrong{border-color:var(--red);background:#fff0f2}
+.progress{height:8px;background:#ecebf4;border-radius:20px;overflow:hidden;margin:13px 0}
+.progress span{display:block;height:100%;background:var(--primary);width:0;transition:width .2s}
+.tag{display:inline-block;background:var(--pale);color:var(--primary);border-radius:20px;padding:4px 9px;font-size:12px;font-weight:750}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#25233b;color:white;padding:12px 17px;border-radius:11px;transition:.2s;z-index:10;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;padding:25px 0;color:var(--muted);font-size:12px}
+@media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{padding:12px;gap:10px;border-right:0;border-bottom:1px solid var(--line)}.brand{font-size:20px}.tip{display:none}nav{display:flex;overflow-x:auto;gap:4px}nav button{white-space:nowrap;padding:10px;font-size:13px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.features{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}main{padding-top:18px}}
+@media(max-width:500px){.features{grid-template-columns:1fr}.hero{padding:20px}.stat{padding:13px}.stat strong{font-size:24px}.panel{padding:14px}.avatar{display:none}.row>*{flex-basis:100%}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-  <div class="brand"><div class="logo">✦</div>StudyBoost</div>
-  <nav class="nav" aria-label="Navigation">
-    <button class="active" data-page="home">◫ &nbsp; Tableau de bord</button>
-    <button data-page="notes">▤ &nbsp; Mes fiches</button>
-    <button data-page="cards">▧ &nbsp; Flashcards</button>
-    <button data-page="quiz">☑ &nbsp; Quiz</button>
-    <button data-page="library">📚 &nbsp; Bibliothèque</button>
-    <button data-page="progress">◷ &nbsp; Mes progrès</button>
-  </nav>
-  <div class="side-note"><strong>💡 Le conseil du jour</strong>Révise en petites sessions régulières. Dix minutes de rappel actif peuvent être plus efficaces qu'une longue relecture passive.</div>
+<div class="brand"><span class="logo">✦</span>StudyBoost</div>
+<nav>
+<button class="active" data-page="home">🏠 Accueil</button>
+<button data-page="notes">📝 Mes fiches</button>
+<button data-page="cards">🃏 Flashcards</button>
+<button data-page="quiz">⚡ Quiz</button>
+<button data-page="library">📚 Bibliothèque</button>
+<button data-page="progress">📈 Mes progrès</button>
+</nav>
+<div class="tip"><b>💡 Conseil du jour</b><br>Révise régulièrement, teste-toi sans regarder ton cours et reviens sur les notions difficiles.</div>
 </aside>
-<main class="main">
-<header class="top"><div><div class="eyebrow">Ton espace de révision</div><h1 id="greeting">Salut, étudiant 👋</h1><p class="sub">Un petit pas aujourd'hui, de grands progrès demain.</p></div><div class="avatar">SB</div></header>
+
+<main>
+<header>
+<div><div class="eyebrow">Ton espace de révision</div><h1 id="greeting">Salut, étudiant 👋</h1><p class="sub">Apprends, entraîne-toi et progresse à ton rythme.</p></div>
+<div class="avatar">SB</div>
+</header>
 
 <section class="page active" id="page-home">
-  <div class="hero"><div><h2>Prêt à faire décoller tes notes ?</h2><p>Organise tes cours, entraîne ta mémoire et suis tes progrès au même endroit.</p><button class="btn btn-white" data-go="notes">Créer ma première fiche&nbsp; →</button></div><div class="hero-icon">🎓</div></div>
-  <div class="stats">
-    <div class="stat"><div class="stat-top">Fiches créées <span class="stat-icon">📚</span></div><strong id="stat-notes">0</strong><small>Ton savoir, bien organisé</small></div>
-    <div class="stat"><div class="stat-top">Flashcards <span class="stat-icon">🧠</span></div><strong id="stat-cards">0</strong><small>Notions à mémoriser</small></div>
-    <div class="stat"><div class="stat-top">Quiz terminés <span class="stat-icon">⚡</span></div><strong id="stat-quizzes">0</strong><small>Sessions d'entraînement</small></div>
-    <div class="stat"><div class="stat-top">Meilleur score <span class="stat-icon">🏆</span></div><strong id="stat-best">—</strong><small>Continue comme ça !</small></div>
-  </div>
-  <div class="section-head"><h2>Ton espace de travail</h2><span class="tiny">Tout commence ici</span></div>
-  <div class="features">
-    <article class="feature"><div class="feature-ico">📝</div><h3>Fiches de révision</h3><p>Note les idées essentielles de tes cours et retrouve-les facilement.</p><button class="btn btn-light" data-go="notes">Ouvrir mes fiches →</button></article>
-    <article class="feature"><div class="feature-ico">🃏</div><h3>Flashcards</h3><p>Transforme les définitions en cartes question-réponse.</p><button class="btn btn-light" data-go="cards">Mémoriser →</button></article>
-    <article class="feature"><div class="feature-ico">🎯</div><h3>Quiz express</h3><p>Teste tes connaissances avec des questions à choix multiples.</p><button class="btn btn-light" data-go="quiz">Lancer un quiz →</button></article>
-  </div>
-  <div class="section-head"><h2>Récemment ajouté</h2><button class="btn btn-outline" data-go="notes">Voir les fiches</button></div>
-  <div class="panel" id="recent-list"><div class="empty">Tes fiches apparaîtront ici.<br>Commence par en créer une !</div></div>
+<div class="hero">
+<h2>Prêt à faire décoller tes notes ? 🚀</h2>
+<p>Centralise tes cours, mémorise les notions importantes et mesure tes progrès dans une seule application.</p>
+<button class="btn white" data-go="quiz">Commencer un quiz →</button>
+</div>
+<div class="stats">
+<div class="stat">📝 Fiches créées<strong id="stat-notes">0</strong><small>Ton savoir organisé</small></div>
+<div class="stat">🃏 Flashcards<strong id="stat-cards">0</strong><small>Notions à mémoriser</small></div>
+<div class="stat">⚡ Quiz terminés<strong id="stat-quizzes">0</strong><small>Sessions effectuées</small></div>
+<div class="stat">🏆 Meilleur score<strong id="stat-best">—</strong><small>Continue comme ça !</small></div>
+</div>
+<div class="section-head"><h2>Ton espace de travail</h2></div>
+<div class="features">
+<article class="feature"><div class="feature-icon">📝</div><h3>Fiches de révision</h3><p>Rédige, recherche et conserve tes résumés de cours.</p><button class="btn light" data-go="notes">Créer une fiche</button></article>
+<article class="feature"><div class="feature-icon">🃏</div><h3>Flashcards</h3><p>Transforme les définitions et formules en cartes mémoire.</p><button class="btn light" data-go="cards">Réviser mes cartes</button></article>
+<article class="feature"><div class="feature-icon">⚡</div><h3>Quiz interactifs</h3><p>Choisis une matière et un niveau, réponds puis découvre les corrections.</p><button class="btn light" data-go="quiz">Lancer un quiz</button></article>
+</div>
+<div class="section-head"><h2>Derniers résultats</h2><button class="btn outline" data-go="progress">Tout voir</button></div>
+<div class="panel"><div id="recent-results" class="list"><div class="empty">Tes résultats apparaîtront ici après tes premiers quiz.</div></div></div>
 </section>
 
 <section class="page" id="page-notes">
-  <div class="section-head"><div><h2>Mes fiches de révision</h2><p class="sub">Rassemble tes cours et tes idées importantes.</p></div></div>
-  <div class="content-grid">
-    <div class="panel"><h3>Créer une fiche</h3><p class="muted">Garde l'essentiel à portée de main.</p>
-      <form id="note-form"><div class="field"><label for="note-title">Titre de la fiche</label><input id="note-title" placeholder="Ex. : Les dérivées" required maxlength="100"></div>
-      <div class="field"><label for="note-subject">Matière</label><select id="note-subject"><option>Mathématiques</option><option>Physique-chimie</option><option>Français</option><option>Histoire-géographie</option><option>Langues</option><option>Anglais</option><option>Allemand</option><option>Espagnol</option><option>SVT</option><option>Chimie</option><option>Philosophie</option><option>SES</option><option>Économie</option><option>Droit</option><option>Sciences de l’ingénieur</option><option>Technologie</option><option>Arts</option><option>Musique</option><option>Informatique</option><option>Autre</option></select></div>
-      <div class="field"><label for="note-body">Contenu du cours</label><textarea id="note-body" placeholder="Écris ici les définitions, formules et exemples…" required></textarea></div><button class="btn btn-primary" type="submit">＋ Enregistrer la fiche</button></form>
-    </div>
-    <div class="panel"><h3>Ma bibliothèque</h3><p class="muted">Tes fiches enregistrées sur cet appareil.</p><input class="search" id="note-search" placeholder="Rechercher une fiche…"><div class="item-list" id="notes-list"></div></div>
-  </div>
+<h2>📝 Mes fiches de révision</h2>
+<p class="muted">Crée tes propres fiches et retrouve-les grâce à la recherche.</p>
+<div class="panel">
+<div class="field"><label for="note-title">Titre de la fiche</label><input id="note-title" placeholder="Ex. : Les dérivées"></div>
+<div class="row">
+<div class="field"><label for="note-subject">Matière</label><select id="note-subject"></select></div>
+<div class="field"><label for="note-level">Niveau</label><select id="note-level"></select></div>
+</div>
+<div class="field"><label for="note-body">Contenu de la fiche</label><textarea id="note-body" placeholder="Écris ici les définitions, formules et idées essentielles..."></textarea></div>
+<button class="btn primary" id="save-note">Enregistrer ma fiche</button>
+</div>
+<div class="section-head"><h2>Mes fiches enregistrées</h2></div>
+<input class="search" id="note-search" placeholder="Rechercher une fiche, une matière...">
+<div id="notes-list" class="list"></div>
 </section>
 
 <section class="page" id="page-cards">
-  <div class="section-head"><div><h2>Mes flashcards 🃏</h2><p class="sub">Question devant, réponse derrière. Clique sur la carte pour la retourner.</p></div></div>
-  <div class="content-grid">
-    <div class="panel"><h3>Créer une flashcard</h3><form id="card-form"><div class="field"><label for="card-q">Question / notion</label><input id="card-q" placeholder="Ex. : Dérivée de x² ?" required maxlength="180"></div><div class="field"><label for="card-a">Réponse</label><textarea id="card-a" placeholder="Ex. : 2x" required></textarea></div><button class="btn btn-primary" type="submit">＋ Ajouter la carte</button></form><div class="section-head"><h3>Réviser</h3><span id="card-count" class="tiny">0 carte</span></div><div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="Retourner la flashcard"><div><div class="word" id="flash-word">Ajoute ta première carte</div><div class="hint" id="flash-hint">La question apparaîtra ici</div></div></div><div class="row"><button class="btn btn-outline" id="prev-card">← Précédente</button><button class="btn btn-light" id="flip-card">Retourner</button><button class="btn btn-primary" id="next-card">Suivante →</button></div></div>
-    <div class="panel"><h3>Toutes mes cartes</h3><p class="muted">Ajoute des cartes au fil de tes cours.</p><div class="item-list" id="cards-list"></div></div>
-  </div>
+<h2>🃏 Flashcards</h2>
+<p class="muted">Essaie de répondre avant de retourner la carte.</p>
+<div class="grid2">
+<div class="panel">
+<h3>Créer une carte</h3>
+<div class="field"><label for="card-question">Question ou notion</label><textarea id="card-question" placeholder="Ex. : Quelle est la dérivée de x² ?"></textarea></div>
+<div class="field"><label for="card-answer">Réponse</label><textarea id="card-answer" placeholder="Ex. : 2x"></textarea></div>
+<div class="field"><label for="card-subject">Matière</label><select id="card-subject"></select></div>
+<button class="btn primary" id="save-card">Ajouter la flashcard</button>
+</div>
+<div class="panel">
+<div class="section-head"><h3>Ma carte</h3><span class="tag" id="card-counter">0 carte</span></div>
+<div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="Retourner la flashcard">
+<strong id="flash-word">Ajoute ta première carte</strong><small id="flash-hint">La question apparaîtra ici.</small>
+</div>
+<div class="row"><button class="btn outline" id="card-prev">← Précédente</button><button class="btn light" id="card-flip">Retourner</button><button class="btn outline" id="card-next">Suivante →</button></div>
+</div>
+</div>
+<div class="section-head"><h2>Toutes mes cartes</h2></div>
+<div id="cards-list" class="list"></div>
 </section>
 
 <section class="page" id="page-quiz">
-  <div class="section-head"><div><h2>Quiz express ⚡</h2><p class="sub">Choisis ton niveau et ta matière pour t'entraîner avec les questions intégrées.</p></div></div>
-  <div class="panel" style="margin-bottom:16px"><div class="row"><div class="field"><label for="quiz-level">Niveau</label><select id="quiz-level"><option value="all">Tous les niveaux</option><option value="Primaire">Primaire</option><option value="Collège">Collège</option><option value="Lycée">Lycée</option><option value="Supérieur">Études supérieures</option></select></div><div class="field"><label for="quiz-subject">Matière</label><select id="quiz-subject"><option value="all">Toutes les matières</option></select></div></div><button class="btn btn-primary" id="apply-quiz-filters">Lancer un quiz adapté →</button><p class="tiny">Plus de 100 questions par matière et par niveau. Chaque partie contient 20 questions mélangées.</p></div>
-  <div class="content-grid"><div class="panel"><div class="row" style="justify-content:space-between"><span class="eyebrow" id="quiz-category">Quiz découverte</span><span class="tiny" id="quiz-count">Question 1/5</span></div><div class="progress"><span id="quiz-progress"></span></div><h3 id="quiz-question" style="font-size:22px;line-height:1.4;margin:22px 0">Prêt à tester tes connaissances ?</h3><div id="quiz-options"></div><p id="quiz-feedback" class="muted" aria-live="polite"></p><div class="row"><button class="btn btn-outline" id="quiz-restart">Recommencer</button><button class="btn btn-primary" id="quiz-next" disabled>Suivant →</button></div></div>
-  <div class="panel"><h3>Conseil de révision</h3><p class="muted" style="line-height:1.7">Essaie de répondre sans regarder ton cours. Une erreur est une occasion d'identifier une notion à revoir. Recommence le quiz pour t'entraîner à nouveau.</p><div class="empty">🎯 <strong>Objectif :</strong><br>comprendre, pas seulement retenir.</div></div></div>
+<h2>⚡ Quiz de révision</h2>
+<p class="muted">Choisis ta matière et ton niveau. Réponds aux questions pour obtenir ton score.</p>
+<div class="panel">
+<div class="grid2">
+<div class="field"><label for="quiz-subject">Matière</label><select id="quiz-subject"></select></div>
+<div class="field"><label for="quiz-level">Niveau</label><select id="quiz-level"></select></div>
+</div>
+<div class="row"><button class="btn primary" id="start-quiz">Démarrer / recommencer</button><button class="btn outline" id="all-quiz">Toutes les matières</button></div>
+</div>
+<div class="panel" style="margin-top:15px">
+<div class="row"><span class="tag" id="quiz-category">Quiz</span><span class="muted" id="quiz-counter">Prêt à commencer</span></div>
+<div class="progress"><span id="quiz-progress"></span></div>
+<h3 id="quiz-question" style="margin-top:18px">Choisis tes paramètres puis démarre un quiz.</h3>
+<div id="quiz-options"></div>
+<p id="quiz-feedback" aria-live="polite" class="muted"></p>
+<div class="row"><button class="btn primary" id="quiz-next" disabled>Question suivante →</button><button class="btn outline" id="quiz-restart">Recommencer</button></div>
+<div id="quiz-result" style="margin-top:15px"></div>
+</div>
 </section>
 
 <section class="page" id="page-library">
-  <div class="section-head"><div><h2>Bibliothèque de révision 📚</h2><p class="sub">Des ressources prêtes à réviser, classées par niveau et matière. Ajoute-les à ton espace personnel.</p></div></div>
-  <div class="panel"><div class="row"><div class="field"><label for="library-level">Niveau</label><select id="library-level"><option value="all">Tous les niveaux</option><option value="Primaire">Primaire</option><option value="Collège">Collège</option><option value="Lycée">Lycée</option><option value="Supérieur">Études supérieures</option></select></div><div class="field"><label for="library-subject">Matière</label><select id="library-subject"><option value="all">Toutes les matières</option></select></div></div></div>
-  <div class="section-head"><h2>Fiches de révision</h2><span id="library-note-count" class="tiny"></span></div><div id="library-notes" class="features"></div>
-  <div class="section-head"><h2>Flashcards prêtes à l'emploi</h2><span id="library-card-count" class="tiny"></span></div><div id="library-cards" class="features"></div>
-  <div class="section-head"><h2>Quiz disponibles</h2><span id="library-quiz-count" class="tiny"></span></div><div class="panel"><p class="muted">Lance un quiz correspondant aux filtres sélectionnés.</p><button class="btn btn-primary" id="library-start-quiz">Lancer ce quiz →</button></div>
-  <p class="tiny" style="margin-top:16px">Cette bibliothèque constitue une base initiale de ressources originales. Elle ne remplace pas encore l'intégralité des programmes officiels ni tous les chapitres de chaque classe.</p>
+<h2>📚 Bibliothèque de révision</h2>
+<p class="muted">Parcours les notions de base, recherche par matière ou entraîne-toi directement.</p>
+<div class="grid2">
+<div class="field"><label for="library-subject">Filtrer par matière</label><select id="library-subject"></select></div>
+<div class="field"><label for="library-search">Rechercher une notion</label><input id="library-search" placeholder="Ex. : énergie, grammaire, équation..."></div>
+</div>
+<div id="library-list" class="list"></div>
+<div class="panel" style="margin-top:18px">
+<h3>Créer tes propres ressources</h3>
+<p class="muted">Les notions ci-dessus constituent une base de départ. Ajoute tes cours dans « Mes fiches » pour construire ta propre bibliothèque.</p>
+<button class="btn primary" data-go="notes">Créer une fiche de cours</button>
+</div>
 </section>
 
 <section class="page" id="page-progress">
-  <div class="section-head"><div><h2>Mes progrès 📈</h2><p class="sub">Un aperçu de ton travail sur cet appareil.</p></div></div>
-  <div class="stats"><div class="stat"><div class="stat-top">Fiches <span class="stat-icon">📚</span></div><strong id="p-notes">0</strong><small>Créées</small></div><div class="stat"><div class="stat-top">Cartes <span class="stat-icon">🧠</span></div><strong id="p-cards">0</strong><small>À réviser</small></div><div class="stat"><div class="stat-top">Quiz <span class="stat-icon">⚡</span></div><strong id="p-quizzes">0</strong><small>Terminés</small></div><div class="stat"><div class="stat-top">Moyenne <span class="stat-icon">🌟</span></div><strong id="p-average">—</strong><small>Sur tes quiz</small></div></div>
-  <div class="panel"><h3>Historique des quiz</h3><p class="muted">Tes résultats s'affichent ici après chaque quiz terminé.</p><div id="history-list" class="item-list"></div></div>
-  <div class="panel" style="margin-top:16px"><h3>Exporter mes données</h3><p class="muted">Télécharge une copie de tes fiches, flashcards et résultats.</p><button class="btn btn-primary" id="export-data">Exporter mes données (.json)</button> <button class="btn btn-outline" id="clear-data">Effacer mes données</button></div>
+<h2>📈 Mes progrès</h2>
+<div class="stats">
+<div class="stat">📝 Fiches<strong id="p-notes">0</strong></div>
+<div class="stat">🃏 Flashcards<strong id="p-cards">0</strong></div>
+<div class="stat">⚡ Quiz terminés<strong id="p-quizzes">0</strong></div>
+<div class="stat">🌟 Moyenne<strong id="p-average">—</strong></div>
+</div>
+<div class="panel">
+<h3>Historique des quiz</h3>
+<div id="history-list" class="list"></div>
+</div>
+<div class="panel" style="margin-top:15px">
+<h3>Mes données</h3>
+<p class="muted">Exporte une copie de tes fiches, flashcards et résultats, ou efface les données enregistrées sur cet appareil.</p>
+<div class="row"><button class="btn primary" id="export-data">Exporter mes données (.json)</button><button class="btn danger" id="clear-data">Effacer mes données</button></div>
+</div>
 </section>
-<footer class="tiny" style="padding:28px 0 12px;text-align:center">StudyBoost · Ton espace d'apprentissage · Tes données restent dans ce navigateur. · <a href="./confidentialite.html">Politique de confidentialité</a></footer>
+
+<footer>StudyBoost · Apprendre à ton rythme · Les données sont enregistrées dans ce navigateur.</footer>
 </main>
 </div>
 <div class="toast" id="toast" role="status"></div>
+
 <script>
-const STORE='studyboost-v1';
-const blank={notes:[],cards:[],quizzes:[]};
-let data=loadData();
-function loadData(){try{return {...blank,...JSON.parse(localStorage.getItem(STORE)||'{}')}}catch(e){return {...blank}}}
-function save(){localStorage.setItem(STORE,JSON.stringify(data));renderAll()}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2300)}
-function go(page){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));if(page==='quiz'&&!quizStarted)startQuiz();if(page==='library')renderLibrary();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
-document.getElementById('save-note').addEventListener('click',()=>{const title=document.getElementById('note-title').value.trim();const body=document.getElementById('note-body').value.trim();if(!title||!body){toast('Ajoute un titre et un contenu pour ta fiche.');return}data.notes.unshift({id:Date.now(),title,subject:document.getElementById('note-subject').value,level:document.getElementById('note-level').value,body,date:new Date().toISOString()});document.getElementById('note-title').value='';document.getElementById('note-body').value='';save();toast('Fiche enregistrée ! 📚')});
-document.getElementById('note-search').addEventListener('input',renderNotes);
-function deleteNote(id){data.notes=data.notes.filter(n=>n.id!==id);save();toast('Fiche supprimée')}
-function renderNotes(){const q=(document.getElementById('note-search')?.value||'').toLowerCase();const list=data.notes.filter(n=>(n.title+' '+n.subject+' '+n.body).toLowerCase().includes(q));document.getElementById('notes-list').innerHTML=list.length?list.map(n=>`<div class="item"><div><strong>${esc(n.title)}</strong><p>${esc(n.subject)} · ${esc(n.body.slice(0,90))}${n.body.length>90?'…':''}</p></div><button class="btn btn-outline" onclick="deleteNote(${n.id})" aria-label="Supprimer ${esc(n.title)}">✕</button></div>`).join(''):'<div class="empty">Aucune fiche pour le moment.</div>'}
-document.getElementById('save-card').addEventListener('click',()=>{const q=document.getElementById('card-question').value.trim();const a=document.getElementById('card-answer').value.trim();if(!q||!a){toast('Ajoute une question et une réponse.');return}data.cards.push({id:Date.now(),q,a,subject:document.getElementById('card-subject').value});document.getElementById('card-question').value='';document.getElementById('card-answer').value='';cardIndex=data.cards.length-1;cardFlipped=false;save();toast('Flashcard ajoutée ! 🃏')});
-let cardIndex=0,cardFlipped=false;
-function flip(){if(!data.cards.length)return;cardFlipped=!cardFlipped;renderFlashcard()}
-function renderFlashcard(){const c=data.cards[cardIndex];document.getElementById('card-counter').textContent=data.cards.length+' carte'+(data.cards.length>1?'s':'');document.getElementById('flash-word').textContent=c?(cardFlipped?c.a:c.q):'Ajoute ta première carte';document.getElementById('flash-hint').textContent=c?(cardFlipped?'Réponse · clique pour revoir la question':`Question ${cardIndex+1} sur ${data.cards.length} · clique pour voir la réponse`):'La question apparaîtra ici';document.getElementById('cards-list').innerHTML=data.cards.length?data.cards.map((x,i)=>`<div class="item"><div><strong>${esc(x.q)}</strong><p>${esc(x.a.slice(0,90))}${x.a.length>90?'…':''}</p></div><button class="btn btn-outline" onclick="deleteCard(${x.id})">✕</button></div>`).join(''):'<div class="empty">Aucune flashcard pour le moment.</div>'}
-function deleteCard(id){data.cards=data.cards.filter(c=>c.id!==id);cardIndex=Math.max(0,Math.min(cardIndex,data.cards.length-1));save();toast('Carte supprimée')}
-document.getElementById('flashcard').addEventListener('click',flip);document.getElementById('flashcard').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});
-document.getElementById('card-flip').addEventListener('click',flip);document.getElementById('card-prev').addEventListener('click',()=>{if(data.cards.length){cardIndex=(cardIndex-1+data.cards.length)%data.cards.length;cardFlipped=false;renderFlashcard()}});document.getElementById('card-next').addEventListener('click',()=>{if(data.cards.length){cardIndex=(cardIndex+1)%data.cards.length;cardFlipped=false;renderFlashcard()}});
-const subjects=['Mathématiques','Français','Physique-chimie','SVT','Histoire-géographie','Anglais','Allemand','Espagnol','Philosophie','SES','Informatique','Sciences de l’ingénieur','Économie','Droit','Technologie','Arts','Musique'];
-['note-subject','card-subject'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=subjects.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('')});
-const questions=[
-{q:'Combien font 7 × 8 ?',o:['54','56','64','48'],a:1,e:'7 × 8 = 56.',subject:'Mathématiques',level:'Primaire'},
-{q:'Dans « Les enfants jouent », quel est le sujet ?',o:['jouent','Les enfants','Les','enfants jouent'],a:1,e:'Le sujet est le groupe nominal « Les enfants ».',subject:'Français',level:'Primaire'},
-{q:'Quel organe permet principalement de pomper le sang ?',o:['Le foie','Le cœur','Le poumon','Le rein'],a:1,e:'Le cœur propulse le sang dans les vaisseaux.',subject:'SVT',level:'Primaire'},
-{q:'Quelle planète est la plus proche du Soleil ?',o:['Vénus','Mars','Mercure','Terre'],a:2,e:'Mercure est la planète la plus proche du Soleil.',subject:'SVT',level:'Primaire'},
-{q:'Quelle est la capitale de l’Espagne ?',o:['Lisbonne','Madrid','Barcelone','Séville'],a:1,e:'Madrid est la capitale de l’Espagne.',subject:'Espagnol',level:'Primaire'},
-{q:'Quel est le pluriel de « child » en anglais ?',o:['childs','childes','children','childrens'],a:2,e:'Le pluriel irrégulier de child est children.',subject:'Anglais',level:'Primaire'},
-{q:'Combien de côtés possède un hexagone ?',o:['5','6','7','8'],a:1,e:'Un hexagone possède six côtés.',subject:'Mathématiques',level:'Collège'},
-{q:'Quelle est la valeur de 3² + 4² ?',o:['12','25','49','7'],a:1,e:'3² + 4² = 9 + 16 = 25.',subject:'Mathématiques',level:'Collège'},
-{q:'Quelle est l’unité SI de la force ?',o:['Joule','Watt','Newton','Pascal'],a:2,e:'La force se mesure en newtons (N).',subject:'Physique-chimie',level:'Collège'},
-{q:'Lors d’un changement d’état, dans des conditions données, la masse d’un système fermé se…',o:['double','conserve','divise par deux','transforme en énergie entièrement'],a:1,e:'La masse se conserve lors d’un changement d’état dans un système fermé.',subject:'Physique-chimie',level:'Collège'},
-{q:'Quel gaz les plantes absorbent-elles lors de la photosynthèse ?',o:['Dioxygène','Diazote','Dioxyde de carbone','Hydrogène'],a:2,e:'La photosynthèse utilise le dioxyde de carbone, l’eau et l’énergie lumineuse.',subject:'SVT',level:'Collège'},
-{q:'En quelle année débute traditionnellement la Révolution française ?',o:['1492','1661','1789','1914'],a:2,e:'L’année 1789 marque le début de la Révolution française.',subject:'Histoire-géographie',level:'Collège'},
-{q:'Quel mot est un adjectif dans « une maison ancienne » ?',o:['une','maison','ancienne','aucun'],a:2,e:'« Ancienne » qualifie le nom « maison » : c’est un adjectif.',subject:'Français',level:'Collège'},
-{q:'En anglais, complète : “She ___ to school every day.”',o:['go','goes','going','gone'],a:1,e:'Au présent simple, la troisième personne du singulier prend généralement -s : goes.',subject:'Anglais',level:'Collège'},
-{q:'Quel est le symbole chimique de l’oxygène ?',o:['Ox','O','Og','Oy'],a:1,e:'Le symbole chimique de l’oxygène est O.',subject:'Physique-chimie',level:'Collège'},
-{q:'Quelle est la dérivée de x² ?',o:['x','2x','2','x³'],a:1,e:'La dérivée de x² est 2x.',subject:'Mathématiques',level:'Lycée'},
-{q:'Quelle est la valeur de sin(π/2) ?',o:['0','1/2','1','−1'],a:2,e:'sin(π/2) = 1.',subject:'Mathématiques',level:'Lycée'},
-{q:'Une primitive de 2x est…',o:['x²','2x²','x','2'],a:0,e:'La dérivée de x² est 2x, donc x² est une primitive de 2x.',subject:'Mathématiques',level:'Lycée'},
-{q:'Quelle grandeur se mesure en watts ?',o:['La force','La puissance','L’énergie','La charge électrique'],a:1,e:'Le watt (W) est l’unité SI de puissance.',subject:'Physique-chimie',level:'Lycée'},
-{q:'Quel est le pH d’une solution neutre à 25 °C ?',o:['0','5','7','14'],a:2,e:'À 25 °C, une solution neutre a un pH égal à 7.',subject:'Physique-chimie',level:'Lycée'},
-{q:'Quel processus produit des gamètes chez l’être humain ?',o:['La mitose uniquement','La méiose','La photosynthèse','La fermentation'],a:1,e:'La méiose réduit de moitié le nombre de chromosomes pour former les gamètes.',subject:'SVT',level:'Lycée'},
-{q:'Dans une dissertation, une problématique sert principalement à…',o:['Répéter le sujet','Poser le problème à examiner','Remplacer la conclusion','Énumérer des citations'],a:1,e:'La problématique formule la tension ou la question directrice du raisonnement.',subject:'Français',level:'Lycée'},
-{q:'Dans « Cogito, ergo sum », quelle idée Descartes affirme-t-il ?',o:['Le monde est une illusion certaine','Penser prouve l’existence du sujet pensant','La vérité dépend uniquement des sens','La société précède toujours l’individu'],a:1,e:'Le doute peut atteindre beaucoup de croyances, mais l’acte de penser atteste l’existence du sujet qui pense.',subject:'Philosophie',level:'Lycée'},
-{q:'En SES, que désigne la socialisation ?',o:['La fixation des prix uniquement','Le processus d’apprentissage des normes et valeurs','La création de monnaie','La division cellulaire'],a:1,e:'La socialisation permet d’intérioriser des normes, des valeurs et des rôles sociaux.',subject:'SES',level:'Lycée'},
-{q:'En Python, quel opérateur teste l’égalité entre deux valeurs ?',o:['=','==','!=','=>'],a:1,e:'== compare deux valeurs ; = sert à affecter une valeur.',subject:'Informatique',level:'Lycée'},
-{q:'Quelle est la vitesse approximative de la lumière dans le vide ?',o:['300 km/s','3 000 km/s','300 000 km/s','3 000 000 km/s'],a:2,e:'La lumière se déplace à environ 300 000 km/s dans le vide.',subject:'Physique-chimie',level:'Lycée'},
-{q:'Pour une fonction dérivable, que représente f’(a) ?',o:['Toujours f(a)','La pente de la tangente au point d’abscisse a','L’aire totale sous la courbe','La limite de f à l’infini'],a:1,e:'La dérivée en a donne le coefficient directeur de la tangente au graphe en ce point.',subject:'Mathématiques',level:'Lycée'},
-{q:'Quel événement est associé à la chute du mur de Berlin ?',o:['1989','1945','1918','2001'],a:0,e:'Le mur de Berlin tombe en 1989, dans le contexte de la fin de la guerre froide.',subject:'Histoire-géographie',level:'Lycée'},
-{q:'En allemand, quel article défini accompagne généralement « Mädchen » ?',o:['der','die','das','den uniquement'],a:2,e:'Mädchen est grammaticalement neutre : das Mädchen.',subject:'Allemand',level:'Lycée'},
-{q:'Quelle est la fonction principale d’un algorithme ?',o:['Décorer une interface','Décrire une suite finie d’étapes pour résoudre un problème','Remplacer toute donnée','Créer nécessairement une image'],a:1,e:'Un algorithme décrit des étapes organisées pour effectuer une tâche ou résoudre un problème.',subject:'Informatique',level:'Lycée'},
-{q:'En mécanique, quelle relation définit l’énergie cinétique d’un corps de masse m et de vitesse v ?',o:['E = mv','Ec = 1/2 mv²','Ec = mg','Ec = m/v'],a:1,e:'L’énergie cinétique est Ec = ½mv², avec la masse en kg et la vitesse en m/s.',subject:'Physique-chimie',level:'Supérieur'},
-{q:'Pour une matrice carrée, que signifie être inversible ?',o:['Son déterminant est nul','Elle possède une inverse','Tous ses coefficients valent 1','Elle est nécessairement diagonale'],a:1,e:'Une matrice carrée est inversible si elle admet une matrice inverse ; cela équivaut à un déterminant non nul.',subject:'Mathématiques',level:'Supérieur'},
-{q:'En programmation, quelle est la complexité temporelle de la recherche dichotomique dans un tableau trié ?',o:['O(1) dans tous les cas','O(log n)','O(n²)','O(2ⁿ)'],a:1,e:'Chaque comparaison divise approximativement par deux la zone de recherche : la complexité est logarithmique.',subject:'Informatique',level:'Supérieur'},
-{q:'En électricité, la loi des nœuds découle de la conservation de…',o:['La charge électrique','La température','La masse volumique','La fréquence optique'],a:0,e:'La somme algébrique des courants en un nœud est nulle, conséquence de la conservation de la charge.',subject:'Sciences de l’ingénieur',level:'Supérieur'},
-{q:'En économie, le coût d’opportunité correspond…',o:['Au prix affiché seulement','À la valeur de la meilleure option à laquelle on renonce','À une taxe obligatoirement payée','Au bénéfice total de toutes les options'],a:1,e:'Le coût d’opportunité mesure la valeur de la meilleure alternative abandonnée.',subject:'Économie',level:'Supérieur'},
-{q:'En droit français, la Constitution se situe généralement…',o:['Au sommet de la hiérarchie des normes internes','Sous tout contrat privé','Au même niveau qu’un règlement municipal','En dessous de chaque circulaire'],a:0,e:'Dans l’ordre juridique interne, la Constitution est au sommet de la hiérarchie des normes, sous réserve des articulations juridiques applicables.',subject:'Droit',level:'Supérieur'},
-{q:'Dans un circuit électrique en série, quelle grandeur est identique à travers chaque dipôle ?',o:['La tension','L’intensité du courant','La résistance','La puissance'],a:1,e:'Dans un circuit en série, l’intensité du courant est la même dans tous les dipôles.',subject:'Sciences de l’ingénieur',level:'Supérieur'},
-{q:'Quelle affirmation décrit le mieux une hypothèse scientifique ?',o:['Une idée impossible à tester','Une proposition testable confrontée à des observations ou expériences','Une conclusion toujours définitive','Une opinion sans critères'],a:1,e:'Une hypothèse scientifique doit pouvoir être confrontée à des observations ou à des tests.',subject:'SVT',level:'Supérieur'},
-{q:'Dans une réaction d’oxydoréduction, une oxydation correspond à…',o:['Un gain d’électrons','Une perte d’électrons','Une disparition de la charge','Une absence de transfert électronique'],a:1,e:'L’oxydation est une perte d’électrons ; la réduction est un gain d’électrons.',subject:'Physique-chimie',level:'Supérieur'},
-{q:'En gestion de projet, que représente un jalon ?',o:['Une étape clé servant de repère','Une dépense toujours imprévue','Un type de code informatique','Un congé obligatoire'],a:0,e:'Un jalon marque un événement ou une étape importante dans le calendrier d’un projet.',subject:'Sciences de l’ingénieur',level:'Supérieur'},
-{q:'Quelle est la fonction d’une conclusion dans un raisonnement argumenté ?',o:['Introduire un sujet sans répondre','Répondre à la question et synthétiser le raisonnement','Ajouter seulement des définitions','Remplacer toutes les preuves'],a:1,e:'Une conclusion répond à la question posée et synthétise les résultats du raisonnement.',subject:'Français',level:'Supérieur'}
+"use strict";
+const STORE = "studyboost-v2";
+const LEVELS = ["Primaire","Collège","Lycée","Études supérieures"];
+const SUBJECTS = [
+"Mathématiques","Français","Physique-chimie","SVT","Histoire-géographie",
+"Anglais","Allemand","Espagnol","Philosophie","SES","Informatique",
+"Sciences de l’ingénieur","Économie","Droit","Technologie","Arts plastiques",
+"Musique","Éducation physique et sportive","Enseignement moral et civique",
+"Latin","Grec ancien","Géopolitique","Humanités, littérature et philosophie",
+"Sciences numériques et technologie","Management","Comptabilité",
+"Biologie","Chimie","Physique","Statistiques","Probabilités","Algorithmique",
+"Programmation","Électronique","Mécanique","Électricité","Thermodynamique",
+"Culture générale","Communication","Marketing","Gestion","Psychologie",
+"Sociologie","Géographie","Histoire","Littérature","Traduction","Phonétique",
+"Réseaux informatiques","Bases de données","Intelligence artificielle",
+"Architecture","Génie civil","Automatique","Robotique","Électronique numérique"
 ];
-// Banque enrichie StudyBoost : 100 questions minimum par matière et par niveau.
-// Chaque notion produit plusieurs formes de questions (définition, identification,
-// association et compréhension). Les réponses et explications sont générées localement.
-const studyBoostLevels=['Primaire','Collège','Lycée','Supérieur'];
-const studyBoostConcepts={
-'Mathématiques':[
-['Addition','L’opération qui réunit deux quantités pour obtenir une somme.'],['Soustraction','L’opération qui calcule une différence entre deux nombres.'],['Multiplication','L’opération qui additionne plusieurs fois une même quantité.'],['Division','L’opération qui partage une quantité en parts égales ou recherche un quotient.'],['Fraction','Un nombre qui représente une ou plusieurs parts d’un tout.'],['Périmètre','La longueur totale du contour d’une figure.'],['Aire','La mesure de la surface d’une figure plane.'],['Moyenne','La somme des valeurs divisée par leur nombre.'],['Pourcentage','Une proportion exprimée sur une base de cent.'],['Équation','Une égalité contenant une ou plusieurs inconnues.'],['Fonction','Une règle qui associe à chaque entrée autorisée une sortie.'],['Dérivée','Une mesure du taux de variation instantané d’une fonction.'],['Intégrale','Un outil qui peut représenter une accumulation ou une aire orientée.'],['Probabilité','Une mesure comprise entre 0 et 1 de la possibilité d’un événement.'],['Vecteur','Un objet mathématique caractérisé notamment par une direction, un sens et une norme.'],['Théorème de Pythagore','Dans un triangle rectangle, le carré de l’hypoténuse est la somme des carrés des deux autres côtés.'],['Nombre premier','Un entier naturel supérieur à 1 qui possède exactement deux diviseurs positifs.'],['Logarithme','L’opération réciproque de l’exponentiation pour une base donnée.'],['Suite numérique','Une liste ordonnée de nombres définis selon un rang.'],['Produit scalaire','Une opération sur deux vecteurs qui donne un nombre réel.']],
-'Français':[
-['Sujet','La fonction grammaticale qui indique de qui ou de quoi l’on parle dans la phrase.'],['Verbe','Un mot qui exprime notamment une action ou un état et se conjugue.'],['Adjectif qualificatif','Un mot qui précise une caractéristique d’un nom.'],['Adverbe','Un mot invariable qui modifie notamment un verbe, un adjectif ou un autre adverbe.'],['Complément d’objet direct','Un complément du verbe construit sans préposition.'],['Complément circonstanciel','Un complément qui précise par exemple le lieu, le temps ou la manière.'],['Proposition subordonnée','Une proposition qui dépend d’une autre proposition.'],['Métaphore','Une figure de style qui rapproche deux éléments sans outil de comparaison explicite.'],['Comparaison','Une figure de style qui rapproche deux éléments avec un outil comparatif.'],['Personnification','Une figure de style qui attribue des caractéristiques humaines à une chose ou une idée.'],['Hyperbole','Une exagération destinée à produire un effet.'],['Antithèse','Une figure qui rapproche des idées opposées.'],['Narrateur','La voix qui raconte l’histoire dans un récit.'],['Registre lyrique','Un registre qui exprime des sentiments personnels et des émotions.'],['Argument','Une raison avancée pour défendre une thèse.'],['Thèse','L’idée principale qu’un auteur cherche à défendre.'],['Champ lexical','Un ensemble de mots liés à un même thème.'],['Sonnet','Un poème traditionnellement composé de quatorze vers.'],['Focalisation interne','Un point de vue narratif limité à ce qu’un personnage perçoit ou sait.'],['Concession','Une stratégie argumentative qui reconnaît un élément opposé avant de défendre sa position.']],
-'Physique-chimie':[
-['Force','Une action mécanique pouvant modifier le mouvement ou déformer un objet.'],['Énergie cinétique','L’énergie associée au mouvement d’un objet.'],['Énergie potentielle de pesanteur','Une énergie liée à la position d’un objet dans un champ de pesanteur.'],['Puissance','L’énergie transférée ou convertie par unité de temps.'],['Tension électrique','La différence de potentiel électrique entre deux points.'],['Intensité électrique','Le débit de charges électriques traversant une section par unité de temps.'],['Résistance électrique','Une grandeur qui caractérise l’opposition d’un dipôle au passage du courant.'],['Loi d’Ohm','Pour un conducteur ohmique, la tension est égale au produit de la résistance par l’intensité.'],['Atome','Une entité constituée d’un noyau entouré d’électrons.'],['Ion','Un atome ou groupe d’atomes qui porte une charge électrique.'],['Molécule','Un assemblage électriquement neutre d’atomes liés entre eux.'],['Réaction chimique','Une transformation au cours de laquelle des espèces chimiques sont consommées et d’autres formées.'],['pH','Une grandeur qui caractérise l’acidité ou la basicité d’une solution aqueuse.'],['Mole','L’unité SI de quantité de matière.'],['Onde mécanique','Une perturbation qui se propage dans un milieu matériel sans transport global de matière.'],['Fréquence','Le nombre de répétitions d’un phénomène périodique par seconde.'],['Longueur d’onde','La distance parcourue par une onde pendant une période.'],['Réfraction','Le changement de direction d’une onde lorsqu’elle passe d’un milieu à un autre.'],['Conservation de la masse','Lors d’une réaction chimique en système fermé, la masse totale se conserve.'],['Catalyseur','Une espèce qui accélère une réaction sans être consommée globalement.']],
-'SVT':[
-['Cellule','L’unité structurale et fonctionnelle de base des êtres vivants.'],['Noyau','Dans une cellule eucaryote, le compartiment qui contient l’essentiel de l’ADN.'],['ADN','La molécule qui porte l’information génétique chez les êtres vivants.'],['Gène','Une séquence d’ADN participant notamment à la production d’un ARN fonctionnel.'],['Chromosome','Une structure constituée d’ADN associé à des protéines et portant des gènes.'],['Photosynthèse','Le processus par lequel certains organismes utilisent la lumière pour produire de la matière organique.'],['Respiration cellulaire','Un ensemble de réactions permettant de libérer de l’énergie à partir de molécules organiques.'],['Écosystème','L’ensemble formé par un milieu, les êtres vivants et leurs interactions.'],['Biodiversité','La diversité des êtres vivants, de leurs gènes et des écosystèmes.'],['Sélection naturelle','Un mécanisme qui favorise la transmission de caractères héréditaires influençant le succès reproducteur.'],['Mutation','Une modification de la séquence de l’ADN.'],['Mitose','Une division cellulaire produisant deux cellules filles généralement génétiquement identiques.'],['Méiose','Une division cellulaire qui participe à la formation de cellules haploïdes.'],['Enzyme','Une molécule, souvent une protéine, qui accélère une réaction biologique.'],['Anticorps','Une protéine du système immunitaire qui reconnaît spécifiquement un antigène.'],['Artère','Un vaisseau sanguin qui conduit le sang depuis le cœur.'],['Néphron','L’unité fonctionnelle du rein impliquée dans la filtration et la formation de l’urine.'],['Plaque tectonique','Une portion rigide de la lithosphère qui se déplace à la surface terrestre.'],['Effet de serre','Un phénomène par lequel certains gaz atmosphériques absorbent et réémettent le rayonnement infrarouge.'],['Chaîne alimentaire','Une représentation des relations alimentaires entre organismes.']],
-'Histoire-géographie':[
-['Révolution française','La période de bouleversements politiques et sociaux ouverte en 1789 en France.'],['Déclaration des droits de l’homme et du citoyen','Le texte adopté en France en 1789 qui affirme des droits et principes fondamentaux.'],['République','Un régime politique dans lequel le pouvoir n’est pas héréditaire comme dans une monarchie.'],['Industrialisation','Le développement de la production mécanisée et du système industriel.'],['Colonisation','La prise de contrôle d’un territoire par une puissance extérieure.'],['Guerre froide','La rivalité géopolitique entre les États-Unis et l’URSS après la Seconde Guerre mondiale.'],['Décolonisation','Le processus par lequel des territoires colonisés accèdent à l’indépendance.'],['Union européenne','Une union politique et économique regroupant des États européens membres.'],['Mondialisation','L’intensification des échanges et des interdépendances à l’échelle mondiale.'],['Métropolisation','La concentration des populations et des activités dans les grandes villes.'],['Urbanisation','L’augmentation de la part de la population vivant en ville et l’extension des espaces urbains.'],['Densité de population','Le nombre d’habitants rapporté à une unité de surface.'],['Développement durable','Un développement qui répond aux besoins présents sans compromettre ceux des générations futures.'],['Migration','Le déplacement de personnes impliquant un changement de lieu de résidence.'],['Régime totalitaire','Un régime qui cherche à contrôler largement la société et la vie politique.'],['Armistice du 11 novembre 1918','L’accord qui met fin aux combats de la Première Guerre mondiale sur le front occidental.'],['Organisation des Nations unies','Une organisation internationale fondée en 1945 pour favoriser la coopération et la paix.'],['Risque naturel','La possibilité qu’un phénomène naturel affecte des populations et des biens vulnérables.'],['Littoral','La zone de contact entre la terre et la mer.'],['Transition démographique','Le passage d’un régime de natalité et mortalité élevées à des niveaux généralement plus faibles.']],
-'Anglais':[
-['Present simple','Le temps anglais généralement utilisé pour les habitudes, les faits généraux et les états.'],['Present continuous','La forme be + verbe en -ing souvent utilisée pour une action en cours.'],['Past simple','Le temps couramment utilisé pour une action passée terminée.'],['Present perfect','La forme have/has + participe passé qui relie souvent une expérience passée au présent.'],['Future with will','Une forme du futur construite avec will suivi de la base verbale.'],['Comparative','Une structure qui sert à comparer deux personnes ou choses.'],['Superlative','Une structure qui exprime le degré maximal dans un groupe.'],['Modal verb','Un auxiliaire comme can, must ou should qui exprime notamment capacité, obligation ou conseil.'],['Passive voice','Une construction qui met l’accent sur le sujet qui subit l’action.'],['Reported speech','La manière de rapporter les paroles de quelqu’un sans les citer directement.'],['Conditional','Une structure qui exprime notamment une condition et son résultat.'],['Phrasal verb','Un verbe associé à une particule qui forme souvent un sens particulier.'],['False friend','Un mot ressemblant à un mot français mais ayant un sens différent.'],['Question tag','Une courte question ajoutée à la fin d’une phrase pour solliciter une confirmation.'],['Gerund','La forme en -ing utilisée notamment comme nom ou après certaines prépositions.'],['Infinitive','La forme de base du verbe, souvent précédée de to en anglais.'],['Countable noun','Un nom que l’on peut compter au singulier et au pluriel.'],['Uncountable noun','Un nom généralement non dénombrable directement et qui ne prend pas normalement de pluriel.'],['Linking word','Un mot ou une expression qui relie des idées dans un texte.'],['Third conditional','Une structure qui évoque une situation passée irréelle et sa conséquence imaginaire.']],
-'Allemand':[
-['Nominativ','Le cas qui marque généralement le sujet de la phrase.'],['Akkusativ','Le cas souvent utilisé pour le complément d’objet direct.'],['Dativ','Le cas utilisé notamment pour certains compléments indirects et après certaines prépositions.'],['Genitiv','Le cas qui exprime notamment l’appartenance dans certains usages.'],['Verbe en deuxième position','Dans une principale déclarative allemande, le verbe conjugué occupe généralement la deuxième position.'],['Verbe en fin de subordonnée','Dans de nombreuses subordonnées allemandes, le verbe conjugué se place à la fin.'],['Perfekt','Un temps composé très courant pour parler du passé à l’oral.'],['Präteritum','Un temps du passé particulièrement fréquent à l’écrit et avec certains verbes courants.'],['Modalverb','Un verbe comme können, müssen ou dürfen qui exprime une modalité.'],['Trennbares Verb','Un verbe à préfixe séparable dont le préfixe peut se placer en fin de principale.'],['Unbestimmter Artikel','L’article indéfini ein ou eine selon le genre et le cas.'],['Bestimmter Artikel','L’article défini der, die, das et leurs formes déclinées.'],['Adjektivdeklination','La variation de la terminaison de l’adjectif selon le genre, le nombre et le cas.'],['Konjunktiv II','Un mode utilisé notamment pour l’hypothèse, le souhait ou la politesse.'],['Nebensatz','Une proposition subordonnée, généralement introduite par une conjonction.'],['weil','Une conjonction qui signifie « parce que » et introduit une subordonnée.'],['obwohl','Une conjonction qui signifie « bien que » et introduit une subordonnée.'],['um … zu','Une construction qui exprime généralement le but avec un sujet commun aux deux propositions.'],['Komparativ','La forme comparative d’un adjectif ou d’un adverbe.'],['Superlativ','La forme qui exprime le degré le plus élevé.']],
-'Espagnol':[
-['Presente de indicativo','Le temps utilisé notamment pour les habitudes et les faits présents.'],['Pretérito indefinido','Un temps utilisé pour des événements passés considérés comme terminés.'],['Pretérito imperfecto','Un temps souvent utilisé pour les descriptions, habitudes et arrière-plans du passé.'],['Pretérito perfecto compuesto','Un temps composé avec haber et le participe passé, souvent lié à une période présente.'],['Futuro simple','Un temps qui exprime notamment des actions futures ou des suppositions.'],['Subjuntivo','Un mode utilisé notamment après certaines expressions de souhait, doute ou émotion.'],['Ser','Un verbe qui exprime souvent l’identité, l’origine ou des caractéristiques.'],['Estar','Un verbe souvent utilisé pour la localisation et certains états.'],['Por','Une préposition exprimant notamment la cause, le moyen ou le parcours selon le contexte.'],['Para','Une préposition exprimant notamment le but, la destination ou le destinataire.'],['Gustar','Un verbe dont la construction fait généralement de la chose appréciée le sujet grammatical.'],['Pronombre de complemento directo','Un pronom qui remplace le complément d’objet direct.'],['Imperativo','Le mode utilisé notamment pour donner un ordre ou une consigne.'],['Condicional','Un temps utilisé notamment pour exprimer une hypothèse ou la politesse.'],['Perífrasis ir a + infinitivo','Une construction courante pour exprimer un futur proche ou une intention.'],['Concordancia','L’accord en genre et en nombre entre les éléments concernés.'],['Adjetivo','Un mot qui qualifie ou précise un nom.'],['Adverbio','Un mot généralement invariable qui précise notamment un verbe ou un adjectif.'],['Conector lógico','Un mot ou une expression qui organise les relations entre les idées.'],['Falso amigo','Un mot ressemblant au français mais ayant un sens différent.']],
-'Philosophie':[
-['Thèse','Une proposition défendue par un auteur dans un raisonnement.'],['Argument','Une raison destinée à justifier une thèse.'],['Problématique','La formulation d’un problème philosophique qui fait apparaître une difficulté conceptuelle.'],['Doute méthodique','Une démarche qui suspend provisoirement l’assentiment pour chercher une certitude.'],['Cogito','La certitude de l’existence du sujet pensant exprimée par Descartes.'],['Dialectique','Une démarche qui examine les tensions ou oppositions entre des positions pour faire progresser la pensée.'],['Liberté','La capacité d’agir ou de choisir, notion dont les conditions et limites sont discutées.'],['Déterminisme','La thèse selon laquelle les événements s’expliquent par des causes et des lois.'],['Conscience','La capacité de se rapporter à soi-même et/ou d’avoir une expérience du monde.'],['Inconscient','En psychanalyse, l’ensemble des processus psychiques qui ne sont pas directement conscients.'],['Justice','La notion qui porte sur ce qui est dû à chacun et sur les règles équitables.'],['État de nature','Une notion théorique décrivant l’humanité hors d’une société politique instituée.'],['Contrat social','Une théorie expliquant la légitimité politique par un accord réel ou hypothétique entre individus.'],['Bonheur','Un état durable d’accomplissement ou de satisfaction, distinct du simple plaisir ponctuel.'],['Devoir','Une obligation morale ou pratique qui s’impose à l’action.'],['Vérité','La qualité d’un énoncé conforme à ce qui est.'],['Opinion','Un jugement tenu pour vrai sans justification nécessairement suffisante.'],['Raison','La faculté de penser, d’argumenter et d’examiner des raisons.'],['Aliénation','Une situation où l’individu devient étranger à son activité, à lui-même ou à ses conditions d’existence.'],['Utilitarisme','Une théorie morale qui évalue les actions selon leurs conséquences sur le bien-être.']],
-'SES':[
-['Socialisation','Le processus d’apprentissage et d’intériorisation des normes et valeurs sociales.'],['Norme sociale','Une règle de conduite attendue dans un groupe ou une société.'],['Valeur','Un idéal ou principe partagé qui oriente les jugements et les comportements.'],['Groupe social','Un ensemble de personnes liées par des interactions ou un sentiment d’appartenance.'],['Mobilité sociale','Le changement de position sociale d’un individu ou d’un groupe.'],['Stratification sociale','La hiérarchisation de la société en groupes ou catégories inégalement dotés.'],['Capital culturel','Les ressources culturelles, dispositions et titres scolaires valorisés socialement.'],['Marché','Un mécanisme ou espace où se rencontrent offre et demande.'],['Offre','La quantité de biens ou services que les producteurs souhaitent vendre à différents prix.'],['Demande','La quantité de biens ou services que les acheteurs souhaitent acquérir à différents prix.'],['Inflation','Une hausse générale et durable du niveau des prix.'],['Chômage','La situation d’une personne sans emploi, disponible pour travailler et en recherche d’emploi selon la définition statistique.'],['PIB','Un indicateur de la valeur des biens et services finaux produits sur un territoire pendant une période.'],['Externalité','Un effet d’une activité sur des tiers qui n’est pas entièrement pris en compte par le prix.'],['Bien public','Un bien non rival et difficilement excluable dans sa définition économique standard.'],['Redistribution','Les mécanismes qui modifient la répartition des revenus, notamment par prélèvements et prestations.'],['Déficit public','Lorsque les dépenses publiques dépassent les recettes publiques sur une période.'],['Productivité','Le rapport entre une production et les facteurs utilisés pour l’obtenir.'],['Croissance économique','L’augmentation durable de la production de biens et services d’une économie.'],['Division du travail','La répartition d’un processus de production en tâches spécialisées.']],
-'Informatique':[
-['Variable','Un nom associé à une valeur susceptible de changer pendant l’exécution.'],['Boucle','Une structure qui répète des instructions selon une condition ou un nombre d’itérations.'],['Condition','Une expression logique qui permet de choisir entre plusieurs chemins d’exécution.'],['Fonction','Un bloc de code réutilisable pouvant recevoir des paramètres et renvoyer un résultat.'],['Tableau','Une structure qui regroupe plusieurs valeurs accessibles par leur position ou indice.'],['Algorithme','Une suite finie et organisée d’instructions destinée à résoudre un problème.'],['Complexité algorithmique','Une estimation des ressources nécessaires à un algorithme en fonction de la taille de l’entrée.'],['Récursivité','Une technique dans laquelle une fonction ou définition fait appel à elle-même.'],['Pile','Une structure de données suivant le principe dernier entré, premier sorti.'],['File','Une structure de données suivant le principe premier entré, premier sorti.'],['Base de données relationnelle','Un ensemble de données organisées en tables reliées entre elles.'],['Clé primaire','Un attribut ou ensemble d’attributs identifiant de façon unique chaque ligne d’une table.'],['Protocole HTTP','Un protocole utilisé pour les échanges de ressources sur le Web.'],['Adresse IP','Une adresse logique permettant d’identifier une interface réseau dans un réseau IP.'],['Chiffrement','Une transformation qui rend un message illisible sans la clé appropriée.'],['Hachage','Une fonction qui transforme une entrée en une empreinte de taille généralement fixe.'],['Git','Un système de gestion de versions distribué.'],['API','Une interface qui définit comment des logiciels peuvent communiquer.'],['HTML','Un langage de balisage servant à structurer le contenu d’une page Web.'],['CSS','Un langage qui décrit la présentation visuelle de documents, notamment HTML.']],
-'Sciences de l’ingénieur':[
-['Cahier des charges','Un document qui formalise le besoin, les fonctions attendues et les contraintes d’un système.'],['Fonction d’usage','Le service principal rendu par un produit à son utilisateur.'],['Chaîne d’énergie','La partie d’un système qui alimente, distribue, convertit et transmet l’énergie.'],['Chaîne d’information','La partie qui acquiert, traite et communique les informations d’un système.'],['Capteur','Un composant qui transforme une grandeur physique en signal exploitable.'],['Actionneur','Un composant qui transforme une énergie en action physique.'],['Asservissement','Un système de commande qui compare une sortie à une consigne et corrige l’écart.'],['Boucle fermée','Une commande utilisant une mesure de la sortie pour agir sur le système.'],['Modélisation','La représentation simplifiée d’un système pour l’analyser ou prévoir son comportement.'],['Simulation','L’exécution d’un modèle pour étudier le comportement d’un système.'],['Résistance des matériaux','L’étude du comportement des solides soumis à des efforts.'],['Moment d’une force','Une grandeur liée à la capacité d’une force à faire tourner un système autour d’un point ou axe.'],['Rendement','Le rapport entre l’énergie ou puissance utile et l’énergie ou puissance reçue.'],['Contrainte mécanique','Une grandeur qui décrit les efforts internes rapportés à une surface.'],['Tolérance','L’intervalle admissible autour d’une dimension ou valeur nominale.'],['Transmission de puissance','Le transfert d’énergie mécanique entre éléments d’un mécanisme.'],['Prototypage','La réalisation d’une version préliminaire d’un produit pour le tester.'],['Éco-conception','La prise en compte des impacts environnementaux tout au long du cycle de vie.'],['Maintenance préventive','Une intervention planifiée pour réduire la probabilité d’une panne.'],['Diagramme de blocs','Une représentation d’un système sous forme de fonctions ou composants reliés.']],
-'Économie':[
-['Coût d’opportunité','La valeur de la meilleure option à laquelle on renonce en faisant un choix.'],['Coût fixe','Un coût qui ne varie pas avec le volume produit à court terme dans le modèle étudié.'],['Coût variable','Un coût qui varie avec le niveau de production.'],['Économie d’échelle','La baisse du coût moyen lorsque la production augmente dans certaines conditions.'],['Monopole','Une situation de marché avec un seul offreur.'],['Oligopole','Une structure de marché dominée par un petit nombre d’offreurs.'],['Concurrence parfaite','Un modèle de marché fondé sur des hypothèses strictes, notamment de nombreux agents et une information parfaite.'],['Taux d’intérêt','Le prix relatif de l’emprunt ou la rémunération du prêt exprimé en taux.'],['Politique monétaire','L’action d’une banque centrale sur les conditions monétaires et financières.'],['Politique budgétaire','L’action des pouvoirs publics via les dépenses et les recettes.'],['Balance commerciale','La différence entre la valeur des exportations et celle des importations de biens.'],['Taux de change','Le prix d’une monnaie exprimé dans une autre monnaie.'],['Avantage comparatif','La capacité à produire un bien avec un coût d’opportunité plus faible qu’un autre producteur.'],['Externalité négative','Un effet défavorable d’une activité sur des tiers non entièrement compensé.'],['Demande agrégée','La demande totale de biens et services dans une économie sur une période.'],['Offre agrégée','La quantité totale de biens et services que les producteurs souhaitent offrir à différents niveaux de prix.'],['Revenu disponible','Le revenu dont un ménage dispose après prélèvements directs et ajout des prestations monétaires.'],['Épargne','La part du revenu qui n’est pas consommée pendant une période.'],['Investissement','Une dépense qui augmente ou renouvelle le capital productif.'],['Dette publique','L’ensemble des engagements financiers des administrations publiques selon la définition retenue.']],
-'Droit':[
-['Constitution','La norme fondamentale qui organise les pouvoirs publics et garantit des droits.'],['Loi','Une règle adoptée par le Parlement selon la procédure législative.'],['Règlement','Une norme générale prise par une autorité exécutive ou administrative compétente.'],['Jurisprudence','L’ensemble des décisions de justice et les orientations qui s’en dégagent.'],['Personne physique','Un être humain titulaire de droits et d’obligations.'],['Personne morale','Une entité reconnue par le droit comme titulaire de droits et d’obligations.'],['Contrat','Un accord de volontés destiné à produire des effets de droit.'],['Responsabilité civile','L’obligation de réparer un dommage causé à autrui lorsque les conditions juridiques sont réunies.'],['Présomption d’innocence','Le principe selon lequel une personne est considérée innocente tant que sa culpabilité n’a pas été légalement établie.'],['Séparation des pouvoirs','Un principe d’organisation visant à distinguer les fonctions législative, exécutive et juridictionnelle.'],['Hiérarchie des normes','L’organisation des normes juridiques selon leur autorité et leurs rapports de conformité.'],['Juridiction','Un organe habilité à trancher un litige ou juger une affaire.'],['Appel','Une voie de recours qui permet en principe de faire réexaminer une affaire par une juridiction supérieure.'],['Droit pénal','La branche du droit qui définit les infractions et les peines.'],['Droit civil','La branche du droit qui régit notamment les relations privées entre personnes.'],['Personnalité juridique','L’aptitude à être titulaire de droits et d’obligations.'],['Nullité','La sanction qui prive un acte juridique de ses effets lorsqu’une condition de validité fait défaut.'],['Préjudice','Un dommage pouvant, selon les conditions légales, ouvrir droit à réparation.'],['Bonne foi','Une exigence de comportement loyal dans certaines relations juridiques.'],['Prescription','L’effet juridique lié à l’écoulement du temps, qui peut notamment éteindre une action ou permettre l’acquisition d’un droit.']],
-'Technologie':[
-['Algorithme','Une suite d’étapes précises permettant de résoudre un problème.'],['Prototype','Un modèle préliminaire destiné à tester une idée ou une solution.'],['Matériau composite','Un matériau constitué d’au moins deux constituants distincts combinés pour obtenir des propriétés particulières.'],['Conducteur électrique','Un matériau dans lequel les charges électriques peuvent se déplacer facilement.'],['Isolant thermique','Un matériau qui limite les transferts de chaleur.'],['Énergie renouvelable','Une énergie provenant de sources qui se reconstituent naturellement à l’échelle considérée.'],['Recyclage','La transformation de déchets en matières ou produits réutilisables.'],['Cycle de vie','Les étapes d’un produit depuis l’extraction des matières premières jusqu’à sa fin de vie.'],['Objet technique','Un objet conçu ou modifié par l’être humain pour répondre à un besoin.'],['Fonction technique','Une fonction qui contribue à assurer une fonction d’usage d’un objet.'],['Maquette numérique','Une représentation numérique d’un objet ou système technique.'],['Impression 3D','Une fabrication additive qui construit un objet couche après couche.'],['Réseau informatique','Un ensemble d’équipements reliés pour échanger des données.'],['Capteur','Un dispositif qui détecte une grandeur physique et fournit un signal.'],['Actionneur','Un dispositif qui produit une action à partir d’une énergie de commande.'],['Énergie électrique','Une forme d’énergie associée au déplacement ou à la position de charges électriques.'],['Sécurité informatique','Les mesures qui protègent les systèmes et données contre les risques numériques.'],['Donnée personnelle','Une information se rapportant à une personne physique identifiée ou identifiable.'],['Ergonomie','L’adaptation d’un produit, d’un outil ou d’un environnement aux utilisateurs.'],['Développement durable','Une démarche qui concilie enjeux environnementaux, sociaux et économiques à long terme.']],
-'Arts':[
-['Perspective linéaire','Une technique de représentation qui crée l’illusion de profondeur par des lignes convergeant vers un ou plusieurs points de fuite.'],['Clair-obscur','Une technique qui oppose les zones claires et sombres pour modeler les volumes.'],['Composition','L’organisation des éléments visuels dans une œuvre.'],['Palette','L’ensemble des couleurs utilisées dans une œuvre.'],['Fresque','Une peinture réalisée sur un enduit mural, traditionnellement frais.'],['Collage','Une technique qui assemble des éléments rapportés sur un support.'],['Abstraction','Une démarche artistique qui ne cherche pas nécessairement à représenter fidèlement le réel visible.'],['Figuration','Une représentation reconnaissable de personnes, objets ou lieux.'],['Contraste','Une différence marquée entre des éléments visuels, par exemple de couleur ou de valeur.'],['Texture','L’aspect visuel ou tactile d’une surface.'],['Installation','Une œuvre qui organise des éléments dans un espace donné.'],['Performance','Une pratique artistique fondée sur une action réalisée devant ou pour un public.'],['Cadrage','Le choix des limites de l’image et de ce qui y apparaît.'],['Point de fuite','Le point où semblent converger les lignes parallèles dans une perspective linéaire.'],['Nuance','Une variation subtile d’une couleur ou d’une valeur.'],['Volume','La dimension tridimensionnelle d’un objet ou l’illusion de cette dimension.'],['Sculpture','Un art qui crée des formes en volume par modelage, taille, assemblage ou d’autres procédés.'],['Pop art','Un mouvement artistique qui s’inspire notamment de la culture populaire et des images de masse.'],['Impressionnisme','Un mouvement qui s’intéresse notamment aux effets de lumière et aux impressions visuelles.'],['Symbolisme','Une démarche qui utilise des images ou motifs pour évoquer des idées au-delà du sens littéral.']],
-'Musique':[
-['Tempo','La vitesse d’exécution d’une musique.'],['Rythme','L’organisation des durées et des accents dans le temps musical.'],['Mélodie','Une succession organisée de sons perçue comme une ligne musicale.'],['Harmonie','L’étude ou l’organisation des sons simultanés et des accords.'],['Timbre','La qualité sonore qui permet de distinguer des sources jouant une même hauteur.'],['Hauteur','La caractéristique perceptive liée notamment à la fréquence d’un son.'],['Nuance','Le degré d’intensité sonore, par exemple piano ou forte.'],['Mesure','Une division régulière du temps musical en unités accentuées.'],['Intervalle','La distance de hauteur entre deux notes.'],['Accord','Un ensemble d’au moins trois sons différents dans l’usage tonal courant.'],['Tonalité','L’organisation des hauteurs autour d’une tonique dans un système tonal.'],['Syncope','Un accent placé sur un temps faible ou une partie faible du temps.'],['Ostinato','Un motif rythmique ou mélodique répété de façon persistante.'],['Canon','Une forme où plusieurs voix reprennent successivement une même mélodie.'],['Contrepoint','Une technique qui combine plusieurs lignes mélodiques indépendantes.'],['Orchestration','La répartition des parties musicales entre les instruments ou les voix.'],['Dynamique','Les variations d’intensité dans l’interprétation musicale.'],['Arpège','Les notes d’un accord jouées successivement plutôt que simultanément.'],['Forme ABA','Une structure musicale qui présente une première partie, une partie contrastante, puis le retour de la première.'],['Fréquence sonore','Le nombre de vibrations par seconde, mesuré en hertz, lié à la hauteur perçue.']]
-};
-function sbShuffle(array){return [...array].sort(()=>Math.random()-.5)}
-function sbBuildQuestions(){
-  const generated=[];
-  const modes=[
-    (term,def)=>({q:`Quelle notion correspond à cette définition : « ${def} » ?`,answer:term,explain:`La notion attendue est « ${term} ». ${def}`}),
-    (term,def)=>({q:`Que désigne précisément « ${term} » ?`,answer:def,explain:`« ${term} » : ${def}`}),
-    (term,def)=>({q:`Dans le vocabulaire de cette matière, quelle réponse complète correctement : « ${term} désigne… » ?`,answer:def,explain:`« ${term} » désigne : ${def}`}),
-    (term,def)=>({q:`Associe la définition suivante au bon terme : ${def}`,answer:term,explain:`Cette définition correspond à « ${term} ».`}),
-    (term,def)=>({q:`Choisis la description correcte de la notion « ${term} ».`,answer:def,explain:`La description correcte est : ${def}`})
-  ];
-  Object.entries(studyBoostConcepts).forEach(([subject,concepts])=>{
-    studyBoostLevels.forEach((level,levelIndex)=>{
-      const levelIntro=[
-        'Pour réviser les notions essentielles',
-        'Pour vérifier les connaissances du programme',
-        'Pour approfondir les notions du programme',
-        'Pour consolider les bases disciplinaires'
-      ][levelIndex];
-      const items=[];
-      for(let i=0;i<100;i++){
-        const conceptIndex=Math.floor(i/5)%concepts.length;
-        const modeIndex=i%5;
-        const [term,definition]=concepts[conceptIndex];
-        const item=modes[modeIndex](term,definition);
-        const correct=item.answer;
-        const pool=concepts.map(c=>modeIndex===1||modeIndex===2||modeIndex===4?c[1]:c[0]).filter(v=>v!==correct);
-        const wrong=sbShuffle([...new Set(pool)]).slice(0,3);
-        while(wrong.length<3)wrong.push('Aucune de ces propositions');
-        const options=sbShuffle([correct,...wrong]);
-        const answerIndex=options.indexOf(correct);
-        generated.push({q:`${levelIntro} (${level.toLowerCase()}) — ${item.q}`,o:options,a:answerIndex,e:item.explain,subject,level,generated:true});
-      }
-    });
-  });
-  return generated;
+const $ = id => document.getElementById(id);
+const blank = {notes:[],cards:[],quizzes:[]};
+function loadData(){
+try{
+const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
+return {notes:Array.isArray(saved.notes)?saved.notes:[],cards:Array.isArray(saved.cards)?saved.cards:[],quizzes:Array.isArray(saved.quizzes)?saved.quizzes:[]};
+}catch(e){return {...blank};}
 }
-questions.push(...sbBuildQuestions());
-const revisionSheets=[
-{title:'Les quatre opérations',subject:'Mathématiques',level:'Primaire',body:'Addition : réunir des quantités. Soustraction : calculer un écart ou retirer. Multiplication : addition répétée ou groupes égaux. Division : partager en parts égales ou chercher combien de fois une quantité est contenue dans une autre. Vérifie toujours l’ordre de grandeur du résultat.'},
-{title:'Nature des mots',subject:'Français',level:'Primaire',body:'Le nom désigne une personne, un lieu, un objet ou une idée. Le déterminant accompagne le nom. L’adjectif qualifie le nom. Le verbe exprime une action ou un état. Le pronom remplace un nom ou un groupe nominal.'},
-{title:'Fractions : l’essentiel',subject:'Mathématiques',level:'Collège',body:'Une fraction a/b représente a divisé par b, avec b différent de 0. Pour additionner des fractions, utilise un dénominateur commun. Pour multiplier, multiplie les numérateurs entre eux et les dénominateurs entre eux. Pour diviser par une fraction non nulle, multiplie par son inverse.'},
-{title:'Les états de la matière',subject:'Physique-chimie',level:'Collège',body:'Les trois états courants sont solide, liquide et gaz. Fusion : solide vers liquide. Solidification : liquide vers solide. Vaporisation : liquide vers gaz. Liquéfaction : gaz vers liquide. Lors d’un changement d’état, la masse se conserve dans un système fermé.'},
-{title:'La cellule',subject:'SVT',level:'Collège',body:'La cellule est l’unité de base des êtres vivants. La membrane délimite la cellule. Le cytoplasme contient différents éléments cellulaires. Les cellules eucaryotes possèdent un noyau contenant l’essentiel de l’ADN. Les cellules végétales possèdent notamment une paroi et, souvent, des chloroplastes.'},
-{title:'Présent simple anglais',subject:'Anglais',level:'Collège',body:'Le présent simple sert notamment aux habitudes et vérités générales. À la troisième personne du singulier, on ajoute généralement -s : I play, she plays. À la forme négative : do not/don’t, does not/doesn’t. Après does, le verbe revient à sa base : she doesn’t play.'},
-{title:'Proportionnalité',subject:'Mathématiques',level:'Collège',body:'Deux grandeurs sont proportionnelles si l’on passe de l’une à l’autre en multipliant toujours par le même coefficient. Dans un tableau, le coefficient permet de calculer les valeurs manquantes. La règle de trois peut être utilisée en gardant les unités cohérentes.'},
-{title:'Révolution française : repères',subject:'Histoire-géographie',level:'Collège',body:'1789 : États généraux, prise de la Bastille le 14 juillet et Déclaration des droits de l’homme et du citoyen. La Révolution transforme l’organisation politique et sociale. Pour réviser, distingue les événements, leurs causes et leurs conséquences.'},
-{title:'Dérivation : formules de base',subject:'Mathématiques',level:'Lycée',body:'(c)’ = 0 ; (x)’ = 1 ; (xⁿ)’ = n xⁿ⁻¹ pour les puissances usuelles où la formule s’applique ; (u+v)’ = u’+v’ ; (uv)’ = u’v+uv’. La dérivée permet d’étudier les variations et la tangente. Vérifie le domaine de définition.'},
-{title:'Énergie mécanique',subject:'Physique-chimie',level:'Lycée',body:'Énergie cinétique : Ec = 1/2 mv². Énergie potentielle de pesanteur près de la surface terrestre : Epp = mgh selon le niveau de référence choisi. L’énergie mécanique est Em = Ec + Epp. En l’absence de forces dissipatives, elle se conserve.'},
-{title:'ADN, gènes et chromosomes',subject:'SVT',level:'Lycée',body:'L’ADN porte une information génétique. Un gène est une portion d’ADN impliquée dans un produit fonctionnel. Les chromosomes sont constitués d’ADN associé à des protéines. Les versions d’un même gène sont des allèles. Le génotype et l’environnement participent aux caractères observés.'},
-{title:'Méthode de dissertation',subject:'Philosophie',level:'Lycée',body:'Analyse les termes du sujet et leurs présupposés. Formule une problématique qui fait apparaître une difficulté. Construis un plan progressif où chaque partie défend une thèse argumentée. Définis les concepts, justifie les exemples et réponds explicitement au sujet en conclusion.'},
-{title:'Comprendre la socialisation',subject:'SES',level:'Lycée',body:'La socialisation est le processus d’apprentissage et d’intériorisation des normes, valeurs et rôles sociaux. Elle commence dans l’enfance mais continue à l’âge adulte. La famille, l’école, les pairs et les médias peuvent intervenir. Les expériences varient selon les milieux et les trajectoires.'},
-{title:'Fonctions logarithme et exponentielle',subject:'Mathématiques',level:'Lycée',body:'La fonction exponentielle vérifie exp(a+b)=exp(a)exp(b) et est strictement positive. Le logarithme népérien est défini pour x>0 et ln(ab)=ln(a)+ln(b) pour a,b>0. ln(exp(x))=x et exp(ln(x))=x pour x>0. Attention aux domaines de définition.'},
-{title:'Programmation : variables et conditions',subject:'Informatique',level:'Lycée',body:'Une variable associe un nom à une valeur. En Python, = affecte une valeur et == compare deux valeurs. if/elif/else choisit un bloc selon une condition. Les boucles for et while répètent des instructions. Indente correctement les blocs et teste les cas limites.'},
-{title:'Complexité algorithmique',subject:'Informatique',level:'Supérieur',body:'La complexité décrit l’évolution des ressources selon la taille n de l’entrée. O(1) est constant, O(log n) logarithmique, O(n) linéaire, O(n log n) quasi linéarithmique et O(n²) quadratique. Il faut préciser le cas étudié et distinguer temps et mémoire.'},
-{title:'Produit scalaire',subject:'Mathématiques',level:'Supérieur',body:'Pour des vecteurs u et v, u·v = ||u|| ||v|| cos(θ). En coordonnées orthonormées, u·v = x₁x₂ + y₁y₂ (et + z₁z₂ en 3D). Si u·v=0, les vecteurs non nuls sont orthogonaux. Vérifie le repère et les unités.'},
-{title:'Loi des nœuds et loi des mailles',subject:'Sciences de l’ingénieur',level:'Supérieur',body:'Loi des nœuds : la somme algébrique des courants en un nœud est nulle. Loi des mailles : la somme algébrique des tensions le long d’une maille fermée est nulle. Choisis des orientations cohérentes et conserve les signes dans les équations.'},
-{title:'Coût d’opportunité',subject:'Économie',level:'Supérieur',body:'Le coût d’opportunité est la valeur de la meilleure alternative à laquelle on renonce en faisant un choix. Il permet de comparer les options, même lorsque certaines ressources ne donnent pas lieu à une dépense monétaire directe. Distingue coût comptable et coût économique.'},
-{title:'Hiérarchie des normes : repère',subject:'Droit',level:'Supérieur',body:'La hiérarchie des normes organise la place relative des règles juridiques. En France, la Constitution occupe une place supérieure dans l’ordre interne ; viennent ensuite notamment les engagements internationaux et le droit de l’Union selon leurs règles d’articulation, puis les lois et règlements. Les cas concrets exigent une analyse précise.'}
+let data = loadData();
+function save(){try{localStorage.setItem(STORE,JSON.stringify(data));}catch(e){toast("Sauvegarde impossible dans ce navigateur.");}renderAll();}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2400);}
+function optionsFor(arr,includeAll=false){return (includeAll?["Toutes les matières"]:arr).map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");}
+function fillSelect(id,arr,includeAll=false){$(id).innerHTML=optionsFor(arr,includeAll);}
+function fillLevels(id){$(id).innerHTML=optionsFor(LEVELS);}
+function go(page){
+document.querySelectorAll("nav [data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));
+if(page==="library")renderLibrary();
+if(page==="quiz"&&!quizStarted)startQuiz();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+
+fillSelect("note-subject",SUBJECTS);
+fillSelect("card-subject",SUBJECTS);
+fillSelect("quiz-subject",SUBJECTS,true);
+fillLevels("note-level");
+fillLevels("quiz-level");
+fillSelect("library-subject",SUBJECTS,true);
+
+/* Banque de questions de départ : tu peux l'agrandir au fil du temps. */
+const questions = [
+{subject:"Mathématiques",level:"Primaire",q:"Combien font 7 × 8 ?",o:["54","56","64","48"],a:1,e:"7 × 8 = 56."},
+{subject:"Mathématiques",level:"Primaire",q:"Combien font 125 + 75 ?",o:["175","190","200","210"],a:2,e:"125 + 75 = 200."},
+{subject:"Français",level:"Primaire",q:"Dans « Les enfants jouent », quel est le sujet ?",o:["jouent","Les enfants","Les","enfants jouent"],a:1,e:"Le sujet est « Les enfants »."},
+{subject:"SVT",level:"Primaire",q:"Quel organe pompe le sang dans le corps ?",o:["Le foie","Le cœur","Le poumon","Le rein"],a:1,e:"Le cœur propulse le sang dans les vaisseaux."},
+{subject:"SVT",level:"Primaire",q:"Quelle planète est la plus proche du Soleil ?",o:["Vénus","Mars","Mercure","Terre"],a:2,e:"Mercure est la planète la plus proche du Soleil."},
+{subject:"Espagnol",level:"Primaire",q:"Quelle est la traduction de « hola » ?",o:["Au revoir","Bonjour / salut","Merci","S'il te plaît"],a:1,e:"« Hola » signifie bonjour ou salut."},
+{subject:"Anglais",level:"Primaire",q:"Quel est le pluriel de « child » ?",o:["childs","childes","children","childrens"],a:2,e:"Le pluriel irrégulier de child est children."},
+{subject:"Mathématiques",level:"Collège",q:"Combien de côtés possède un hexagone ?",o:["5","6","7","8"],a:1,e:"Un hexagone possède six côtés."},
+{subject:"Mathématiques",level:"Collège",q:"Quelle est la valeur de 3² + 4² ?",o:["12","25","49","7"],a:1,e:"3² + 4² = 9 + 16 = 25."},
+{subject:"Physique-chimie",level:"Collège",q:"Quelle est l'unité SI de la force ?",o:["Joule","Watt","Newton","Pascal"],a:2,e:"La force se mesure en newtons (N)."},
+{subject:"Physique-chimie",level:"Collège",q:"Quel est le symbole chimique de l'oxygène ?",o:["Ox","O","Og","Oy"],a:1,e:"Le symbole chimique de l'oxygène est O."},
+{subject:"SVT",level:"Collège",q:"Quel gaz les plantes absorbent-elles lors de la photosynthèse ?",o:["Dioxygène","Diazote","Dioxyde de carbone","Hydrogène"],a:2,e:"La photosynthèse utilise le dioxyde de carbone, l'eau et la lumière."},
+{subject:"Histoire-géographie",level:"Collège",q:"En quelle année débute traditionnellement la Révolution française ?",o:["1492","1661","1789","1914"],a:2,e:"L'année 1789 marque le début de la Révolution française."},
+{subject:"Français",level:"Collège",q:"Quel mot est un adjectif dans « une maison ancienne » ?",o:["une","maison","ancienne","aucun"],a:2,e:"« Ancienne » qualifie le nom « maison »."},
+{subject:"Anglais",level:"Collège",q:"Complète : “She ___ to school every day.”",o:["go","goes","going","gone"],a:1,e:"Au présent simple, on écrit « she goes »."},
+{subject:"Mathématiques",level:"Lycée",q:"Quelle est la dérivée de x² ?",o:["x","2x","2","x³"],a:1,e:"La dérivée de x² est 2x."},
+{subject:"Mathématiques",level:"Lycée",q:"Quelle est la valeur de sin(π/2) ?",o:["0","1/2","1","−1"],a:2,e:"sin(π/2) = 1."},
+{subject:"Mathématiques",level:"Lycée",q:"Une primitive de 2x est…",o:["x²","2x²","x","2"],a:0,e:"La dérivée de x² étant 2x, x² est une primitive."},
+{subject:"Physique-chimie",level:"Lycée",q:"Quelle grandeur se mesure en watts ?",o:["La force","La puissance","L'énergie","La charge électrique"],a:1,e:"Le watt (W) est l'unité de puissance."},
+{subject:"Physique-chimie",level:"Lycée",q:"Quel est le pH d'une solution neutre à 25 °C ?",o:["0","5","7","14"],a:2,e:"À 25 °C, le pH d'une solution neutre est 7."},
+{subject:"Philosophie",level:"Lycée",q:"Quel philosophe est associé à la formule « Je pense, donc je suis » ?",o:["Platon","Descartes","Marx","Rousseau"],a:1,e:"Cette formule est associée à René Descartes."},
+{subject:"Histoire-géographie",level:"Lycée",q:"En quelle année le mur de Berlin est-il tombé ?",o:["1945","1961","1989","1999"],a:2,e:"Le mur de Berlin est tombé en 1989."},
+{subject:"SES",level:"Lycée",q:"Que désigne le PIB ?",o:["Le prix intérieur brut","Le produit intérieur brut","Le patrimoine international bancaire","Le profit industriel de base"],a:1,e:"Le PIB mesure la valeur des biens et services finaux produits sur un territoire durant une période."},
+{subject:"Allemand",level:"Lycée",q:"Que signifie « Ich habe Hunger » ?",o:["J'ai soif","J'ai faim","Je suis fatigué","J'ai froid"],a:1,e:"« Ich habe Hunger » signifie « J'ai faim »."},
+{subject:"Mathématiques",level:"Études supérieures",q:"Quelle est la dérivée de eˣ ?",o:["xeˣ","eˣ","eˣ⁻¹","1/eˣ"],a:1,e:"La fonction exponentielle est sa propre dérivée."},
+{subject:"Mathématiques",level:"Études supérieures",q:"Quelle est une primitive de 1/x sur ]0,+∞[ ?",o:["x²","ln(x)","eˣ","1/x²"],a:1,e:"Sur les réels strictement positifs, une primitive de 1/x est ln(x)."},
+{subject:"Informatique",level:"Études supérieures",q:"Que signifie généralement l'acronyme CPU ?",o:["Central Processing Unit","Computer Personal Utility","Control Program User","Central Power Upload"],a:0,e:"CPU signifie Central Processing Unit, ou processeur."},
+{subject:"Informatique",level:"Études supérieures",q:"Quelle est la complexité temporelle moyenne d'une recherche dichotomique dans un tableau trié ?",o:["O(n)","O(n²)","O(log n)","O(2ⁿ)"],a:2,e:"Chaque étape divise l'espace de recherche par deux : O(log n)."},
+{subject:"Physique-chimie",level:"Études supérieures",q:"Quelle est l'unité SI de la capacité électrique ?",o:["Henry","Farad","Tesla","Weber"],a:1,e:"La capacité électrique se mesure en farads (F)."},
+{subject:"Sciences de l’ingénieur",level:"Études supérieures",q:"Dans un système linéaire, que représente généralement une fonction de transfert ?",o:["Le rapport sortie/entrée dans le domaine de Laplace","La masse du système","La température ambiante","Le coût du système"],a:0,e:"La fonction de transfert relie la sortie à l'entrée dans le domaine de Laplace, sous les hypothèses usuelles."},
+{subject:"Économie",level:"Études supérieures",q:"Que représente le coût marginal ?",o:["Le coût total historique","Le coût d'une unité supplémentaire produite","Le prix de vente moyen","Le bénéfice annuel"],a:1,e:"Le coût marginal mesure le coût supplémentaire lié à la production d'une unité en plus."},
+{subject:"Biologie",level:"Études supérieures",q:"Quel organite est le principal siège de la respiration cellulaire chez les eucaryotes ?",o:["Le ribosome","La mitochondrie","Le lysosome","Le noyau"],a:1,e:"Les mitochondries assurent une grande part de la respiration cellulaire."},
+{subject:"Droit",level:"Études supérieures",q:"Dans le système juridique français, quelle norme est au sommet de la hiérarchie interne des normes ?",o:["Le décret","L'arrêté municipal","La Constitution","La circulaire"],a:2,e:"La Constitution est au sommet de la hiérarchie des normes internes, sous réserve des questions d'articulation avec le droit international et européen."}
 ];
-const flashcardBank=[
-['Mathématiques','Primaire','Combien font 9 × 6 ?','54'],['Français','Primaire','Qu’est-ce qu’un adjectif ?','Un mot qui apporte une précision sur un nom.'],['SVT','Primaire','Quel organe pompe le sang ?','Le cœur.'],['Anglais','Primaire','Comment dit-on « chien » en anglais ?','Dog.'],['Mathématiques','Collège','Quelle est la formule de l’aire d’un rectangle ?','Longueur × largeur.'],['Physique-chimie','Collège','Quelle est l’unité de la masse dans le SI ?','Le kilogramme (kg).'],['SVT','Collège','Quel est le rôle des globules rouges ?','Transporter notamment le dioxygène grâce à l’hémoglobine.'],['Histoire-géographie','Collège','En quelle année débute la Première Guerre mondiale ?','1914.'],['Anglais','Collège','Quel est le prétérit de “go” ?','Went.'],['Allemand','Lycée','Quel est le genre grammatical de “Mädchen” ?','Neutre : das Mädchen.'],['Mathématiques','Lycée','Dérivée de x³ ?','3x².'],['Mathématiques','Lycée','Que vaut cos(0) ?','1.'],['Physique-chimie','Lycée','Quelle est l’unité de la puissance ?','Le watt (W).'],['Physique-chimie','Lycée','Formule de la quantité de matière à partir de la masse m et de la masse molaire M ?','n = m/M.'],['SVT','Lycée','Quel processus produit des gamètes ?','La méiose.'],['Philosophie','Lycée','Que signifie « cogito » chez Descartes ?','« Je pense » ; le fait de penser atteste l’existence du sujet pensant.'],['SES','Lycée','Qu’est-ce qu’une norme sociale ?','Une règle de conduite partagée qui oriente les comportements.'],['Espagnol','Lycée','Comment conjuguer “ser” à la première personne du présent ?','Soy.'],['Informatique','Lycée','En Python, à quoi sert == ?','À comparer deux valeurs pour tester leur égalité.'],['Histoire-géographie','Lycée','En quelle année tombe le mur de Berlin ?','1989.'],['Mathématiques','Supérieur','Condition d’inversibilité d’une matrice carrée ?','Son déterminant est non nul, de façon équivalente elle admet une inverse.'],['Informatique','Supérieur','Complexité usuelle de la recherche dichotomique ?','O(log n) sur un tableau trié.'],['Physique-chimie','Supérieur','Énergie cinétique d’une masse m à la vitesse v ?','Ec = 1/2 mv².'],['Sciences de l’ingénieur','Supérieur','Quelle loi exprime la conservation de la charge à un nœud ?','La loi des nœuds : somme algébrique des courants nulle.'],['Économie','Supérieur','Qu’est-ce que le coût d’opportunité ?','La valeur de la meilleure option abandonnée.'],['Droit','Supérieur','Qu’est-ce que la hiérarchie des normes ?','L’organisation des règles juridiques selon leur autorité relative.'],['Français','Lycée','À quoi sert une problématique ?','À formuler le problème directeur auquel le raisonnement doit répondre.'],['Physique-chimie','Collège','Quelle est la formule de la masse volumique ?','ρ = m/V.'],['Mathématiques','Collège','Comment calculer une moyenne simple ?','Additionner les valeurs puis diviser par leur nombre.'],['Technologie','Collège','Que décrit un cahier des charges ?','Le besoin à satisfaire et les fonctions/contraintes attendues d’un objet ou système.'],['Arts','Collège','Qu’est-ce qu’un contraste en arts visuels ?','Une différence marquée entre des éléments, par exemple clair/foncé ou chaud/froid.'],['Musique','Collège','Combien de demi-tons séparent deux notes d’une octave tempérée ?','12 demi-tons.'],['Mathématiques','Lycée','Relation entre ln et exp ?','ln(exp(x))=x et exp(ln(x))=x pour x>0 dans le second cas.'],['SVT','Lycée','Quel est le rôle de l’ADN ?','Porter l’information génétique.'],['Histoire-géographie','Primaire','Sur une carte, à quoi sert la légende ?','À expliquer la signification des couleurs et symboles utilisés.'],['Anglais','Lycée','Quelle forme utilise-t-on après “doesn’t” ?','La base verbale : “doesn’t play”, pas “doesn’t plays”.'],['Allemand','Collège','Comment dit-on « merci » en allemand ?','Danke.'],['Espagnol','Collège','Comment dit-on « bonjour » en espagnol ?','Hola.'],['Philosophie','Supérieur','Qu’est-ce qu’un argument ?','Une raison avancée pour soutenir une thèse.'],['Informatique','Supérieur','Différence entre = et == en Python ?','= affecte une valeur ; == compare deux valeurs.']
-].map((x,i)=>({id:'bank-card-'+i,subject:x[0],level:x[1],q:x[2],a:x[3]}));
-let quizQuestions=[],quizPos=0,quizScore=0,quizAnswered=false,quizStarted=false;
-function getFilters(prefix){const level=document.getElementById(prefix+'-level')?.value||'all';const subject=document.getElementById(prefix+'-subject')?.value||'all';return {level,subject}}
-function matches(item,filters){return (filters.level==='all'||item.level===filters.level)&&(filters.subject==='all'||item.subject===filters.subject)}
-function startQuiz(){const f=getFilters('quiz');const matching=questions.filter(q=>matches(q,f));if(!matching.length){toast('Aucune question pour ces filtres. Choisis une autre matière ou un autre niveau.');return}const pool=[...matching].sort(()=>Math.random()-.5);if(pool.length<20){toast('Pas assez de questions pour ces filtres.');return}quizQuestions=pool.slice(0,20);quizPos=0;quizScore=0;quizAnswered=false;quizStarted=true;renderQuiz()}
-function renderQuiz(){const q=quizQuestions[quizPos];if(!q)return;document.getElementById('quiz-category').textContent=[document.getElementById('quiz-subject').value==='all'?'Toutes les matières':document.getElementById('quiz-subject').value,document.getElementById('quiz-level').value==='all'?'Tous niveaux':document.getElementById('quiz-level').value].join(' · ');document.getElementById('quiz-count').textContent=`Question ${quizPos+1}/${quizQuestions.length}`;document.getElementById('quiz-progress').style.width=(quizPos/quizQuestions.length*100)+'%';document.getElementById('quiz-question').textContent=q.q;document.getElementById('quiz-feedback').textContent='';document.getElementById('quiz-next').disabled=true;document.getElementById('quiz-next').textContent=quizPos===quizQuestions.length-1?'Voir mon résultat':'Suivant →';document.getElementById('quiz-options').innerHTML=q.o.map((o,i)=>`<button class="quiz-option" data-answer="${i}">${esc(o)}</button>`).join('');document.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>answerQuiz(Number(b.dataset.answer))))}
-function answerQuiz(index){if(quizAnswered)return;quizAnswered=true;const q=quizQuestions[quizPos];if(index===q.a)quizScore++;document.querySelectorAll('[data-answer]').forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add('correct');else if(i===index)b.classList.add('wrong')});document.getElementById('quiz-feedback').textContent=(index===q.a?'✅ Bonne réponse ! ':'❌ Pas tout à fait. ')+q.e;document.getElementById('quiz-next').disabled=false;document.getElementById('quiz-progress').style.width=((quizPos+1)/quizQuestions.length*100)+'%'}
-document.getElementById('quiz-next').addEventListener('click',()=>{if(!quizAnswered)return;if(quizPos<quizQuestions.length-1){quizPos++;quizAnswered=false;renderQuiz()}else{const pct=Math.round(quizScore/quizQuestions.length*100);data.quizzes.unshift({date:new Date().toISOString(),score:quizScore,total:quizQuestions.length,pct});save();document.getElementById('quiz-question').textContent=`${quizScore}/${quizQuestions.length} — ${pct}%`;document.getElementById('quiz-options').innerHTML='<div class="empty">'+(pct>=80?'Excellent travail ! Continue comme ça.':pct>=60?'Bon travail ! Revois les questions manquées.':'Continue à t’entraîner, tu vas progresser !')+'</div>';document.getElementById('quiz-feedback').textContent='Ton résultat a été enregistré dans Mes progrès.';document.getElementById('quiz-next').disabled=true;document.getElementById('quiz-next').textContent='Quiz terminé';document.getElementById('quiz-count').textContent='Terminé';document.getElementById('quiz-progress').style.width='100%';quizStarted=false;renderStats();renderHistory()}});
-document.getElementById('quiz-restart').addEventListener('click',startQuiz);
-function renderHistory(){const el=document.getElementById('history-list');el.innerHTML=data.quizzes.length?data.quizzes.map(q=>`<div class="item"><div><strong>${q.pct}% · ${q.score}/${q.total} bonnes réponses</strong><p>${new Date(q.date).toLocaleString('fr-FR',{dateStyle:'medium',timeStyle:'short'})}</p></div><span class="stat-icon">${q.pct>=80?'🏆':q.pct>=60?'⭐':'📘'}</span></div>`).join(''):'<div class="empty">Aucun quiz terminé. Lance ton premier quiz pour commencer !</div>'}
-function renderStats(){const best=data.quizzes.length?Math.max(...data.quizzes.map(q=>q.pct))+'%':'—';const avg=data.quizzes.length?Math.round(data.quizzes.reduce((s,q)=>s+q.pct,0)/data.quizzes.length)+'%':'—';[['stat-notes',data.notes.length],['stat-cards',data.cards.length],['stat-quizzes',data.quizzes.length],['stat-best',best],['p-notes',data.notes.length],['p-cards',data.cards.length],['p-quizzes',data.quizzes.length],['p-average',avg]].forEach(([id,v])=>document.getElementById(id).textContent=v)}
-function renderRecent(){const el=document.getElementById('recent-list');el.innerHTML=data.notes.length?data.notes.slice(0,3).map(n=>`<div class="item"><div><strong>${esc(n.title)}</strong><p>${esc(n.subject)} · ${esc(n.body.slice(0,100))}${n.body.length>100?'…':''}</p></div><span class="tiny">${new Date(n.date).toLocaleDateString('fr-FR')}</span></div>`).join(''):'<div class="empty">Tes fiches apparaîtront ici.<br>Commence par en créer une !</div>'}
-function renderAll(){renderStats();renderNotes();renderFlashcard();renderHistory();renderRecent()}
-document.getElementById('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='studyboost-donnees.json';a.click();URL.revokeObjectURL(url);toast('Export prêt')});
-document.getElementById('clear-data').addEventListener('click',()=>{if(confirm('Supprimer toutes tes fiches, flashcards et tous tes résultats sur cet appareil ? Cette action est définitive.')){data={notes:[],cards:[],quizzes:[]};save();toast('Données effacées')}});
+
+let quizQuestions=[],quizIndex=0,quizScore=0,quizAnswered=false,quizStarted=false,quizSubject="Toutes les matières",quizLevel="Primaire";
+
+function startQuiz(){
+quizSubject=$("quiz-subject").value||"Toutes les matières";
+quizLevel=$("quiz-level").value||"Primaire";
+let pool=questions.filter(q=>(quizSubject==="Toutes les matières"||q.subject===quizSubject)&&(quizSubject==="Toutes les matières"||q.level===quizLevel));
+if(!pool.length && quizSubject!=="Toutes les matières"){
+pool=questions.filter(q=>q.subject===quizSubject);
+if(pool.length)toast("Pas encore de question pour ce niveau : questions disponibles de cette matière chargées.");
+}
+if(!pool.length)pool=questions.filter(q=>q.level===quizLevel);
+if(!pool.length)pool=questions.slice();
+quizQuestions=pool.slice().sort(()=>Math.random()-.5).slice(0,Math.min(10,pool.length));
+quizIndex=0;quizScore=0;quizAnswered=false;quizStarted=true;
+$("quiz-result").innerHTML="";
+showQuestion();
+}
+function showQuestion(){
+const q=quizQuestions[quizIndex];
+if(!q){finishQuiz();return;}
+$("quiz-category").textContent=q.subject+" · "+q.level;
+$("quiz-counter").textContent=`Question ${quizIndex+1} sur ${quizQuestions.length}`;
+$("quiz-progress").style.width=(quizIndex/quizQuestions.length*100)+"%";
+$("quiz-question").textContent=q.q;
+$("quiz-options").innerHTML=q.o.map((o,i)=>`<button class="quiz-option" data-answer="${i}">${esc(o)}</button>`).join("");
+$("quiz-feedback").textContent="";
+$("quiz-next").disabled=true;
+quizAnswered=false;
+$("quiz-options").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>answerQuestion(Number(b.dataset.answer))));
+}
+function answerQuestion(index){
+if(quizAnswered)return;
+quizAnswered=true;
+const q=quizQuestions[quizIndex];
+if(index===q.a)quizScore++;
+$("quiz-options").querySelectorAll("button").forEach((b,i)=>{
+b.disabled=true;
+if(i===q.a)b.classList.add("correct");
+else if(i===index)b.classList.add("wrong");
+});
+$("quiz-feedback").textContent=(index===q.a?"✅ Bonne réponse ! ":"❌ Pas tout à fait. ")+q.e;
+$("quiz-next").disabled=false;
+$("quiz-progress").style.width=((quizIndex+1)/quizQuestions.length*100)+"%";
+$("quiz-next").textContent=quizIndex===quizQuestions.length-1?"Voir mon résultat →":"Question suivante →";
+}
+function finishQuiz(){
+quizStarted=false;
+const total=quizQuestions.length;
+const percent=total?Math.round(quizScore/total*100):0;
+$("quiz-question").textContent="Quiz terminé ! 🎉";
+$("quiz-options").innerHTML="";
+$("quiz-feedback").textContent="";
+$("quiz-next").disabled=true;
+$("quiz-progress").style.width="100%";
+$("quiz-counter").textContent="Résultat final";
+$("quiz-result").innerHTML=`<div class="empty"><h2>${quizScore} / ${total}</h2><p>Ton score : <b>${percent}%</b></p><p>${percent>=80?"Excellent travail !":percent>=50?"Bon effort ! Continue à réviser.":"Ne te décourage pas : révise les notions puis réessaie."}</p><button class="btn primary" id="result-retry">Refaire un quiz</button></div>`;
+$("result-retry").addEventListener("click",startQuiz);
+data.quizzes.unshift({id:Date.now(),subject:quizSubject,level:quizLevel,score:quizScore,total,percent,date:new Date().toISOString()});
+save();
+toast("Résultat enregistré !");
+}
+$("start-quiz").addEventListener("click",startQuiz);
+$("all-quiz").addEventListener("click",()=>{$("quiz-subject").value="Toutes les matières";startQuiz();});
+$("quiz-restart").addEventListener("click",startQuiz);
+$("quiz-next").addEventListener("click",()=>{
+if(!quizAnswered)return;
+if(quizIndex<quizQuestions.length-1){quizIndex++;showQuestion();}
+else finishQuiz();
+});
+
+/* Fiches */
+$("save-note").addEventListener("click",()=>{
+const title=$("note-title").value.trim(),body=$("note-body").value.trim();
+if(!title||!body){toast("Ajoute un titre et un contenu.");return;}
+data.notes.unshift({id:Date.now(),title,body,subject:$("note-subject").value,level:$("note-level").value,date:new Date().toISOString()});
+$("note-title").value="";$("note-body").value="";
+save();toast("Fiche enregistrée !");
+});
+$("note-search").addEventListener("input",renderNotes);
+function deleteNote(id){data.notes=data.notes.filter(n=>n.id!==id);save();toast("Fiche supprimée.");}
+function renderNotes(){
+const query=$("note-search").value.toLowerCase();
+const items=data.notes.filter(n=>(n.title+" "+n.body+" "+n.subject+" "+n.level).toLowerCase().includes(query));
+$("notes-list").innerHTML=items.length?items.map(n=>`<div class="item"><div><strong>${esc(n.title)}</strong><p>${esc(n.subject)} · ${esc(n.level)} · ${esc(n.body.slice(0,130))}${n.body.length>130?"…":""}</p></div><button class="btn danger" data-delete-note="${n.id}">Supprimer</button></div>`).join(""):'<div class="empty">Aucune fiche trouvée. Crée ta première fiche ci-dessus.</div>';
+$("notes-list").querySelectorAll("[data-delete-note]").forEach(b=>b.addEventListener("click",()=>deleteNote(Number(b.dataset.deleteNote))));
+}
+
+/* Flashcards */
+let cardIndex=0,cardFlipped=false;
+$("save-card").addEventListener("click",()=>{
+const q=$("card-question").value.trim(),a=$("card-answer").value.trim();
+if(!q||!a){toast("Ajoute une question et une réponse.");return;}
+data.cards.unshift({id:Date.now(),q,a,subject:$("card-subject").value});
+$("card-question").value="";$("card-answer").value="";
+cardIndex=0;cardFlipped=false;save();toast("Flashcard ajoutée !");
+});
+function flipCard(){if(!data.cards.length)return;cardFlipped=!cardFlipped;renderCards();}
+function deleteCard(id){data.cards=data.cards.filter(c=>c.id!==id);cardIndex=Math.max(0,Math.min(cardIndex,data.cards.length-1));cardFlipped=false;save();toast("Flashcard supprimée.");}
+function renderCards(){
+if(cardIndex>=data.cards.length)cardIndex=Math.max(0,data.cards.length-1);
+const c=data.cards[cardIndex];
+$("card-counter").textContent=data.cards.length+" carte"+(data.cards.length>1?"s":"");
+$("flash-word").textContent=c?(cardFlipped?c.a:c.q):"Ajoute ta première carte";
+$("flash-hint").textContent=c?(cardFlipped?"Réponse · clique pour revoir la question":`Question ${cardIndex+1} sur ${data.cards.length} · clique pour voir la réponse`):"La question apparaîtra ici.";
+$("cards-list").innerHTML=data.cards.length?data.cards.map(c=>`<div class="item"><div><strong>${esc(c.q)}</strong><p>${esc(c.subject)} · ${esc(c.a.slice(0,100))}${c.a.length>100?"…":""}</p></div><button class="btn danger" data-delete-card="${c.id}">Supprimer</button></div>`).join(""):'<div class="empty">Aucune flashcard enregistrée.</div>';
+$("cards-list").querySelectorAll("[data-delete-card]").forEach(b=>b.addEventListener("click",()=>deleteCard(Number(b.dataset.deleteCard))));
+}
+$("flashcard").addEventListener("click",flipCard);
+$("flashcard").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flipCard();}});
+$("card-flip").addEventListener("click",flipCard);
+$("card-prev").addEventListener("click",()=>{if(data.cards.length){cardIndex=(cardIndex-1+data.cards.length)%data.cards.length;cardFlipped=false;renderCards();}});
+$("card-next").addEventListener("click",()=>{if(data.cards.length){cardIndex=(cardIndex+1)%data.cards.length;cardFlipped=false;renderCards();}});
+
+/* Bibliothèque construite à partir des questions disponibles */
+function renderLibrary(){
+const subject=$("library-subject").value||"Toutes les matières";
+const query=$("library-search").value.toLowerCase();
+const items=questions.filter(q=>(subject==="Toutes les matières"||q.subject===subject)&&(q.q+" "+q.subject+" "+q.level+" "+q.e).toLowerCase().includes(query));
+$("library-list").innerHTML=items.length?items.map((q,i)=>`<article class="panel"><div class="row"><span class="tag">${esc(q.subject)}</span><span class="tag">${esc(q.level)}</span></div><h3 style="margin-top:12px">${esc(q.q)}</h3><p class="muted">${esc(q.e)}</p><details><summary>Voir les choix de réponse</summary><ol>${q.o.map(o=>`<li>${esc(o)}</li>`).join("")}</ol><p><b>Bonne réponse :</b> ${esc(q.o[q.a])}</p></details><button class="btn light" data-library-quiz="${esc(q.subject)}" data-library-level="${esc(q.level)}" style="margin-top:10px">Faire un quiz de cette matière</button></article>`).join(""):'<div class="empty">Aucune notion trouvée. Essaie un autre mot ou une autre matière.</div>';
+$("library-list").querySelectorAll("[data-library-quiz]").forEach(b=>b.addEventListener("click",()=>{
+$("quiz-subject").value=b.dataset.libraryQuiz;
+$("quiz-level").value=b.dataset.libraryLevel;
+go("quiz");startQuiz();
+}));
+}
+$("library-subject").addEventListener("change",renderLibrary);
+$("library-search").addEventListener("input",renderLibrary);
+
+/* Statistiques et historique */
+function renderProgress(){
+$("stat-notes").textContent=data.notes.length;
+$("stat-cards").textContent=data.cards.length;
+$("stat-quizzes").textContent=data.quizzes.length;
+const best=data.quizzes.length?Math.max(...data.quizzes.map(q=>q.percent))+"%":"—";
+$("stat-best").textContent=best;
+$("p-notes").textContent=data.notes.length;
+$("p-cards").textContent=data.cards.length;
+$("p-quizzes").textContent=data.quizzes.length;
+$("p-average").textContent=data.quizzes.length?Math.round(data.quizzes.reduce((s,q)=>s+q.percent,0)/data.quizzes.length)+"%":"—";
+const history=data.quizzes;
+$("history-list").innerHTML=history.length?history.map(q=>`<div class="item"><div><strong>${esc(q.subject)} · ${esc(q.level)}</strong><p>${new Date(q.date).toLocaleString("fr-FR")} · ${q.score}/${q.total} bonnes réponses</p></div><span class="tag">${q.percent}%</span></div>`).join(""):'<div class="empty">Aucun quiz terminé pour le moment.</div>';
+$("recent-results").innerHTML=history.length?history.slice(0,3).map(q=>`<div class="item"><div><strong>${esc(q.subject)}</strong><p>${new Date(q.date).toLocaleDateString("fr-FR")} · ${q.score}/${q.total} bonnes réponses</p></div><span class="tag">${q.percent}%</span></div>`).join(""):'<div class="empty">Tes résultats apparaîtront ici après tes premiers quiz.</div>';
+}
+function renderAll(){renderNotes();renderCards();renderProgress();renderLibrary();}
+$("export-data").addEventListener("click",()=>{
+const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+const url=URL.createObjectURL(blob);
+const a=document.createElement("a");a.href=url;a.download="studyboost-mes-donnees.json";a.click();
+URL.revokeObjectURL(url);toast("Export préparé.");
+});
+$("clear-data").addEventListener("click",()=>{
+if(!confirm("Effacer toutes tes fiches, flashcards et résultats sur ce navigateur ? Cette action est irréversible."))return;
+data={notes:[],cards:[],quizzes:[]};
+try{localStorage.removeItem(STORE);}catch(e){}
+renderAll();toast("Données effacées.");
+});
 renderAll();
 </script>
 </body>
 </html>
+
