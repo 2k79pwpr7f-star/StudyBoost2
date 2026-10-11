@@ -2,409 +2,538 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6758e8">
-<meta name="description" content="StudyBoost : révise les mathématiques du lycée avec des quiz, des corrections et un suivi de tes progrès.">
-<title>StudyBoost — Apprends, progresse, réussis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudyBoost — Révise autrement</title>
 <style>
-:root{--bg:#f5f6fc;--panel:#fff;--text:#20213a;--muted:#747791;--primary:#6758e8;--soft:#eeebff;--border:#e8e9f2;--green:#13845b;--red:#d84b61;--shadow:0 8px 30px #30305c0b}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,select{font:inherit;cursor:pointer}
-button:focus-visible,select:focus-visible{outline:3px solid #a59cff;outline-offset:2px}
-button:disabled{opacity:.5;cursor:not-allowed}
-.app{max-width:1200px;margin:auto;padding:24px}
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{display:grid;place-items:center;width:46px;height:46px;background:var(--primary);color:white;border-radius:15px;font-size:24px;font-weight:900}
-h1,h2,h3,p{margin-top:0}
-h1{font-size:23px;margin-bottom:0;letter-spacing:-.5px}
-.subtitle,.muted{color:var(--muted)}
-.subtitle{font-size:13px}
-.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.pill{padding:9px 13px;border-radius:12px;background:var(--panel);border:1px solid var(--border);font-weight:750}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.nav button,.secondary{background:var(--panel);color:var(--text);border:1px solid var(--border);padding:10px 15px;border-radius:12px;font-weight:700}
-.nav button.active,.primary{background:var(--primary);color:white;border-color:var(--primary)}
-.primary{border:0;padding:12px 17px;border-radius:12px;font-weight:800}
-.secondary:hover,.nav button:hover{border-color:var(--primary)}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:19px;padding:21px;box-shadow:var(--shadow);min-width:0}
-.card h2{font-size:18px;margin-bottom:7px}
-.card h3{font-size:16px;margin-bottom:8px}
-.eyebrow{text-transform:uppercase;letter-spacing:1px;font-size:11px;font-weight:850;color:var(--muted)}
-.big{font-size:30px;font-weight:900;letter-spacing:-1px;margin:7px 0}
-.progress{height:8px;background:var(--border);border-radius:20px;overflow:hidden;margin:12px 0}
-.progress div{height:100%;background:var(--primary);border-radius:20px;transition:width .25s}
-.hero{background:linear-gradient(125deg,#6758e8,#8877fa);color:white;border:0;padding:28px;margin-bottom:17px}
-.hero .muted,.hero .eyebrow{color:#efedff}
-.hero h2{font-size:clamp(23px,4vw,34px);max-width:650px;line-height:1.2;margin:10px 0}
-.hero .primary{background:white;color:#4e42c5}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}
-.stat{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px}
-.stat .big{font-size:25px}
-.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 0 13px}
-.section-title h2{margin:0;font-size:20px}
-.subjects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.subject{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:18px;text-align:left;color:var(--text);transition:transform .15s,border-color .15s}
-.subject:hover{transform:translateY(-2px);border-color:var(--primary)}
-.subject-icon{font-size:27px;margin-bottom:9px}
-.subject strong{display:block;font-size:16px;margin-bottom:4px}
-.subject small{color:var(--muted)}
-.tag{display:inline-block;font-size:12px;font-weight:750;padding:5px 9px;border-radius:9px;background:var(--soft);color:var(--primary);margin:3px 3px 3px 0}
-.view{display:none}
-.view.active{display:block}
-.controls{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
-select{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:11px;padding:11px;max-width:100%}
-.quiz-card{max-width:780px;margin:0 auto}
-.quiz-top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-.question{font-size:clamp(20px,3vw,27px);font-weight:850;line-height:1.35;margin:25px 0}
-.answers{display:grid;gap:10px}
-.answer{display:flex;gap:12px;align-items:center;width:100%;padding:15px;background:var(--panel);border:1px solid var(--border);border-radius:13px;text-align:left;color:var(--text)}
-.answer .letter{display:grid;place-items:center;flex:0 0 30px;height:30px;background:var(--bg);border-radius:9px;font-weight:850}
-.answer.correct{border-color:var(--green);background:#eaf8f1}
-.answer.wrong{border-color:var(--red);background:#fff0f2}
-.feedback{padding:15px;border-radius:13px;background:var(--bg);margin-top:15px}
-.feedback.good{background:#eaf8f1}
-.feedback.bad{background:#fff0f2}
-.actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:20px}
-.empty{text-align:center;padding:45px 20px}
-.list{display:grid;gap:10px}
-.review-item{border:1px solid var(--border);border-radius:14px;padding:16px}
-.review-item p{margin:5px 0}
-.small{font-size:13px}
-footer{text-align:center;color:var(--muted);font-size:12px;margin:35px 0 8px}
-.hidden{display:none!important}
-hr{border:0;border-top:1px solid var(--border);margin:20px 0}
-@media(max-width:800px){.grid,.subjects{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.app{padding:16px}}
-@media(max-width:520px){.grid,.subjects{grid-template-columns:1fr}.app{padding:12px}.card{padding:17px}.hero{padding:22px}.header-right{gap:6px}.pill{padding:7px 9px}.nav button{flex:1;padding:10px 8px;font-size:13px}}
-body.dark{--bg:#141522;--panel:#202133;--text:#f1f1fa;--muted:#a7a9c3;--soft:#302b50;--border:#34364c;--shadow:0 8px 30px #0002}
-body.dark .answer.correct,body.dark .feedback.good{background:#173c30}
-body.dark .answer.wrong,body.dark .feedback.bad{background:#492532}
-body.dark .hero{background:linear-gradient(125deg,#4537b7,#6551c9)}
-body.dark .hero .primary{background:white;color:#4e42c5}
+:root {
+--primary:#6657e8;
+--bg:#f5f6fc;
+--card:#fff;
+--text:#24243b;
+--muted:#77788c;
+--line:#e7e8f1;
+}
+* { box-sizing:border-box }
+body {
+margin:0;
+background:var(--bg);
+color:var(--text);
+font:15px system-ui,sans-serif;
+}
+header {
+background:white;
+padding:16px 5%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+border-bottom:1px solid var(--line);
+flex-wrap:wrap;
+}
+.logo { font-size:25px;font-weight:900;color:var(--primary) }
+.stats { font-weight:800 }
+nav {
+display:flex;
+gap:8px;
+padding:12px 5%;
+overflow-x:auto;
+background:white;
+}
+button,select,input,textarea {
+font:inherit;
+border-radius:10px;
+padding:10px 12px;
+}
+button {
+background:var(--primary);
+color:white;
+border:0;
+cursor:pointer;
+font-weight:700;
+}
+button.secondary { background:#eeecff;color:var(--primary) }
+button:hover { opacity:.88 }
+nav button { white-space:nowrap }
+main { max-width:1100px;margin:auto;padding:22px 16px }
+.page { display:none }
+.page.active { display:block }
+.hero {
+padding:28px;
+border-radius:20px;
+background:linear-gradient(120deg,#6657e8,#9a89ff);
+color:white;
+margin-bottom:18px;
+}
+.hero h1 { margin-top:0;font-size:clamp(25px,4vw,36px) }
+.hero p { margin-bottom:0 }
+.cards {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+gap:14px;
+}
+.card {
+background:var(--card);
+border:1px solid var(--line);
+border-radius:16px;
+padding:17px;
+margin-bottom:12px;
+}
+.subject { cursor:pointer;transition:.15s }
+.subject:hover { transform:translateY(-2px);border-color:var(--primary) }
+.subject h3 { margin:8px 0 }
+.emoji { font-size:27px }
+.muted { color:var(--muted);font-size:13px }
+input,select,textarea {
+border:1px solid #dcddeb;
+background:white;
+color:var(--text);
+max-width:100%;
+}
+input,textarea { width:100%;margin:5px 0 }
+select { margin:5px 0 }
+form { display:grid;gap:8px }
+.option {
+display:block;
+text-align:left;
+width:100%;
+margin:8px 0;
+background:white;
+color:var(--text);
+border:1px solid var(--line);
+}
+.option.correct { background:#e5f8ee;border-color:#65b98c }
+.option.wrong { background:#ffe8ec;border-color:#d88b9b }
+.progress {
+height:8px;
+border-radius:20px;
+background:#e9e9f2;
+overflow:hidden;
+margin:12px 0;
+}
+.progress div { height:100%;background:var(--primary) }
+.flashcard {
+min-height:190px;
+display:grid;
+place-items:center;
+text-align:center;
+cursor:pointer;
+background:linear-gradient(130deg,#6657e8,#9385ff);
+color:white;
+border-radius:18px;
+padding:25px;
+font-size:23px;
+font-weight:800;
+}
+.timer { font-size:64px;font-weight:900;text-align:center }
+.row { display:flex;gap:8px;flex-wrap:wrap;align-items:center }
+.row > * { flex:1 }
+.hidden { display:none!important }
+footer { text-align:center;padding:25px;color:var(--muted) }
+@media(max-width:480px) {
+main { padding:15px 10px }
+.hero { padding:20px }
+header { padding:14px }
+}
 </style>
 </head>
 <body>
-<div class="app">
 <header>
-<div class="brand">
-<div class="logo">S</div>
-<div><h1>StudyBoost</h1><div class="subtitle">Apprends. Progresse. Réussis.</div></div>
-</div>
-<div class="header-right">
-<div class="pill">⚡ <span id="headerXP">0</span> XP</div>
-<div class="pill">🪙 <span id="headerCoins">0</span></div>
-<button class="secondary" id="themeBtn" aria-label="Changer de thème">🌙</button>
+<div class="logo">✦ StudyBoost</div>
+<div class="stats">
+⚡ <span id="xp">0</span> XP
+&nbsp; 🪙 <span id="coins">0</span>
 </div>
 </header>
 
-<nav class="nav" aria-label="Navigation principale">
-<button class="active" data-view="home">🏠 Accueil</button>
-<button data-view="quiz">📝 Quiz</button>
-<button data-view="review">🔁 Mes erreurs</button>
-<button data-view="stats">📊 Progression</button>
+<nav id="nav">
+<button onclick="page('home')">🏠 Accueil</button>
+<button onclick="page('subjects')">📚 Matières</button>
+<button onclick="page('quiz')">🧠 Quiz</button>
+<button onclick="page('notes')">📝 Fiches</button>
+<button onclick="page('cards')">🃏 Flashcards</button>
+<button onclick="page('timer')">⏱️ Minuteur</button>
+<button onclick="page('history')">📈 Résultats</button>
 </nav>
 
 <main>
-<section id="home" class="view active">
-<div class="card hero">
-<div class="eyebrow">Ton espace de révision</div>
-<h2>Chaque question te rapproche de la réussite.</h2>
-<p class="muted">Entraîne-toi à ton rythme, comprends tes erreurs et progresse un quiz à la fois.</p>
-<button class="primary" id="startBtn">Commencer un quiz →</button>
+<section id="home" class="page active">
+<div class="hero">
+<h1>Prêt à booster tes révisions ? 🚀</h1>
+<p>Apprends, entraîne-toi et gagne des récompenses dans toutes les matières.</p>
+<label for="level">Ton niveau : </label>
+<select id="level" onchange="saveLevel()">
+<option>Primaire</option>
+<option selected>Collège</option>
+<option>Lycée</option>
+<option>Supérieur</option>
+</select>
 </div>
-
-<div class="stats">
-<div class="stat"><div class="eyebrow">Expérience</div><div class="big" id="homeXP">0 XP</div><div class="progress"><div id="levelBar"></div></div><div class="muted small" id="levelText">Niveau 1</div></div>
-<div class="stat"><div class="eyebrow">Quiz terminés</div><div class="big" id="homeQuizzes">0</div><div class="muted small">Entraînements complétés</div></div>
-<div class="stat"><div class="eyebrow">Réussite</div><div class="big" id="homeAccuracy">—</div><div class="muted small">Bonnes réponses</div></div>
-<div class="stat"><div class="eyebrow">Série actuelle</div><div class="big" id="homeStreak">🔥 0 jour</div><div class="muted small">Jours actifs consécutifs</div></div>
+<div class="cards">
+<div class="card">⚡<h3 id="homeXP">0 XP</h3><p class="muted">Expérience gagnée</p></div>
+<div class="card">🪙<h3 id="homeCoins">0</h3><p class="muted">Pièces disponibles</p></div>
+<div class="card">🧠<h3 id="homeQuizzes">0</h3><p class="muted">Quiz terminés</p></div>
 </div>
+<h2>🌟 Matières populaires</h2>
+<div id="popular" class="cards"></div>
+<h2>🎯 Missions</h2>
+<div class="card" id="missions"></div>
+</section>
 
-<div class="section-title"><h2>Choisis ton chapitre</h2><span class="muted small">Mathématiques · Lycée</span></div>
-<div class="subjects" id="homeSubjects"></div>
-<div class="section-title"><h2>Ton objectif quotidien</h2></div>
+<section id="subjects" class="page">
+<h1>📚 Toutes les matières</h1>
+<p class="muted">Primaire, collège, lycée et études supérieures.</p>
+<div class="row">
+<input id="search" placeholder="Rechercher une matière…" oninput="renderSubjects()">
+<select id="filterLevel" onchange="renderSubjects()">
+<option value="">Tous les niveaux</option>
+<option>Primaire</option><option>Collège</option>
+<option>Lycée</option><option>Supérieur</option>
+</select>
+<select id="filterCat" onchange="renderSubjects()">
+<option value="">Toutes les catégories</option>
+</select>
+</div>
+<div id="allSubjects" class="cards"></div>
+</section>
+
+<section id="quiz" class="page">
+<h1>🧠 Quiz interactifs</h1>
+<div class="card" id="quizSetup">
+<label>Matière</label><select id="quizSubject"></select>
+<label>Niveau</label>
+<select id="quizLevel">
+<option>Primaire</option><option selected>Collège</option>
+<option>Lycée</option><option>Supérieur</option>
+</select>
+<button onclick="startQuiz()">Commencer le quiz</button>
+<p class="muted">Les quiz intégrés sont des exemples. Tu peux créer tes propres supports de révision pour les autres matières.</p>
+</div>
+<div id="quizRun" class="card hidden"></div>
+</section>
+
+<section id="notes" class="page">
+<h1>📝 Mes fiches de révision</h1>
 <div class="card">
-<div class="quiz-top"><div><strong>🎯 Gagner 30 XP aujourd'hui</strong><p class="muted small">Un petit entraînement chaque jour suffit pour prendre de bonnes habitudes.</p></div><strong id="dailyText">0 / 30 XP</strong></div>
-<div class="progress"><div id="dailyBar"></div></div>
+<form id="noteForm">
+<input id="noteTitle" placeholder="Titre de la fiche" required>
+<select id="noteSubject" required></select>
+<select id="noteLevel">
+<option>Primaire</option><option selected>Collège</option>
+<option>Lycée</option><option>Supérieur</option>
+</select>
+<textarea id="noteContent" rows="5" placeholder="Écris ton cours, les définitions et les formules…" required></textarea>
+<button>Enregistrer la fiche (+5 XP)</button>
+</form>
 </div>
+<input id="noteSearch" placeholder="Rechercher une fiche…" oninput="renderNotes()">
+<div id="notesList"></div>
 </section>
 
-<section id="quiz" class="view">
-<div id="quizSetup" class="card">
-<div class="eyebrow">Mode entraînement</div>
-<h2>Configure ton quiz</h2>
-<p class="muted">Choisis un chapitre et une difficulté. Les questions sont tirées au hasard parmi celles disponibles.</p>
-<div class="controls">
-<select id="topicSelect" aria-label="Chapitre">
-<option value="all">Tous les chapitres</option>
-<option value="Fonctions">Fonctions et équations</option>
-<option value="Dérivation">Dérivation</option>
-<option value="Suites">Suites numériques</option>
-<option value="Probabilités">Probabilités</option>
-<option value="Trigonométrie">Trigonométrie</option>
-</select>
-<select id="difficultySelect" aria-label="Difficulté">
-<option value="all">Toutes les difficultés</option>
-<option value="Facile">Facile</option>
-<option value="Moyen">Moyen</option>
-<option value="Difficile">Difficile</option>
-</select>
-<select id="countSelect" aria-label="Nombre de questions">
-<option value="5">5 questions</option>
-<option value="10" selected>10 questions</option>
-<option value="15">15 questions</option>
-<option value="20">20 questions</option>
-</select>
-</div>
-<button class="primary" id="launchBtn">Lancer le quiz →</button>
-<p class="muted small" id="availableCount"></p>
-</div>
-
-<div id="quizPlay" class="card quiz-card hidden">
-<div class="quiz-top"><span class="tag" id="qTopic"></span><span class="muted small" id="qCounter"></span><span class="pill" id="qTimer">⏱ 00:00</span></div>
-<div class="progress"><div id="quizBar"></div></div>
-<div class="question" id="qText"></div>
-<div class="answers" id="answers"></div>
-<div id="feedback" class="feedback hidden" aria-live="polite"></div>
-<div class="actions"><button class="secondary" id="quitBtn">Quitter</button><button class="primary" id="nextBtn" disabled>Question suivante →</button></div>
-</div>
-
-<div id="quizResult" class="card quiz-card hidden"></div>
-</section>
-
-<section id="review" class="view">
-<div class="section-title"><h2>Mes erreurs à retravailler</h2><span class="tag" id="errorCount">0 erreur</span></div>
-<p class="muted">Les questions ratées apparaissent ici. Revois les explications, puis réessaie.</p>
-<div id="reviewList" class="list"></div>
-<button class="primary hidden" id="retryErrors">Refaire un quiz avec mes erreurs →</button>
-</section>
-
-<section id="stats" class="view">
-<div class="section-title"><h2>Ta progression</h2></div>
-<div class="stats">
-<div class="stat"><div class="eyebrow">XP total</div><div class="big" id="statsXP">0</div></div>
-<div class="stat"><div class="eyebrow">Réponses</div><div class="big" id="statsAnswers">0</div></div>
-<div class="stat"><div class="eyebrow">Bonnes réponses</div><div class="big" id="statsCorrect">0</div></div>
-<div class="stat"><div class="eyebrow">Temps de quiz</div><div class="big" id="statsTime">0 min</div></div>
+<section id="cards" class="page">
+<h1>🃏 Flashcards</h1>
+<div class="card">
+<form id="cardForm">
+<select id="cardSubject"></select>
+<input id="cardQuestion" placeholder="Question / recto" required>
+<textarea id="cardAnswer" placeholder="Réponse / verso" required></textarea>
+<button>Ajouter une flashcard (+2 XP)</button>
+</form>
 </div>
 <div class="card">
-<h2>Résultats par chapitre</h2>
-<p class="muted small">Le taux est calculé à partir de tes réponses enregistrées.</p>
-<div id="topicStats" class="list"></div>
+<div id="flashcard" class="flashcard" onclick="flipCard()">Crée une carte pour commencer !</div>
+<div class="row" style="margin-top:12px">
+<button class="secondary" onclick="moveCard(-1)">← Précédente</button>
+<button class="secondary" onclick="moveCard(1)">Suivante →</button>
 </div>
-<div class="card" style="margin-top:16px">
-<h2>Gérer mes données</h2>
-<p class="muted small">Ta progression est stockée dans le navigateur de cet appareil. Effacer les données la supprimera définitivement de cet appareil.</p>
-<button class="secondary" id="exportBtn">Exporter ma progression</button>
-<button class="secondary" id="resetBtn">Réinitialiser ma progression</button>
+<p id="cardCount" class="muted"></p>
 </div>
+<div id="cardsList"></div>
+</section>
+
+<section id="timer" class="page">
+<h1>⏱️ Minuteur de concentration</h1>
+<div class="card">
+<p class="muted">Concentre-toi pendant 25 minutes, puis fais une pause.</p>
+<div id="timer" class="timer">25:00</div>
+<div class="row">
+<button onclick="toggleTimer()" id="timerBtn">▶ Démarrer</button>
+<button class="secondary" onclick="resetTimer()">↺ Réinitialiser</button>
+<button class="secondary" onclick="switchTimer()">☕ Pause 5 min</button>
+</div>
+</div>
+</section>
+
+<section id="history" class="page">
+<h1>📈 Historique des résultats</h1>
+<div id="historyList" class="card"></div>
+<button class="secondary" onclick="clearHistory()">Effacer l’historique</button>
 </section>
 </main>
-<footer>StudyBoost · Une question après l'autre. Les résultats sont enregistrés sur cet appareil.</footer>
-</div>
+<footer>StudyBoost • Révise un peu chaque jour, progresse à ton rythme ✨</footer>
 
 <script>
-"use strict";
-const QUESTIONS = [
-{t:"Fonctions",d:"Facile",q:"Résous : 2x + 6 = 14.",a:["x = 3","x = 4","x = 5","x = 10"],c:1,e:"2x + 6 = 14, donc 2x = 8 et x = 4."},
-{t:"Fonctions",d:"Facile",q:"Quelle est l'image de 3 par f(x) = 2x − 1 ?",a:["4","5","6","7"],c:1,e:"f(3) = 2 × 3 − 1 = 5."},
-{t:"Fonctions",d:"Facile",q:"Résous : x² = 9 dans ℝ.",a:["x = 3 seulement","x = −3 seulement","x = −3 ou x = 3","Aucune solution"],c:2,e:"Les deux nombres dont le carré vaut 9 sont −3 et 3."},
-{t:"Fonctions",d:"Moyen",q:"Les solutions de x² − 5x + 6 = 0 sont…",a:["1 et 6","−2 et −3","2 et 3","−2 et 3"],c:2,e:"x² − 5x + 6 = (x − 2)(x − 3). Les racines sont 2 et 3."},
-{t:"Fonctions",d:"Moyen",q:"Quel est le coefficient directeur de la droite passant par (1 ; 2) et (3 ; 8) ?",a:["2","3","4","6"],c:1,e:"Le coefficient vaut (8 − 2)/(3 − 1) = 6/2 = 3."},
-{t:"Fonctions",d:"Difficile",q:"Quel est l'ensemble de définition de f(x) = 1/(x − 4) ?",a:["ℝ","ℝ privé de 0","ℝ privé de 4","[4 ; +∞["],c:2,e:"Le dénominateur ne peut pas être nul : x − 4 ≠ 0, donc x ≠ 4."},
-
-{t:"Dérivation",d:"Facile",q:"La dérivée de f(x) = 3x² est…",a:["3x","6x","6x²","x³"],c:1,e:"La dérivée de x² est 2x. Donc (3x²)' = 6x."},
-{t:"Dérivation",d:"Facile",q:"La dérivée de f(x) = 5x + 7 est…",a:["5","7","5x","0"],c:0,e:"La dérivée de ax + b est a. Ici, elle vaut 5."},
-{t:"Dérivation",d:"Facile",q:"La dérivée de f(x) = x³ est…",a:["x²","2x","3x²","3x"],c:2,e:"La règle générale est (xⁿ)' = nxⁿ⁻¹."},
-{t:"Dérivation",d:"Moyen",q:"Pour f(x) = x² − 4x, quelle est f'(2) ?",a:["0","2","4","−4"],c:0,e:"f'(x) = 2x − 4. Donc f'(2) = 4 − 4 = 0."},
-{t:"Dérivation",d:"Moyen",q:"Une fonction dont la dérivée est strictement positive sur un intervalle est…",a:["Strictement décroissante","Constante","Strictement croissante","Toujours positive"],c:2,e:"Une dérivée strictement positive implique une fonction strictement croissante sur l'intervalle."},
-{t:"Dérivation",d:"Difficile",q:"Quelle est la dérivée de f(x) = (2x + 1)² ?",a:["2x + 1","4x + 2","4x² + 1","2(2x + 1)"],c:1,e:"Par composition : f'(x) = 2(2x + 1) × 2 = 8x + 4. Attention : aucune proposition ne correspond exactement. La bonne réponse devrait être 8x + 4."},
-
-{t:"Suites",d:"Facile",q:"Une suite arithmétique a pour premier terme 4 et raison 3. Quel est son deuxième terme ?",a:["4","6","7","12"],c:2,e:"On ajoute la raison : u₂ = u₁ + 3 = 7."},
-{t:"Suites",d:"Facile",q:"Une suite géométrique de premier terme 2 et de raison 3 a pour deuxième terme…",a:["5","6","8","9"],c:1,e:"On multiplie par la raison : 2 × 3 = 6."},
-{t:"Suites",d:"Facile",q:"Une suite arithmétique vérifie u₀ = 5 et r = 2. Que vaut u₃ ?",a:["7","9","11","15"],c:2,e:"u₃ = u₀ + 3r = 5 + 6 = 11."},
-{t:"Suites",d:"Moyen",q:"Une suite géométrique vérifie u₀ = 3 et q = 2. Que vaut u₄ ?",a:["12","18","24","48"],c:3,e:"u₄ = u₀ × q⁴ = 3 × 16 = 48."},
-{t:"Suites",d:"Moyen",q:"Pour une suite arithmétique, quelle est la formule de uₙ en fonction de u₀ et de r ?",a:["uₙ = u₀ × rⁿ","uₙ = u₀ + nr","uₙ = u₀ + rⁿ","uₙ = u₀ × n + r"],c:1,e:"Pour une suite arithmétique, on ajoute n fois la raison : uₙ = u₀ + nr."},
-{t:"Suites",d:"Difficile",q:"Une suite géométrique positive a une raison q = 0,5. Son comportement est…",a:["Strictement croissant","Strictement décroissant","Constant","Impossible à déterminer sans u₀"],c:3,e:"Il faut connaître le premier terme et sa position par rapport à zéro pour conclure de façon générale. Pour une suite positive, elle décroît si q = 0,5."},
-
-{t:"Probabilités",d:"Facile",q:"On lance un dé équilibré à 6 faces. Quelle est la probabilité d'obtenir un 6 ?",a:["1/2","1/3","1/6","5/6"],c:2,e:"Une seule face sur six porte le numéro 6 : la probabilité est 1/6."},
-{t:"Probabilités",d:"Facile",q:"Une pièce équilibrée est lancée. Quelle est la probabilité d'obtenir pile ?",a:["0","1/4","1/2","1"],c:2,e:"Les deux issues sont équiprobables : P(pile) = 1/2."},
-{t:"Probabilités",d:"Facile",q:"Un sac contient 3 boules rouges et 2 bleues. On tire une boule au hasard. P(rouge) vaut…",a:["2/5","3/5","1/2","3/2"],c:1,e:"Il y a 3 boules rouges sur 5 boules au total : 3/5."},
-{t:"Probabilités",d:"Moyen",q:"Si P(A) = 0,3, quelle est la probabilité de l'événement contraire de A ?",a:["0,3","0,6","0,7","1,3"],c:2,e:"P(non A) = 1 − P(A) = 1 − 0,3 = 0,7."},
-{t:"Probabilités",d:"Moyen",q:"Deux événements A et B sont indépendants. P(A) = 0,5 et P(B) = 0,2. P(A ∩ B) vaut…",a:["0,1","0,3","0,7","1"],c:0,e:"Pour des événements indépendants, P(A ∩ B) = P(A) × P(B) = 0,1."},
-{t:"Probabilités",d:"Difficile",q:"On sait que P(A) = 0,4, P(B) = 0,5 et P(A ∩ B) = 0,2. P(A ∪ B) vaut…",a:["0,2","0,5","0,7","0,9"],c:1,e:"P(A ∪ B) = P(A) + P(B) − P(A ∩ B) = 0,4 + 0,5 − 0,2 = 0,7. La bonne réponse devrait être 0,7."},
-
-{t:"Trigonométrie",d:"Facile",q:"Quelle est la valeur de cos(0) ?",a:["0","1/2","1","−1"],c:2,e:"cos(0) = 1."},
-{t:"Trigonométrie",d:"Facile",q:"Quelle est la valeur de sin(π/2) ?",a:["0","1/2","1","−1"],c:2,e:"sin(π/2) = 1."},
-{t:"Trigonométrie",d:"Facile",q:"Combien vaut cos²(x) + sin²(x) ?",a:["0","1","2","Cela dépend de x"],c:1,e:"Identité fondamentale : cos²(x) + sin²(x) = 1."},
-{t:"Trigonométrie",d:"Moyen",q:"Quelle est la valeur de cos(π) ?",a:["−1","0","1/2","1"],c:0,e:"cos(π) = −1."},
-{t:"Trigonométrie",d:"Moyen",q:"Quelle est la valeur de sin(π/6) ?",a:["0","1/2","√2/2","√3/2"],c:1,e:"sin(π/6) = 1/2."},
-{t:"Trigonométrie",d:"Difficile",q:"Quelle est la dérivée de f(x) = sin(x) ?",a:["−sin(x)","cos(x)","−cos(x)","tan(x)"],c:1,e:"La dérivée de sin(x) est cos(x)."}
+const subjects = [
+["Mathématiques","➗","Sciences",["Primaire","Collège","Lycée","Supérieur"]],
+["Physique-chimie","⚗️","Sciences",["Collège","Lycée","Supérieur"]],
+["SVT","🧬","Sciences",["Primaire","Collège","Lycée","Supérieur"]],
+["Biologie","🌱","Sciences",["Lycée","Supérieur"]],
+["Chimie","🧪","Sciences",["Lycée","Supérieur"]],
+["Géologie","🪨","Sciences",["Lycée","Supérieur"]],
+["Mécanique","⚙️","Sciences",["Lycée","Supérieur"]],
+["Électronique","🔌","Sciences",["Lycée","Supérieur"]],
+["Sciences de l’ingénieur","🛠️","Sciences",["Lycée","Supérieur"]],
+["Technologie","⚙️","Sciences",["Primaire","Collège"]],
+["Informatique","💻","Numérique",["Collège","Lycée","Supérieur"]],
+["Programmation","👩‍💻","Numérique",["Collège","Lycée","Supérieur"]],
+["Algorithmique","🧩","Numérique",["Lycée","Supérieur"]],
+["Statistiques et probabilités","📊","Sciences",["Lycée","Supérieur"]],
+["Français","📖","Lettres",["Primaire","Collège","Lycée","Supérieur"]],
+["Littérature","📚","Lettres",["Collège","Lycée","Supérieur"]],
+["Philosophie","💭","Lettres",["Lycée","Supérieur"]],
+["Grammaire et orthographe","✍️","Lettres",["Primaire","Collège","Lycée"]],
+["Latin","🏛️","Langues",["Collège","Lycée","Supérieur"]],
+["Grec ancien","🏺","Langues",["Collège","Lycée","Supérieur"]],
+["Anglais","🇬🇧","Langues",["Primaire","Collège","Lycée","Supérieur"]],
+["Allemand","🇩🇪","Langues",["Primaire","Collège","Lycée","Supérieur"]],
+["Espagnol","🇪🇸","Langues",["Primaire","Collège","Lycée","Supérieur"]],
+["Italien","🇮🇹","Langues",["Collège","Lycée","Supérieur"]],
+["Arabe","🌙","Langues",["Primaire","Collège","Lycée","Supérieur"]],
+["Portugais","🇵🇹","Langues",["Collège","Lycée","Supérieur"]],
+["Chinois","🇨🇳","Langues",["Collège","Lycée","Supérieur"]],
+["Japonais","🇯🇵","Langues",["Collège","Lycée","Supérieur"]],
+["Russe","🇷🇺","Langues",["Collège","Lycée","Supérieur"]],
+["Histoire","🏺","Sciences humaines",["Primaire","Collège","Lycée","Supérieur"]],
+["Géographie","🌍","Sciences humaines",["Primaire","Collège","Lycée","Supérieur"]],
+["EMC","🤝","Sciences humaines",["Primaire","Collège","Lycée"]],
+["SES","📈","Sciences humaines",["Lycée","Supérieur"]],
+["Économie","💶","Sciences humaines",["Lycée","Supérieur"]],
+["Sociologie","👥","Sciences humaines",["Lycée","Supérieur"]],
+["Droit","⚖️","Sciences humaines",["Lycée","Supérieur"]],
+["HGGSP et géopolitique","🗺️","Sciences humaines",["Lycée","Supérieur"]],
+["Psychologie","🧠","Sciences humaines",["Supérieur"]],
+["Arts plastiques","🎨","Arts",["Primaire","Collège","Lycée"]],
+["Musique","🎵","Arts",["Primaire","Collège","Lycée","Supérieur"]],
+["Histoire des arts","🖼️","Arts",["Collège","Lycée","Supérieur"]],
+["Design","✏️","Arts",["Collège","Lycée","Supérieur"]],
+["EPS et sport","🏃","Sport et santé",["Primaire","Collège","Lycée","Supérieur"]],
+["Santé et prévention","🩺","Sport et santé",["Collège","Lycée","Supérieur"]],
+["Gestion","📋","Professionnel",["Lycée","Supérieur"]],
+["Comptabilité","🧾","Professionnel",["Lycée","Supérieur"]],
+["Marketing","📣","Professionnel",["Lycée","Supérieur"]],
+["Management","🧭","Professionnel",["Lycée","Supérieur"]],
+["Ingénierie","🏗️","Professionnel",["Supérieur"]],
+["Méthodologie","📌","Transversal",["Primaire","Collège","Lycée","Supérieur"]],
+["Orientation professionnelle","🎓","Transversal",["Collège","Lycée","Supérieur"]]
 ];
 
-// Corrections automatiques de propositions à vérifier dans le jeu.
-QUESTIONS[11].a=["8x + 4","4x + 2","4x² + 1","2(2x + 1)"]; QUESTIONS[11].c=0;
-QUESTIONS[17].a=["Strictement croissante","Strictement décroissante","Constante","Strictement décroissante si u₀ > 0"]; QUESTIONS[17].c=3;
-QUESTIONS[23].a=["0,2","0,5","0,7","0,9"]; QUESTIONS[23].c=2;
+const bank = {
+"Mathématiques":[
+["Combien font 7 × 8 ?","56",["54","48","64"],"7 × 8 = 56."],
+["Combien vaut 3² ?","9",["6","12","8"],"3² = 3 × 3."],
+["Quelle est la somme des angles d’un triangle ?","180°",["90°","270°","360°"],"La somme des angles vaut 180°."],
+["Résous 2x + 4 = 10.","x = 3",["x = 2","x = 7","x = 14"],"2x = 6, donc x = 3."],
+["Quelle est la dérivée de x² ?","2x",["x","x³","2"],"La dérivée de x² est 2x."],
+["Quelle est la probabilité d’obtenir 6 avec un dé équilibré ?","1/6",["1/2","1/3","1/12"],"Une issue favorable sur six."]
+],
+"Physique-chimie":[
+["Quelle est l’unité SI de la force ?","Le newton",["Le joule","Le watt","Le pascal"],"La force se mesure en newtons (N)."],
+["Quelle relation donne la vitesse moyenne ?","v = d / t",["v = d × t","v = t / d","v = m × g"],"La vitesse est la distance divisée par la durée."],
+["Quel est le symbole chimique de l’oxygène ?","O",["Ox","Og","O₂"],"Le symbole de l’élément oxygène est O."],
+["À pression atmosphérique, l’eau bout vers…","100 °C",["0 °C","50 °C","200 °C"],"L’eau pure bout vers 100 °C à pression atmosphérique."],
+["Quelle particule porte une charge négative ?","L’électron",["Le proton","Le neutron","Le photon"],"L’électron porte une charge électrique négative."]
+],
+"SVT":[
+["Quelle molécule porte l’information génétique ?","L’ADN",["Le glucose","L’amidon","La chlorophylle"],"L’ADN porte l’information génétique."],
+["Quel organe pompe le sang ?","Le cœur",["Le foie","Le poumon","Le rein"],"Le cœur assure la circulation du sang."],
+["Quel gaz est utilisé par les plantes lors de la photosynthèse ?","Le dioxyde de carbone",["L’hélium","L’oxygène uniquement","L’argon"],"La photosynthèse utilise notamment du CO₂ et de l’eau."]
+],
+"Français":[
+["Quel est le sujet dans « Les élèves révisent » ?","Les élèves",["révisent","Les","Les élèves révisent"],"Le sujet accomplit ou subit l’action exprimée par le verbe."],
+["Quel est le pluriel de cheval ?","Chevaux",["Chevals","Chevales","Cheval"],"Le pluriel courant de cheval est chevaux."],
+["Dans « Elle a mangé », quel temps est utilisé ?","Passé composé",["Imparfait","Futur simple","Présent"],"Auxiliaire au présent + participe passé."],
+["Comparer avec le mot « comme » est une…","Comparaison",["Métaphore","Hyperbole","Oxymore"],"La comparaison utilise un outil comparatif."]
+],
+"Philosophie":[
+["Qui est associé à « Je pense, donc je suis » ?","Descartes",["Platon","Nietzsche","Rousseau"],"Cette formule résume le cogito de Descartes."],
+["Qui a écrit Du contrat social ?","Rousseau",["Kant","Bergson","Marx"],"L’ouvrage est publié en 1762."],
+["La maïeutique est associée à…","Socrate",["Descartes","Freud","Hobbes"],"Elle fait émerger les idées par le dialogue."]
+],
+"Anglais":[
+["Comment dit-on « Je suis en train d’étudier » ?","I am studying",["I studying","I am study","I study yesterday"],"Présent continu : be + verbe en -ing."],
+["Quel est le prétérit de go ?","Went",["Goed","Gone","Going"],"Go, went, gone."],
+["Que signifie although ?","Bien que",["Parce que","Donc","Avant"],"Although introduit une concession."]
+],
+"Allemand":[
+["Comment dit-on « Je m’appelle » ?","Ich heiße",["Ich habe","Ich gehe","Ich bin alt"],"Ich heiße signifie « je m’appelle »."],
+["Quel est l’article de Tisch au nominatif ?","der",["die","das","den"],"Tisch est un nom masculin."],
+["Comment dit-on « merci » ?","Danke",["Tschüss","Guten Tag","Bitte"],"Danke signifie merci."]
+],
+"Espagnol":[
+["Comment dit-on « bonjour » ?","Hola",["Adiós","Gracias","Por favor"],"Hola signifie bonjour ou salut."],
+["Que signifie gracias ?","Merci",["Bonjour","Au revoir","S’il vous plaît"],"Gracias signifie merci."],
+["Complète : Yo ___ estudiante.","soy",["eres","es","somos"],"Le verbe ser avec yo est soy."]
+],
+"Histoire":[
+["En quelle année commence la Révolution française ?","1789",["1492","1515","1848"],"1789 marque notamment la prise de la Bastille."],
+["En quelle année se termine la Seconde Guerre mondiale en Europe ?","1945",["1918","1939","1962"],"La capitulation allemande est signée en mai 1945."]
+],
+"Géographie":[
+["Quel est le plus grand océan du monde ?","Le Pacifique",["L’Atlantique","L’océan Indien","L’Arctique"],"Le Pacifique est le plus vaste océan."],
+["Quelle est la capitale de l’Italie ?","Rome",["Milan","Venise","Naples"],"Rome est la capitale de l’Italie."]
+],
+"Informatique":[
+["Que signifie CPU ?","Central Processing Unit",["Computer Personal Utility","Core Program User","Central Power Usage"],"Le CPU est le processeur."],
+["Dans un tableur, une cellule est…","L’intersection d’une ligne et d’une colonne",["Un fichier complet","Un clavier","Un graphique"],"Une cellule est repérée par ligne et colonne."]
+],
+"Programmation":[
+["En Python, quel symbole commence un commentaire ?","#",["//","<!--","**"],"Le symbole # commence un commentaire."],
+["Quel type Python représente une liste modifiable ?","list",["tuple","bool","float"],"Une list est une séquence ordonnée modifiable."]
+],
+"SES":[
+["En économie, le prix dépend notamment de…","L’offre et la demande",["La météo uniquement","Le hasard uniquement","La population seule"],"L’offre et la demande influencent les prix."]
+],
+"Musique":[
+["Combien de notes différentes comporte la gamme diatonique usuelle ?","Sept",["Cinq","Huit","Douze"],"Do, ré, mi, fa, sol, la, si."]
+],
+"Droit":[
+["Quel texte est au sommet de la hiérarchie des normes internes ?","La Constitution",["Un contrat privé","Un arrêté municipal","Un règlement intérieur"],"La Constitution est au sommet de la hiérarchie interne."]
+]
+};
 
-const KEY="studyboost_complete_v1";
-const fresh=()=>({xp:0,coins:0,quizzes:0,answers:0,correct:0,seconds:0,streak:0,lastDay:"",dailyXP:0,dailyDay:"",topic:{},errors:[],history:[]});
+const KEY="studyboost_data_v2";
+const fresh=()=>({xp:0,coins:0,quizzes:[],notes:[],cards:[],level:"Collège",id:1,missions:{},missionDate:""});
 let data;
-try{data={...fresh(),...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch(e){data=fresh()}
-let session=null,timerHandle=null,startedAt=0,elapsed=0,answered=false,chosen=null;
-const $=id=>document.getElementById(id);
-const today=()=>new Date().toLocaleDateString("en-CA");
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
-function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function level(){return Math.floor(data.xp/100)+1}
-function accuracy(){return data.answers?Math.round(data.correct/data.answers*100):0}
-function fmtTime(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
-function touchDay(){
-const d=today();
-if(data.dailyDay!==d){data.dailyDay=d;data.dailyXP=0}
-if(data.lastDay!==d){
-const yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);
-const yd=yesterday.toLocaleDateString("en-CA");
-data.streak=data.lastDay===yd?data.streak+1:1;
-data.lastDay=d;
+try { data={...fresh(),...JSON.parse(localStorage.getItem(KEY)||"{}")}; }
+catch(e) { data=fresh(); }
+let quiz=null,cardIndex=0,flipped=false,timerSeconds=1500,timerTotal=1500,timerId=null;
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));updateStats();}
+function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function page(id){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));if(id==="subjects")renderSubjects();if(id==="notes")renderNotes();if(id==="cards")renderCards();if(id==="history")renderHistory();if(id==="home")renderHome();window.scrollTo(0,0);}
+function gain(xp,coins=Math.ceil(xp/2)){data.xp+=xp;data.coins+=coins;persist();}
+function updateStats(){
+document.getElementById("xp").textContent=data.xp;
+document.getElementById("coins").textContent=data.coins;
+document.getElementById("homeXP").textContent=data.xp+" XP";
+document.getElementById("homeCoins").textContent=data.coins;
+document.getElementById("homeQuizzes").textContent=data.quizzes.length;
 }
+function selectHTML(){return subjects.map(s=>`<option value="${safe(s[0])}">${s[1]} ${safe(s[0])}</option>`).join("");}
+function setupSelects(){
+["quizSubject","noteSubject","cardSubject"].forEach(id=>document.getElementById(id).innerHTML=selectHTML());
+const cats=[...new Set(subjects.map(s=>s[2]))].sort();
+document.getElementById("filterCat").innerHTML='<option value="">Toutes les catégories</option>'+cats.map(c=>`<option>${safe(c)}</option>`).join("");
 }
-function addXP(n){
-touchDay();data.xp+=n;data.coins+=Math.floor(n/5);data.dailyXP+=n;save();renderAll()
+function subjectCard(s){return `<div class="card subject" onclick="chooseSubject('${safe(s[0]).replace(/'/g,"\\'")}')"><div class="emoji">${s[1]}</div><h3>${safe(s[0])}</h3><p class="muted">${safe(s[2])}</p><p class="muted">${s[3].join(" · ")}</p></div>`;}
+function renderHome(){
+document.getElementById("popular").innerHTML=subjects.filter(s=>s[3].includes(data.level)).slice(0,6).map(subjectCard).join("");
+document.getElementById("level").value=data.level;
+const done=data.missions||{};
+document.getElementById("missions").innerHTML=
+`🧠 Terminer un quiz : ${(data.quizzes||[]).filter(q=>q.date===new Date().toLocaleDateString("fr-FR")).length}/1<br><br>
+📝 Créer une fiche : ${data.notes.length}/1<br><br>🃏 Créer des flashcards : ${data.cards.length}/3`;
+updateStats();
 }
-const topicInfo={
-"Fonctions":["📈","Fonctions et équations","Équations, images et courbes"],
-"Dérivation":["📉","Dérivation","Dérivées et variations"],
-"Suites":["🔢","Suites numériques","Suites arithmétiques et géométriques"],
-"Probabilités":["🎲","Probabilités","Événements et calculs"],
-"Trigonométrie":["📐","Trigonométrie","Sinus, cosinus et identités"]
-};
 function renderSubjects(){
-$("homeSubjects").innerHTML=Object.keys(topicInfo).map(t=>{
-const qs=QUESTIONS.filter(q=>q.t===t),st=data.topic[t]||{a:0,c:0};
-return `<button class="subject" data-topic="${t}"><div class="subject-icon">${topicInfo[t][0]}</div><strong>${topicInfo[t][1]}</strong><small>${topicInfo[t][2]}</small><div style="margin-top:12px"><span class="tag">${qs.length} questions</span><span class="tag">${st.a?Math.round(st.c/st.a*100)+"% réussite":"À découvrir"}</span></div></button>`
-}).join("");
-document.querySelectorAll("[data-topic]").forEach(b=>b.onclick=()=>{showView("quiz");$("topicSelect").value=b.dataset.topic;updateAvailable()})
+const q=(document.getElementById("search").value||"").toLowerCase();
+const level=document.getElementById("filterLevel").value;
+const cat=document.getElementById("filterCat").value;
+const list=subjects.filter(s=>(s[0]+" "+s[2]).toLowerCase().includes(q)&&(!level||s[3].includes(level))&&(!cat||s[2]===cat));
+document.getElementById("allSubjects").innerHTML=list.length?list.map(subjectCard).join(""):"<p>Aucune matière trouvée.</p>";
 }
-function renderAll(){
-$("headerXP").textContent=data.xp;$("headerCoins").textContent=data.coins;
-$("homeXP").textContent=data.xp+" XP";$("homeQuizzes").textContent=data.quizzes;
-$("homeAccuracy").textContent=data.answers?accuracy()+"%":"—";
-$("homeStreak").textContent="🔥 "+data.streak+" "+(data.streak>1?"jours":"jour");
-$("levelText").textContent="Niveau "+level()+" · "+(data.xp%100)+"/100 XP vers le prochain niveau";
-$("levelBar").style.width=(data.xp%100)+"%";
-$("dailyText").textContent=Math.min(data.dailyXP,30)+" / 30 XP";
-$("dailyBar").style.width=Math.min(100,data.dailyXP/30*100)+"%";
-$("statsXP").textContent=data.xp;$("statsAnswers").textContent=data.answers;
-$("statsCorrect").textContent=data.correct;$("statsTime").textContent=Math.round(data.seconds/60)+" min";
-renderSubjects();renderReview();renderTopicStats()
+function chooseSubject(name){
+document.getElementById("quizSubject").value=name;
+document.getElementById("noteSubject").value=name;
+document.getElementById("cardSubject").value=name;
+page("quiz");startQuiz();
 }
-function showView(id){
-document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
-document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
-if(id==="review")renderReview();if(id==="quiz")updateAvailable()
+function saveLevel(){data.level=document.getElementById("level").value;persist();renderHome();}
+function startQuiz(){
+const subject=document.getElementById("quizSubject").value;
+const questions=(bank[subject]||[]).slice().sort(()=>Math.random()-.5);
+if(!questions.length){alert("Il n’y a pas encore de questions intégrées pour cette matière. Tu peux créer des fiches et flashcards en attendant.");return;}
+quiz={subject,questions,index:0,correct:0,answered:false};
+document.getElementById("quizSetup").classList.add("hidden");
+document.getElementById("quizRun").classList.remove("hidden");
+showQuestion();
 }
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
-$("themeBtn").onclick=()=>{document.body.classList.toggle("dark");$("themeBtn").textContent=document.body.classList.contains("dark")?"☀️":"🌙";try{localStorage.setItem("studyboost_theme",document.body.classList.contains("dark")?"dark":"light")}catch(e){}};
-try{if(localStorage.getItem("studyboost_theme")==="dark"){document.body.classList.add("dark");$("themeBtn").textContent="☀️"}}catch(e){}
-$("startBtn").onclick=()=>showView("quiz");
-$("topicSelect").onchange=updateAvailable;$("difficultySelect").onchange=updateAvailable;
-function poolForSetup(){
-return QUESTIONS.filter(q=>($("topicSelect").value==="all"||q.t===$("topicSelect").value)&&($("difficultySelect").value==="all"||q.d===$("difficultySelect").value))
-}
-function updateAvailable(){const p=poolForSetup();$("availableCount").textContent=p.length+" questions disponibles pour cette sélection.";$("launchBtn").disabled=!p.length}
-function shuffle(arr){return arr.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1])}
-function beginQuiz(list){
-if(timerHandle)clearInterval(timerHandle);
-session={list:shuffle(list),i:0,correct:0,answers:0,results:[],start:Date.now(),mode:"normal"};
-$("quizSetup").classList.add("hidden");$("quizResult").classList.add("hidden");$("quizPlay").classList.remove("hidden");
-startedAt=Date.now();elapsed=0;
-timerHandle=setInterval(()=>{$("qTimer").textContent="⏱ "+fmtTime(Math.floor((Date.now()-startedAt)/1000))},1000);
-showQuestion()
-}
-$("launchBtn").onclick=()=>{
-let p=poolForSetup();let n=Number($("countSelect").value);
-beginQuiz(shuffle(p).slice(0,Math.min(n,p.length)))
-};
 function showQuestion(){
-answered=false;chosen=null;
-const q=session.list[session.i];
-$("qTopic").textContent=q.t+" · "+q.d;
-$("qCounter").textContent="Question "+(session.i+1)+" / "+session.list.length;
-$("quizBar").style.width=(session.i/session.list.length*100)+"%";
-$("qText").textContent=q.q;
-$("feedback").className="feedback hidden";$("feedback").textContent="";
-$("nextBtn").disabled=true;$("nextBtn").textContent=session.i===session.list.length-1?"Voir les résultats →":"Question suivante →";
-$("answers").innerHTML=q.a.map((a,i)=>`<button class="answer" data-answer="${i}"><span class="letter">${"ABCD"[i]}</span><span>${safe(a)}</span></button>`).join("");
-document.querySelectorAll("[data-answer]").forEach(b=>b.onclick=()=>chooseAnswer(Number(b.dataset.answer)));
+const q=quiz.questions[quiz.index];
+if(!q){finishQuiz();return;}
+const opts=[q[1],...q[2]].sort(()=>Math.random()-.5);
+document.getElementById("quizRun").innerHTML=
+`<div class="muted">${safe(quiz.subject)} · Question ${quiz.index+1}/${quiz.questions.length}</div>
+<div class="progress"><div style="width:${quiz.index/quiz.questions.length*100}%"></div></div>
+<h2>${safe(q[0])}</h2>
+${opts.map(o=>`<button class="option" onclick="answer(this,'${safe(o).replace(/'/g,"\\'")}')">${safe(o)}</button>`).join("")}
+<div id="feedback"></div>
+<button id="nextQ" class="hidden" onclick="nextQuestion()">Question suivante →</button>
+<button class="secondary" onclick="quitQuiz()">Quitter le quiz</button>`;
+quiz.answered=false;
 }
-function chooseAnswer(index){
-if(answered)return;answered=true;chosen=index;
-const q=session.list[session.i],good=index===q.c;
-session.answers++;data.answers++;if(good){session.correct++;data.correct++}
-const st=data.topic[q.t]||(data.topic[q.t]={a:0,c:0});st.a++;if(good)st.c++;
-session.results.push({q,chosen:index,good});
-document.querySelectorAll("[data-answer]").forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correct");if(i===index&&!good)b.classList.add("wrong")});
-const f=$("feedback");f.className="feedback "+(good?"good":"bad");
-f.innerHTML=`<strong>${good?"✅ Bonne réponse !":"❌ Pas tout à fait."}</strong><p>${safe(q.e)}</p>`;
-if(!good){
-if(!data.errors.some(e=>e.q===q.q))data.errors.push({q:q.q,t:q.t,d:q.d,a:q.a,c:q.c,e:q.e});
-}else{
-data.errors=data.errors.filter(e=>e.q!==q.q);
+function answer(btn,value){
+if(quiz.answered)return;
+quiz.answered=true;
+const q=quiz.questions[quiz.index],correct=value===q[1];
+if(correct)quiz.correct++;
+document.querySelectorAll(".option").forEach(b=>{b.disabled=true;if(b.textContent===q[1])b.classList.add("correct");else if(b===btn)b.classList.add("wrong");});
+document.getElementById("feedback").innerHTML=`<div class="card">${correct?"✅ Bonne réponse !":"❌ Pas tout à fait."}<br>${safe(q[3])}</div>`;
+document.getElementById("nextQ").classList.remove("hidden");
 }
-$("nextBtn").disabled=false;save();renderAll()
-}
-$("nextBtn").onclick=()=>{
-if(!answered)return;
-if(session.i<session.list.length-1){session.i++;showQuestion()}else finishQuiz()
-};
-$("quitBtn").onclick=()=>{if(confirm("Quitter ce quiz ? Le résultat de la session ne sera pas comptabilisé comme un quiz terminé.")){stopTimer();resetQuizUI();showView("home")}};
-function stopTimer(){if(timerHandle){clearInterval(timerHandle);timerHandle=null}}
+function nextQuestion(){quiz.index++;showQuestion();}
+function quitQuiz(){quiz=null;document.getElementById("quizRun").classList.add("hidden");document.getElementById("quizSetup").classList.remove("hidden");}
 function finishQuiz(){
-stopTimer();elapsed=Math.max(0,Math.floor((Date.now()-startedAt)/1000));
-data.seconds+=elapsed;data.quizzes++;
-const earned=session.correct*10+5;
-addXP(earned);
-const pct=Math.round(session.correct/session.list.length*100);
-data.history.push({date:today(),topic:session.list.map(q=>q.t).filter((v,i,a)=>a.indexOf(v)===i).join(", "),correct:session.correct,total:session.list.length,pct,seconds:elapsed});
-if(data.history.length>100)data.history=data.history.slice(-100);
-save();renderAll();
-$("quizPlay").classList.add("hidden");$("quizResult").classList.remove("hidden");
-$("quizResult").innerHTML=`<div class="empty"><div style="font-size:48px">${pct>=80?"🏆":pct>=50?"💪":"📚"}</div><div class="eyebrow">Quiz terminé</div><h2 style="font-size:29px;margin:12px 0">${pct>=80?"Excellent travail !":pct>=50?"Tu progresses !":"Continue à t'entraîner !"}</h2><div class="big">${session.correct} / ${session.list.length}</div><p class="muted">Réussite : ${pct}% · Durée : ${fmtTime(elapsed)}</p><div class="tag">+${earned} XP</div><div class="tag">+${Math.floor(earned/5)} pièces</div><div class="actions" style="justify-content:center"><button class="secondary" id="resultHome">Accueil</button><button class="primary" id="resultAgain">Nouveau quiz →</button></div></div>`;
-$("resultHome").onclick=()=>{resetQuizUI();showView("home")};
-$("resultAgain").onclick=()=>{resetQuizUI();showView("quiz")};
+const score=Math.round(quiz.correct/quiz.questions.length*100);
+data.quizzes.push({subject:quiz.subject,correct:quiz.correct,total:quiz.questions.length,score,date:new Date().toLocaleDateString("fr-FR")});
+gain(10+quiz.correct*5,5+quiz.correct*2);
+document.getElementById("quizRun").innerHTML=`<h2>${score>=80?"🏆 Excellent !":"👏 Quiz terminé !"}</h2><p>${quiz.correct}/${quiz.questions.length} bonnes réponses (${score} %)</p><p>Tu gagnes ${10+quiz.correct*5} XP et ${5+quiz.correct*2} pièces.</p><button onclick="quitQuiz()">Retour aux quiz</button><button class="secondary" onclick="startQuiz()">Recommencer</button>`;
+quiz=null;renderHome();
 }
-function resetQuizUI(){stopTimer();$("quizPlay").classList.add("hidden");$("quizResult").classList.add("hidden");$("quizSetup").classList.remove("hidden")}
-function renderReview(){
-const list=data.errors||[];$("errorCount").textContent=list.length+" "+(list.length>1?"erreurs":"erreur");
-$("retryErrors").classList.toggle("hidden",!list.length);
-$("reviewList").innerHTML=list.length?list.map((q,i)=>`<div class="review-item"><span class="tag">${safe(q.t)} · ${safe(q.d)}</span><p><strong>${safe(q.q)}</strong></p><p class="small muted">Réponse : ${safe(q.a[q.c])}</p><p class="small">${safe(q.e)}</p><button class="secondary" data-remove="${i}">Retirer de mes erreurs</button></div>`).join(""):`<div class="card empty"><div style="font-size:38px">✨</div><h3>Aucune erreur à revoir</h3><p class="muted">Les questions ratées apparaîtront ici après tes quiz.</p></div>`;
-document.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{data.errors.splice(Number(b.dataset.remove),1);save();renderReview()})
+document.getElementById("noteForm").addEventListener("submit",e=>{
+e.preventDefault();
+data.notes.push({id:data.id++,title:document.getElementById("noteTitle").value,subject:document.getElementById("noteSubject").value,level:document.getElementById("noteLevel").value,content:document.getElementById("noteContent").value});
+gain(5,2);e.target.reset();renderNotes();renderHome();
+});
+function renderNotes(){
+const q=(document.getElementById("noteSearch").value||"").toLowerCase();
+const notes=data.notes.filter(n=>(n.title+" "+n.content+" "+n.subject).toLowerCase().includes(q)).slice().reverse();
+document.getElementById("notesList").innerHTML=notes.length?notes.map(n=>`<div class="card"><h3>${safe(n.title)}</h3><p class="muted">${safe(n.subject)} · ${safe(n.level)}</p><p style="white-space:pre-wrap">${safe(n.content)}</p><button class="secondary" onclick="deleteNote(${n.id})">Supprimer</button></div>`).join(""):"<p class='muted'>Aucune fiche pour le moment.</p>";
 }
-$("retryErrors").onclick=()=>{
-const byText=new Map(QUESTIONS.map(q=>[q.q,q]));
-const p=data.errors.map(e=>byText.get(e.q)).filter(Boolean);
-if(p.length)beginQuiz(p)
-};
-function renderTopicStats(){
-$("topicStats").innerHTML=Object.keys(topicInfo).map(t=>{
-const s=data.topic[t]||{a:0,c:0},pct=s.a?Math.round(s.c/s.a*100):0;
-return `<div><div class="quiz-top"><strong>${topicInfo[t][0]} ${topicInfo[t][1]}</strong><span class="muted small">${s.a?pct+"% · "+s.a+" réponses":"Pas encore commencé"}</span></div><div class="progress"><div style="width:${pct}%"></div></div></div>`
-}).join("")
+function deleteNote(id){data.notes=data.notes.filter(n=>n.id!==id);persist();renderNotes();renderHome();}
+document.getElementById("cardForm").addEventListener("submit",e=>{
+e.preventDefault();
+data.cards.push({id:data.id++,subject:document.getElementById("cardSubject").value,question:document.getElementById("cardQuestion").value,answer:document.getElementById("cardAnswer").value});
+gain(2,1);cardIndex=data.cards.length-1;flipped=false;e.target.reset();renderCards();renderHome();
+});
+function renderCards(){
+if(cardIndex>=data.cards.length)cardIndex=Math.max(0,data.cards.length-1);
+const c=data.cards[cardIndex];
+document.getElementById("flashcard").textContent=c?(flipped?c.answer:c.question):"Crée une carte pour commencer !";
+document.getElementById("cardCount").textContent=c?`${cardIndex+1} / ${data.cards.length} · ${c.subject}`:"0 carte";
+document.getElementById("cardsList").innerHTML=data.cards.map((c,i)=>`<div class="card"><b>${safe(c.question)}</b><p class="muted">${safe(c.subject)} · ${safe(c.answer)}</p><button class="secondary" onclick="deleteCard(${c.id})">Supprimer</button></div>`).join("");
 }
-$("exportBtn").onclick=()=>{
-const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-const url=URL.createObjectURL(blob),a=document.createElement("a");
-a.href=url;a.download="studyboost-progression.json";a.click();URL.revokeObjectURL(url)
-};
-$("resetBtn").onclick=()=>{
-if(confirm("Effacer définitivement toute ta progression enregistrée sur cet appareil ?")){
-data=fresh();save();renderAll();resetQuizUI()
+function flipCard(){if(data.cards.length){flipped=!flipped;renderCards();}}
+function moveCard(n){if(!data.cards.length)return;cardIndex=(cardIndex+n+data.cards.length)%data.cards.length;flipped=false;renderCards();}
+function deleteCard(id){data.cards=data.cards.filter(c=>c.id!==id);cardIndex=0;persist();renderCards();renderHome();}
+function renderHistory(){
+document.getElementById("historyList").innerHTML=data.quizzes.length?data.quizzes.slice().reverse().map(q=>`<p><b>${safe(q.subject)}</b> — ${q.correct}/${q.total} (${q.score} %) · ${safe(q.date)}</p>`).join(""):"Aucun quiz terminé pour le moment.";
 }
-};
-updateAvailable();renderAll();
+function clearHistory(){if(confirm("Effacer tous les résultats ?")){data.quizzes=[];persist();renderHistory();renderHome();}}
+let breakMode=false;
+function updateTimer(){const m=Math.floor(timerSeconds/60),s=timerSeconds%60;document.getElementById("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}
+function toggleTimer(){
+if(timerId){clearInterval(timerId);timerId=null;document.getElementById("timerBtn").textContent="▶ Reprendre";return;}
+document.getElementById("timerBtn").textContent="Ⅱ Pause";
+timerId=setInterval(()=>{timerSeconds--;updateTimer();if(timerSeconds<=0){clearInterval(timerId);timerId=null;if(!breakMode)gain(10,3);alert(breakMode?"Pause terminée !":"Session terminée ! +10 XP");document.getElementById("timerBtn").textContent="▶ Démarrer";}},1000);
+}
+function resetTimer(){if(timerId)clearInterval(timerId);timerId=null;timerSeconds=breakMode?300:1500;updateTimer();document.getElementById("timerBtn").textContent="▶ Démarrer";}
+function switchTimer(){if(timerId){clearInterval(timerId);timerId=null;}breakMode=!breakMode;timerSeconds=breakMode?300:1500;updateTimer();document.getElementById("timerBtn").textContent="▶ Démarrer";}
+setupSelects();
+renderHome();
+renderSubjects();
+renderNotes();
+renderCards();
+renderHistory();
+updateTimer();
 </script>
 </body>
 </html>
