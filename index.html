@@ -1,654 +1,932 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StudyBoost — Révise autrement</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#635bff">
+<title>StudyBoost — Apprendre en s'amusant</title>
 <style>
-:root{--primary:#6657e8;--bg:#f5f6fc;--card:#fff;--text:#24243b;--muted:#77788c;--line:#e7e8f1}
+:root {
+--primary:#635bff; --primary-dark:#5046e5; --bg:#f5f6fc;
+--card:#fff; --text:#20243a; --muted:#777d95;
+--border:#e8eaf3; --green:#16a879; --orange:#ffab40;
+--shadow:0 5px 22px rgba(35,40,90,.07);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,sans-serif}
-header{background:#fff;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.logo{font-size:25px;font-weight:900;color:var(--primary)}
-.stats{font-weight:800}
-nav{display:flex;gap:8px;padding:12px 5%;overflow-x:auto;background:#fff}
-button,select,input,textarea{font:inherit;border-radius:10px;padding:10px 12px}
-button{background:var(--primary);color:#fff;border:0;cursor:pointer;font-weight:700}
-button.secondary{background:#eeecff;color:var(--primary)}
-button:hover{opacity:.88}
-nav button{white-space:nowrap}
-main{max-width:1100px;margin:auto;padding:22px 16px}
-.page{display:none}
-.page.active{display:block}
-.hero{padding:28px;border-radius:20px;background:linear-gradient(120deg,#6657e8,#9a89ff);color:#fff;margin-bottom:18px}
-.hero h1{margin-top:0;font-size:clamp(25px,4vw,36px)}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;margin-bottom:12px}
-.subject{cursor:pointer;transition:.15s}
-.subject:hover{transform:translateY(-2px);border-color:var(--primary)}
-.subject h3{margin:8px 0}
-.emoji{font-size:27px}
-.muted{color:var(--muted);font-size:13px}
-input,select,textarea{border:1px solid #dcddeb;background:#fff;color:var(--text);max-width:100%}
-input,textarea{width:100%;margin:5px 0}
-select{margin:5px 0;width:100%}
-form{display:grid;gap:8px}
-label{font-weight:650}
-.option{display:block;text-align:left;width:100%;margin:8px 0;background:#fff;color:var(--text);border:1px solid var(--line)}
-.option.correct{background:#e5f8ee;border-color:#65b98c}
-.option.wrong{background:#ffe8ec;border-color:#d88b9b}
-.progress{height:8px;border-radius:20px;background:#e9e9f2;overflow:hidden;margin:12px 0}
-.progress div{height:100%;background:var(--primary)}
-.flashcard{min-height:190px;display:grid;place-items:center;text-align:center;cursor:pointer;background:linear-gradient(130deg,#6657e8,#9385ff);color:#fff;border-radius:18px;padding:25px;font-size:23px;font-weight:800;white-space:pre-wrap}
-.timer{font-size:64px;font-weight:900;text-align:center}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.row>*{flex:1;min-width:140px}
-.hidden{display:none!important}
-footer{text-align:center;padding:25px;color:var(--muted)}
-.small{font-size:13px;color:var(--muted)}
-@media(max-width:480px){main{padding:15px 10px}.hero{padding:20px}header{padding:14px}}
+body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:235px;background:#fff;border-right:1px solid var(--border);padding:24px 16px;flex-shrink:0}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px;margin:0 8px 30px;color:var(--primary)}
+.logo span{color:var(--text)}
+.nav{display:flex;flex-direction:column;gap:7px}
+.nav button{border:0;background:transparent;padding:12px 13px;border-radius:12px;text-align:left;color:#646a81;font-weight:650}
+.nav button:hover,.nav button.active{background:#efeeff;color:var(--primary)}
+.sidebar-bottom{margin-top:35px;padding:15px;background:#f5f4ff;border-radius:15px;font-size:13px;color:var(--muted);line-height:1.5}
+main{flex:1;min-width:0;padding:25px 30px 45px;max-width:1500px;margin:0 auto;width:100%}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px}
+.topbar h1{font-size:26px;margin:0}
+.topbar p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:white;padding:10px 14px;border-radius:13px;box-shadow:var(--shadow);font-weight:750}
+.stat small{font-weight:500;color:var(--muted)}
+.page{display:none}.page.active{display:block}
+.hero{padding:30px;border-radius:23px;background:linear-gradient(120deg,#635bff,#9586ff);color:white;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:23px;overflow:hidden}
+.hero h2{font-size:clamp(24px,3vw,34px);margin:0 0 10px}
+.hero p{max-width:540px;line-height:1.6;margin:0 0 20px;color:#f0efff}
+.hero-art{font-size:82px;flex-shrink:0}
+.btn{border:0;border-radius:11px;padding:11px 16px;font-weight:750;transition:.15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--primary);color:white}
+.btn-white{background:white;color:var(--primary)}
+.btn-light{background:#efeeff;color:var(--primary)}
+.btn-danger{background:#fff0f0;color:#d43c50}
+.btn-small{padding:7px 10px;font-size:13px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:26px 0 14px}
+.section-head h2{margin:0;font-size:20px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:var(--card);padding:19px;border:1px solid var(--border);border-radius:17px;box-shadow:var(--shadow);min-width:0}
+.card h3{margin:8px 0;font-size:17px}
+.card p{color:var(--muted);font-size:14px;line-height:1.5}
+.subject-icon{font-size:28px}
+.subject-card{cursor:pointer;transition:.15s}
+.subject-card:hover{transform:translateY(-3px);border-color:#c7c3ff}
+.tag{display:inline-block;padding:5px 9px;background:#f0efff;color:var(--primary);border-radius:20px;font-size:12px;font-weight:750}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field label{font-size:13px;font-weight:750}
+.field input,.field select,.field textarea,.search{width:100%;padding:11px 12px;border:1px solid #dfe2ef;border-radius:10px;background:#fff;color:var(--text);outline:none}
+.field input:focus,.field select:focus,.field textarea:focus,.search:focus{border-color:var(--primary)}
+.field textarea{min-height:100px;resize:vertical}
+.full{grid-column:1/-1}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.toolbar .search{flex:1;min-width:180px}
+.empty{text-align:center;padding:35px 18px;color:var(--muted)}
+.quiz-question{font-size:21px;line-height:1.5;font-weight:800;margin:15px 0 20px}
+.answer{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--border);padding:14px;border-radius:12px;margin:9px 0;color:var(--text)}
+.answer:hover{border-color:var(--primary);background:#f8f7ff}
+.answer.correct{border-color:var(--green);background:#e9fbf4}
+.answer.wrong{border-color:#ef5365;background:#fff0f1}
+.feedback{padding:14px;border-radius:12px;margin-top:14px;line-height:1.5}
+.feedback.good{background:#e9fbf4;color:#08774f}
+.feedback.bad{background:#fff0f1;color:#a72c3b}
+.progress{height:8px;background:#ececf5;border-radius:20px;overflow:hidden;margin:15px 0}
+.progress div{height:100%;background:var(--primary);width:0%;transition:width .2s}
+.list-item{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:1px solid var(--border);padding:15px 0}
+.list-item:last-child{border-bottom:0}
+.list-item h3{margin:0 0 6px}
+.list-item p{margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.meta{font-size:12px;color:var(--muted)}
+.flashcard{min-height:210px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;cursor:pointer;background:linear-gradient(140deg,#fff,#f0efff)}
+.flashcard .big{font-size:22px;font-weight:800;line-height:1.5}
+.timer-display{font-size:clamp(50px,10vw,85px);font-weight:900;letter-spacing:-3px;text-align:center;margin:22px 0}
+.timer-circle{width:min(300px,75vw);height:min(300px,75vw);border:10px solid #e8e6ff;border-top-color:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:25px auto}
+.badge-good{color:var(--green);font-weight:800}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:11px;border-bottom:1px solid var(--border);font-size:14px}
+.mobile-menu{display:none}
+.small-note{font-size:12px;color:var(--muted);line-height:1.5}
+hr{border:0;border-top:1px solid var(--border);margin:18px 0}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:200px}main{padding:22px 18px}}
+@media(max-width:650px){
+.app{display:block}.sidebar{width:100%;padding:12px;border-right:0;border-bottom:1px solid var(--border)}
+.logo{margin:0 5px 12px;font-size:21px}.nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.nav button{text-align:center;padding:9px 4px;font-size:11px}
+.sidebar-bottom{display:none}main{padding:18px 13px 35px}
+.topbar{align-items:flex-start;flex-direction:column}.topbar h1{font-size:23px}
+.hero{padding:22px}.hero-art{font-size:48px}.grid,.grid.two,.form-grid{grid-template-columns:1fr}
+.full{grid-column:auto}.stats{width:100%}.stat{flex:1;text-align:center;padding:9px 6px}
+.card{padding:16px}
+}
 </style>
 </head>
 <body>
-
-<header>
-<div class="logo">✦ StudyBoost</div>
-<div class="stats">⚡ <span id="xp">0</span> XP &nbsp; 🪙 <span id="coins">0</span></div>
-</header>
-
-<nav>
-<button onclick="page('home')">🏠 Accueil</button>
-<button onclick="page('subjects')">📚 Matières</button>
-<button onclick="page('quiz')">🧠 Quiz</button>
-<button onclick="page('notes')">📝 Fiches</button>
-<button onclick="page('cards')">🃏 Flashcards</button>
-<button onclick="page('timerPage')">⏱️ Minuteur</button>
-<button onclick="page('history')">📈 Résultats</button>
+<div class="app">
+<aside class="sidebar">
+<div class="logo">⚡ Study<span>Boost</span></div>
+<nav class="nav">
+<button class="active" data-page="home" onclick="page('home')">🏠 Accueil</button>
+<button data-page="subjects" onclick="page('subjects')">📚 Matières</button>
+<button data-page="quiz" onclick="page('quiz')">🧠 Quiz</button>
+<button data-page="notes" onclick="page('notes')">📝 Fiches</button>
+<button data-page="cards" onclick="page('cards')">🃏 Flashcards</button>
+<button data-page="timerPage" onclick="page('timerPage')">⏱️ Minuteur</button>
+<button data-page="results" onclick="page('results')">🏆 Résultats</button>
 </nav>
+<div class="sidebar-bottom">
+<strong>🎯 Ton objectif</strong><br>
+Progresse chaque jour, révise un chapitre à la fois et gagne de l'XP !
+</div>
+</aside>
 
 <main>
-<section id="home" class="page active">
+<header class="topbar">
+<div>
+<h1 id="pageTitle">Bonjour ! 👋</h1>
+<p id="pageSubtitle">Prêt à apprendre quelque chose aujourd'hui ?</p>
+</div>
+<div class="stats">
+<div class="stat">⭐ <span id="xp">0</span> <small>XP</small></div>
+<div class="stat">🪙 <span id="coins">0</span> <small>pièces</small></div>
+<div class="stat">🔥 <span id="streak">0</span> <small>quiz réussis</small></div>
+</div>
+</header>
+
+<section class="page active" id="home">
 <div class="hero">
-<h1>Prêt à booster tes révisions ? 🚀</h1>
-<p>Choisis ton niveau, ta matière et le chapitre que tu veux travailler.</p>
-<label for="level">Ton niveau :</label>
-<select id="level" onchange="saveLevel()">
-<option>Primaire</option><option>Collège</option>
-<option>Lycée</option><option>Supérieur</option>
-</select>
-<button onclick="page('quiz')">Commencer à réviser →</button>
+<div>
+<h2>Révise mieux. Progresse plus vite. 🚀</h2>
+<p>Choisis ta classe, sélectionne un chapitre et transforme tes révisions en jeu. Tes progrès sont enregistrés sur cet appareil.</p>
+<button class="btn btn-white" onclick="page('quiz')">Commencer un quiz →</button>
 </div>
-<div class="cards">
-<div class="card">⚡<h3 id="homeXP">0 XP</h3><p class="muted">Expérience gagnée</p></div>
-<div class="card">🪙<h3 id="homeCoins">0</h3><p class="muted">Pièces disponibles</p></div>
-<div class="card">🧠<h3 id="homeQuizzes">0</h3><p class="muted">Quiz terminés</p></div>
+<div class="hero-art">📚</div>
 </div>
-<h2>🌟 Matières populaires</h2>
-<div id="popular" class="cards"></div>
-<h2>🎯 Missions</h2>
-<div class="card" id="missions"></div>
+<div class="grid">
+<div class="card"><div class="subject-icon">🧠</div><h3>Quiz personnalisés</h3><p>Choisis ton niveau, ta classe, ta matière et ton chapitre.</p><button class="btn btn-light" onclick="page('quiz')">Faire un quiz</button></div>
+<div class="card"><div class="subject-icon">📝</div><h3>Mes fiches</h3><p>Crée tes propres fiches de révision et retrouve-les facilement.</p><button class="btn btn-light" onclick="page('notes')">Créer une fiche</button></div>
+<div class="card"><div class="subject-icon">🃏</div><h3>Flashcards</h3><p>Mémorise définitions, dates, formules et vocabulaire.</p><button class="btn btn-light" onclick="page('cards')">Réviser</button></div>
+</div>
+<div class="section-head"><h2>🎯 Missions du jour</h2></div>
+<div class="grid two">
+<div class="card"><h3>🧠 Réussis un quiz</h3><p>Teste tes connaissances pour gagner de l'XP.</p><span class="tag">+20 XP</span></div>
+<div class="card"><h3>📝 Crée une fiche</h3><p>Note les idées essentielles d'un chapitre.</p><span class="tag">+10 XP</span></div>
+</div>
+<div class="section-head"><h2>📈 Tes derniers résultats</h2><button class="btn btn-light btn-small" onclick="page('results')">Tout voir</button></div>
+<div class="card" id="homeResults"><div class="empty">Tes résultats apparaîtront ici après ton premier quiz.</div></div>
 </section>
 
-<section id="subjects" class="page">
-<h1>📚 Toutes les matières</h1>
-<p class="muted">Sélectionne une matière pour choisir un chapitre.</p>
-<div class="row">
-<input id="search" placeholder="Rechercher une matière…" oninput="renderSubjects()">
-<select id="filterLevel" onchange="renderSubjects()">
-<option value="">Tous les niveaux</option>
-<option>Primaire</option><option>Collège</option>
-<option>Lycée</option><option>Supérieur</option>
-</select>
-<select id="filterCat" onchange="renderSubjects()">
-<option value="">Toutes les catégories</option>
+<section class="page" id="subjects">
+<div class="section-head"><h2>Toutes les matières</h2></div>
+<p class="muted">Sélectionne une matière pour préparer un quiz sur le chapitre de ton choix.</p>
+<div class="toolbar">
+<input class="search" id="subjectSearch" placeholder="🔎 Rechercher une matière..." oninput="renderSubjects()">
+<select id="subjectLevelFilter" onchange="renderSubjects()">
+<option value="Tous">Tous les niveaux</option>
+<option>Primaire</option><option>Collège</option><option>Lycée</option><option>Supérieur</option>
 </select>
 </div>
-<div id="allSubjects" class="cards"></div>
+<div class="grid" id="subjectGrid"></div>
 </section>
 
-<section id="quiz" class="page">
-<h1>🧠 Quiz interactifs</h1>
+<section class="page" id="quiz">
+<div class="section-head"><h2>🧠 Quiz personnalisé</h2></div>
 <div class="card" id="quizSetup">
-<label for="quizLevel">1. Ton niveau</label>
-<select id="quizLevel" onchange="updateChapters('quiz')">
-<option>Primaire</option><option>Collège</option>
-<option>Lycée</option><option>Supérieur</option>
-</select>
-<label for="quizSubject">2. Ta matière</label>
-<select id="quizSubject" onchange="updateChapters('quiz')"></select>
-<label for="quizChapter">3. Le chapitre à réviser</label>
-<select id="quizChapter"></select>
-<button onclick="startQuiz()">Commencer le quiz</button>
-<p class="muted">Les questions disponibles dépendent du chapitre sélectionné. Les autres chapitres peuvent être travaillés avec tes propres fiches et flashcards.</p>
+<p class="muted">Commence par choisir ta classe. Les matières et les chapitres pourront ensuite être adaptés à ton parcours.</p>
+<div class="form-grid">
+<div class="field"><label for="quizLevel">Niveau scolaire</label><select id="quizLevel" onchange="updateClasses('quiz');updateChapters('quiz')"></select></div>
+<div class="field"><label for="quizClass">Classe / année</label><select id="quizClass" onchange="updateChapters('quiz')"></select></div>
+<div class="field"><label for="quizSubject">Matière</label><select id="quizSubject" onchange="updateChapters('quiz')"></select></div>
+<div class="field"><label for="quizChapter">Chapitre</label><select id="quizChapter"></select></div>
+<div class="field full"><label for="quizCount">Nombre de questions</label>
+<select id="quizCount"><option value="5">5 questions</option><option value="10">10 questions</option><option value="15">15 questions</option></select>
 </div>
-<div id="quizRun" class="card hidden"></div>
+<div class="full"><button class="btn btn-primary" onclick="startQuiz()">Lancer le quiz 🚀</button></div>
+</div>
+</div>
+<div class="card" id="quizArea" style="display:none"></div>
 </section>
 
-<section id="notes" class="page">
-<h1>📝 Mes fiches de révision</h1>
+<section class="page" id="notes">
+<div class="section-head"><h2>📝 Mes fiches de révision</h2></div>
 <div class="card">
-<form id="noteForm">
-<input id="noteTitle" placeholder="Titre de la fiche" required>
-<label for="noteLevel">Niveau</label>
-<select id="noteLevel" onchange="updateChapters('note')">
-<option>Primaire</option><option>Collège</option>
-<option>Lycée</option><option>Supérieur</option>
-</select>
-<label for="noteSubject">Matière</label>
-<select id="noteSubject" required onchange="updateChapters('note')"></select>
-<label for="noteChapter">Chapitre</label>
-<select id="noteChapter"></select>
-<textarea id="noteContent" rows="5" placeholder="Écris ton cours, les définitions et les formules…" required></textarea>
-<button>Enregistrer la fiche (+5 XP)</button>
-</form>
+<h3>Créer une fiche</h3>
+<div class="form-grid">
+<div class="field"><label for="noteTitle">Titre de la fiche</label><input id="noteTitle" placeholder="Ex. : Les fonctions dérivées"></div>
+<div class="field"><label for="noteLevel">Niveau scolaire</label><select id="noteLevel" onchange="updateClasses('note');updateChapters('note')"></select></div>
+<div class="field"><label for="noteClass">Classe / année</label><select id="noteClass" onchange="updateChapters('note')"></select></div>
+<div class="field"><label for="noteSubject">Matière</label><select id="noteSubject" onchange="updateChapters('note')"></select></div>
+<div class="field full"><label for="noteChapter">Chapitre</label><select id="noteChapter"></select></div>
+<div class="field full"><label for="noteContent">Contenu</label><textarea id="noteContent" placeholder="Écris ici les notions importantes, les définitions et les exemples..."></textarea></div>
+<div class="full"><button class="btn btn-primary" onclick="addNote()">Enregistrer la fiche</button></div>
 </div>
-<input id="noteSearch" placeholder="Rechercher une fiche…" oninput="renderNotes()">
-<div id="notesList"></div>
+</div>
+<div class="section-head"><h2>Mes fiches enregistrées</h2></div>
+<div class="card" id="notesList"></div>
 </section>
 
-<section id="cards" class="page">
-<h1>🃏 Flashcards</h1>
+<section class="page" id="cards">
+<div class="section-head"><h2>🃏 Flashcards</h2></div>
 <div class="card">
-<form id="cardForm">
-<label for="cardSubject">Matière</label>
-<select id="cardSubject" onchange="updateChapters('card')"></select>
-<label for="cardChapter">Chapitre</label>
-<select id="cardChapter"></select>
-<input id="cardQuestion" placeholder="Question / recto" required>
-<textarea id="cardAnswer" placeholder="Réponse / verso" required></textarea>
-<button>Ajouter une flashcard (+2 XP)</button>
-</form>
+<h3>Créer une flashcard</h3>
+<div class="form-grid">
+<div class="field"><label for="cardLevel">Niveau scolaire</label><select id="cardLevel" onchange="updateClasses('card');updateChapters('card')"></select></div>
+<div class="field"><label for="cardClass">Classe / année</label><select id="cardClass" onchange="updateChapters('card')"></select></div>
+<div class="field"><label for="cardSubject">Matière</label><select id="cardSubject" onchange="updateChapters('card')"></select></div>
+<div class="field"><label for="cardChapter">Chapitre</label><select id="cardChapter"></select></div>
+<div class="field full"><label for="cardFront">Question / recto</label><input id="cardFront" placeholder="Ex. : Quelle est la dérivée de x² ?"></div>
+<div class="field full"><label for="cardBack">Réponse / verso</label><textarea id="cardBack" placeholder="Ex. : 2x"></textarea></div>
+<div class="full"><button class="btn btn-primary" onclick="addCard()">Ajouter la flashcard</button></div>
 </div>
-<div class="card">
-<div id="flashcard" class="flashcard" onclick="flipCard()">Crée une carte pour commencer !</div>
-<div class="row" style="margin-top:12px">
-<button class="secondary" onclick="moveCard(-1)">← Précédente</button>
-<button class="secondary" onclick="moveCard(1)">Suivante →</button>
 </div>
-<p id="cardCount" class="muted"></p>
+<div class="section-head"><h2>Réviser mes flashcards</h2></div>
+<div class="toolbar">
+<select id="cardFilter" onchange="renderCards()"><option value="Toutes">Toutes les matières</option></select>
+<button class="btn btn-light" onclick="shuffleCards()">Mélanger</button>
 </div>
-<div id="cardsList"></div>
+<div class="card" id="flashcardArea"><div class="empty">Ajoute une flashcard pour commencer.</div></div>
+<div class="toolbar" style="justify-content:center;margin-top:12px">
+<button class="btn btn-light" onclick="previousCard()">← Précédente</button>
+<button class="btn btn-primary" onclick="flipCard()">Voir la réponse</button>
+<button class="btn btn-light" onclick="nextCard()">Suivante →</button>
+</div>
+<div class="section-head"><h2>Mes cartes enregistrées</h2></div>
+<div class="card" id="cardsList"></div>
 </section>
 
-<section id="timerPage" class="page">
-<h1>⏱️ Minuteur de concentration</h1>
+<section class="page" id="timerPage">
+<div class="section-head"><h2>⏱️ Minuteur de concentration</h2></div>
+<div class="grid two">
 <div class="card">
-<p class="muted">Concentre-toi pendant 25 minutes, puis fais une pause.</p>
-<div id="timerDisplay" class="timer">25:00</div>
-<div class="row">
-<button onclick="toggleTimer()" id="timerBtn">▶ Démarrer</button>
-<button class="secondary" onclick="resetTimer()">↺ Réinitialiser</button>
-<button class="secondary" onclick="switchTimer()">☕ Pause 5 min</button>
+<div class="toolbar">
+<button class="btn btn-light" onclick="setTimer(25,'focus')">25 min travail</button>
+<button class="btn btn-light" onclick="setTimer(5,'break')">5 min pause</button>
+<button class="btn btn-light" onclick="setTimer(50,'focus')">50 min travail</button>
 </div>
+<div class="timer-circle"><div><div class="timer-display" id="timerDisplay">25:00</div><p id="timerMode" class="muted" style="text-align:center">Concentration</p></div></div>
+<div class="toolbar" style="justify-content:center">
+<button class="btn btn-primary" id="timerStart" onclick="toggleTimer()">▶ Démarrer</button>
+<button class="btn btn-light" onclick="resetTimer()">↻ Réinitialiser</button>
+</div>
+</div>
+<div class="card"><h3>💡 La méthode Pomodoro</h3><p>1. Choisis une tâche précise.</p><p>2. Travaille sans distraction jusqu'à la fin du minuteur.</p><p>3. Fais une courte pause, puis recommence.</p><hr><p>Les sessions de concentration terminées sont comptabilisées dans tes statistiques.</p><h3>Sessions terminées : <span id="sessions">0</span></h3></div>
 </div>
 </section>
 
-<section id="history" class="page">
-<h1>📈 Historique des résultats</h1>
-<div id="historyList" class="card"></div>
-<button class="secondary" onclick="clearHistory()">Effacer l’historique</button>
+<section class="page" id="results">
+<div class="section-head"><h2>🏆 Mes résultats</h2><button class="btn btn-danger btn-small" onclick="clearResults()">Effacer l'historique</button></div>
+<div class="grid">
+<div class="card"><p>Total de quiz</p><h2 id="totalQuizzes">0</h2></div>
+<div class="card"><p>Moyenne des scores</p><h2 id="averageScore">0 %</h2></div>
+<div class="card"><p>Meilleur score</p><h2 id="bestScore">0 %</h2></div>
+</div>
+<div class="section-head"><h2>Historique</h2></div>
+<div class="card" id="resultsList"></div>
 </section>
 </main>
-
-<footer>StudyBoost • Révise un peu chaque jour, progresse à ton rythme ✨</footer>
+</div>
 
 <script>
-const subjects = [
-["Mathématiques","➗","Sciences",["Primaire","Collège","Lycée","Supérieur"]],
-["Physique-chimie","⚗️","Sciences",["Collège","Lycée","Supérieur"]],
-["SVT","🧬","Sciences",["Primaire","Collège","Lycée","Supérieur"]],
-["Biologie","🌱","Sciences",["Lycée","Supérieur"]],
-["Chimie","🧪","Sciences",["Lycée","Supérieur"]],
-["Géologie","🪨","Sciences",["Lycée","Supérieur"]],
-["Mécanique","⚙️","Sciences",["Lycée","Supérieur"]],
-["Électronique","🔌","Sciences",["Lycée","Supérieur"]],
-["Sciences de l’ingénieur","🛠️","Sciences",["Lycée","Supérieur"]],
-["Technologie","⚙️","Sciences",["Primaire","Collège"]],
-["Informatique","💻","Numérique",["Collège","Lycée","Supérieur"]],
-["Programmation","👩‍💻","Numérique",["Collège","Lycée","Supérieur"]],
-["Algorithmique","🧩","Numérique",["Lycée","Supérieur"]],
-["Statistiques et probabilités","📊","Sciences",["Lycée","Supérieur"]],
-["Français","📖","Lettres",["Primaire","Collège","Lycée","Supérieur"]],
-["Littérature","📚","Lettres",["Collège","Lycée","Supérieur"]],
-["Philosophie","💭","Lettres",["Lycée","Supérieur"]],
-["Grammaire et orthographe","✍️","Lettres",["Primaire","Collège","Lycée"]],
-["Latin","🏛️","Langues",["Collège","Lycée","Supérieur"]],
-["Grec ancien","🏺","Langues",["Collège","Lycée","Supérieur"]],
-["Anglais","🇬🇧","Langues",["Primaire","Collège","Lycée","Supérieur"]],
-["Allemand","🇩🇪","Langues",["Primaire","Collège","Lycée","Supérieur"]],
-["Espagnol","🇪🇸","Langues",["Primaire","Collège","Lycée","Supérieur"]],
-["Italien","🇮🇹","Langues",["Collège","Lycée","Supérieur"]],
-["Arabe","🌙","Langues",["Primaire","Collège","Lycée","Supérieur"]],
-["Portugais","🇵🇹","Langues",["Collège","Lycée","Supérieur"]],
-["Chinois","🇨🇳","Langues",["Collège","Lycée","Supérieur"]],
-["Japonais","🇯🇵","Langues",["Collège","Lycée","Supérieur"]],
-["Russe","🇷🇺","Langues",["Collège","Lycée","Supérieur"]],
-["Histoire","🏺","Sciences humaines",["Primaire","Collège","Lycée","Supérieur"]],
-["Géographie","🌍","Sciences humaines",["Primaire","Collège","Lycée","Supérieur"]],
-["EMC","🤝","Sciences humaines",["Primaire","Collège","Lycée"]],
-["SES","📈","Sciences humaines",["Lycée","Supérieur"]],
-["Économie","💶","Sciences humaines",["Lycée","Supérieur"]],
-["Sociologie","👥","Sciences humaines",["Lycée","Supérieur"]],
-["Droit","⚖️","Sciences humaines",["Lycée","Supérieur"]],
-["HGGSP et géopolitique","🗺️","Sciences humaines",["Lycée","Supérieur"]],
-["Psychologie","🧠","Sciences humaines",["Supérieur"]],
-["Arts plastiques","🎨","Arts",["Primaire","Collège","Lycée"]],
-["Musique","🎵","Arts",["Primaire","Collège","Lycée","Supérieur"]],
-["Histoire des arts","🖼️","Arts",["Collège","Lycée","Supérieur"]],
-["Design","✏️","Arts",["Collège","Lycée","Supérieur"]],
-["EPS et sport","🏃","Sport et santé",["Primaire","Collège","Lycée","Supérieur"]],
-["Santé et prévention","🩺","Sport et santé",["Collège","Lycée","Supérieur"]],
-["Gestion","📋","Professionnel",["Lycée","Supérieur"]],
-["Comptabilité","🧾","Professionnel",["Lycée","Supérieur"]],
-["Marketing","📣","Professionnel",["Lycée","Supérieur"]],
-["Management","🧭","Professionnel",["Lycée","Supérieur"]],
-["Ingénierie","🏗️","Professionnel",["Supérieur"]],
-["Méthodologie","📌","Transversal",["Primaire","Collège","Lycée","Supérieur"]],
-["Orientation professionnelle","🎓","Transversal",["Collège","Lycée","Supérieur"]]
-];
+"use strict";
 
-// Chapitres proposés selon la matière et le niveau.
-// Les matières sans liste détaillée utilisent des chapitres génériques.
-const chapters = {
-"Mathématiques":{
-"Primaire":["Nombres et calculs","Fractions","Géométrie","Mesures","Proportionnalité"],
-"Collège":["Nombres relatifs","Fractions","Puissances","Calcul littéral","Équations","Proportionnalité","Théorème de Pythagore","Théorème de Thalès","Trigonométrie","Statistiques et probabilités"],
-"Lycée":["Second degré","Dérivation","Limites","Suites","Fonctions exponentielles","Logarithmes","Primitives et intégrales","Probabilités","Variables aléatoires","Géométrie dans l'espace"],
-"Supérieur":["Algèbre linéaire","Matrices","Analyse","Suites et séries","Intégrales","Équations différentielles","Probabilités","Statistiques","Arithmétique"]},
-"Physique-chimie":{
-"Primaire":["Matière et matériaux","Électricité","Lumière et son","Mouvement"],
-"Collège":["Matière et transformations","Atomes et molécules","Électricité","Mouvement et vitesse","Forces","Énergie","Lumière et son"],
-"Lycée":["Ondes et signaux","Mouvement et forces","Énergie","Électricité","Structure de la matière","Transformations chimiques","Acides et bases","Cinétique chimique"],
-"Supérieur":["Mécanique","Thermodynamique","Électromagnétisme","Optique","Électronique","Chimie générale","Cinétique chimique","Ondes"]},
-"SVT":{
-"Primaire":["Corps humain","Êtres vivants","Écosystèmes","Planète Terre"],
-"Collège":["Cellules et organisation du vivant","Génétique","Reproduction","Digestion et nutrition","Écosystèmes","Géologie","Climat"],
-"Lycée":["Génétique et évolution","Immunité","Système nerveux","Géologie","Écosystèmes","Enjeux planétaires"],
-"Supérieur":["Biologie cellulaire","Génétique","Écologie","Physiologie","Évolution","Microbiologie"]},
-"Français":{
-"Primaire":["Grammaire","Conjugaison","Orthographe","Vocabulaire","Compréhension de texte"],
-"Collège":["Classes grammaticales","Fonctions grammaticales","Conjugaison","Orthographe","Figures de style","Narration","Poésie","Argumentation"],
-"Lycée":["Roman","Théâtre","Poésie","Littérature d'idées","Commentaire composé","Dissertation","Grammaire"],
-"Supérieur":["Analyse littéraire","Littérature comparée","Linguistique","Rhétorique","Histoire littéraire"]},
-"Philosophie":{
-"Lycée":["La conscience","L'inconscient","La liberté","La vérité","La justice","Le bonheur","Le devoir","La raison","La technique","Le travail","La nature","L'art","Le langage","La science","La religion","La politique"],
-"Supérieur":["Métaphysique","Éthique","Logique","Philosophie politique","Épistémologie","Philosophie des sciences"]},
-"Anglais":{
-"Primaire":["Salutations","Se présenter","Nombres et dates","Vie quotidienne"],
-"Collège":["Présent simple","Présent continu","Prétérit","Futur","Vocabulaire","Compréhension écrite"],
-"Lycée":["Temps verbaux","Modaux","Voix passive","Discours indirect","Expression écrite","Compréhension orale"],
-"Supérieur":["Anglais académique","Anglais professionnel","Grammaire avancée","Expression orale"]},
-"Allemand":{
-"Primaire":["Salutations","Se présenter","Nombres","Vocabulaire courant"],
-"Collège":["Articles et genres","Conjugaison","Ordre des mots","Accusatif et datif","Vocabulaire"],
-"Lycée":["Subordonnées","Temps verbaux","Déclinaisons","Expression écrite","Compréhension orale"],
-"Supérieur":["Allemand professionnel","Grammaire avancée","Expression orale"]},
-"Espagnol":{
-"Primaire":["Salutations","Se présenter","Nombres","Vocabulaire courant"],
-"Collège":["Présent","Ser et estar","Passé","Vocabulaire","Compréhension écrite"],
-"Lycée":["Subjonctif","Passés","Futur et conditionnel","Civilisation","Expression écrite"],
-"Supérieur":["Espagnol professionnel","Grammaire avancée","Expression orale"]},
-"Histoire":{
-"Primaire":["Repères historiques","Préhistoire","Antiquité","Moyen Âge"],
-"Collège":["Moyen Âge","Renaissance","Révolution française","Industrialisation","Première Guerre mondiale","Seconde Guerre mondiale"],
-"Lycée":["Révolutions","Démocraties et totalitarismes","Guerres mondiales","Guerre froide","Décolonisation","Monde contemporain"],
-"Supérieur":["Historiographie","Histoire ancienne","Histoire médiévale","Histoire moderne","Histoire contemporaine"]},
-"Géographie":{
-"Primaire":["Se repérer","Paysages","France et régions","Monde"],
-"Collège":["Population","Urbanisation","Ressources","Mobilités","France et Europe"],
-"Lycée":["Mondialisation","Métropolisation","Frontières","Environnement","Puissances mondiales"],
-"Supérieur":["Géographie humaine","Géographie physique","Aménagement","Géopolitique"]},
-"Informatique":{
-"Primaire":["Logique et numérique","Découverte du code"],
-"Collège":["Algorithmique","Données","Web et réseaux","Sécurité numérique"],
-"Lycée":["Python","Algorithmique","Données structurées","Architecture des ordinateurs","Réseaux"],
-"Supérieur":["Programmation","Structures de données","Bases de données","Réseaux","Systèmes","Complexité"]},
-"Programmation":{
-"Primaire":["Logique","Premiers algorithmes"],
-"Collège":["Variables","Conditions","Boucles","Fonctions"],
-"Lycée":["Python","Conditions et boucles","Fonctions","Listes","Algorithmes"],
-"Supérieur":["Programmation orientée objet","Structures de données","Récursivité","Tests","Complexité"]}
+/* =========================
+DONNÉES ET SAUVEGARDE
+========================= */
+const STORAGE_KEY = "studyboost_data_v2";
+
+const freshData = {
+xp:0, coins:0, streak:0, notes:[], cards:[], results:[],
+sessions:0
 };
 
-const generalChapters = {
-"Biologie":["Biologie cellulaire","Génétique","Évolution","Physiologie","Écologie"],
-"Chimie":["Atomes et molécules","Liaisons chimiques","Réactions chimiques","Acides et bases","Thermodynamique"],
-"Géologie":["Roches et minéraux","Tectonique des plaques","Volcanisme","Séismes","Histoire de la Terre"],
-"Mécanique":["Cinématique","Dynamique","Énergie","Statique","Mécanique des fluides"],
-"Électronique":["Circuits électriques","Composants","Amplificateurs","Signaux","Systèmes numériques"],
-"Sciences de l’ingénieur":["Analyse fonctionnelle","Modélisation","Énergie","Automatique","Conception"],
-"Technologie":["Matériaux","Objets techniques","Énergie","Programmation","Conception"],
-"Algorithmique":["Variables","Conditions","Boucles","Fonctions","Tri et recherche"],
-"Statistiques et probabilités":["Statistiques descriptives","Probabilités","Variables aléatoires","Estimation","Tests"],
-"Littérature":["Roman","Théâtre","Poésie","Littérature d'idées","Analyse de texte"],
-"Grammaire et orthographe":["Nature des mots","Fonctions grammaticales","Accords","Conjugaison","Orthographe"],
-"Latin":["Déclinaisons","Conjugaison","Syntaxe","Vocabulaire","Civilisation romaine"],
-"Grec ancien":["Alphabet","Déclinaisons","Conjugaison","Syntaxe","Civilisation grecque"],
-"Italien":["Vocabulaire","Présent","Passés","Grammaire","Civilisation"],
-"Arabe":["Alphabet et lecture","Vocabulaire","Grammaire","Conjugaison","Expression écrite"],
-"Portugais":["Vocabulaire","Présent","Passés","Grammaire","Civilisation"],
-"Chinois":["Pinyin et tons","Caractères","Vocabulaire","Grammaire","Conversation"],
-"Japonais":["Hiragana et katakana","Kanji","Vocabulaire","Grammaire","Conversation"],
-"Russe":["Alphabet cyrillique","Déclinaisons","Conjugaison","Vocabulaire","Conversation"],
-"EMC":["Valeurs de la République","Droits et devoirs","Citoyenneté","Laïcité","Débat"],
-"SES":["Marchés","Socialisation","Monnaie et financement","Croissance","Inégalités","Action publique"],
-"Économie":["Offre et demande","Marchés","Monnaie","Croissance","Inflation","Commerce international"],
-"Sociologie":["Socialisation","Groupes sociaux","Inégalités","Culture","Mobilité sociale"],
-"Droit":["Sources du droit","Constitution","Contrats","Responsabilité","Droit pénal"],
-"HGGSP et géopolitique":["Démocratie","Puissances internationales","Frontières","Information","Patrimoine","Environnement"],
-"Psychologie":["Mémoire","Apprentissage","Développement","Cognition","Psychologie sociale"],
-"Arts plastiques":["Couleurs","Composition","Techniques","Histoire de l'art","Analyse d'image"],
-"Musique":["Rythme","Notes et gammes","Harmonie","Écoute","Histoire de la musique"],
-"Histoire des arts":["Antiquité","Moyen Âge","Renaissance","Art moderne","Art contemporain"],
-"Design":["Couleur et forme","Typographie","Ergonomie","Dessin","Projet"],
-"EPS et sport":["Endurance","Force","Vitesse","Coordination","Règles et tactique"],
-"Santé et prévention":["Nutrition","Sommeil","Prévention","Corps humain","Premiers secours"],
-"Gestion":["Organisation","Budget","Comptabilité de base","Stratégie","Gestion de projet"],
-"Comptabilité":["Bilan","Compte de résultat","Écritures comptables","TVA","Analyse financière"],
-"Marketing":["Étude de marché","Segmentation","Positionnement","Communication","Marketing numérique"],
-"Management":["Organisation","Leadership","Motivation","Stratégie","Gestion de projet"],
-"Ingénierie":["Mathématiques appliquées","Mécanique","Électronique","Programmation","Gestion de projet"],
-"Méthodologie":["Prise de notes","Mémorisation","Organisation","Dissertation","Gestion du temps"],
-"Orientation professionnelle":["Connaissance de soi","Métiers","Formations","CV et entretien","Projet professionnel"]
-};
-
-function getChapters(subject,level){
-const list=chapters[subject]?.[level];
-if(list && list.length) return list;
-return generalChapters[subject] || ["Notions fondamentales","Définitions et vocabulaire","Méthodes et exercices","Applications pratiques","Révisions générales"];
-}
-
-const bank = {
-"Mathématiques":[
-["Combien font 7 × 8 ?","56",["54","48","64"],"7 × 8 = 56.","Nombres et calculs"],
-["Combien vaut 3² ?","9",["6","12","8"],"3² = 3 × 3.","Puissances"],
-["Quelle est la somme des angles d’un triangle ?","180°",["90°","270°","360°"],"La somme des angles vaut 180°.","Géométrie"],
-["Résous 2x + 4 = 10.","x = 3",["x = 2","x = 7","x = 14"],"2x = 6, donc x = 3.","Équations"],
-["Quelle est la dérivée de x² ?","2x",["x","x³","2"],"La dérivée de x² est 2x.","Dérivation"],
-["Quelle est la probabilité d’obtenir 6 avec un dé équilibré ?","1/6",["1/2","1/3","1/12"],"Une issue favorable sur six.","Probabilités"]
-],
-"Physique-chimie":[
-["Quelle est l’unité SI de la force ?","Le newton",["Le joule","Le watt","Le pascal"],"La force se mesure en newtons (N).","Mouvement et forces"],
-["Quelle relation donne la vitesse moyenne ?","v = d / t",["v = d × t","v = t / d","v = m × g"],"La vitesse est la distance divisée par la durée.","Mouvement et vitesse"],
-["Quel est le symbole chimique de l’oxygène ?","O",["Ox","Og","O₂"],"Le symbole de l’élément oxygène est O.","Structure de la matière"],
-["À pression atmosphérique, l’eau bout vers…","100 °C",["0 °C","50 °C","200 °C"],"L’eau pure bout vers 100 °C à pression atmosphérique.","Matière et transformations"],
-["Quelle particule porte une charge négative ?","L’électron",["Le proton","Le neutron","Le photon"],"L’électron porte une charge électrique négative.","Structure de la matière"]
-],
-"SVT":[
-["Quelle molécule porte l’information génétique ?","L’ADN",["Le glucose","L’amidon","La chlorophylle"],"L’ADN porte l’information génétique.","Génétique"],
-["Quel organe pompe le sang ?","Le cœur",["Le foie","Le poumon","Le rein"],"Le cœur assure la circulation du sang.","Corps humain"],
-["Quel gaz est utilisé par les plantes lors de la photosynthèse ?","Le dioxyde de carbone",["L’hélium","L’oxygène uniquement","L’argon"],"La photosynthèse utilise notamment du CO₂ et de l’eau.","Écosystèmes"]
-],
-"Français":[
-["Quel est le sujet dans « Les élèves révisent » ?","Les élèves",["révisent","Les","Les élèves révisent"],"Le sujet accomplit ou subit l’action exprimée par le verbe.","Fonctions grammaticales"],
-["Quel est le pluriel de cheval ?","Chevaux",["Chevals","Chevales","Cheval"],"Le pluriel courant de cheval est chevaux.","Orthographe"],
-["Dans « Elle a mangé », quel temps est utilisé ?","Passé composé",["Imparfait","Futur simple","Présent"],"Auxiliaire au présent + participe passé.","Conjugaison"],
-["Comparer avec le mot « comme » est une…","Comparaison",["Métaphore","Hyperbole","Oxymore"],"La comparaison utilise un outil comparatif.","Figures de style"]
-],
-"Philosophie":[
-["Qui est associé à « Je pense, donc je suis » ?","Descartes",["Platon","Nietzsche","Rousseau"],"Cette formule résume le cogito de Descartes.","La raison"],
-["Qui a écrit Du contrat social ?","Rousseau",["Kant","Bergson","Marx"],"L’ouvrage est publié en 1762.","La politique"],
-["La maïeutique est associée à…","Socrate",["Descartes","Freud","Hobbes"],"Elle fait émerger les idées par le dialogue.","La vérité"]
-],
-"Anglais":[
-["Comment dit-on « Je suis en train d’étudier » ?","I am studying",["I studying","I am study","I study yesterday"],"Présent continu : be + verbe en -ing.","Présent continu"],
-["Quel est le prétérit de go ?","Went",["Goed","Gone","Going"],"Go, went, gone.","Prétérit"],
-["Que signifie although ?","Bien que",["Parce que","Donc","Avant"],"Although introduit une concession.","Vocabulaire"]
-],
-"Allemand":[
-["Comment dit-on « Je m’appelle » ?","Ich heiße",["Ich habe","Ich gehe","Ich bin alt"],"Ich heiße signifie « je m’appelle ».","Se présenter"],
-["Quel est l’article de Tisch au nominatif ?","der",["die","das","den"],"Tisch est un nom masculin.","Articles et genres"],
-["Comment dit-on « merci » ?","Danke",["Tschüss","Guten Tag","Bitte"],"Danke signifie merci.","Vocabulaire courant"]
-],
-"Espagnol":[
-["Comment dit-on « bonjour » ?","Hola",["Adiós","Gracias","Por favor"],"Hola signifie bonjour ou salut.","Salutations"],
-["Que signifie gracias ?","Merci",["Bonjour","Au revoir","S’il vous plaît"],"Gracias signifie merci.","Vocabulaire"],
-["Complète : Yo ___ estudiante.","soy",["eres","es","somos"],"Le verbe ser avec yo est soy.","Présent"]
-],
-"Histoire":[
-["En quelle année commence la Révolution française ?","1789",["1492","1515","1848"],"1789 marque notamment la prise de la Bastille.","Révolution française"],
-["En quelle année se termine la Seconde Guerre mondiale en Europe ?","1945",["1918","1939","1962"],"La capitulation allemande est signée en mai 1945.","Seconde Guerre mondiale"]
-],
-"Géographie":[
-["Quel est le plus grand océan du monde ?","Le Pacifique",["L’Atlantique","L’océan Indien","L’Arctique"],"Le Pacifique est le plus vaste océan.","Monde"],
-["Quelle est la capitale de l’Italie ?","Rome",["Milan","Venise","Naples"],"Rome est la capitale de l’Italie.","France et Europe"]
-],
-"Informatique":[
-["Que signifie CPU ?","Central Processing Unit",["Computer Personal Utility","Core Program User","Central Power Usage"],"Le CPU est le processeur.","Architecture des ordinateurs"],
-["Dans un tableur, une cellule est…","L’intersection d’une ligne et d’une colonne",["Un fichier complet","Un clavier","Un graphique"],"Une cellule est repérée par ligne et colonne.","Données"]
-],
-"Programmation":[
-["En Python, quel symbole commence un commentaire ?","#",["//","<!--","**"],"Le symbole # commence un commentaire.","Python"],
-["Quel type Python représente une liste modifiable ?","list",["tuple","bool","float"],"Une list est une séquence ordonnée modifiable.","Listes"]
-],
-"SES":[
-["En économie, le prix dépend notamment de…","L’offre et la demande",["La météo uniquement","Le hasard uniquement","La population seule"],"L’offre et la demande influencent les prix.","Marchés"]
-],
-"Musique":[
-["Combien de notes différentes comporte la gamme diatonique usuelle ?","Sept",["Cinq","Huit","Douze"],"Do, ré, mi, fa, sol, la, si.","Notes et gammes"]
-],
-"Droit":[
-["Quel texte est au sommet de la hiérarchie des normes internes ?","La Constitution",["Un contrat privé","Un arrêté municipal","Un règlement intérieur"],"La Constitution est au sommet de la hiérarchie interne.","Constitution"]
-]
-};
-
-const KEY="studyboost_data_v2";
-const fresh=()=>({xp:0,coins:0,quizzes:[],notes:[],cards:[],level:"Collège",id:1});
 let data;
-try{data={...fresh(),...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch(e){data=fresh()}
-let quiz=null,cardIndex=0,flipped=false,timerSeconds=1500,timerId=null,breakMode=false;
-
-function persist(){localStorage.setItem(KEY,JSON.stringify(data));updateStats()}
-function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function page(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
-if(id==="subjects")renderSubjects();
-if(id==="notes")renderNotes();
-if(id==="cards")renderCards();
-if(id==="history")renderHistory();
-if(id==="home")renderHome();
-window.scrollTo(0,0);
+try {
+const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+data = {...freshData,...saved};
+data.notes = Array.isArray(data.notes) ? data.notes : [];
+data.cards = Array.isArray(data.cards) ? data.cards : [];
+data.results = Array.isArray(data.results) ? data.results : [];
+} catch {
+data = {...freshData};
 }
-function gain(xp,coins=Math.ceil(xp/2)){data.xp+=xp;data.coins+=coins;persist()}
+function save(){
+try { localStorage.setItem(STORAGE_KEY,JSON.stringify(data)); }
+catch(e){ console.warn("Sauvegarde indisponible",e); }
+updateStats();
+}
+function escapeHTML(value){
+return String(value ?? "").replace(/[&<>"']/g,c=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
+}
+function award(xp,coins=0){
+data.xp += xp;
+data.coins += coins;
+save();
+}
 function updateStats(){
 document.getElementById("xp").textContent=data.xp;
 document.getElementById("coins").textContent=data.coins;
-document.getElementById("homeXP").textContent=data.xp+" XP";
-document.getElementById("homeCoins").textContent=data.coins;
-document.getElementById("homeQuizzes").textContent=data.quizzes.length;
+document.getElementById("streak").textContent=data.streak;
+document.getElementById("sessions").textContent=data.sessions;
 }
-function selectHTML(){return subjects.map(s=>`<option value="${safe(s[0])}">${s[1]} ${safe(s[0])}</option>`).join("")}
-function setupSelects(){
-["quizSubject","noteSubject","cardSubject"].forEach(id=>document.getElementById(id).innerHTML=selectHTML());
-const cats=[...new Set(subjects.map(s=>s[2]))].sort();
-document.getElementById("filterCat").innerHTML='<option value="">Toutes les catégories</option>'+cats.map(c=>`<option>${safe(c)}</option>`).join("");
-document.getElementById("level").value=data.level;
-document.getElementById("quizLevel").value=data.level;
-document.getElementById("noteLevel").value=data.level;
-["quiz","note","card"].forEach(updateChapters);
+
+/* =========================
+NIVEAUX, CLASSES, MATIÈRES
+========================= */
+const classesByLevel = {
+"Primaire":["CP","CE1","CE2","CM1","CM2"],
+"Collège":["6e","5e","4e","3e"],
+"Lycée":["Seconde","Première","Terminale"],
+"Supérieur":["1re année post-bac","2e année post-bac","3e année post-bac","Licence 3","Master 1","Master 2","Doctorat"]
+};
+
+const subjectCatalog = [
+["Mathématiques","🔢","Tous"],
+["Physique-chimie","⚛️","Tous"],
+["SVT","🌱","Tous"],
+["Biologie","🧬","Tous"],
+["Chimie","🧪","Tous"],
+["Géologie","🌋","Tous"],
+["Mécanique","⚙️","Tous"],
+["Électronique","🔌","Tous"],
+["Sciences de l'ingénieur","🛠️","Tous"],
+["Technologie","💻","Tous"],
+["Informatique","🖥️","Tous"],
+["Programmation","👨‍💻","Tous"],
+["Algorithmique","📐","Tous"],
+["Statistiques et probabilités","📊","Tous"],
+["Français","📖","Tous"],
+["Littérature","✒️","Tous"],
+["Philosophie","💭","Tous"],
+["Grammaire et orthographe","✍️","Tous"],
+["Latin","🏛️","Tous"],
+["Grec ancien","🏺","Tous"],
+["Anglais","🇬🇧","Tous"],
+["Allemand","🇩🇪","Tous"],
+["Espagnol","🇪🇸","Tous"],
+["Italien","🇮🇹","Tous"],
+["Arabe","🌙","Tous"],
+["Portugais","🇵🇹","Tous"],
+["Chinois","🇨🇳","Tous"],
+["Japonais","🇯🇵","Tous"],
+["Russe","🇷🇺","Tous"],
+["Histoire","🏺","Tous"],
+["Géographie","🌍","Tous"],
+["EMC","🤝","Collège/Lycée"],
+["SES","💶","Lycée/Supérieur"],
+["Économie","📈","Supérieur"],
+["Sociologie","👥","Supérieur"],
+["Droit","⚖️","Supérieur"],
+["HGGSP et géopolitique","🗺️","Lycée/Supérieur"],
+["Psychologie","🧠","Supérieur"],
+["Arts plastiques","🎨","Tous"],
+["Musique","🎵","Tous"],
+["Histoire des arts","🖼️","Tous"],
+["Design","✏️","Tous"],
+["EPS et sport","🏃","Tous"],
+["Santé et prévention","❤️","Tous"],
+["Gestion","📋","Supérieur"],
+["Comptabilité","🧾","Supérieur"],
+["Marketing","📣","Supérieur"],
+["Management","👔","Supérieur"],
+["Ingénierie","🏗️","Supérieur"],
+["Méthodologie","🗂️","Tous"],
+["Orientation professionnelle","🧭","Tous"]
+];
+
+const defaultChapters = [
+"Révisions générales","Notions fondamentales","Vocabulaire et définitions",
+"Méthodes et applications","Exercices d'entraînement"
+];
+
+const chapterCatalog = {
+"Mathématiques":{
+"Primaire":["Nombres et calculs","Addition et soustraction","Multiplication et division","Fractions simples","Mesures et conversions","Géométrie","Problèmes"],
+"Collège":["Nombres relatifs","Fractions et puissances","Calcul littéral","Équations","Proportionnalité","Théorème de Pythagore","Théorème de Thalès","Fonctions","Statistiques et probabilités"],
+"Lycée":["Fonctions et dérivation","Second degré","Suites numériques","Probabilités conditionnelles","Variables aléatoires","Exponentielle et logarithme","Trigonométrie","Géométrie dans l'espace","Limites et continuité","Primitives et intégrales"],
+"Supérieur":["Algèbre linéaire","Matrices et systèmes","Analyse et limites","Dérivation et intégration","Suites et séries","Probabilités","Statistiques","Équations différentielles","Nombres complexes","Calcul multivariable"]
+},
+"Physique-chimie":{
+"Primaire":["Matière et états","Lumière et ombres","Électricité simple","Mouvement et énergie"],
+"Collège":["Matière et transformations","Atomes et molécules","Circuits électriques","Tension et intensité","Mouvement et vitesse","Forces et interactions","Énergie","Son et lumière"],
+"Lycée":["Constitution de la matière","Transformations chimiques","Mouvement et forces","Énergie et travail","Ondes et signaux","Électricité","Cinématique","Réactions acide-base","Quantité de matière","Optique"],
+"Supérieur":["Mécanique classique","Électromagnétisme","Thermodynamique","Mécanique quantique","Chimie générale","Cinétique chimique","Électricité et circuits","Ondes et optique","Mesures et incertitudes"]
+},
+"SVT":{
+"Primaire":["Le vivant","Corps humain et santé","Écosystèmes","Terre et environnement"],
+"Collège":["Cellules et êtres vivants","Reproduction","Génétique","Digestion et nutrition","Respiration","Géologie externe","Climat et environnement"],
+"Lycée":["Génétique et évolution","Expression du patrimoine génétique","Immunité","Géosciences","Écosystèmes","Enjeux planétaires","Fonctionnement du corps humain"],
+"Supérieur":["Biologie cellulaire","Génétique moléculaire","Physiologie","Écologie","Évolution","Microbiologie","Biologie des organismes"]
+},
+"Français":{
+"Primaire":["Lecture et compréhension","Grammaire","Conjugaison","Orthographe","Vocabulaire","Expression écrite"],
+"Collège":["Classes grammaticales","Fonctions grammaticales","Conjugaison","Figures de style","Récit et narration","Poésie","Argumentation","Analyse de texte"],
+"Lycée":["Dissertation","Commentaire littéraire","Contraction et essai","Poésie","Théâtre","Roman","Littérature d'idées","Grammaire"],
+"Supérieur":["Analyse littéraire","Linguistique","Histoire littéraire","Rhétorique","Méthodologie universitaire"]
+},
+"Philosophie":{
+"Lycée":["La conscience","L'inconscient","La liberté","La justice et le droit","La vérité","La raison","Le bonheur","Le devoir","Le travail","La technique","La nature","L'art","Le langage","La religion","L'État","La science","Le temps"],
+"Supérieur":["Métaphysique","Éthique","Épistémologie","Philosophie politique","Logique","Philosophie antique","Philosophie moderne"]
+},
+"Anglais":{
+"Primaire":["Se présenter","Nombres et couleurs","Famille et amis","Vie quotidienne"],
+"Collège":["Présent simple et continu","Prétérit","Futur","Vocabulaire courant","Compréhension écrite","Expression orale"],
+"Lycée":["Temps et aspect","Voix passive","Discours indirect","Argumentation","Civilisation anglophone","Compréhension orale","Expression écrite"],
+"Supérieur":["Anglais académique","Présentation orale","Anglais professionnel","Compréhension de documents","Vocabulaire scientifique"]
+},
+"Allemand":{
+"Primaire":["Se présenter","Nombres et couleurs","Famille"],
+"Collège":["Présent","Articles et déclinaisons","Verbes modaux","Ordre des mots","Vocabulaire quotidien"],
+"Lycée":["Prétérit et parfait","Subordonnées","Déclinaisons","Expression argumentée","Civilisation germanophone"],
+"Supérieur":["Allemand professionnel","Présentation orale","Vocabulaire académique","Compréhension écrite"]
+},
+"Espagnol":{
+"Primaire":["Se présenter","Nombres et couleurs","Famille"],
+"Collège":["Présent de l'indicatif","Ser et estar","Passé simple et imparfait","Vocabulaire courant"],
+"Lycée":["Subjonctif","Passés espagnols","Expression argumentée","Civilisation hispanique"],
+"Supérieur":["Espagnol professionnel","Expression orale","Compréhension écrite"]
+},
+"Histoire":{
+"Primaire":["Repères chronologiques","Antiquité","Moyen Âge","Temps modernes"],
+"Collège":["Antiquité","Moyen Âge","Révolution française","Industrialisation","Guerres mondiales","Guerre froide"],
+"Lycée":["Révolutions et empires","République française","Guerres mondiales","Guerre froide","Décolonisation","Monde contemporain"],
+"Supérieur":["Historiographie","Histoire politique","Histoire économique et sociale","Méthode historique"]
+},
+"Géographie":{
+"Primaire":["Pays et continents","Paysages","Se repérer sur une carte"],
+"Collège":["Population mondiale","Urbanisation","Ressources et risques","Aménagement du territoire","Mondialisation"],
+"Lycée":["Métropolisation","Espaces productifs","Mers et océans","Frontières","Mondialisation","Environnement"],
+"Supérieur":["Géographie humaine","Géopolitique","Aménagement","Géographie économique"]
+},
+"Informatique":{
+"Primaire":["Découverte du numérique","Sécurité sur Internet","Algorithmes simples"],
+"Collège":["Données et fichiers","Internet et réseaux","Algorithmes","Programmation par blocs"],
+"Lycée":["Python","Structures de données","Algorithmique","Réseaux","Bases de données"],
+"Supérieur":["Structures de données","Complexité algorithmique","Systèmes d'exploitation","Réseaux","Bases de données","Architecture des ordinateurs"]
+},
+"Programmation":{
+"Primaire":["Logique et instructions","Algorithmes simples"],
+"Collège":["Variables","Conditions","Boucles","Fonctions simples"],
+"Lycée":["Python et variables","Conditions et boucles","Fonctions","Listes","Algorithmes"],
+"Supérieur":["Programmation orientée objet","Récursivité","Structures de données","Algorithmes de tri","Tests et débogage","Architecture logicielle"]
+},
+"SES":{
+"Lycée":["Marchés et prix","Socialisation","Groupes sociaux","Monnaie et financement","Croissance économique","Commerce international","Emploi et chômage","Action publique"],
+"Supérieur":["Microéconomie","Macroéconomie","Sociologie","Économie du travail","Politiques publiques"]
+},
+"Musique":{
+"Primaire":["Rythme","Familles d'instruments","Écoute musicale"],
+"Collège":["Rythme et pulsation","Formation musicale","Histoire de la musique"],
+"Lycée":["Analyse musicale","Harmonie","Histoire de la musique","Culture musicale"],
+"Supérieur":["Harmonie","Contrepoint","Analyse musicale","Composition","Acoustique musicale"]
+},
+"Droit":{
+"Supérieur":["Introduction au droit","Droit constitutionnel","Droit civil","Droit pénal","Droit administratif","Droit des contrats","Méthodologie juridique"]
 }
-function updateChapters(target){
-const subject=document.getElementById(target+"Subject").value;
-const level=document.getElementById(target+"Level")?.value||data.level||"Collège";
-const sel=document.getElementById(target+"Chapter");
-const old=sel.value;
-const list=getChapters(subject,level);
-sel.innerHTML=list.map(ch=>`<option value="${safe(ch)}">${safe(ch)}</option>`).join("");
-if(list.includes(old))sel.value=old;
+};
+
+function getChapters(subject,level){
+const specific=chapterCatalog[subject]?.[level];
+if(specific && specific.length) return specific;
+if(level==="Primaire") return ["Notions fondamentales","Vocabulaire et définitions","Exercices d'application","Révisions générales"];
+if(level==="Collège") return ["Notions fondamentales","Méthodes et exercices","Vocabulaire et définitions","Révisions générales"];
+if(level==="Lycée") return ["Cours et définitions","Méthodes d'application","Analyse de documents","Exercices d'entraînement","Révisions générales"];
+return ["Fondamentaux","Concepts et théories","Méthodes et applications","Études de cas","Révisions générales"];
 }
-function subjectCard(s){
-const name=s[0].replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-return `<div class="card subject" onclick="chooseSubject('${name}')"><div class="emoji">${s[1]}</div><h3>${safe(s[0])}</h3><p class="muted">${safe(s[2])}</p><p class="muted">${s[3].join(" · ")}</p><button class="secondary" onclick="event.stopPropagation();chooseSubject('${name}')">Choisir un chapitre →</button></div>`;
+
+function fillSelect(id,items,selected){
+const el=document.getElementById(id);
+if(!el)return;
+const previous=selected ?? el.value;
+el.innerHTML=items.map(v=>`<option value="${escapeHTML(v)}">${escapeHTML(v)}</option>`).join("");
+if(items.includes(previous)) el.value=previous;
 }
-function renderHome(){
-document.getElementById("popular").innerHTML=subjects.filter(s=>s[3].includes(data.level)).slice(0,6).map(subjectCard).join("");
-document.getElementById("level").value=data.level;
-const today=new Date().toLocaleDateString("fr-FR");
-document.getElementById("missions").innerHTML=`🧠 Terminer un quiz : ${data.quizzes.filter(q=>q.date===today).length}/1<br><br>📝 Créer une fiche : ${data.notes.length}/1<br><br>🃏 Créer des flashcards : ${data.cards.length}/3`;
-updateStats();
+function initSelects(){
+const levels=Object.keys(classesByLevel);
+["quizLevel","noteLevel","cardLevel"].forEach(id=>fillSelect(id,levels,"Lycée"));
+const subjects=subjectCatalog.map(s=>s[0]);
+["quizSubject","noteSubject","cardSubject"].forEach(id=>fillSelect(id,subjects,"Mathématiques"));
+["quiz","note","card"].forEach(prefix=>{
+updateClasses(prefix);
+updateChapters(prefix);
+});
+fillSelect("cardFilter",["Toutes",...subjects],"Toutes");
 }
+function updateClasses(prefix){
+const level=document.getElementById(prefix+"Level")?.value || "Lycée";
+const id=prefix==="card"?"cardClass":prefix==="note"?"noteClass":"quizClass";
+const choices=classesByLevel[level] || classesByLevel.Lycée;
+fillSelect(id,choices);
+}
+function updateChapters(prefix){
+const level=document.getElementById(prefix+"Level")?.value || "Lycée";
+const subject=document.getElementById(prefix+"Subject")?.value || "Mathématiques";
+const choices=getChapters(subject,level);
+const id=prefix==="card"?"cardChapter":prefix==="note"?"noteChapter":"quizChapter";
+fillSelect(id,choices);
+}
+
+/* =========================
+NAVIGATION
+========================= */
+const pageTitles={
+home:["Bonjour ! 👋","Prêt à apprendre quelque chose aujourd'hui ?"],
+subjects:["Explorer les matières","Choisis une matière adaptée à ta classe."],
+quiz:["Quiz","Teste tes connaissances chapitre par chapitre."],
+notes:["Mes fiches","Organise tes révisions par classe et par chapitre."],
+cards:["Flashcards","Mémorise les notions importantes."],
+timerPage:["Concentration","Une session à la fois."],
+results:["Mes résultats","Suis tes progrès au fil du temps."]
+};
+function page(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+const info=pageTitles[id]||["StudyBoost",""];
+document.getElementById("pageTitle").textContent=info[0];
+document.getElementById("pageSubtitle").textContent=info[1];
+if(id==="subjects")renderSubjects();
+if(id==="notes")renderNotes();
+if(id==="cards"){renderCards();renderFlashcard();}
+if(id==="results")renderResults();
+if(id==="home")renderHomeResults();
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* =========================
+MATIÈRES
+========================= */
 function renderSubjects(){
-const q=(document.getElementById("search").value||"").toLowerCase();
-const level=document.getElementById("filterLevel").value;
-const cat=document.getElementById("filterCat").value;
-const list=subjects.filter(s=>(s[0]+" "+s[2]).toLowerCase().includes(q)&&(!level||s[3].includes(level))&&(!cat||s[2]===cat));
-document.getElementById("allSubjects").innerHTML=list.length?list.map(subjectCard).join(""):"<p>Aucune matière trouvée.</p>";
+const search=(document.getElementById("subjectSearch")?.value||"").toLowerCase();
+const level=document.getElementById("subjectLevelFilter")?.value||"Tous";
+const grid=document.getElementById("subjectGrid");
+const filtered=subjectCatalog.filter(s=>{
+const matchesName=s[0].toLowerCase().includes(search);
+const matchesLevel=level==="Tous"||s[2]==="Tous"||s[2].includes(level);
+return matchesName&&matchesLevel;
+});
+grid.innerHTML=filtered.map(s=>`
+<div class="card subject-card" onclick="chooseSubject('${escapeHTML(s[0])}')">
+<div class="subject-icon">${s[1]}</div><h3>${escapeHTML(s[0])}</h3>
+<p>${getChapters(s[0],document.getElementById("quizLevel").value).length} chapitres proposés selon la classe</p>
+<span class="tag">Préparer un quiz →</span>
+</div>`).join("") || `<div class="card empty">Aucune matière trouvée.</div>`;
 }
-function chooseSubject(name){
-document.getElementById("quizSubject").value=name;
-document.getElementById("noteSubject").value=name;
-document.getElementById("cardSubject").value=name;
-["quiz","note","card"].forEach(updateChapters);
+function chooseSubject(subject){
+document.getElementById("quizSubject").value=subject;
+updateChapters("quiz");
 page("quiz");
 }
-function saveLevel(){
-data.level=document.getElementById("level").value;
-document.getElementById("quizLevel").value=data.level;
-document.getElementById("noteLevel").value=data.level;
-persist();
-["quiz","note","card"].forEach(updateChapters);
-renderHome();
-}
+
+/* =========================
+BANQUE DE QUESTIONS
+Les quiz intégrés sont des exemples.
+Les matières sans questions dédiées affichent
+une proposition honnête plutôt que des questions hors sujet.
+========================= */
+const quizBank={
+"Mathématiques":[
+{q:"Quelle est la dérivée de f(x) = x² ?",a:"2x",o:["x","x²","2"],e:"La dérivée de xⁿ est n·xⁿ⁻¹.",c:"Fonctions et dérivation",l:"Lycée"},
+{q:"Combien vaut 3² + 4² ?",a:"25",o:["12","24","49"],e:"3² = 9 et 4² = 16, donc 9 + 16 = 25.",c:"Géométrie",l:"Collège"},
+{q:"Résous : 2x + 6 = 14.",a:"x = 4",o:["x = 3","x = 8","x = 10"],e:"2x = 8, donc x = 4.",c:"Équations",l:"Collège"},
+{q:"Quelle est la somme des angles d'un triangle euclidien ?",a:"180°",o:["90°","270°","360°"],e:"La somme des angles d'un triangle est égale à 180°.",c:"Géométrie",l:"Collège"},
+{q:"Quelle est la dérivée de sin(x) ?",a:"cos(x)",o:["-cos(x)","-sin(x)","tan(x)"],e:"La dérivée de sin(x) est cos(x).",c:"Fonctions et dérivation",l:"Supérieur"},
+{q:"La probabilité d'un événement certain vaut…",a:"1",o:["0","0,5","100"],e:"Une probabilité est comprise entre 0 et 1.",c:"Probabilités conditionnelles",l:"Lycée"},
+{q:"Quelle est la solution de x² = 9 dans ℝ ?",a:"x = -3 ou x = 3",o:["x = 3 uniquement","x = -9 ou 9","x = 9 uniquement"],e:"Les deux nombres dont le carré vaut 9 sont -3 et 3.",c:"Second degré",l:"Lycée"},
+{q:"Combien vaut 1/2 + 1/4 ?",a:"3/4",o:["2/6","1/6","1/2"],e:"1/2 = 2/4, donc 2/4 + 1/4 = 3/4.",c:"Fractions et puissances",l:"Collège"},
+{q:"Quelle est la limite de 1/x quand x tend vers +∞ ?",a:"0",o:["1","+∞","-∞"],e:"La fraction tend vers zéro lorsque le dénominateur devient très grand.",c:"Limites et continuité",l:"Lycée"},
+{q:"Le déterminant d'une matrice identité 2×2 vaut…",a:"1",o:["0","2","-1"],e:"La matrice identité a pour déterminant 1.",c:"Algèbre linéaire",l:"Supérieur"}
+],
+"Physique-chimie":[
+{q:"Quelle est l'unité SI de la force ?",a:"Le newton (N)",o:["Le joule (J)","Le watt (W)","Le pascal (Pa)"],e:"La force se mesure en newtons.",c:"Forces et interactions",l:"Collège"},
+{q:"Quelle relation relie vitesse, distance et durée pour une vitesse moyenne ?",a:"v = d / t",o:["v = d × t","v = t / d","v = d + t"],e:"La vitesse moyenne est la distance divisée par la durée.",c:"Mouvement et vitesse",l:"Collège"},
+{q:"Quelle est la formule chimique de l'eau ?",a:"H₂O",o:["CO₂","O₂","NaCl"],e:"Une molécule d'eau comporte deux hydrogènes et un oxygène.",c:"Atomes et molécules",l:"Collège"},
+{q:"Quelle particule porte une charge électrique négative ?",a:"L'électron",o:["Le proton","Le neutron","Le noyau"],e:"L'électron porte une charge négative.",c:"Constitution de la matière",l:"Lycée"},
+{q:"Quelle est l'unité SI de l'énergie ?",a:"Le joule (J)",o:["Le newton (N)","L'ampère (A)","Le volt (V)"],e:"L'énergie se mesure en joules.",c:"Énergie et travail",l:"Lycée"},
+{q:"Dans un circuit en série, l'intensité du courant est…",a:"La même en tout point",o:["Toujours nulle","Différente dans chaque dipôle","Toujours infinie"],e:"L'intensité est identique dans les composants montés en série.",c:"Tension et intensité",l:"Collège"},
+{q:"Quelle est la vitesse de la lumière dans le vide, approximativement ?",a:"3 × 10⁸ m/s",o:["3 × 10⁵ m/s","300 m/s","3 × 10¹² m/s"],e:"La valeur approchée est 300 000 km/s.",c:"Ondes et signaux",l:"Lycée"},
+{q:"Un pH inférieur à 7 caractérise une solution…",a:"Acide",o:["Basique","Neutre","Toujours salée"],e:"À température ambiante, un pH inférieur à 7 indique une solution acide.",c:"Réactions acide-base",l:"Lycée"}
+],
+"SVT":[
+{q:"Quelle structure contient l'information génétique dans la plupart des cellules humaines ?",a:"Le noyau",o:["La membrane uniquement","La paroi","Le cytoplasme uniquement"],e:"L'ADN nucléaire est principalement contenu dans le noyau.",c:"Cellules et êtres vivants",l:"Collège"},
+{q:"Quel organe pompe le sang ?",a:"Le cœur",o:["Le foie","Le poumon","L'estomac"],e:"Le cœur propulse le sang dans les vaisseaux.",c:"Fonctionnement du corps humain",l:"Lycée"},
+{q:"Quel est le support de l'information génétique ?",a:"L'ADN",o:["Le glucose","L'eau","L'amidon"],e:"L'ADN porte l'information génétique.",c:"Génétique et évolution",l:"Lycée"},
+{q:"Comment appelle-t-on l'ensemble des êtres vivants et de leur milieu ?",a:"Un écosystème",o:["Un organe","Un atome","Un tissu"],e:"Un écosystème associe une communauté d'êtres vivants et son milieu.",c:"Écosystèmes",l:"Lycée"}
+],
+"Français":[
+{q:"Quelle figure de style compare deux éléments avec un outil de comparaison ?",a:"La comparaison",o:["La métaphore","L'hyperbole","L'anaphore"],e:"La comparaison utilise par exemple « comme », « tel » ou « pareil à ».",c:"Figures de style",l:"Collège"},
+{q:"Quel est le sujet dans « Les élèves révisent » ?",a:"Les élèves",o:["Révisent","Les","Élèves révisent"],e:"Le sujet est le groupe qui accomplit l'action.",c:"Fonctions grammaticales",l:"Collège"},
+{q:"Quel type de texte défend une thèse avec des arguments ?",a:"Un texte argumentatif",o:["Un texte descriptif uniquement","Une recette","Un dialogue sans argument"],e:"Un texte argumentatif cherche à convaincre ou persuader.",c:"Argumentation",l:"Lycée"},
+{q:"Dans un commentaire littéraire, il faut principalement…",a:"Analyser le texte et justifier son interprétation",o:["Raconter toute sa vie","Donner uniquement son avis","Réécrire le texte"],e:"L'analyse s'appuie sur des procédés précis et leurs effets.",c:"Commentaire littéraire",l:"Lycée"}
+],
+"Philosophie":[
+{q:"Quel philosophe a écrit « Je pense, donc je suis » ?",a:"René Descartes",o:["Jean-Jacques Rousseau","Karl Marx","Friedrich Nietzsche"],e:"Cette formule est associée au cogito cartésien.",c:"La conscience",l:"Lycée"},
+{q:"Pour Sartre, l'être humain est notamment caractérisé par…",a:"Sa liberté et sa responsabilité",o:["L'absence totale de choix","Un destin entièrement fixé","L'absence de conscience"],e:"Sartre insiste sur la liberté et la responsabilité humaines.",c:"La liberté",l:"Lycée"},
+{q:"Laquelle est une question philosophique ?",a:"Peut-on être heureux sans être libre ?",o:["Combien font 2 + 2 ?","Quelle heure est-il ?","Quelle est la température aujourd'hui ?"],e:"Une question philosophique invite à examiner des concepts et des arguments.",c:"Le bonheur",l:"Lycée"}
+],
+"Anglais":[
+{q:"Choose the correct sentence.",a:"She goes to school every day.",o:["She go to school every day.","She going to school every day.","She gone to school every day."],e:"À la troisième personne du singulier au présent simple, on ajoute généralement -s.",c:"Présent simple et continu",l:"Collège"},
+{q:"What is the past tense of 'go' ?",a:"Went",o:["Goed","Gone","Going"],e:"Go est un verbe irrégulier : go, went, gone.",c:"Prétérit",l:"Collège"},
+{q:"Translate: « Je suis en train d'étudier. »",a:"I am studying.",o:["I study yesterday.","I studied now.","I am study."],e:"Le présent continu se forme avec be + verbe en -ing.",c:"Présent simple et continu",l:"Collège"}
+],
+"Allemand":[
+{q:"Comment dit-on « Je m'appelle… » en allemand ?",a:"Ich heiße …",o:["Ich bin heißen …","Ich haben …","Ich sprechen …"],e:"« Ich heiße » signifie « je m'appelle ».",c:"Présent",l:"Collège"},
+{q:"Quel verbe signifie « être » en allemand ?",a:"sein",o:["haben","gehen","machen"],e:"Sein signifie être ; haben signifie avoir.",c:"Verbes modaux",l:"Collège"}
+],
+"Espagnol":[
+{q:"Comment dit-on « Bonjour » en espagnol ?",a:"Hola",o:["Danke","Guten Tag","Ciao"],e:"Hola est une salutation courante en espagnol.",c:"Se présenter",l:"Collège"},
+{q:"Complète : Yo ___ estudiante.",a:"soy",o:["estoy de","eres","son"],e:"On utilise ser pour exprimer ici une identité ou une caractéristique.",c:"Ser et estar",l:"Collège"}
+],
+"Histoire":[
+{q:"En quelle année débute la Révolution française ?",a:"1789",o:["1492","1914","1848"],e:"La Révolution française débute en 1789.",c:"Révolution française",l:"Collège"},
+{q:"En quelle année commence la Première Guerre mondiale ?",a:"1914",o:["1870","1939","1945"],e:"La Première Guerre mondiale s'étend de 1914 à 1918.",c:"Guerres mondiales",l:"Collège"}
+],
+"Géographie":[
+{q:"Quel est le plus grand océan du monde ?",a:"L'océan Pacifique",o:["L'océan Indien","L'océan Arctique","L'océan Atlantique"],e:"Le Pacifique est le plus vaste océan.",c:"Mers et océans",l:"Lycée"},
+{q:"La métropolisation correspond notamment…",a:"À la concentration des populations et activités dans les grandes villes",o:["À la disparition des villes","À la baisse de toutes les activités urbaines","À la création de nouveaux océans"],e:"La métropolisation renforce le poids des grandes villes.",c:"Métropolisation",l:"Lycée"}
+],
+"Informatique":[
+{q:"Dans la plupart des langages, à quoi sert une boucle ?",a:"À répéter des instructions",o:["À supprimer le programme","À éteindre l'ordinateur","À créer obligatoirement une image"],e:"Une boucle répète un bloc d'instructions.",c:"Algorithmes",l:"Collège"},
+{q:"Quel est le résultat de Python : 3 ** 2 ?",a:"9",o:["6","5","32"],e:"En Python, ** représente la puissance.",c:"Python",l:"Lycée"},
+{q:"Quelle structure Python stocke plusieurs éléments dans un ordre donné et peut être modifiée ?",a:"Une liste",o:["Un commentaire","Une condition","Un booléen uniquement"],e:"Les listes Python sont ordonnées et modifiables.",c:"Listes",l:"Lycée"}
+],
+"Programmation":[
+{q:"Quel mot-clé Python permet de tester une condition ?",a:"if",o:["loop","define","printonly"],e:"if exécute un bloc lorsque la condition est vraie.",c:"Conditions et boucles",l:"Lycée"},
+{q:"Quel symbole Python sert à comparer l'égalité ?",a:"==",o:["=","!=","=>"],e:"= affecte une valeur ; == compare deux valeurs.",c:"Conditions et boucles",l:"Lycée"}
+],
+"SES":[
+{q:"En économie, que désigne l'offre ?",a:"La quantité que les producteurs souhaitent vendre à un prix donné",o:["La quantité que tous les consommateurs veulent acheter","Le niveau de la population","Le montant des impôts uniquement"],e:"L'offre correspond aux quantités proposées par les vendeurs.",c:"Marchés et prix",l:"Lycée"},
+{q:"La socialisation est le processus par lequel un individu…",a:"Apprend et intériorise des normes et des valeurs",o:["Oublie toute règle sociale","Change nécessairement de pays","Apprend uniquement à lire"],e:"La socialisation participe à la construction des comportements sociaux.",c:"Socialisation",l:"Lycée"}
+],
+"Musique":[
+{q:"Combien de temps vaut généralement une noire en mesure 4/4 ?",a:"Un temps",o:["Deux temps","Quatre temps","Un demi-temps"],e:"Dans une mesure 4/4, la noire vaut un temps.",c:"Rythme et pulsation",l:"Collège"}
+],
+"Droit":[
+{q:"Quel texte est au sommet de la hiérarchie des normes en droit français ?",a:"La Constitution, dans l'ordre juridique interne",o:["Un contrat privé","Un arrêté municipal","Un règlement intérieur d'entreprise"],e:"La Constitution occupe le sommet de la hiérarchie des normes internes, sous réserve des questions d'articulation avec le droit international et européen.",c:"Droit constitutionnel",l:"Supérieur"}
+]
+};
+
+let currentQuiz=null;
 function startQuiz(){
+const level=document.getElementById("quizLevel").value;
+const grade=document.getElementById("quizClass").value;
 const subject=document.getElementById("quizSubject").value;
 const chapter=document.getElementById("quizChapter").value;
-const level=document.getElementById("quizLevel").value;
-const questions=(bank[subject]||[]).filter(q=>q[4]===chapter);
-if(!questions.length){
-alert("Il n’y a pas encore de questions intégrées pour ce chapitre. Tu peux créer une fiche ou des flashcards sur ce chapitre.");
+const count=Number(document.getElementById("quizCount").value);
+const bank=(quizBank[subject]||[]).filter(q=>{
+const levelOK=!q.l || q.l===level || (level==="Primaire"&&q.l==="Collège");
+const chapterOK=!q.c || q.c===chapter || chapter==="Révisions générales";
+return levelOK&&chapterOK;
+});
+if(!bank.length){
+document.getElementById("quizArea").style.display="block";
+document.getElementById("quizArea").innerHTML=`
+<div class="empty"><div style="font-size:42px">📚</div>
+<h3>Ce quiz n'est pas encore disponible</h3>
+<p>Il n'y a pas encore de questions intégrées pour <strong>${escapeHTML(subject)}</strong>, classe <strong>${escapeHTML(grade)}</strong>, chapitre <strong>${escapeHTML(chapter)}</strong>.</p>
+<p>Tu peux déjà créer une fiche ou des flashcards sur ce chapitre. Les quiz intégrés seront enrichis progressivement.</p>
+<button class="btn btn-light" onclick="page('notes')">Créer une fiche</button>
+<button class="btn btn-primary" onclick="page('cards')">Créer des flashcards</button></div>`;
 return;
 }
-quiz={subject,chapter,level,questions:questions.slice().sort(()=>Math.random()-.5),index:0,correct:0,answered:false};
-document.getElementById("quizSetup").classList.add("hidden");
-document.getElementById("quizRun").classList.remove("hidden");
-showQuestion();
+const questions=[...bank].sort(()=>Math.random()-.5).slice(0,Math.min(count,bank.length));
+currentQuiz={level,grade,subject,chapter,questions,index:0,score:0,answered:false};
+document.getElementById("quizSetup").style.display="none";
+document.getElementById("quizArea").style.display="block";
+renderQuestion();
 }
-function showQuestion(){
-if(!quiz)return;
-const q=quiz.questions[quiz.index];
-if(!q){finishQuiz();return}
-const opts=[q[1],...q[2]].sort(()=>Math.random()-.5);
-document.getElementById("quizRun").innerHTML=
-`<div class="muted">${safe(quiz.subject)} · ${safe(quiz.chapter)} · Question ${quiz.index+1}/${quiz.questions.length}</div>
-<div class="progress"><div style="width:${quiz.index/quiz.questions.length*100}%"></div></div>
-<h2>${safe(q[0])}</h2>
-${opts.map(o=>`<button class="option" onclick="answer(this,${JSON.stringify(o).replace(/</g,"\\u003c")})">${safe(o)}</button>`).join("")}
-<div id="feedback"></div>
-<button id="nextQ" class="hidden" onclick="nextQuestion()">Question suivante →</button>
-<button class="secondary" onclick="quitQuiz()">Quitter le quiz</button>`;
-quiz.answered=false;
+function renderQuestion(){
+const q=currentQuiz.questions[currentQuiz.index];
+if(!q){finishQuiz();return;}
+currentQuiz.answered=false;
+const options=[q.a,...q.o].sort(()=>Math.random()-.5);
+currentQuiz.currentOptions=options;
+const progress=currentQuiz.index/currentQuiz.questions.length*100;
+document.getElementById("quizArea").innerHTML=`
+<div class="meta">${escapeHTML(currentQuiz.grade)} · ${escapeHTML(currentQuiz.subject)} · ${escapeHTML(currentQuiz.chapter)}</div>
+<div class="progress"><div style="width:${progress}%"></div></div>
+<div class="meta">Question ${currentQuiz.index+1} sur ${currentQuiz.questions.length}</div>
+<div class="quiz-question">${escapeHTML(q.q)}</div>
+<div id="answers">${options.map((o,i)=>`<button class="answer" onclick="answerQuestion(${i})">${escapeHTML(o)}</button>`).join("")}</div>
+<div id="quizFeedback"></div>
+<div style="margin-top:15px"><button class="btn btn-primary" id="nextQuestion" style="display:none" onclick="nextQuestion()">Question suivante →</button></div>`;
 }
-function answer(btn,value){
-if(!quiz||quiz.answered)return;
-quiz.answered=true;
-const q=quiz.questions[quiz.index],correct=value===q[1];
-if(correct)quiz.correct++;
-document.querySelectorAll(".option").forEach(b=>{
+function answerQuestion(index){
+if(!currentQuiz||currentQuiz.answered)return;
+currentQuiz.answered=true;
+const q=currentQuiz.questions[currentQuiz.index];
+const selected=currentQuiz.currentOptions[index];
+const correct=selected===q.a;
+if(correct)currentQuiz.score++;
+document.querySelectorAll(".answer").forEach((b,i)=>{
 b.disabled=true;
-if(b.textContent===q[1])b.classList.add("correct");
-else if(b===btn)b.classList.add("wrong");
+if(currentQuiz.currentOptions[i]===q.a)b.classList.add("correct");
+else if(i===index)b.classList.add("wrong");
 });
-document.getElementById("feedback").innerHTML=`<div class="card">${correct?"✅ Bonne réponse !":"❌ Pas tout à fait."}<br>${safe(q[3])}</div>`;
-document.getElementById("nextQ").classList.remove("hidden");
+document.getElementById("quizFeedback").innerHTML=`
+<div class="feedback ${correct?"good":"bad"}">
+<strong>${correct?"Bonne réponse ! 🎉":"Pas tout à fait."}</strong><br>
+${correct?"":"Réponse : "+escapeHTML(q.a)+"<br>"}${escapeHTML(q.e||"")}</div>`;
+document.getElementById("nextQuestion").style.display="inline-block";
 }
-function nextQuestion(){if(quiz){quiz.index++;showQuestion()}}
-function quitQuiz(){
-quiz=null;
-document.getElementById("quizRun").classList.add("hidden");
-document.getElementById("quizSetup").classList.remove("hidden");
+function nextQuestion(){
+if(!currentQuiz)return;
+currentQuiz.index++;
+renderQuestion();
 }
 function finishQuiz(){
-const finished=quiz;
-const score=Math.round(finished.correct/finished.questions.length*100);
-data.quizzes.push({subject:finished.subject,chapter:finished.chapter,level:finished.level,correct:finished.correct,total:finished.questions.length,score,date:new Date().toLocaleDateString("fr-FR")});
-gain(10+finished.correct*5,5+finished.correct*2);
-document.getElementById("quizRun").innerHTML=`<h2>${score>=80?"🏆 Excellent !":"👏 Quiz terminé !"}</h2><p>${safe(finished.subject)} · ${safe(finished.chapter)}</p><p>${finished.correct}/${finished.questions.length} bonnes réponses (${score} %)</p><p>Tu gagnes ${10+finished.correct*5} XP et ${5+finished.correct*2} pièces.</p><button onclick="quitQuiz()">Retour aux quiz</button><button class="secondary" onclick="startQuiz()">Recommencer</button>`;
-quiz=null;
-renderHome();
+const q=currentQuiz;
+const total=q.questions.length;
+const percent=Math.round(q.score/total*100);
+const xp=10+q.score*5;
+const coins=Math.floor(q.score*2);
+data.streak++;
+data.results.unshift({
+date:new Date().toLocaleString("fr-FR"),
+subject:q.subject,level:q.level,grade:q.grade,chapter:q.chapter,
+score:q.score,total,percent
+});
+award(xp,coins);
+save();
+document.getElementById("quizArea").innerHTML=`
+<div class="empty"><div style="font-size:55px">${percent>=80?"🏆":percent>=50?"👏":"💪"}</div>
+<h2>Quiz terminé !</h2><h1>${q.score} / ${total}</h1>
+<p>Score : <strong>${percent} %</strong></p>
+<p>${escapeHTML(q.subject)} · ${escapeHTML(q.grade)} · ${escapeHTML(q.chapter)}</p>
+<p class="badge-good">+${xp} XP · +${coins} pièces</p>
+<button class="btn btn-primary" onclick="resetQuiz()">Refaire un quiz</button>
+<button class="btn btn-light" onclick="page('results')">Voir mes résultats</button></div>`;
+renderHomeResults();
+}
+function resetQuiz(){
+document.getElementById("quizSetup").style.display="block";
+document.getElementById("quizArea").style.display="none";
+currentQuiz=null;
 }
 
-document.getElementById("noteForm").addEventListener("submit",e=>{
-e.preventDefault();
-data.notes.push({
-id:data.id++,
-title:document.getElementById("noteTitle").value,
+/* =========================
+FICHES DE RÉVISION
+========================= */
+function addNote(){
+const title=document.getElementById("noteTitle").value.trim();
+const content=document.getElementById("noteContent").value.trim();
+if(!title||!content){alert("Ajoute un titre et le contenu de ta fiche.");return;}
+data.notes.unshift({
+id:Date.now(),title,content,
+level:document.getElementById("noteLevel").value,
+grade:document.getElementById("noteClass").value,
 subject:document.getElementById("noteSubject").value,
 chapter:document.getElementById("noteChapter").value,
-level:document.getElementById("noteLevel").value,
-content:document.getElementById("noteContent").value
+date:new Date().toLocaleDateString("fr-FR")
 });
-gain(5,2);
-e.target.reset();
-document.getElementById("noteLevel").value=data.level;
-updateChapters("note");
-renderNotes();renderHome();
-});
+document.getElementById("noteTitle").value="";
+document.getElementById("noteContent").value="";
+award(10,2);renderNotes();
+alert("Fiche enregistrée ! +10 XP");
+}
 function renderNotes(){
-const q=(document.getElementById("noteSearch").value||"").toLowerCase();
-const notes=data.notes.filter(n=>(n.title+" "+n.content+" "+n.subject+" "+(n.chapter||"")).toLowerCase().includes(q)).slice().reverse();
-document.getElementById("notesList").innerHTML=notes.length?notes.map(n=>`<div class="card"><h3>${safe(n.title)}</h3><p class="muted">${safe(n.subject)} · ${safe(n.chapter||"Sans chapitre")} · ${safe(n.level)}</p><p style="white-space:pre-wrap">${safe(n.content)}</p><button class="secondary" onclick="deleteNote(${n.id})">Supprimer</button></div>`).join(""):"<p class='muted'>Aucune fiche pour le moment.</p>";
+const el=document.getElementById("notesList");
+if(!data.notes.length){el.innerHTML='<div class="empty">Tu n’as pas encore de fiche. Crée-en une ci-dessus !</div>';return;}
+el.innerHTML=data.notes.map(n=>`
+<div class="list-item"><div>
+<h3>${escapeHTML(n.title)}</h3>
+<div class="meta">${escapeHTML(n.grade||n.level||"")} · ${escapeHTML(n.subject)} · ${escapeHTML(n.chapter||"Révisions générales")} · ${escapeHTML(n.date||"")}</div>
+<p>${escapeHTML(n.content)}</p>
+</div><button class="btn btn-danger btn-small" onclick="deleteNote(${n.id})">Supprimer</button></div>`).join("");
 }
-function deleteNote(id){data.notes=data.notes.filter(n=>n.id!==id);persist();renderNotes();renderHome()}
+function deleteNote(id){
+if(!confirm("Supprimer cette fiche ?"))return;
+data.notes=data.notes.filter(n=>n.id!==id);save();renderNotes();
+}
 
-document.getElementById("cardForm").addEventListener("submit",e=>{
-e.preventDefault();
-data.cards.push({
-id:data.id++,
+/* =========================
+FLASHCARDS
+========================= */
+let activeCards=[],cardIndex=0,cardFlipped=false;
+function addCard(){
+const front=document.getElementById("cardFront").value.trim();
+const back=document.getElementById("cardBack").value.trim();
+if(!front||!back){alert("Complète le recto et le verso.");return;}
+data.cards.unshift({
+id:Date.now(),front,back,
+level:document.getElementById("cardLevel").value,
+grade:document.getElementById("cardClass").value,
 subject:document.getElementById("cardSubject").value,
-chapter:document.getElementById("cardChapter").value,
-question:document.getElementById("cardQuestion").value,
-answer:document.getElementById("cardAnswer").value
+chapter:document.getElementById("cardChapter").value
 });
-gain(2,1);cardIndex=data.cards.length-1;flipped=false;
-e.target.reset();
-updateChapters("card");renderCards();renderHome();
-});
+document.getElementById("cardFront").value="";
+document.getElementById("cardBack").value="";
+award(5,1);renderCards();renderFlashcard();
+}
 function renderCards(){
-if(cardIndex>=data.cards.length)cardIndex=Math.max(0,data.cards.length-1);
-const c=data.cards[cardIndex];
-document.getElementById("flashcard").textContent=c?(flipped?c.answer:c.question):"Crée une carte pour commencer !";
-document.getElementById("cardCount").textContent=c?`${cardIndex+1} / ${data.cards.length} · ${c.subject} · ${c.chapter||"Sans chapitre"}`:"0 carte";
-document.getElementById("cardsList").innerHTML=data.cards.map(c=>`<div class="card"><b>${safe(c.question)}</b><p class="muted">${safe(c.subject)} · ${safe(c.chapter||"Sans chapitre")}</p><p>${safe(c.answer)}</p><button class="secondary" onclick="deleteCard(${c.id})">Supprimer</button></div>`).join("");
+const filter=document.getElementById("cardFilter")?.value||"Toutes";
+activeCards=data.cards.filter(c=>filter==="Toutes"||c.subject===filter);
+if(cardIndex>=activeCards.length)cardIndex=0;
+cardFlipped=false;
+const el=document.getElementById("cardsList");
+if(!data.cards.length){el.innerHTML='<div class="empty">Aucune flashcard enregistrée.</div>';}
+else{
+el.innerHTML=data.cards.map(c=>`
+<div class="list-item"><div>
+<h3>${escapeHTML(c.front)}</h3><p>${escapeHTML(c.back)}</p>
+<div class="meta">${escapeHTML(c.grade||c.level||"")} · ${escapeHTML(c.subject)} · ${escapeHTML(c.chapter||"Révisions générales")}</div>
+</div><button class="btn btn-danger btn-small" onclick="deleteCard(${c.id})">Supprimer</button></div>`).join("");
 }
-function flipCard(){if(data.cards.length){flipped=!flipped;renderCards()}}
-function moveCard(n){if(!data.cards.length)return;cardIndex=(cardIndex+n+data.cards.length)%data.cards.length;flipped=false;renderCards()}
-function deleteCard(id){data.cards=data.cards.filter(c=>c.id!==id);cardIndex=0;persist();renderCards();renderHome()}
-
-function renderHistory(){
-document.getElementById("historyList").innerHTML=data.quizzes.length?data.quizzes.slice().reverse().map(q=>`<p><b>${safe(q.subject)}</b> · ${safe(q.chapter||"Tous chapitres")} — ${q.correct}/${q.total} (${q.score} %) · ${safe(q.date)}</p>`).join(""):"Aucun quiz terminé pour le moment.";
+renderFlashcard();
 }
-function clearHistory(){if(confirm("Effacer tous les résultats ?")){data.quizzes=[];persist();renderHistory();renderHome()}}
+function renderFlashcard(){
+const area=document.getElementById("flashcardArea");
+if(!activeCards.length){
+const filter=document.getElementById("cardFilter")?.value||"Toutes";
+activeCards=data.cards.filter(c=>filter==="Toutes"||c.subject===filter);
+}
+if(!activeCards.length){
+area.innerHTML='<div class="empty">Ajoute une flashcard pour commencer.</div>';return;
+}
+const c=activeCards[cardIndex%activeCards.length];
+area.innerHTML=`<div class="flashcard" onclick="flipCard()">
+<div class="meta">${escapeHTML(c.grade||c.level||"")} · ${escapeHTML(c.subject)} · ${escapeHTML(c.chapter||"")}</div>
+<div class="big" style="margin:20px 0">${escapeHTML(cardFlipped?c.back:c.front)}</div>
+<div class="meta">${cardFlipped?"Réponse":"Clique pour retourner la carte"} · ${cardIndex+1}/${activeCards.length}</div>
+</div>`;
+}
+function flipCard(){if(!activeCards.length)return;cardFlipped=!cardFlipped;renderFlashcard();}
+function nextCard(){if(!activeCards.length)return;cardIndex=(cardIndex+1)%activeCards.length;cardFlipped=false;renderFlashcard();}
+function previousCard(){if(!activeCards.length)return;cardIndex=(cardIndex-1+activeCards.length)%activeCards.length;cardFlipped=false;renderFlashcard();}
+function shuffleCards(){activeCards.sort(()=>Math.random()-.5);cardIndex=0;cardFlipped=false;renderFlashcard();}
+function deleteCard(id){
+if(!confirm("Supprimer cette flashcard ?"))return;
+data.cards=data.cards.filter(c=>c.id!==id);save();renderCards();
+}
 
-function updateTimer(){
-const m=Math.floor(timerSeconds/60),s=timerSeconds%60;
-document.getElementById("timerDisplay").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+/* =========================
+MINUTEUR
+========================= */
+let timerSeconds=25*60,timerInterval=null,timerRunning=false,timerType="focus";
+function updateTimerDisplay(){
+const min=Math.floor(timerSeconds/60);
+const sec=timerSeconds%60;
+document.getElementById("timerDisplay").textContent=`${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+}
+function setTimer(minutes,type){
+clearInterval(timerInterval);timerInterval=null;timerRunning=false;
+timerSeconds=minutes*60;timerType=type;
+document.getElementById("timerMode").textContent=type==="focus"?"Concentration":"Pause";
+document.getElementById("timerStart").textContent="▶ Démarrer";
+updateTimerDisplay();
 }
 function toggleTimer(){
-if(timerId){clearInterval(timerId);timerId=null;document.getElementById("timerBtn").textContent="▶ Reprendre";return}
-document.getElementById("timerBtn").textContent="Ⅱ Pause";
-timerId=setInterval(()=>{
-timerSeconds--;updateTimer();
+if(timerRunning){
+clearInterval(timerInterval);timerInterval=null;timerRunning=false;
+document.getElementById("timerStart").textContent="▶ Reprendre";
+return;
+}
+if(timerSeconds<=0)return;
+timerRunning=true;
+document.getElementById("timerStart").textContent="⏸ Pause";
+timerInterval=setInterval(()=>{
+timerSeconds--;updateTimerDisplay();
 if(timerSeconds<=0){
-clearInterval(timerId);timerId=null;
-if(!breakMode)gain(10,3);
-alert(breakMode?"Pause terminée !":"Session terminée ! +10 XP");
-document.getElementById("timerBtn").textContent="▶ Démarrer";
+clearInterval(timerInterval);timerInterval=null;timerRunning=false;
+document.getElementById("timerStart").textContent="▶ Démarrer";
+if(timerType==="focus"){data.sessions++;award(15,3);}
+alert(timerType==="focus"?"Session terminée ! Fais une pause. +15 XP":"Pause terminée ! Prêt à reprendre ?");
 }
 },1000);
 }
 function resetTimer(){
-if(timerId)clearInterval(timerId);
-timerId=null;timerSeconds=breakMode?300:1500;updateTimer();
-document.getElementById("timerBtn").textContent="▶ Démarrer";
-}
-function switchTimer(){
-if(timerId)clearInterval(timerId);
-timerId=null;breakMode=!breakMode;timerSeconds=breakMode?300:1500;updateTimer();
-document.getElementById("timerBtn").textContent="▶ Démarrer";
+clearInterval(timerInterval);timerInterval=null;timerRunning=false;
+timerSeconds=timerType==="focus"?25*60:5*60;
+document.getElementById("timerStart").textContent="▶ Démarrer";
+updateTimerDisplay();
 }
 
-setupSelects();
-renderHome();renderSubjects();renderNotes();renderCards();renderHistory();updateTimer();
+/* =========================
+RÉSULTATS ET ACCUEIL
+========================= */
+function renderResults(){
+const results=data.results;
+document.getElementById("totalQuizzes").textContent=results.length;
+const average=results.length?Math.round(results.reduce((s,r)=>s+r.percent,0)/results.length):0;
+document.getElementById("averageScore").textContent=average+" %";
+document.getElementById("bestScore").textContent=(results.length?Math.max(...results.map(r=>r.percent)):0)+" %";
+const el=document.getElementById("resultsList");
+if(!results.length){el.innerHTML='<div class="empty">Ton historique de quiz est vide.</div>';return;}
+el.innerHTML=results.map(r=>`
+<div class="list-item"><div>
+<h3>${escapeHTML(r.subject)} — ${escapeHTML(r.chapter||"Quiz")}</h3>
+<div class="meta">${escapeHTML(r.grade||r.level||"")} · ${escapeHTML(r.date)}</div>
+<p>${r.score}/${r.total} bonnes réponses</p>
+</div><span class="tag">${r.percent} %</span></div>`).join("");
+}
+function renderHomeResults(){
+const el=document.getElementById("homeResults");
+const results=data.results.slice(0,3);
+if(!results.length){el.innerHTML='<div class="empty">Tes résultats apparaîtront ici après ton premier quiz.</div>';return;}
+el.innerHTML=results.map(r=>`
+<div class="list-item"><div><strong>${escapeHTML(r.subject)}</strong>
+<div class="meta">${escapeHTML(r.grade||r.level||"")} · ${escapeHTML(r.chapter||"")}</div></div>
+<span class="tag">${r.percent}%</span></div>`).join("");
+}
+function clearResults(){
+if(!confirm("Effacer tout l'historique des quiz ?"))return;
+data.results=[];data.streak=0;save();renderResults();renderHomeResults();
+}
+
+/* =========================
+DÉMARRAGE
+========================= */
+initSelects();
+updateStats();
+renderSubjects();
+renderNotes();
+renderCards();
+renderResults();
+renderHomeResults();
+updateTimerDisplay();
 </script>
 </body>
 </html>
