@@ -648,7 +648,7 @@ const quizBank={
 
 /* ===== GÉNÉRATEURS (100+ questions) ===== */
 const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
-const shuf=a=>[...a].sort(()=>Math.random()-.5);
+const shuf=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b};
 function numOpts(v,s=1){const o=new Set();let t=0;while(o.size<3&&t++<80){const w=v+R(1,5)*s*(Math.random()<.5?-1:1);if(w!==v&&(v<0||w>=0))o.add(w)}return[...o]}
 const Q=(q,a,o,e,c,l)=>({q,a:String(a),o:o.map(String),e,c,l});
 const Qn=(q,v,e,c,l,u="",s=1)=>{const f=x=>u?x+" "+u:String(x);return Q(q,f(v),numOpts(v,s).map(f),e,c,l)};
