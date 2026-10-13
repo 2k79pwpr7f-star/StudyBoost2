@@ -1002,7 +1002,7 @@ function renderQuestion(){
 const q=currentQuiz.questions[currentQuiz.index];
 if(!q){finishQuiz();return;}
 currentQuiz.answered=false;
-const options=[q.a,...q.o].sort(()=>Math.random()-.5);
+const options=shuf([...new Set([q.a,...q.o])]);
 currentQuiz.currentOptions=options;
 const progress=currentQuiz.index/currentQuiz.questions.length*100;
 document.getElementById("quizArea").innerHTML=`
