@@ -980,6 +980,7 @@ const grade=document.getElementById("quizClass").value;
 const subject=document.getElementById("quizSubject").value;
 const chapter=document.getElementById("quizChapter").value;
 const count=Number(document.getElementById("quizCount").value);
+document.getElementById("quizArea").style.display="none";
 const bank=pickQuestions(subject,level,chapter,count);
 if(!bank.length){
 document.getElementById("quizArea").style.display="block";
