@@ -942,7 +942,7 @@ const compact={
 };
 for(const s in compact){
 quizBank[s]=[...(quizBank[s]||[]),...compact[s].map(r=>{const p=r.split("|");return{q:p[0],a:p[1],o:[p[2],p[3],p[4]],e:p[5]||""}})];
-
+}
 /* ===== LISTES PAR NIVEAU (P=Primaire C=Collège L=Lycée S=Supérieur) ===== */
 const LV={P:"Primaire",C:"Collège",L:"Lycée",S:"Supérieur"};
 const parse=s=>s.split(";").map(r=>r.split(","));
