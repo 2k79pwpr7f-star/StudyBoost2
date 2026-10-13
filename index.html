@@ -553,8 +553,9 @@ grid.innerHTML=filtered.map(s=>`
 <span class="tag">Préparer un quiz →</span>
 </div>`).join("") || `<div class="card empty">Aucune matière trouvée.</div>`;
 }
-function chooseSubject(subject){
-document.getElementById("quizSubject").value=subject;
+function chooseSubject(i){
+resetQuiz();
+document.getElementById("quizSubject").value=subjectCatalog[i][0];
 updateChapters("quiz");
 page("quiz");
 }
