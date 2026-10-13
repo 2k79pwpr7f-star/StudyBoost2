@@ -942,13 +942,34 @@ const compact={
 };
 for(const s in compact){
 quizBank[s]=[...(quizBank[s]||[]),...compact[s].map(r=>{const p=r.split("|");return{q:p[0],a:p[1],o:[p[2],p[3],p[4]],e:p[5]||""}})];
-}
+
+/* ===== LISTES PAR NIVEAU (P=Primaire C=Collège L=Lycée S=Supérieur) ===== */
+const LV={P:"Primaire",C:"Collège",L:"Lycée",S:"Supérieur"};
+const parse=s=>s.split(";").map(r=>r.split(","));
+function pairQs(raw,t1,t2){const list=parse(raw),out=[];
+list.forEach((p,i)=>{const o=k=>shuf([...new Set(list.filter((_,j)=>j!==i).map(x=>x[k]))]).slice(0,3);
+const l=LV[p[2]],e=`${p[0]} — ${p[1]}.`;
+out.push(Q(t1(p[0]),p[1],o(1),e,"",l));out.push(Q(t2(p[1]),p[0],o(0),e,"",l))});return out}
+
+const HIST="Christophe Colomb atteint l'Amérique,1492,P;Prise de la Bastille,1789,P;Sacre de Napoléon Ier,1804,P;Début de la Première Guerre mondiale,1914,P;Début de la Seconde Guerre mondiale,1939,P;Débarquement de Normandie,1944,P;Bataille de Marignan,1515,P;Exécution de Louis XVI,1793,C;Bataille de Waterloo,1815,C;Armistice de la Première Guerre mondiale,1918,C;Chute du mur de Berlin,1989,C;Construction du mur de Berlin,1961,C;Indépendance de l'Algérie,1962,C;Mort de Louis XIV,1715,C;Édit de Nantes,1598,C;Prise de Constantinople par les Ottomans,1453,C;Bataille d'Hastings,1066,C;Bataille de Poitiers de Charles Martel,732,C;Couronnement de Charlemagne,800,C;Début de la guerre de Cent Ans,1337,C;Peste noire en Europe,1347,C;Première croisade et prise de Jérusalem,1099,C;Déclaration d'indépendance des États-Unis,1776,C;Bataille de Verdun,1916,C;Traité de Versailles,1919,C;Premier pas sur la Lune,1969,C;Attentats contre le World Trade Center,2001,C;Mise en circulation de l'euro,2002,C;Révolution russe d'Octobre,1917,L;Krach de Wall Street,1929,L;Hitler devient chancelier,1933,L;Marche sur Rome de Mussolini,1922,L;Traité de Rome,1957,L;Début de la guerre d'Algérie,1954,L;Fondation de la Ve République,1958,L;Grèves et manifestations de mai en France,1968,L;Abolition de la peine de mort en France,1981,L;Dissolution de l'URSS,1991,L;Traité de Maastricht,1992,L;Proclamation de la IIIe République,1870,L;Proclamation de l'Empire allemand à Versailles,1871,L;Loi de séparation des Églises et de l'État,1905,L;Abolition définitive de l'esclavage en France,1848,L;Début de la guerre de Sécession,1861,L;Bataille de Valmy,1792,L;Début de la guerre de Trente Ans,1618,L;Traités de Westphalie,1648,L;Concordat entre Napoléon et le pape,1801,S";
+
+const EL="Hydrogène,H,C;Hélium,He,C;Lithium,Li,L;Béryllium,Be,L;Bore,B,L;Carbone,C,C;Azote,N,C;Oxygène,O,C;Fluor,F,L;Néon,Ne,L;Sodium,Na,C;Magnésium,Mg,L;Aluminium,Al,C;Silicium,Si,L;Phosphore,P,L;Soufre,S,C;Chlore,Cl,C;Argon,Ar,L;Potassium,K,L;Calcium,Ca,C;Fer,Fe,C;Cuivre,Cu,C;Zinc,Zn,C;Argent,Ag,C;Or,Au,C;Mercure,Hg,L;Plomb,Pb,C;Étain,Sn,L;Brome,Br,L;Iode,I,L;Titane,Ti,L;Chrome,Cr,L;Manganèse,Mn,L;Nickel,Ni,L;Cobalt,Co,L;Platine,Pt,L;Uranium,U,L;Baryum,Ba,L;Krypton,Kr,L;Xénon,Xe,L;Tungstène,W,S;Radium,Ra,S";
+
+const LIT="Victor Hugo,Les Misérables,C;Gustave Flaubert,Madame Bovary,L;Albert Camus,L'Étranger,L;Molière,Tartuffe,C;Jean Racine,Phèdre,L;Pierre Corneille,Le Cid,C;Voltaire,Candide,C;Jean-Jacques Rousseau,Les Confessions,L;Honoré de Balzac,Le Père Goriot,L;Émile Zola,Germinal,L;Stendhal,Le Rouge et le Noir,L;Marcel Proust,À la recherche du temps perdu,L;Alexandre Dumas,Les Trois Mousquetaires,C;Jules Verne,Vingt mille lieues sous les mers,P;Antoine de Saint-Exupéry,Le Petit Prince,P;Jean de La Fontaine,Fables,P;Arthur Rimbaud,Illuminations,L;Charles Baudelaire,Les Fleurs du mal,L;Guy de Maupassant,Bel-Ami,C;Jean-Paul Sartre,La Nausée,L;Beaumarchais,Le Mariage de Figaro,L;Marivaux,Le Jeu de l'amour et du hasard,L;Denis Diderot,Jacques le Fataliste,L;Montesquieu,Lettres persanes,L;François Rabelais,Gargantua,L;Pierre de Ronsard,Odes,L;Joachim du Bellay,Les Regrets,L;Guillaume Apollinaire,Alcools,L;Paul Verlaine,Poèmes saturniens,L;Charles Perrault,Contes de ma mère l'Oye,P;William Shakespeare,Hamlet,C;Miguel de Cervantès,Don Quichotte,L;Dante Alighieri,La Divine Comédie,S;Homère,L'Odyssée,C;Léon Tolstoï,Guerre et Paix,L;Fiodor Dostoïevski,Crime et Châtiment,L;Franz Kafka,Le Procès,L;George Orwell,1984,L;Jonathan Swift,Les Voyages de Gulliver,C;Marguerite Duras,L'Amant,L;Louis-Ferdinand Céline,Voyage au bout de la nuit,S;André Gide,Les Faux-monnayeurs,S;Boris Vian,L'Écume des jours,L;Marguerite Yourcenar,Mémoires d'Hadrien,S;George Sand,La Mare au diable,L;Prosper Mérimée,Carmen,L;Alfred de Musset,Lorenzaccio,L;Alphonse de Lamartine,Méditations poétiques,L;Gérard de Nerval,Les Filles du feu,S";
+
+const LAT="aqua,eau,C;terra,terre,C;ignis,feu,C;rosa,rose,C;dominus,maître,C;servus,esclave,C;puella,jeune fille,C;puer,garçon,C;amicus,ami,C;vir,homme,C;femina,femme,C;mater,mère,C;pater,père,C;frater,frère,C;soror,sœur,C;filius,fils,C;filia,fille,C;rex,roi,C;regina,reine,C;urbs,ville,C;templum,temple,C;via,route,C;ager,champ,C;arbor,arbre,C;bellum,guerre,C;pax,paix,C;vita,vie,C;mors,mort,C;amor,amour,C;nox,nuit,C;dies,jour,C;sol,soleil,C;luna,lune,C;stella,étoile,C;mare,mer,C;mons,montagne,C;flumen,fleuve,L;equus,cheval,C;canis,chien,C;lupus,loup,C;avis,oiseau,C;liber,livre,C;deus,dieu,C;scribere,écrire,L;legere,lire,L;amare,aimer,L;videre,voir,L;audire,entendre,L;dicere,dire,L;habere,avoir,L;esse,être,L;ire,aller,L;venire,venir,L;vincere,vaincre,L;tempus,temps,L;populus,peuple,L;patria,patrie,L";
+
+pools["Histoire"]=()=>pairQs(HIST,e=>`En quelle année a eu lieu : ${e} ?`,y=>`Quel événement a eu lieu en ${y} ?`);
+pools["Chimie"]=()=>[...pairQs(EL,n=>`Quel est le symbole chimique de l'élément ${n} ?`,s=>`Quel élément a pour symbole ${s} ?`),
+...parse(EL).slice(0,20).map((p,i)=>Q(`Quel est le numéro atomique de l'élément ${p[0]} ?`,i+1,numOpts(i+1),`${p[0]} (${p[1]}) a pour numéro atomique ${i+1}.`,"","Lycée"))];
+pools["Littérature"]=()=>pairQs(LIT,w=>`Qui a écrit « ${w} » ?`,a=>`Laquelle de ces œuvres a été écrite par ${a} ?`);
+pools["Latin"]=()=>pairQs(LAT,l=>`Que signifie le mot latin « ${l} » ?`,f=>`Comment dit-on « ${f} » en latin ?`);
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level||(level==="Primaire"&&q.l==="Collège");
 const ch=q=>!q.c||q.c===chapter||chapter==="Révisions générales";
 const seen=new Set(),out=[];
-for(const list of [pool.filter(q=>lv(q)&&ch(q)),pool.filter(lv),pool]){
+for(const list of [pool.filter(q=>lv(q)&&ch(q)),pool.filter(lv)]){
 for(const q of shuf(list)){if(out.length>=count)return out;if(!seen.has(q.q)){seen.add(q.q);out.push(q)}}}
 return out}
   let currentQuiz=null;
