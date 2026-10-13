@@ -1044,7 +1044,7 @@ const total=q.questions.length;
 const percent=Math.round(q.score/total*100);
 const xp=10+q.score*5;
 const coins=Math.floor(q.score*2);
-data.streak++;
+if(percent>=50)data.streak++;
 data.results.unshift({
 date:new Date().toLocaleString("fr-FR"),
 subject:q.subject,level:q.level,grade:q.grade,chapter:q.chapter,
