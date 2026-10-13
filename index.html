@@ -962,7 +962,7 @@ const LAT="aqua,eau,C;terra,terre,C;ignis,feu,C;rosa,rose,C;dominus,maître,C;se
 pools["Histoire"]=()=>pairQs(HIST,e=>`En quelle année a eu lieu : ${e} ?`,y=>`Quel événement a eu lieu en ${y} ?`);
 pools["Chimie"]=()=>[...pairQs(EL,n=>`Quel est le symbole chimique de l'élément ${n} ?`,s=>`Quel élément a pour symbole ${s} ?`),
 ...parse(EL).slice(0,20).map((p,i)=>Q(`Quel est le numéro atomique de l'élément ${p[0]} ?`,i+1,numOpts(i+1),`${p[0]} (${p[1]}) a pour numéro atomique ${i+1}.`,"","Lycée"))];
-pools["Littérature"]=()=>pairQs(LIT,w=>`Qui a écrit « ${w} » ?`,a=>`Laquelle de ces œuvres a été écrite par ${a} ?`);
+pools["Littérature"]=()=>pairQs(LIT,a=>`Laquelle de ces œuvres a été écrite par ${a} ?`,w=>`Qui a écrit « ${w} » ?`);
 pools["Latin"]=()=>pairQs(LAT,l=>`Que signifie le mot latin « ${l} » ?`,f=>`Comment dit-on « ${f} » en latin ?`);
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
