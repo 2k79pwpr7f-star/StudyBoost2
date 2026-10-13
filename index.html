@@ -1166,45 +1166,46 @@ data.cards=data.cards.filter(c=>c.id!==id);save();renderCards();
 /* =========================
 MINUTEUR
 ========================= */
-let timerSeconds=25*60,timerInterval=null,timerRunning=false,timerType="focus";
+let timerSeconds=25*60,timerTotal=25*60,timerEnd=0,timerInterval=null,timerRunning=false,timerType="focus";
 function updateTimerDisplay(){
-const min=Math.floor(timerSeconds/60);
-const sec=timerSeconds%60;
+const min=Math.floor(timerSeconds/60),sec=timerSeconds%60;
 document.getElementById("timerDisplay").textContent=`${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
 }
+function stopTimer(){clearInterval(timerInterval);timerInterval=null;timerRunning=false}
 function setTimer(minutes,type){
-clearInterval(timerInterval);timerInterval=null;timerRunning=false;
-timerSeconds=minutes*60;timerType=type;
+stopTimer();
+timerSeconds=timerTotal=minutes*60;timerType=type;
 document.getElementById("timerMode").textContent=type==="focus"?"Concentration":"Pause";
 document.getElementById("timerStart").textContent="▶ Démarrer";
 updateTimerDisplay();
 }
+function tick(){
+timerSeconds=Math.max(0,Math.round((timerEnd-Date.now())/1000));
+updateTimerDisplay();
+if(timerSeconds>0)return;
+stopTimer();
+document.getElementById("timerStart").textContent="▶ Démarrer";
+if(timerType==="focus"){data.sessions++;award(15,3);}
+alert(timerType==="focus"?"Session terminée ! Fais une pause. +15 XP":"Pause terminée ! Prêt à reprendre ?");
+timerSeconds=timerTotal;updateTimerDisplay();
+}
 function toggleTimer(){
 if(timerRunning){
-clearInterval(timerInterval);timerInterval=null;timerRunning=false;
+timerSeconds=Math.max(0,Math.round((timerEnd-Date.now())/1000));
+stopTimer();
 document.getElementById("timerStart").textContent="▶ Reprendre";
 return;
 }
 if(timerSeconds<=0)return;
-timerRunning=true;
+timerRunning=true;timerEnd=Date.now()+timerSeconds*1000;
 document.getElementById("timerStart").textContent="⏸ Pause";
-timerInterval=setInterval(()=>{
-timerSeconds--;updateTimerDisplay();
-if(timerSeconds<=0){
-clearInterval(timerInterval);timerInterval=null;timerRunning=false;
-document.getElementById("timerStart").textContent="▶ Démarrer";
-if(timerType==="focus"){data.sessions++;award(15,3);}
-alert(timerType==="focus"?"Session terminée ! Fais une pause. +15 XP":"Pause terminée ! Prêt à reprendre ?");
-}
-},1000);
+timerInterval=setInterval(tick,500);
 }
 function resetTimer(){
-clearInterval(timerInterval);timerInterval=null;timerRunning=false;
-timerSeconds=timerType==="focus"?25*60:5*60;
+stopTimer();timerSeconds=timerTotal;
 document.getElementById("timerStart").textContent="▶ Démarrer";
 updateTimerDisplay();
 }
-
 /* =========================
 RÉSULTATS ET ACCUEIL
 ========================= */
