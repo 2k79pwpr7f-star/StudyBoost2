@@ -964,8 +964,8 @@ pools["Chimie"]=()=>[...pairQs(EL,n=>`Quel est le symbole chimique de l'élémen
 ...parse(EL).slice(0,20).map((p,i)=>Q(`Quel est le numéro atomique de l'élément ${p[0]} ?`,i+1,numOpts(i+1),`${p[0]} (${p[1]}) a pour numéro atomique ${i+1}.`,"","Lycée"))];
 pools["Littérature"]=()=>pairQs(LIT,a=>`Laquelle de ces œuvres a été écrite par ${a} ?`,w=>`Qui a écrit « ${w} » ?`);
 pools["Latin"]=()=>pairQs(LAT,l=>`Que signifie le mot latin « ${l} » ?`,f=>`Comment dit-on « ${f} » en latin ?`);
-function pickQuestions(subject,level,chapter,count){
-const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
+function pickQuestions(subject,level,chapter,count)
+{const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level||(level==="Primaire"&&q.l==="Collège");
 const ch=q=>!q.c||q.c===chapter||chapter==="Révisions générales";
 const seen=new Set(),out=[];
