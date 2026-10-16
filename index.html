@@ -992,6 +992,93 @@ pools["Économie"]=()=>[
 ...pairQs(ECO,a=>`Quelle œuvre a été écrite par ${a} ?`,w=>`Qui a écrit « ${w} » ?`),
 ...pairQs(ECC,c=>`Quel économiste est associé à la notion de « ${c} » ?`,a=>`Quelle notion est associée à ${a} ?`),
 ...defQs(ECT)];
+/* ===== PAQUET 3 ===== */
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const frac=(a,b)=>{const g=gcd(a,b);return `${a/g}/${b/g}`};
+const sum=a=>a.reduce((x,y)=>x+y,0);
+const fr=x=>String(x).replace(".",",");
+const oneQs=(raw,t)=>{const l=parse(raw);return l.map((p,i)=>Q(t(p[0]),p[1],shuf([...new Set(l.map(x=>x[1]).filter(x=>x!==p[1]))]).slice(0,3),`${p[0]} : ${p[1]}.`,"",LV[p[2]]))};
+
+const genMeca=[
+()=>{const m=R(2,20),a=R(2,9);return Qn(`Une masse de ${m} kg subit une accélération de ${a} m/s². Quelle est la force résultante ?`,m*a,"ΣF = m × a.","","Lycée","N")},
+()=>{const m=R(2,90);return Qn(`Quel est le poids d'un objet de ${m} kg (g = 10 N/kg) ?`,m*10,"P = m × g.","","Collège","N",10)},
+()=>{const a=R(2,9),t=R(2,10);return Qn(`Un mobile part du repos avec une accélération de ${a} m/s². Quelle est sa vitesse après ${t} s ?`,a*t,"v = a × t.","","Lycée","m/s")},
+()=>{const a=R(1,5)*2,t=R(2,8);return Qn(`Un mobile part du repos avec une accélération de ${a} m/s². Quelle distance parcourt-il en ${t} s ?`,a*t*t/2,"d = ½ × a × t².","","Lycée","m",2)},
+()=>{const m=R(1,10)*2,v=R(2,10);return Qn(`Quelle est l'énergie cinétique d'une masse de ${m} kg à ${v} m/s ?`,m*v*v/2,"Ec = ½ m v².","","Lycée","J",5)},
+()=>{const m=R(1,20),h=R(2,30);return Qn(`Quelle est l'énergie potentielle de pesanteur d'une masse de ${m} kg à ${h} m de hauteur (g = 10 N/kg) ?`,m*10*h,"Ep = m × g × h.","","Lycée","J",10)},
+()=>{const F=R(2,50),d=R(2,20);return Qn(`Quel est le travail d'une force constante de ${F} N sur un déplacement de ${d} m dans son sens ?`,F*d,"W = F × d.","","Lycée","J",5)},
+()=>{const t=R(2,9);return Qn(`Quelle est la vitesse d'un objet en chute libre après ${t} s à partir du repos (g = 10 m/s², sans frottements) ?`,10*t,"v = g × t.","","Lycée","m/s",10)},
+()=>{const F=R(2,50),d=R(1,10);return Qn(`Quel est le moment d'une force de ${F} N appliquée à ${d} m de l'axe (bras de levier) ?`,F*d,"M = F × d.","","Supérieur","N·m",5)},
+()=>{const P=R(2,20),S=R(2,10);return Qn(`Une force de ${P*S} N s'exerce perpendiculairement sur une surface de ${S} m². Quelle est la pression ?`,P,"p = F / S.","","Supérieur","Pa")},
+()=>{const m=R(2,20),v=R(2,15);return Qn(`Quelle est la quantité de mouvement d'un objet de ${m} kg à ${v} m/s ?`,m*v,"p = m × v.","","Supérieur","kg·m/s",5)},
+()=>{const F=R(2,40),v=R(2,10);return Qn(`Quelle est la puissance d'une force de ${F} N sur un objet allant à ${v} m/s dans le sens de la force ?`,F*v,"P = F × v.","","Supérieur","W",5)},
+()=>{const m=R(1,10)*2,v=R(2,8),W=R(1,10)*10;return Qn(`Un objet de ${m} kg à ${v} m/s reçoit un travail de ${W} J. Quelle est son énergie cinétique finale ?`,m*v*v/2+W,"Théorème de l'énergie cinétique : Ec finale = Ec initiale + W.","","Supérieur","J",5)}
+];
+const MEU="Force,newton,C;Pression,pascal,L;Énergie,joule,C;Puissance,watt,C;Fréquence,hertz,L;Masse,kilogramme,C;Moment d'une force,newton-mètre,L;Vitesse,mètre par seconde,C;Accélération,mètre par seconde carrée,L;Quantité de mouvement,kilogramme-mètre par seconde,S";
+
+const genElec=[
+()=>{const r=R(2,12)*5,i=R(1,9);return Qn(`Une résistance de ${r} Ω est traversée par ${i} A. Quelle est la tension à ses bornes ?`,r*i,"U = R × I.","","Collège","V",5)},
+()=>{const r=R(2,12)*5,i=R(1,9);return Qn(`Une résistance de ${r} Ω a ${r*i} V à ses bornes. Quelle intensité la traverse ?`,i,"I = U / R.","","Collège","A")},
+()=>{const r=R(2,12)*5,i=R(1,9);return Qn(`Un dipôle traversé par ${i} A a ${r*i} V à ses bornes. Quelle est sa résistance ?`,r,"R = U / I.","","Collège","Ω",5)},
+()=>{const a=R(1,9),b=R(1,9);return Qn(`Un nœud reçoit ${a} A et ${b} A. Quelle intensité totale ressort ?`,a+b,"Loi des nœuds : la somme des courants entrants est égale à celle des courants sortants.","","Collège","A")},
+()=>{const e=R(10,24),u=R(1,9);return Qn(`Une source de ${e} V alimente deux dipôles en série. L'un a ${u} V à ses bornes. Quelle est la tension de l'autre ?`,e-u,"Loi des mailles : E = U₁ + U₂.","","Collège","V")},
+()=>{const a=R(1,20)*10,b=R(1,20)*10;return Qn(`Deux résistances de ${a} Ω et ${b} Ω sont en série. Quelle est la résistance équivalente ?`,a+b,"En série, les résistances s'additionnent.","","Collège","Ω",10)},
+()=>{const r=R(1,10)*20;return Qn(`Deux résistances de ${r} Ω sont en parallèle. Quelle est la résistance équivalente ?`,r/2,"En parallèle, deux résistances égales donnent R / 2.","","Lycée","Ω",5)},
+()=>{const u=R(2,24),i=R(1,9);return Qn(`Quelle est la puissance d'un dipôle sous ${u} V traversé par ${i} A ?`,u*i,"P = U × I.","","Lycée","W",5)},
+()=>{const p=R(1,10)*100,t=R(1,5);return Qn(`Un appareil de ${p} W fonctionne pendant ${t} h. Quelle énergie consomme-t-il ?`,p*t,"E = P × t.","","Lycée","Wh",100)},
+()=>{const r=R(1,5)*10,v=R(1,8)*3;return Qn(`Un diviseur de tension a R1 = ${r} Ω et R2 = ${2*r} Ω (sortie aux bornes de R2) avec ${v} V en entrée. Quelle est la tension de sortie ?`,2*v/3,"Us = Ue × R2 / (R1 + R2).","","Lycée","V")},
+()=>{const T=[1,2,4,5,8,10,20,25][R(0,7)];return Qn(`Un signal a une période de ${T} ms. Quelle est sa fréquence ?`,1000/T,"f = 1 / T.","","Lycée","Hz",25)},
+()=>{const r=R(1,10),c=R(1,10);return Qn(`Un circuit RC a R = ${r} kΩ et C = ${c} µF. Quelle est sa constante de temps ?`,r*c,"τ = R × C (kΩ × µF = ms).","","Supérieur","ms")},
+()=>{const r=R(1,5)*10,k=R(2,9);return Qn(`Un amplificateur opérationnel inverseur a R1 = ${r} kΩ et R2 = ${k*r} kΩ. Quel est son gain ?`,-k,"Gain = −R2 / R1.","","Supérieur")}
+];
+const ELU="Tension,volt,C;Intensité,ampère,C;Résistance,ohm,C;Puissance,watt,C;Énergie,joule,C;Fréquence,hertz,L;Capacité,farad,L;Charge électrique,coulomb,L;Inductance,henry,S;Conductance,siemens,S;Flux magnétique,weber,S;Champ magnétique,tesla,S";
+
+const genStat=[
+()=>{const n=R(4,6),l=Array.from({length:n-1},()=>R(1,20));let z=(n-sum(l)%n)%n+n*R(0,2);if(!z)z=n;l.push(z);return Qn(`Quelle est la moyenne de la série ${shuf(l).join(" ; ")} ?`,sum(l)/n,`La somme vaut ${sum(l)}, divisée par ${n}.`,"","Collège")},
+()=>{const n=[5,7][R(0,1)],l=Array.from({length:n},()=>R(1,30)),m=[...l].sort((a,b)=>a-b)[(n-1)/2];return Qn(`Quelle est la médiane de la série ${l.join(" ; ")} ?`,m,"On ordonne la série et on prend la valeur centrale.","","Collège")},
+()=>{const l=Array.from({length:R(4,7)},()=>R(1,50));return Qn(`Quelle est l'étendue de la série ${l.join(" ; ")} ?`,Math.max(...l)-Math.min(...l),"Étendue = maximum − minimum.","","Collège")},
+()=>{const n=[6,8,10,12,20][R(0,4)],k=R(1,n-1);return Q(`On lance un dé équilibré à ${n} faces numérotées de 1 à ${n}. Quelle est la probabilité d'obtenir un nombre inférieur ou égal à ${k} ?`,frac(k,n),[frac(k+1,n),frac(k,n+1),frac(k,n-1)],`${k} cas favorables sur ${n}.`,"","Collège")},
+()=>{const p=R(1,19)*5;return Qn(`Un événement a une probabilité de ${p} %. Quelle est la probabilité de l'événement contraire ?`,100-p,"P(contraire) = 1 − P(A).","","Collège","%",5)},
+()=>{const a=R(1,9),b=R(1,9);return Qn(`Deux événements indépendants ont pour probabilités ${a*10} % et ${b*10} %. Quelle est la probabilité qu'ils se produisent tous les deux ?`,a*b,"P(A ∩ B) = P(A) × P(B) pour des événements indépendants.","","Lycée","%")},
+()=>{const k=R(1,9),a=R(1,5)*10,b=R(0,3)*10;return Qn(`Une variable aléatoire vaut ${a} avec la probabilité ${fr(k/10)} et ${b} avec la probabilité ${fr((10-k)/10)}. Quelle est son espérance ?`,(k*a+(10-k)*b)/10,"E(X) = Σ xᵢ × pᵢ.","","Lycée")},
+()=>{const n=R(4,10),k=R(2,3);let c=1;for(let i=0;i<k;i++)c=c*(n-i)/(i+1);return Qn(`Combien de façons de choisir ${k} éléments parmi ${n} (sans ordre) ?`,c,`C(${n}, ${k}) = ${c}.`,"","Lycée","",2)},
+()=>{const n=R(3,7);let f=1;for(let i=2;i<=n;i++)f*=i;return Qn(`Que vaut ${n}! ?`,f,`${n}! = 1 × 2 × ... × ${n}.`,"","Lycée","",f>100?20:2)},
+()=>{const n=R(1,10)*10,p=[1,2,5][R(0,2)];return Qn(`X suit la loi binomiale B(${n} ; ${fr(p/10)}). Quelle est son espérance ?`,n*p/10,"E(X) = n × p.","","Lycée","",2)},
+()=>{const n=R(1,6)*4;return Qn(`X suit la loi binomiale B(${n} ; 0,5). Quelle est sa variance ?`,n/4,"V(X) = n × p × (1 − p).","","Lycée")},
+()=>{const k=R(2,12);return Qn(`Une série a pour variance ${k*k}. Quel est son écart-type ?`,k,"L'écart-type est la racine carrée de la variance.","","Lycée")},
+()=>{const b=R(2,9)*10,q=R(1,9)*10;return Qn(`On a P(B) = ${b} % et P(A ∩ B) = ${b*q/100} %. Quelle est P(A | B) ?`,q,"P(A | B) = P(A ∩ B) / P(B).","","Supérieur","%",5)},
+()=>{const a=R(1,9),b=R(1,9);return Qn(`X et Y sont indépendantes avec V(X) = ${a} et V(Y) = ${b}. Que vaut V(X + Y) ?`,a+b,"Pour des variables indépendantes, les variances s'additionnent.","","Supérieur")},
+()=>{const m=R(2,9),a=R(2,6),b=R(1,9);return Qn(`E(X) = ${m}. Que vaut E(${a}X + ${b}) ?`,a*m+b,"E(aX + b) = a·E(X) + b.","","Supérieur")}
+];
+
+const genAlgo=[
+()=>{const a=R(0,5),b=a+R(5,30),s=R(1,4);return Qn(`Combien d'itérations fait « for i in range(${a}, ${b}, ${s}) » en Python ?`,Math.ceil((b-a)/s),"range(a, b, s) produit ⌈(b − a) / s⌉ valeurs.","","Lycée")},
+()=>{const n=R(5,30);return Qn(`Que vaut la somme 1 + 2 + ... + ${n} ?`,n*(n+1)/2,"Somme = n(n + 1) / 2.","","Lycée","",3)},
+()=>{const n=R(3,8);let f=1;for(let i=2;i<=n;i++)f*=i;return Qn(`Une boucle calcule le produit 1 × 2 × ... × ${n}. Quel résultat renvoie-t-elle ?`,f,`C'est ${n}!.`,"","Lycée","",f>200?50:3)},
+()=>{const n=R(5,14);let a=0,b=1;for(let i=0;i<n;i++)[a,b]=[b,a+b];return Qn(`Dans la suite de Fibonacci (F₀ = 0, F₁ = 1), que vaut F${n} ?`,a,"Chaque terme est la somme des deux précédents.","","Lycée","",3)},
+()=>{const g=R(2,9),x=R(2,9),y=R(2,9);return Qn(`Que renvoie l'algorithme d'Euclide pour le PGCD de ${g*x} et ${g*y} ?`,gcd(g*x,g*y),"On répète (a, b) ← (b, a mod b) jusqu'à b = 0.","","Lycée")},
+()=>{const n=R(5,60);return Qn(`Quelle est la valeur décimale de ${n.toString(2)} (écrit en binaire) ?`,n,"On additionne les puissances de 2 des bits à 1.","","Lycée")},
+()=>{const n=R(16,250),h=x=>x.toString(16).toUpperCase();return Q(`Écris ${n} en hexadécimal.`,h(n),[n+1,n-1,n+2].map(h),`${n} s'écrit ${h(n)} en base 16.`,"","Lycée")},
+()=>{const n=R(2,64);return Qn(`Combien de bits contiennent ${n} octets ?`,n*8,"1 octet = 8 bits.","","Lycée","bits",8)},
+()=>{const n=R(3,12);return Qn(`f(0) = 1 et f(n) = 2 × f(n − 1). Que renvoie f(${n}) ?`,2**n,"f(n) = 2ⁿ.","","Lycée","",2**(n-1))},
+()=>{const n=R(8,1000);return Qn(`Au plus combien de comparaisons faut-il pour trouver une valeur par dichotomie dans un tableau trié de ${n} éléments ?`,Math.floor(Math.log2(n))+1,"On divise l'intervalle par 2 : ⌊log₂ n⌋ + 1 comparaisons au plus.","","Supérieur")},
+()=>{const n=R(5,30);return Qn(`Combien de comparaisons fait le tri par sélection sur un tableau de ${n} éléments ?`,n*(n-1)/2,"(n − 1) + (n − 2) + ... + 1 = n(n − 1) / 2.","","Supérieur","",5)}
+];
+const CPX="Parcours d'un tableau,O(n),L;Accès à un élément d'un tableau par son indice,O(1),L;Recherche dichotomique dans un tableau trié,O(log n),L;Tri à bulles,O(n²),L;Recherche linéaire dans une liste non triée,O(n),L;Deux boucles imbriquées de n itérations chacune,O(n²),L;Tri par insertion dans le pire cas,O(n²),S;Tri par sélection,O(n²),S;Tri fusion,O(n log n),S;Tri rapide en moyenne,O(n log n),S;Parcours en largeur d'un graphe,O(V+E),S;Insertion en tête d'une liste chaînée,O(1),S;Recherche dans une table de hachage en moyenne,O(1),S";
+
+const genSI=[
+()=>{const pa=R(1,10)*100,e=R(2,9)*10;return Qn(`Un moteur absorbe ${pa} W et fournit ${pa*e/100} W. Quel est son rendement ?`,e,"η = Pu / Pa.","","Lycée","%",5)},
+()=>{const z=R(1,6)*10,k=[2,4,5][R(0,2)],w=R(1,9)*100;return Qn(`Une roue de ${z} dents tourne à ${w} tr/min et entraîne une roue de ${z*k} dents. Quelle est la vitesse de la roue menée ?`,w/k,"ω₂ = ω₁ × Z₁ / Z₂.","","Lycée","tr/min",10)},
+()=>{const c=R(1,10),w=R(2,20);return Qn(`Un moteur fournit un couple de ${c} N·m à ${w} rad/s. Quelle est sa puissance mécanique ?`,c*w,"P = C × ω.","","Supérieur","W",5)},
+()=>{const p=R(2,20)*50,t=R(2,10);return Qn(`Un système consomme ${p} W pendant ${t} s. Quelle énergie utilise-t-il ?`,p*t,"E = P × t.","","Lycée","J",50)}
+];
+const SIL="capteur,Composant qui prélève une grandeur physique et la transforme en signal,L;actionneur,Composant qui convertit l'énergie pour agir sur le système,L;préactionneur,Composant qui distribue l'énergie vers l'actionneur,L;chaîne d'information,Partie du système qui acquiert traite et communique les informations,L;chaîne d'énergie,Partie du système qui alimente distribue convertit et transmet l'énergie,L;cahier des charges,Document qui formalise les besoins et les contraintes à satisfaire,L;diagramme des exigences,Diagramme SysML qui liste les exigences d'un système,S;diagramme de blocs internes,Diagramme SysML qui montre les liaisons entre les composants,S;diagramme de cas d'utilisation,Diagramme qui décrit les interactions entre acteurs et système,S;asservissement,Système qui corrige la commande à partir de l'écart entre consigne et mesure,L;consigne,Valeur que doit atteindre la grandeur à contrôler,L;boucle ouverte,Système sans retour de la mesure vers la commande,L;boucle fermée,Système avec retour de la mesure vers la commande,L;comparateur,Élément qui calcule l'écart entre la consigne et la mesure,L;correcteur,Élément qui élabore la commande à partir de l'écart,S;perturbation,Grandeur extérieure indésirable qui agit sur le système,L;précision,Écart entre la consigne et la valeur atteinte en régime établi,S;stabilité,Capacité d'un système à revenir à un état d'équilibre après une perturbation,S;rapidité,Aptitude d'un système à atteindre rapidement sa valeur finale,S;dépassement,Écart maximal au-delà de la valeur finale lors d'une réponse,S;fonction de transfert,Rapport entre la sortie et l'entrée d'un système dans le domaine de Laplace,S;transformée de Laplace,Outil qui transforme une équation différentielle en équation algébrique,S;rendement,Rapport entre la puissance utile et la puissance absorbée,L;réducteur,Mécanisme qui diminue la vitesse de rotation et augmente le couple,L;engrenage,Transmission de mouvement par des roues dentées,L;liaison pivot,Liaison qui autorise une seule rotation autour d'un axe,L;liaison glissière,Liaison qui autorise une seule translation selon un axe,L;liaison rotule,Liaison qui autorise trois rotations en un point,S;degré de liberté,Mouvement indépendant possible entre deux solides,L;mobilité,Nombre de degrés de liberté d'un mécanisme,S;cinématique,Étude des mouvements sans considérer les causes,L;statique,Étude de l'équilibre des solides soumis à des forces,L;dynamique,Étude du mouvement en relation avec les forces appliquées,S;contrainte,Force par unité de surface dans un matériau,S;module d'Young,Constante reliant contrainte et déformation en élasticité,S;automate programmable,Calculateur industriel qui commande un procédé automatisé,L;GRAFCET,Langage graphique qui décrit le fonctionnement d'un automatisme,L;microcontrôleur,Circuit intégré qui regroupe processeur mémoire et entrées-sorties,L;modulation de largeur d'impulsion,Technique qui commande une puissance par le rapport cyclique,S";
+
+pools["Mécanique"]=()=>[...rep(genMeca),...pairQs(MEU,g=>`Quelle est l'unité SI de la grandeur « ${g} » ?`,u=>`Quelle grandeur se mesure en ${u} ?`)];
+pools["Électronique"]=()=>[...rep(genElec),...pairQs(ELU,g=>`Quelle est l'unité SI de la grandeur « ${g} » ?`,u=>`Quelle grandeur se mesure en ${u} ?`)];
+pools["Statistiques et probabilités"]=()=>rep(genStat);
+pools["Algorithmique"]=()=>[...rep(genAlgo),...oneQs(CPX,n=>`Quelle est la complexité de : ${n} ?`)];
+pools["Sciences de l'ingénieur"]=()=>[...rep(genSI),...pairQs(SIL,t=>`Que désigne le terme « ${t} » ?`,d=>`Quel terme correspond à cette définition : ${d} ?`)];
 function pickQuestions(subject,level,chapter,count)
 {const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
