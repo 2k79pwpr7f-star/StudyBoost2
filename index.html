@@ -526,7 +526,8 @@ fillSelect(id,choices);
 function updateChapters(prefix){
 const level=document.getElementById(prefix+"Level")?.value || "Lycée";
 const subject=document.getElementById(prefix+"Subject")?.value || "Mathématiques";
-const choices=getChapters(subject,level);
+const grade=document.getElementById(prefix+"Class")?.value;
+const choices=getChapters(subject,level,grade);
 const id=prefix==="card"?"cardChapter":prefix==="note"?"noteChapter":"quizChapter";
 fillSelect(id,choices);
 }
