@@ -598,7 +598,7 @@ return matchesName&&matchesLevel;
 grid.innerHTML=filtered.map(s=>`
 <div class="card subject-card" onclick="chooseSubject(${subjectCatalog.indexOf(s)})">
 <div class="subject-icon">${s[1]}</div><h3>${escapeHTML(s[0])}</h3>
-<p>${getChapters(s[0],document.getElementById("quizLevel").value,document.getElementById("quizClass").value).length chapitres proposés selon la classe</p>
+<p>${getChapters(s[0],document.getElementById("quizLevel").value,document.getElementById("quizClass").value).length} chapitres proposés selon la classe</p>
 <span class="tag">Préparer un quiz →</span>
 </div>`).join("") || `<div class="card empty">Aucune matière trouvée.</div>`;
 }
