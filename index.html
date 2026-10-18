@@ -1295,6 +1295,7 @@ document.getElementById("quizArea").innerHTML=`
 <button class="btn btn-primary" onclick="page('cards')">Créer des flashcards</button></div>`;
 return;
 }
+if(chapter!=="Révisions générales"&&pickQuestions.matched<bank.length)alert("Il y a "+pickQuestions.matched+" question(s) sur ce chapitre. Les autres viennent d'autres chapitres du même niveau.");
 const questions=bank;
 currentQuiz={level,grade,subject,chapter,questions,index:0,score:0,answered:false};
 document.getElementById("quizSetup").style.display="none";
