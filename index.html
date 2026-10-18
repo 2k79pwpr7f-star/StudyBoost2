@@ -1236,6 +1236,35 @@ pools["Comptabilité"]=()=>[...defQs(CPT),...pairQs(PCG,n=>`Quel type de comptes
 pools["Marketing"]=()=>[...defQs(MKT),...pairQs(MKM,a=>`Quel modèle est associé à ${a} ?`,m=>`À quel auteur est associé le modèle « ${m} » ?`),...rep(genMkt)];
 pools["Management"]=()=>[...defQs(MGT),...pairQs(MGA,a=>`Quelle théorie ou notion est associée à ${a} ?`,t=>`À quel auteur est associée la notion « ${t} » ?`),...rep(genMgt)];
 pools["Ingénierie"]=()=>[...defQs(ING),...pairQs(ISO,n=>`Quel domaine couvre la norme ${n} ?`,d=>`Quelle norme correspond au domaine « ${d} » ?`),...rep(genIng)];
+/* ===== OPTIQUE (Physique-chimie, Lycée) ===== */
+const genOpt=[
+()=>{const i=R(1,17)*5;return Qn(`Un rayon arrive avec un angle d'incidence de ${i}° sur un miroir plan. Quel est l'angle de réflexion ?`,i,"Loi de la réflexion : l'angle de réflexion est égal à l'angle d'incidence.","Optique","Lycée","°",5)},
+()=>{const t=[[1.5,"2,0"],[2,"1,5"],[1.25,"2,4"],[3,"1,0"],[1.2,"2,5"]],k=R(0,4),f=x=>`${x}×10⁸ m/s`;return Q(`La lumière se propage dans un milieu d'indice n = ${fr(t[k][0])}. Quelle est sa vitesse (c = 3,00×10⁸ m/s dans le vide) ?`,f(t[k][1]),shuf(t.filter((_,j)=>j!==k)).slice(0,3).map(x=>f(x[1])),`v = c / n = 3,00×10⁸ / ${fr(t[k][0])}.`,"Optique","Lycée")},
+()=>{const t=[[400,"750"],[500,"600"],[600,"500"],[750,"400"]],k=R(0,3);return Q(`Une lumière monochromatique a une longueur d'onde de ${t[k][0]} nm dans le vide (c = 3,00×10⁸ m/s). Quelle est sa fréquence ?`,`${t[k][1]} THz`,t.filter((_,j)=>j!==k).map(x=>`${x[1]} THz`),`f = c / λ = 3,00×10⁸ / (${t[k][0]}×10⁻⁹) = ${t[k][1]}×10¹² Hz.`,"Optique","Lycée")},
+()=>{const f=R(1,10)*2;return Qn(`Une lentille convergente a une distance focale de ${f} cm. Un objet est placé à ${3*f} cm devant elle. À quelle distance de la lentille se forme l'image ?`,1.5*f,"1/OA' = 1/f' + 1/OA avec OA = −3f', donc OA' = 1,5 f'.","Optique","Lycée","cm",2)},
+()=>{const t=[[50,2],[25,4],[20,5],[10,10],[40,2.5]],k=R(0,4);return Q(`Quelle est la vergence d'une lentille de distance focale ${t[k][0]} cm ?`,`${fr(t[k][1])} δ`,shuf(t.filter((_,j)=>j!==k)).slice(0,3).map(x=>`${fr(x[1])} δ`),`C = 1 / f' = 1 / ${fr(t[k][0]/100)} m = ${fr(t[k][1])} δ.`,"Optique","Lycée")},
+()=>{const t=[[2,50],[4,25],[5,20],[10,10],[8,12.5]],k=R(0,4);return Q(`Quelle est la distance focale d'une lentille de vergence ${t[k][0]} δ ?`,`${fr(t[k][1])} cm`,shuf(t.filter((_,j)=>j!==k)).slice(0,3).map(x=>`${fr(x[1])} cm`),`f' = 1 / C = 1 / ${t[k][0]} = ${fr(t[k][1]/100)} m.`,"Optique","Lycée")}
+];
+const optT=[
+"Quelle couleur de la lumière visible a la plus grande longueur d'onde ?|Le rouge|Le violet|Le vert|Le bleu|Dans le visible, le rouge a la plus grande longueur d'onde.",
+"Quel phénomène désigne le changement de direction d'un rayon lumineux à la traversée de deux milieux transparents ?|La réfraction|La réflexion|La diffraction|L'absorption|Il se produit à l'interface de deux milieux d'indices différents.",
+"Quelle est l'unité de la vergence d'une lentille ?|La dioptrie|Le mètre|Le hertz|Le watt|La vergence se mesure en dioptries (δ), soit des m⁻¹.",
+"Quel est l'indice de réfraction du vide ?|1|0|1,5|Il n'est pas défini|Par définition n = c / c = 1 dans le vide.",
+"Un rayon qui passe par le centre optique d'une lentille mince convergente…|N'est pas dévié|Est dévié vers l'axe|Est réfléchi|Est absorbé|Le centre optique est le point où le rayon traverse la lentille sans déviation.",
+"Un rayon parallèle à l'axe optique, après une lentille convergente, passe par…|Le foyer image|Le foyer objet|Le centre optique uniquement|Aucun point particulier|Les rayons parallèles à l'axe convergent au foyer image.",
+"Quand la lumière passe de l'air à l'eau, le rayon réfracté…|Se rapproche de la normale|S'éloigne de la normale|Ne change pas de direction|Est totalement réfléchi|L'eau est plus réfringente que l'air : l'angle de réfraction est plus petit.",
+"La réflexion totale peut se produire quand la lumière passe d'un milieu…|Plus réfringent vers un milieu moins réfringent|Moins réfringent vers un milieu plus réfringent|Du vide vers l'air|Du verre vers un verre identique|Il faut n₁ > n₂ et un angle d'incidence supérieur à l'angle limite.",
+"Pourquoi un prisme décompose-t-il la lumière blanche ?|L'indice de réfraction dépend de la longueur d'onde|La lumière blanche est polarisée|Le prisme absorbe certaines couleurs|La lumière s'arrête dans le verre|Chaque radiation est déviée d'un angle différent : c'est la dispersion.",
+"Quelle partie de l'œil joue le rôle d'écran où se forme l'image ?|La rétine|Le cristallin|La cornée|L'iris|Le cristallin joue le rôle de lentille et la rétine celui d'écran.",
+"Quelle lentille corrige la myopie ?|Une lentille divergente|Une lentille convergente|Une lame à faces parallèles|Un miroir plan|L'œil myope est trop convergent.",
+"Quelle lentille corrige l'hypermétropie ?|Une lentille convergente|Une lentille divergente|Un prisme|Un miroir concave|L'œil hypermétrope n'est pas assez convergent.",
+"Quel est l'ordre de grandeur des longueurs d'onde du visible dans le vide ?|De 400 nm à 800 nm|De 4 mm à 8 mm|De 40 µm à 80 µm|De 4 m à 8 m|Le domaine visible s'étend d'environ 400 à 800 nm.",
+"Une image réelle est une image…|Que l'on peut recueillir sur un écran|Qui ne se forme jamais|Visible uniquement dans un miroir|Toujours plus petite que l'objet|Elle se forme à l'intersection de rayons lumineux réels.",
+"Quelle loi relie les angles d'incidence et de réfraction ?|La loi de Snell-Descartes|La loi d'Ohm|La loi de Hooke|La loi de Coulomb|Elle s'écrit n₁ sin i₁ = n₂ sin i₂.",
+"Dans un milieu transparent d'indice n, la vitesse de la lumière est…|v = c / n|v = c × n|v = n / c|v = c + n|La lumière est plus lente dans un milieu d'indice n > 1.",
+"Un faisceau de lumière est dit monochromatique lorsqu'il…|Ne contient qu'une seule longueur d'onde|Est de couleur blanche|Est sans énergie|Se propage uniquement dans le vide|Il est constitué d'une seule radiation."
+];
+pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>{const p=r.split("|");return Q(p[0],p[1],[p[2],p[3],p[4]],p[5],"Optique","Lycée")})];
 function pickQuestions(subject,level,chapter,count)
 {const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
