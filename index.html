@@ -1265,13 +1265,15 @@ const optT=[
 "Un faisceau de lumière est dit monochromatique lorsqu'il…|Ne contient qu'une seule longueur d'onde|Est de couleur blanche|Est sans énergie|Se propage uniquement dans le vide|Il est constitué d'une seule radiation."
 ];
 pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>{const p=r.split("|");return Q(p[0],p[1],[p[2],p[3],p[4]],p[5],"Optique","Lycée")})];
-function pickQuestions(subject,level,chapter,count)
-{const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
+function pickQuestions(subject,level,chapter,count){
+const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
 const ch=q=>!q.c||q.c===chapter||chapter==="Révisions générales";
 const seen=new Set(),out=[];
-for(const list of [pool.filter(q=>lv(q)&&ch(q)),pool.filter(lv)]){
-for(const q of shuf(list)){if(out.length>=count)return out;if(!seen.has(q.q)){seen.add(q.q);out.push(q)}}}
+const add=list=>{for(const q of shuf(list)){if(out.length>=count)break;if(!seen.has(q.q)){seen.add(q.q);out.push(q)}}};
+add(pool.filter(q=>lv(q)&&ch(q)));
+pickQuestions.matched=out.length;
+if(out.length<count)add(pool.filter(lv));
 return out}
   let currentQuiz=null;
 function startQuiz(){
