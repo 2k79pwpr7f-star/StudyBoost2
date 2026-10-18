@@ -1265,6 +1265,90 @@ const optT=[
 "Un faisceau de lumière est dit monochromatique lorsqu'il…|Ne contient qu'une seule longueur d'onde|Est de couleur blanche|Est sans énergie|Se propage uniquement dans le vide|Il est constitué d'une seule radiation."
 ];
 pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>{const p=r.split("|");return Q(p[0],p[1],[p[2],p[3],p[4]],p[5],"Optique","Lycée")})];
+/* ===== PHYSIQUE-CHIMIE LYCÉE : CINÉMATIQUE, MOUVEMENT ET FORCES, TRANSFORMATIONS CHIMIQUES ===== */
+const txtQ=(r,c)=>{const p=r.split("|");return Q(p[0],p[1],[p[2],p[3],p[4]],p[5],c,"Lycée")};
+
+const genCine=[
+()=>{const k=R(1,10);return Qn(`Convertis ${18*k} km/h en m/s.`,5*k,"On divise par 3,6 : 1 m/s = 3,6 km/h.","Cinématique","Lycée","m/s",5)},
+()=>{const k=R(1,10);return Qn(`Convertis ${5*k} m/s en km/h.`,18*k,"On multiplie par 3,6 : 1 m/s = 3,6 km/h.","Cinématique","Lycée","km/h",18)},
+()=>{const v=R(2,20),t=R(2,15);return Qn(`Un mobile en mouvement rectiligne uniforme a une vitesse de ${v} m/s. Quelle distance parcourt-il en ${t} s ?`,v*t,"d = v × t.","Cinématique","Lycée","m",v)},
+()=>{const v0=R(0,10),a=R(1,5),t=R(2,8);return Qn(`Un mobile a une vitesse initiale de ${v0} m/s et une accélération constante de ${a} m/s² (mouvement rectiligne). Quelle est sa vitesse après ${t} s ?`,v0+a*t,"v = v₀ + a·t.","Cinématique","Lycée","m/s")},
+()=>{const v0=R(0,10),k=R(1,3),t=R(2,6);return Qn(`Un mobile part avec une vitesse de ${v0} m/s et accélère à ${2*k} m/s² en ligne droite. Quelle distance parcourt-il en ${t} s ?`,v0*t+k*t*t,"d = v₀·t + ½·a·t².","Cinématique","Lycée","m",t)},
+()=>{const a=R(1,6),t=R(2,8),v1=R(0,10);return Qn(`La vitesse d'un mobile passe de ${v1} m/s à ${v1+a*t} m/s en ${t} s. Quelle est son accélération moyenne ?`,a,"a = Δv / Δt.","Cinématique","Lycée","m/s²")},
+()=>{const t=R(1,6);return Qn(`Un objet est lâché sans vitesse initiale (g = 10 m/s², sans frottements). Quelle hauteur parcourt-il en ${t} s ?`,5*t*t,"h = ½·g·t² = 5·t².","Cinématique","Lycée","m",5)},
+()=>{const t=R(1,6);return Qn(`Un objet est lâché sans vitesse initiale d'une hauteur de ${5*t*t} m (g = 10 m/s², sans frottements). Quelle est la durée de la chute ?`,t,"t = √(2h / g).","Cinématique","Lycée","s")},
+()=>{const r=R(1,5),w=R(2,10);return Qn(`Un point situé à ${r} m de l'axe d'un disque tourne à ${w} rad/s. Quelle est sa vitesse (mouvement circulaire uniforme) ?`,r*w,"v = R·ω.","Cinématique","Lycée","m/s",r)},
+()=>{const t=[[0.5,2],[0.25,4],[0.2,5],[0.1,10],[0.05,20],[0.04,25]],k=R(0,5);return Q(`Un phénomène périodique a une période de ${fr(t[k][0])} s. Quelle est sa fréquence ?`,`${t[k][1]} Hz`,shuf(t.filter((_,j)=>j!==k)).slice(0,3).map(x=>`${x[1]} Hz`),`f = 1 / T = 1 / ${fr(t[k][0])} = ${t[k][1]} Hz.`,"Cinématique","Lycée")}
+];
+const cineT=[
+"Qu'est-ce qu'un référentiel ?|Un solide de référence par rapport auquel on décrit un mouvement|L'ensemble des positions d'un point|Une grandeur qui mesure la vitesse|Un instant choisi comme origine|Le mouvement dépend du référentiel choisi.",
+"Qu'appelle-t-on trajectoire d'un point ?|L'ensemble des positions successives occupées par ce point|La vitesse de ce point|La durée de son mouvement|Son accélération|La trajectoire dépend du référentiel.",
+"Quelle est l'unité SI de l'accélération ?|Le mètre par seconde carrée (m/s²)|Le mètre par seconde (m/s)|Le newton (N)|Le joule (J)|a = Δv / Δt s'exprime en m/s².",
+"Un mouvement rectiligne uniforme est un mouvement…|De trajectoire rectiligne et de vitesse constante|De trajectoire circulaire et de vitesse constante|De trajectoire rectiligne et d'accélération non nulle|De vitesse nulle|Il n'y a ni changement de direction ni de valeur de la vitesse.",
+"Dans un mouvement circulaire uniforme, le vecteur vitesse…|Garde une valeur constante mais change de direction|Reste constant|Est nul|Est dirigé vers le centre du cercle|Sa direction est tangente au cercle et change à chaque instant.",
+"Dans un mouvement circulaire uniforme, le vecteur accélération est…|Dirigé vers le centre du cercle|Tangent à la trajectoire|Nul|Dirigé vers l'extérieur du cercle|C'est l'accélération centripète.",
+"Le vecteur vitesse instantanée est toujours…|Tangent à la trajectoire|Perpendiculaire à la trajectoire|Dirigé vers le centre|Nul|Il indique la direction du mouvement en chaque point.",
+"Sur la courbe v(t), que représente la pente ?|L'accélération|La position|La force|La masse|a = Δv / Δt.",
+"Sur la courbe v(t) (avec v positive), que représente l'aire sous la courbe ?|La distance parcourue|L'accélération|La force|La puissance|La distance est l'intégrale de la vitesse.",
+"En chute libre sans frottements, l'accélération d'un objet est…|Égale à g et indépendante de sa masse|Proportionnelle à sa masse|Nulle|Égale à sa vitesse|Tous les objets chutent de la même façon dans le vide.",
+"Dans un mouvement rectiligne uniformément accéléré, la vitesse…|Varie de façon linéaire avec le temps|Est constante|Est nulle|Varie comme le carré du temps|v = v₀ + a·t."
+];
+
+const genForc=[
+()=>{const m=R(2,20),a=R(1,9);return Qn(`Un objet de ${m} kg subit une accélération de ${a} m/s². Quelle est la valeur de la résultante des forces ?`,m*a,"ΣF = m × a.","Mouvement et forces","Lycée","N",m)},
+()=>{const m=R(2,10),a=R(1,9);return Qn(`Une résultante de ${m*a} N s'exerce sur un objet de ${m} kg. Quelle est son accélération ?`,a,"a = ΣF / m.","Mouvement et forces","Lycée","m/s²")},
+()=>{const m=R(2,10),a=R(1,9);return Qn(`Une résultante de ${m*a} N donne une accélération de ${a} m/s² à un objet. Quelle est sa masse ?`,m,"m = ΣF / a.","Mouvement et forces","Lycée","kg")},
+()=>{const f=R(2,20),g=R(2,20);return Qn(`Deux forces de même direction et de même sens, de ${f} N et ${g} N, s'exercent sur un objet. Quelle est la valeur de leur résultante ?`,f+g,"On additionne les valeurs.","Mouvement et forces","Lycée","N")},
+()=>{const f=R(10,30),g=R(1,9);return Qn(`Deux forces de même direction mais de sens opposés, de ${f} N et ${g} N, s'exercent sur un objet. Quelle est la valeur de leur résultante ?`,f-g,"On soustrait les valeurs.","Mouvement et forces","Lycée","N")},
+()=>{const t=[[3,4,5],[5,12,13],[8,15,17],[6,8,10]][R(0,3)],k=R(1,4);return Qn(`Deux forces perpendiculaires de ${t[0]*k} N et ${t[1]*k} N s'exercent sur un objet. Quelle est la valeur de leur résultante ?`,t[2]*k,"Théorème de Pythagore : F² = F₁² + F₂².","Mouvement et forces","Lycée","N")},
+()=>{const m=R(1,10);return Qn(`Un objet de ${m} kg est immobile sur une table horizontale (g = 10 N/kg). Quelle est la valeur de la réaction du support ?`,10*m,"Le poids et la réaction se compensent : R = P = m·g.","Mouvement et forces","Lycée","N",10)},
+()=>{const q=R(1,5),x=R(1,10);return Qn(`Un ressort de raideur ${100*q} N/m est allongé de ${x} cm. Quelle est la valeur de la force exercée par le ressort ?`,q*x,`F = k × x = ${100*q} × ${fr(x/100)} = ${q*x} N.`,"Mouvement et forces","Lycée","N",q)},
+()=>{const m=R(2,20);return Qn(`Un objet pèse ${10*m} N sur Terre (g = 10 N/kg). Quelle est sa masse ?`,m,"m = P / g.","Mouvement et forces","Lycée","kg")},
+()=>{const m=R(2,20),v=R(2,15);return Qn(`Quelle est la quantité de mouvement d'un objet de ${m} kg à ${v} m/s ?`,m*v,"p = m × v.","Mouvement et forces","Lycée","kg·m/s",m)}
+];
+const forcT=[
+"Que dit le principe d'inertie ?|Si les forces qui s'exercent sur un objet se compensent, il est immobile ou en mouvement rectiligne uniforme|Un objet en mouvement finit toujours par s'arrêter|Une force est nécessaire pour maintenir une vitesse constante|Toute force produit un mouvement circulaire|Il s'applique dans un référentiel galiléen.",
+"Quelle relation lie la résultante des forces et l'accélération ?|ΣF = m·a|ΣF = m / a|ΣF = a / m|ΣF = m + a|C'est la deuxième loi de Newton.",
+"Que dit la troisième loi de Newton ?|Si A exerce une force sur B, B exerce sur A une force de même valeur et de sens opposé|Toute force est compensée par le poids|La force est proportionnelle à la vitesse|Les forces ne dépendent pas de la masse|C'est le principe des actions réciproques.",
+"Le poids d'un objet est…|La force d'attraction gravitationnelle exercée par la Terre sur lui|Sa masse|Une force de frottement|Une quantité de matière|P = m·g.",
+"Sur la Lune, par rapport à la Terre, un objet a…|La même masse mais un poids plus faible|Une masse plus faible et le même poids|Un poids plus fort|Une masse nulle|La masse est invariante alors que g est plus petit sur la Lune.",
+"Une force est modélisée par un vecteur caractérisé par…|Sa direction, son sens, sa valeur et son point d'application|Sa valeur uniquement|Sa masse|Sa durée|Ce sont les quatre caractéristiques d'une force.",
+"Si la somme des forces sur un objet est nulle, sa vitesse…|Reste constante|Augmente|Diminue|Devient nulle|Le vecteur vitesse est constant (principe d'inertie).",
+"Une force de frottement s'exerce…|Dans le sens opposé au mouvement relatif|Dans le sens du mouvement|Toujours vers le haut|Perpendiculairement au support|Elle s'oppose au glissement.",
+"Un objet initialement immobile est soumis à une résultante constante. Son mouvement est…|Rectiligne uniformément accéléré|Rectiligne uniforme|Circulaire uniforme|Nul|D'après ΣF = m·a, l'accélération est constante.",
+"Quand la distance entre deux masses double, la force gravitationnelle entre elles…|Est divisée par 4|Est divisée par 2|Est doublée|Ne change pas|Elle varie en 1/d².",
+"Quelle est l'unité de la force ?|Le newton (N)|Le kilogramme (kg)|Le joule (J)|Le watt (W)|1 N = 1 kg·m/s².",
+"Un objet est immobile sur une table. Son poids est compensé par…|La réaction du support|La force de frottement|La masse|L'inertie|Les deux forces se compensent : ΣF = 0."
+];
+
+const MM=[["H₂O","2×M(H) + M(O)",18],["CO₂","M(C) + 2×M(O)",44],["NH₃","M(N) + 3×M(H)",17],["CH₄","M(C) + 4×M(H)",16],["C₂H₆","2×M(C) + 6×M(H)",30],["CO","M(C) + M(O)",28]];
+const genChim=[
+()=>{const n=R(1,9);return Qn(`Équation : 2 H₂ + O₂ → 2 H₂O. ${n} mol de dioxygène réagissent avec un excès de dihydrogène. Quelle quantité d'eau se forme ?`,2*n,"D'après l'équation, 1 mol de O₂ donne 2 mol de H₂O.","Transformations chimiques","Lycée","mol",2)},
+()=>{const n=R(1,9);return Qn(`Équation : 2 H₂ + O₂ → 2 H₂O. Quelle quantité de dihydrogène est consommée en même temps que ${n} mol de dioxygène ?`,2*n,"Les coefficients indiquent 2 mol de H₂ pour 1 mol de O₂.","Transformations chimiques","Lycée","mol",2)},
+()=>{const n=R(1,9);return Qn(`Équation : CH₄ + 2 O₂ → CO₂ + 2 H₂O. ${n} mol de méthane brûlent complètement. Quelle quantité de dioxygène est consommée ?`,2*n,"1 mol de CH₄ consomme 2 mol de O₂.","Transformations chimiques","Lycée","mol",2)},
+()=>{const n=R(1,9);return Qn(`Équation : CH₄ + 2 O₂ → CO₂ + 2 H₂O. ${n} mol de méthane brûlent complètement. Quelle quantité d'eau se forme ?`,2*n,"1 mol de CH₄ donne 2 mol de H₂O.","Transformations chimiques","Lycée","mol",2)},
+()=>{const c=R(1,5),V=R(2,5);return Qn(`Une solution de ${V} L contient ${c*V} mol de soluté. Quelle est sa concentration en quantité de matière ?`,c,"c = n / V.","Transformations chimiques","Lycée","mol/L")},
+()=>{const c=R(1,5),V=R(2,5);return Qn(`Quelle quantité de soluté contiennent ${V} L d'une solution de concentration ${c} mol/L ?`,c*V,"n = c × V.","Transformations chimiques","Lycée","mol",V)},
+()=>{const F=[2,4,5,10][R(0,3)],c=R(1,5);return Qn(`Une solution de concentration ${c*F} mol/L est diluée ${F} fois. Quelle est la concentration de la solution diluée ?`,c,"c(fille) = c(mère) / facteur de dilution.","Transformations chimiques","Lycée","mol/L")},
+()=>{const p=R(1,5),q=R(1,8);return Qn(`Équation : 2 H₂ + O₂ → 2 H₂O. On mélange ${2*p} mol de H₂ et ${q} mol de O₂. Quel est l'avancement maximal ?`,Math.min(p,q),"x max = min( n(H₂) / 2 ; n(O₂) / 1 ).","Transformations chimiques","Lycée","mol")},
+()=>{const m=MM[R(0,5)];return Qn(`Calcule la masse molaire de ${m[0]} (M(H) = 1, M(C) = 12, M(N) = 14, M(O) = 16 g/mol).`,m[2],`M(${m[0]}) = ${m[1]} = ${m[2]} g/mol.`,"Transformations chimiques","Lycée","g/mol",2)}
+];
+const chimT=[
+"Qu'est-ce qu'un réactif limitant ?|Le réactif entièrement consommé en premier|Le réactif introduit en excès|Un produit de la réaction|Un catalyseur|Il détermine l'avancement maximal.",
+"Que se conserve lors d'une transformation chimique ?|Les éléments chimiques et la masse totale|Les molécules|Les espèces chimiques|Le nombre de moles de réactifs|Les atomes changent de partenaires mais ne disparaissent pas.",
+"Que signifie « mélange stœchiométrique » ?|Les réactifs sont introduits dans les proportions de l'équation|Les produits sont en excès|Il n'y a qu'un seul réactif|La réaction est impossible|Les réactifs sont alors tous consommés à la fin.",
+"À quoi servent les coefficients stœchiométriques ?|À respecter la conservation des éléments et de la charge|À indiquer la température|À donner la masse molaire|À indiquer la couleur des espèces|Ils ajustent l'équation.",
+"Dans 2 H₂ + O₂ → 2 H₂O, combien de moles de H₂ réagissent avec 1 mol de O₂ ?|2|1|4|0,5|Les coefficients indiquent 2 H₂ pour 1 O₂.",
+"Un catalyseur…|Accélère une transformation sans être consommé|Est un réactif limitant|Est toujours un produit|Ralentit la transformation|Il n'apparaît pas dans l'équation bilan.",
+"Une réaction d'oxydoréduction met en jeu un transfert…|D'électrons|De protons uniquement|De neutrons|De noyaux|Un oxydant capte des électrons et un réducteur en cède.",
+"Un oxydant est une espèce capable de…|Capter un ou plusieurs électrons|Céder un ou plusieurs électrons|Capter un proton|Céder un proton|Ox + n e⁻ = Red.",
+"Un réducteur est une espèce capable de…|Céder un ou plusieurs électrons|Capter un ou plusieurs électrons|Capter un proton|Rester inchangée|Red = Ox + n e⁻.",
+"Une mole correspond à…|6,02×10²³ entités|6,02×10²¹ entités|1000 entités|12 entités|C'est la constante d'Avogadro : N_A = 6,02×10²³ mol⁻¹.",
+"Quels produits donne la combustion complète du méthane ?|Du dioxyde de carbone et de l'eau|Uniquement de l'eau|Uniquement du carbone|Du dihydrogène et du carbone|CH₄ + 2 O₂ → CO₂ + 2 H₂O.",
+"Dans quelle unité s'exprime l'avancement x d'une transformation ?|La mole (mol)|Le gramme (g)|Le litre (L)|Le newton (N)|L'avancement est une quantité de matière."
+];
+
+pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>txtQ(r,"Optique")),...rep(genCine),...cineT.map(r=>txtQ(r,"Cinématique")),...rep(genForc),...forcT.map(r=>txtQ(r,"Mouvement et forces")),...rep(genChim),...chimT.map(r=>txtQ(r,"Transformations chimiques"))];
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
