@@ -1800,7 +1800,7 @@ pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>txtQ
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
-const ch=q=>!q.c||q.c===chapter||chapter==="Révisions générales";
+const ch=q=>chapter==="Révisions générales"||q.c===chapter;
 const seen=new Set(),out=[];
 const add=list=>{for(const q of shuf(list)){if(out.length>=count)break;if(!seen.has(q.q)){seen.add(q.q);out.push(q)}}};
 add(pool.filter(q=>lv(q)&&ch(q)));
