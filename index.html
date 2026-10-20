@@ -1379,6 +1379,10 @@ const subject=document.getElementById("quizSubject").value;
 const chapter=document.getElementById("quizChapter").value;
 const count=Number(document.getElementById("quizCount").value);
 document.getElementById("quizArea").style.display="none";
+if(chapter!=="Révisions générales"&&(chapCounts(subject)[level+"|"+chapter]||0)<5){
+document.getElementById("quizArea").style.display="block";
+document.getElementById("quizArea").innerHTML=`<div class="empty"><div style="font-size:42px">🚧</div><h3>Pas encore de questions sur ce chapitre</h3><p>Ce chapitre n'a pas encore assez de questions. Tu peux lancer un quiz sur toute la matière à la place.</p><button class="btn btn-primary" onclick="quizAllChapters()">Lancer en révisions générales</button></div>`;
+return;}
 const bank=pickQuestions(subject,level,chapter,count);
 if(!bank.length){
 document.getElementById("quizArea").style.display="block";
