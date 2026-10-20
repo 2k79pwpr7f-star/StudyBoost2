@@ -1347,8 +1347,20 @@ const chimT=[
 "Quels produits donne la combustion complète du méthane ?|Du dioxyde de carbone et de l'eau|Uniquement de l'eau|Uniquement du carbone|Du dihydrogène et du carbone|CH₄ + 2 O₂ → CO₂ + 2 H₂O.",
 "Dans quelle unité s'exprime l'avancement x d'une transformation ?|La mole (mol)|Le gramme (g)|Le litre (L)|Le newton (N)|L'avancement est une quantité de matière."
 ];
-
 pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>txtQ(r,"Optique")),...rep(genCine),...cineT.map(r=>txtQ(r,"Cinématique")),...rep(genForc),...forcT.map(r=>txtQ(r,"Mouvement et forces")),...rep(genChim),...chimT.map(r=>txtQ(r,"Transformations chimiques"))];
+/* ===== COMPTAGE DES QUESTIONS PAR CHAPITRE ===== */
+const _cc={};
+function chapCounts(subject){
+if(_cc[subject])return _cc[subject];
+const m={},seen=new Set();
+[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])].forEach(q=>{if(!q.c||seen.has(q.q))return;seen.add(q.q);const k=q.l+"|"+q.c;m[k]=(m[k]||0)+1});
+return _cc[subject]=m}
+function fillChapters(id,items,subject,level){
+const el=document.getElementById(id);if(!el)return;
+const prev=el.value,m=chapCounts(subject);
+el.innerHTML=items.map(c=>{const ok=c==="Révisions générales"||(m[level+"|"+c]||0)>=5;return `<option value="${escapeHTML(c)}">${escapeHTML(ok?c:c+" (bientôt)")}</option>`}).join("");
+if(items.includes(prev))el.value=prev}
+function quizAllChapters(){document.getElementById("quizChapter").value="Révisions générales";startQuiz()}
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
