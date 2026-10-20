@@ -1797,6 +1797,210 @@ const PCT={
 "Comment exprime-t-on correctement un résultat de mesure ?|X = valeur ± incertitude, avec l'unité|X = valeur seule|X = incertitude seule|X = valeur sans unité|Avec le bon nombre de chiffres significatifs."]
 };
 pools["Physique-chimie"]=()=>[...rep(genPhys),...rep(genOpt),...optT.map(r=>txtQ(r,"Optique")),...rep(genCine),...cineT.map(r=>txtQ(r,"Cinématique")),...rep(genForc),...forcT.map(r=>txtQ(r,"Mouvement et forces")),...rep(genChim),...chimT.map(r=>txtQ(r,"Transformations chimiques")),...GX.flatMap(g=>repK(g,25)),...Object.entries(PCT).flatMap(([k,a])=>{const [l,c]=k.split("|");return lq(c,l,a)})];
+/* ===== SVT : TOUS LES CHAPITRES ===== */
+const SV={
+"Primaire|Le vivant":[
+"Lequel est un être vivant ?|Un arbre|Un caillou|Une table|Un nuage|Il naît, grandit et se reproduit.",
+"De quoi une plante verte a-t-elle besoin pour grandir ?|D'eau, de lumière et d'air|De viande|D'obscurité totale|De sucre uniquement|Elle fabrique sa matière avec ces éléments.",
+"Quel animal est un mammifère ?|Le chat|Le poisson rouge|Le serpent|Le canard|Les mammifères allaitent leurs petits.",
+"Comment appelle-t-on un animal qui ne mange que de la viande ?|Un carnivore|Un herbivore|Un frugivore|Un décomposeur|Carnivore vient du mot chair.",
+"Quelles sont les étapes de la vie d'un papillon ?|Œuf, chenille, chrysalide, papillon|Œuf, têtard, grenouille|Graine, tige, fleur|Bébé, enfant, adulte|C'est la métamorphose."],
+"Primaire|Corps humain et santé":[
+"Quel organe pompe le sang dans le corps ?|Le cœur|Le poumon|L'estomac|Le foie|Il envoie le sang partout.",
+"Quel organe permet de respirer ?|Les poumons|Le cœur|L'estomac|Les reins|Ils échangent les gaz avec le sang.",
+"Pourquoi se laver les mains avant de manger ?|Pour éliminer des microbes|Pour avoir plus faim|Pour réchauffer les mains|Pour mieux goûter|Cela limite les maladies.",
+"Combien de dents de lait possède un enfant ?|20|32|10|40|L'adulte en a 32.",
+"Quel aliment apporte du calcium pour les os ?|Le lait|Le sucre|L'huile|Le sel|Les produits laitiers en contiennent."],
+"Primaire|Écosystèmes":[
+"Qu'est-ce qu'une chaîne alimentaire ?|Une suite d'êtres vivants qui se mangent les uns les autres|Une chaîne de vélo|Une liste de courses|Un ensemble de plantes|Elle relie proies et prédateurs.",
+"Quels êtres vivants sont au début d'une chaîne alimentaire ?|Les végétaux verts|Les carnivores|Les champignons|Les humains|Ils fabriquent leur propre matière.",
+"Comment appelle-t-on le lieu où vit un être vivant ?|Son milieu de vie|Son menu|Sa saison|Son squelette|Par exemple une mare ou une forêt.",
+"Que mange un lapin ?|Des végétaux|De la viande|Des poissons|Des insectes|Le lapin est herbivore.",
+"Quel animal est un prédateur du lapin ?|Le renard|La vache|Le mouton|L'herbe|Le renard mange des lapins."],
+"Primaire|Terre et environnement":[
+"Quelle source d'énergie éclaire et chauffe la Terre ?|Le Soleil|La Lune|Le vent|Les volcans|Il est l'étoile la plus proche.",
+"Que faire pour limiter les déchets ?|Trier et recycler|Tout jeter|Les brûler dehors|Les jeter dans la rivière|Le recyclage réutilise la matière.",
+"Dans quel ordre se suivent les saisons ?|Printemps, été, automne, hiver|Été, printemps, hiver, automne|Hiver, été, printemps, automne|Automne, printemps, été, hiver|Elles se répètent chaque année.",
+"Qu'est-ce qui provoque l'alternance du jour et de la nuit ?|La rotation de la Terre sur elle-même|Le tour de la Terre autour du Soleil|Les nuages|Le vent|Un tour dure environ 24 heures.",
+"Quelle énergie est renouvelable ?|L'énergie du vent|Le pétrole|Le charbon|Le gaz naturel|Le vent ne s'épuise pas."],
+"Collège|Cellules et êtres vivants":[
+"Quelle est l'unité de base des êtres vivants ?|La cellule|L'organe|L'atome|Le tissu|Tous les êtres vivants sont faits de cellules.",
+"Quel organite existe dans les cellules végétales mais pas animales ?|Le chloroplaste|Le noyau|La membrane|Le cytoplasme|Il permet la photosynthèse.",
+"Où se trouve l'ADN dans une cellule animale ?|Dans le noyau|Dans la membrane|Dans le chloroplaste|Hors de la cellule|Le noyau contient le matériel génétique.",
+"Quel instrument permet d'observer des cellules ?|Un microscope|Un télescope|Un thermomètre|Une règle|Elles sont trop petites pour l'œil nu.",
+"Que délimite la membrane plasmique ?|La cellule|Le noyau seul|Un organe|Un tissu|Elle sépare la cellule de son milieu."],
+"Collège|Digestion et nutrition":[
+"Quel organe absorbe l'essentiel des nutriments ?|L'intestin grêle|L'estomac|Le gros intestin|L'œsophage|Sa surface d'échange est très étendue.",
+"Quel est le rôle de la salive ?|Commencer la digestion de l'amidon|Digérer les protéines|Absorber l'eau|Fabriquer la bile|Elle contient de l'amylase.",
+"Quels nutriments fournissent surtout de l'énergie rapidement ?|Les glucides|Les vitamines|Les minéraux|L'eau|Le glucose est le carburant des cellules.",
+"À quoi servent surtout les protéines ?|À construire et réparer les tissus|À fournir de l'eau|À remplacer les vitamines|À produire de la lumière|Ce sont des aliments bâtisseurs.",
+"Comment les nutriments passent-ils dans le sang ?|À travers la paroi de l'intestin grêle|Par la bouche|Par la peau|Par l'œsophage|C'est l'absorption intestinale."],
+"Collège|Écosystèmes":[
+"Qu'est-ce qu'un écosystème ?|Un milieu et les êtres vivants qui y vivent|Un seul animal|Une espèce de plante|Une forêt sans animaux|Il associe biotope et biocénose.",
+"Comment appelle-t-on l'ensemble des êtres vivants d'un milieu ?|La biocénose|Le biotope|L'atmosphère|Le climat|Le biotope est le milieu physique.",
+"Quel rôle jouent les décomposeurs ?|Ils transforment la matière morte en matière minérale|Ils fabriquent de la matière avec la lumière|Ils chassent les prédateurs|Ils pollinisent|Champignons et bactéries recyclent la matière.",
+"Que représente la flèche dans une chaîne alimentaire ?|Est mangé par|Mange|Ressemble à|Vit avec|Elle va de la proie vers le prédateur.",
+"Qui fabrique de la matière organique à partir de matière minérale ?|Les producteurs|Les consommateurs|Les décomposeurs|Les prédateurs|Les végétaux utilisent la lumière."],
+"Collège|Respiration":[
+"Quels gaz sont échangés lors de la respiration ?|Le dioxygène et le dioxyde de carbone|L'azote et l'hélium|Le méthane et l'eau|L'ozone et l'argon|Le O₂ entre et le CO₂ sort.",
+"Où se font les échanges gazeux dans les poumons ?|Dans les alvéoles|Dans la trachée|Dans les bronches|Dans le larynx|Leur paroi est fine et très irriguée.",
+"Que transporte le sang des poumons vers les organes ?|Du dioxygène|Du dioxyde de carbone|De l'azote|Du glucose seul|Il est fixé sur les globules rouges.",
+"Que fait la fréquence respiratoire à l'effort ?|Elle augmente|Elle diminue|Elle s'annule|Elle ne change jamais|Les muscles consomment plus de dioxygène.",
+"Pourquoi les muscles ont-ils besoin de dioxygène ?|Pour produire de l'énergie avec les nutriments|Pour grossir|Pour refroidir le sang|Pour fabriquer de l'ADN|C'est la respiration cellulaire."],
+"Collège|Géologie externe":[
+"Qu'est-ce que l'érosion ?|L'usure et le transport des roches par l'eau, le vent ou la glace|La formation des volcans|La naissance des séismes|La fusion des roches|Elle modèle les paysages.",
+"Comment se forment les roches sédimentaires ?|Par dépôt et durcissement de sédiments|Par refroidissement de magma|Par chute de météorites|Par fusion de roches|Les sédiments se tassent et durcissent.",
+"Que sont des fossiles ?|Des restes ou traces d'êtres vivants conservés dans des roches|Des cristaux|Des gouttes de lave|Des minéraux radioactifs|Ils renseignent sur le passé.",
+"Quel agent creuse les vallées dans les montagnes ?|L'eau des rivières et des glaciers|Le feu|Le magma|La Lune|Il transporte et dépose des sédiments.",
+"Qu'est-ce qu'un delta ?|Une zone de dépôt de sédiments à l'embouchure d'un fleuve|Un relief volcanique|Une faille|Une roche magmatique|Le courant ralentit et dépose les sédiments."],
+"Collège|Climat et environnement":[
+"Quelle différence y a-t-il entre météo et climat ?|Le climat décrit les conditions moyennes sur de longues périodes|Aucune|La météo dure 30 ans|Le climat change chaque heure|On l'étudie sur plusieurs décennies.",
+"Quel gaz contribue le plus à l'effet de serre additionnel humain ?|Le dioxyde de carbone|L'azote|Le dioxygène|L'argon|Les combustions en émettent beaucoup.",
+"Qu'est-ce que l'effet de serre ?|Le piégeage d'une partie de la chaleur par certains gaz|La fonte des glaciers|Le refroidissement de la Terre|La formation des nuages|C'est un phénomène naturel amplifié par l'humain.",
+"Quelle énergie est renouvelable ?|L'énergie solaire|Le charbon|Le pétrole|Le gaz naturel|Le Soleil est inépuisable à l'échelle humaine.",
+"Qu'est-ce qui fait monter le niveau des océans ?|La fonte des glaces et la dilatation de l'eau|La baisse des températures|Les volcans seuls|Le vent seul|Ce sont les deux causes principales."],
+"Collège|Reproduction":[
+"Comment s'appelle la fusion d'un spermatozoïde et d'un ovule ?|La fécondation|L'ovulation|La puberté|La mitose|Elle forme la cellule-œuf.",
+"Où a lieu la fécondation chez la femme ?|Dans l'oviducte (trompe)|Dans l'utérus|Dans le vagin|Dans l'ovaire|Elle se fait dans la trompe.",
+"Quel organe produit les spermatozoïdes ?|Les testicules|La prostate|L'urètre|Les vésicules séminales|Ils en produisent depuis la puberté.",
+"Que se passe-t-il lors des règles ?|La muqueuse utérine est éliminée|L'ovule est fécondé|L'embryon s'implante|L'ovaire est expulsé|Il n'y a pas eu fécondation.",
+"Comment appelle-t-on l'embryon à partir du troisième mois ?|Un fœtus|Un zygote|Un gamète|Une cellule-œuf|Le terme change vers la neuvième semaine."],
+"Collège|Génétique":[
+"Où est localisée l'information génétique dans une cellule ?|Dans les chromosomes du noyau|Dans la membrane|Dans les ribosomes|Dans le cytoplasme seul|Les chromosomes sont faits d'ADN.",
+"Combien de chromosomes possède une cellule humaine ordinaire ?|46|23|44|48|Ils forment 23 paires.",
+"Qu'est-ce qu'un allèle ?|Une version d'un gène|Un chromosome|Une cellule|Une protéine|Un gène existe sous plusieurs formes.",
+"Qu'est-ce qu'un caractère dominant ?|Un caractère qui s'exprime avec un seul allèle correspondant|Un caractère qui disparaît chez les hétérozygotes|Un caractère rare|Un caractère lié au sexe|Il masque l'allèle récessif.",
+"Que partagent des jumeaux monozygotes ?|Le même patrimoine génétique|Des chromosomes différents|Deux ovules|Aucun gène|Ils viennent d'un même œuf."],
+"Lycée|Écosystèmes":[
+"Qu'est-ce que la production primaire ?|La matière organique fabriquée par les producteurs|La matière mangée par les herbivores|La matière dégradée par les décomposeurs|Les déchets|Elle vient de la photosynthèse.",
+"Quel est l'ordre de grandeur du rendement entre deux niveaux trophiques ?|Environ 10 %|100 %|0 %|Il augmente à chaque niveau|Beaucoup d'énergie est perdue.",
+"Comment appelle-t-on une relation où deux espèces tirent bénéfice ?|Une symbiose (mutualisme)|Du parasitisme|De la prédation|De la compétition|Par exemple les mycorhizes.",
+"Qu'est-ce qu'un facteur limitant ?|Une ressource dont le manque limite la croissance d'une population|Un prédateur|Un décomposeur|Une saison|Par exemple le manque d'eau.",
+"Que montre une pyramide des biomasses ?|La quantité de matière vivante à chaque niveau trophique|L'âge des individus|La taille des individus|La température|Elle décroît en général vers le sommet."],
+"Lycée|Génétique et évolution":[
+"Qu'est-ce qu'une mutation ?|Une modification de la séquence d'ADN|Une division cellulaire|Une fécondation|Une transcription|Elle est transmise si elle touche une cellule germinale.",
+"Quel mécanisme explique l'adaptation des populations selon Darwin ?|La sélection naturelle|La mitose|La digestion|La photosynthèse|Les mieux adaptés se reproduisent davantage.",
+"Pourquoi la réplication est-elle dite semi-conservative ?|Chaque molécule fille a un brin ancien et un brin neuf|Elle conserve deux brins anciens|Elle crée deux brins neufs|Elle ne copie qu'un brin|Un brin parental sert de matrice.",
+"Que produit le crossing-over ?|De nouvelles combinaisons d'allèles sur un chromosome|Des cellules identiques|La mort cellulaire|Des mutations systématiques|Il a lieu en prophase I de la méiose.",
+"Que suggère une ressemblance anatomique entre espèces ?|Une origine évolutive commune possible|Qu'elles sont identiques|Qu'elles ne sont pas apparentées|Le même régime alimentaire|Ce sont des structures homologues."],
+"Lycée|Enjeux planétaires":[
+"Quel est l'effet d'un renforcement de l'effet de serre ?|Un réchauffement global|Un refroidissement|Aucun changement|Une baisse du niveau des mers|Davantage de chaleur est piégée.",
+"Quelle est la cause majeure de la hausse du CO₂ depuis 1850 ?|L'usage des énergies fossiles|L'activité volcanique seule|Les marées|Les cycles solaires seuls|Les émissions humaines dominent.",
+"Que recouvre la biodiversité ?|La diversité des espèces, des gènes et des écosystèmes|Seulement le nombre d'espèces|Un biocarburant|Les êtres microscopiques|Elle a trois niveaux.",
+"Qu'est-ce que l'empreinte carbone ?|La quantité de gaz à effet de serre émise par une activité|Une trace de pas|Le poids du carbone du sol|Le nombre d'arbres plantés|On l'exprime en équivalent CO₂.",
+"Quelle ressource est renouvelable si elle est bien gérée ?|Le bois|Le charbon|Le pétrole|L'uranium|Elle se reconstitue assez vite."],
+"Lycée|Fonctionnement du corps humain":[
+"Quelle hormone fait baisser la glycémie ?|L'insuline|Le glucagon|L'adrénaline|La testostérone|Elle est produite par le pancréas.",
+"Quel est le rôle du système nerveux ?|Transmettre des messages sous forme de signaux nerveux|Digérer les aliments|Produire les globules rouges|Filtrer le sang|Les neurones transmettent l'information.",
+"Comment s'appelle la zone de communication entre deux neurones ?|La synapse|Le nœud|L'axone|La gaine de myéline|Des neurotransmetteurs y sont libérés.",
+"Que fait la fréquence cardiaque à l'effort ?|Elle augmente|Elle diminue|Elle reste constante|Elle s'annule|Les muscles ont besoin de plus de dioxygène.",
+"Quel organe stocke le glucose sous forme de glycogène ?|Le foie|Le cœur|Le rein|Le poumon|Il agit avec l'insuline."],
+"Lycée|Expression du patrimoine génétique":[
+"Comment s'appelle la copie d'un gène en ARN ?|La transcription|La traduction|La réplication|La mutation|Elle a lieu dans le noyau.",
+"Où se déroule la traduction ?|Au niveau des ribosomes|Dans le noyau|Dans le nucléole|Dans la membrane|Les ribosomes assemblent les acides aminés.",
+"Qu'est-ce qu'un codon ?|Un triplet de nucléotides de l'ARNm|Un acide aminé|Un chromosome|Un gène|Il code un acide aminé ou un arrêt.",
+"Que signifie l'universalité du code génétique ?|Le même code est utilisé par presque tous les êtres vivants|Chaque espèce a son code|Il n'existe que chez l'humain|Il change à chaque génération|Un même codon donne le même acide aminé.",
+"Qu'est-ce qu'un phénotype ?|L'ensemble des caractères observables d'un individu|Son ensemble d'allèles|Une séquence de nucléotides|Sa fréquence cardiaque|Il dépend du génotype et du milieu."],
+"Lycée|Géosciences":[
+"Comment se forme la croûte océanique ?|Au niveau des dorsales par remontée de magma|Au niveau des fosses|Par érosion des continents|Par sédimentation seule|C'est l'accrétion océanique.",
+"Qu'est-ce que la subduction ?|L'enfoncement d'une plaque sous une autre|La formation d'une dorsale|Le glissement latéral de plaques|La création d'un delta|Elle se produit au niveau des fosses.",
+"Quelle roche est typique de la croûte continentale ?|Le granite|Le basalte|La péridotite|L'obsidienne|Le basalte forme surtout la croûte océanique.",
+"À quoi sert la datation radiochronologique ?|À mesurer l'âge de roches ou de fossiles|À mesurer la dureté|À mesurer la température|À mesurer la densité|Elle utilise la désintégration d'éléments radioactifs.",
+"Qu'est-ce que la lithosphère ?|L'enveloppe rigide formée de la croûte et du manteau supérieur|Le noyau externe|L'atmosphère|La partie liquide du manteau|Elle est découpée en plaques."],
+"Lycée|Immunité":[
+"Quelle cellule produit les anticorps ?|Le plasmocyte|Le globule rouge|La plaquette|Le neurone|Il provient d'un lymphocyte B.",
+"Quelle est la première ligne de défense de l'organisme ?|Les barrières naturelles comme la peau|Les anticorps|Les vaccins|Les lymphocytes T|Elles empêchent l'entrée des pathogènes.",
+"Quel est le rôle des lymphocytes T cytotoxiques ?|Détruire les cellules infectées|Produire des anticorps|Transporter le dioxygène|Fabriquer l'insuline|C'est l'immunité à médiation cellulaire.",
+"Pourquoi un vaccin protège-t-il ?|Il déclenche une réponse immunitaire avec mémoire|Il tue directement les virus|Il remplace les anticorps|Il arrête la digestion|Les cellules mémoire réagissent plus vite.",
+"Comment appelle-t-on la molécule reconnue par le système immunitaire ?|Un antigène|Un anticorps|Une hormone|Un allèle|L'anticorps se lie à l'antigène."],
+"Supérieur|Biologie cellulaire":[
+"Où se déroule le cycle de Krebs ?|Dans la matrice mitochondriale|Dans le cytosol|Dans le noyau|Dans les lysosomes|Il produit des coenzymes réduits.",
+"Où se déroule la glycolyse ?|Dans le cytosol|Dans la mitochondrie|Dans le noyau|Dans le réticulum|Elle ne nécessite pas de dioxygène.",
+"Quel est le rôle de l'appareil de Golgi ?|Modifier, trier et adresser les protéines|Produire l'ATP|Stocker l'ADN|Réaliser la photosynthèse|Il intervient dans la sécrétion.",
+"Que fait la pompe Na⁺/K⁺ ?|Elle expulse 3 Na⁺ et fait entrer 2 K⁺ en consommant de l'ATP|Elle fait entrer Na⁺ sans énergie|Elle fabrique de l'ATP|Elle ne transporte pas d'ions|C'est un transport actif.",
+"Dans quelle phase du cycle cellulaire l'ADN est-il répliqué ?|La phase S|La phase G1|La phase M|La phase G0|S signifie synthèse."],
+"Supérieur|Génétique moléculaire":[
+"Quelle enzyme synthétise l'ARN lors de la transcription ?|L'ARN polymérase|L'ADN polymérase|La ligase|L'hélicase|Elle lit le brin matrice.",
+"Quelle enzyme synthétise l'ADN lors de la réplication ?|L'ADN polymérase|L'ARN polymérase|La lipase|L'amylase|Elle ajoute des nucléotides dans le sens 5'→3'.",
+"Qu'est-ce qu'un intron ?|Une séquence éliminée lors de l'épissage|Une séquence traduite|Un acide aminé|Un ribosome|Les exons sont conservés.",
+"Quel est le rôle de l'ARN de transfert ?|Apporter l'acide aminé correspondant au codon|Copier le gène|Former les ribosomes|Réparer l'ADN|Son anticodon s'apparie au codon.",
+"À quoi sert la PCR ?|À amplifier une séquence d'ADN|À séquencer des protéines|À fabriquer des anticorps|À mesurer un pH|Elle répète des cycles de température."],
+"Supérieur|Physiologie":[
+"Quel est le rôle de la myéline ?|Accélérer la conduction de l'influx nerveux|Produire l'insuline|Stocker le glycogène|Digérer les lipides|La conduction est saltatoire.",
+"Quel ion entre dans la cellule lors de la dépolarisation ?|Na⁺|K⁺|Cl⁻|Mg²⁺|Les canaux sodiques voltage-dépendants s'ouvrent.",
+"Quel est le rôle du calcium dans la contraction musculaire ?|Il permet l'interaction actine-myosine|Il fournit l'ATP|Il bloque la contraction|Il remplace la myosine|Il se fixe sur la troponine.",
+"Quelle hormone du pancréas augmente la glycémie ?|Le glucagon|L'insuline|La thyroxine|L'adrénaline|Il est produit par les cellules alpha.",
+"Quelle est la principale fonction du rein ?|Filtrer le sang et former l'urine|Produire la bile|Stocker le glycogène|Absorber les nutriments|Les néphrons filtrent et réabsorbent."],
+"Supérieur|Écologie":[
+"Qu'est-ce que la niche écologique ?|L'ensemble des conditions et ressources utilisées par une espèce|Son lieu de reproduction|Un type de forêt|Une chaîne alimentaire|Elle définit le rôle de l'espèce.",
+"Quel principe dit que deux espèces ne peuvent occuper durablement la même niche ?|L'exclusion compétitive|L'inertie|La précaution|La loi de Mendel|Principe de Gause.",
+"Qu'est-ce que la capacité de charge K ?|L'effectif maximal qu'un milieu peut supporter durablement|Le taux de natalité|L'effectif minimal|Le nombre d'espèces|Elle limite la croissance logistique.",
+"Quelle forme a une croissance exponentielle sur un graphique ?|Une courbe en J|Une courbe en S|Une droite horizontale|Une parabole décroissante|N(t) = N₀·e^(rt).",
+"Qu'est-ce que la résilience d'un écosystème ?|Sa capacité à retrouver son état après une perturbation|Sa biomasse|Son nombre d'espèces|Sa température|Elle diffère de la résistance."],
+"Supérieur|Évolution":[
+"Qu'est-ce que la dérive génétique ?|Une variation aléatoire des fréquences alléliques, plus forte dans les petites populations|Une mutation dirigée|Une sélection par le milieu|Une migration|Elle est due au hasard.",
+"Quelles sont les hypothèses de Hardy-Weinberg ?|Population très grande, croisements aléatoires, sans sélection, mutation ni migration|Petite population|Sélection forte|Migration constante|Les fréquences alléliques restent alors constantes.",
+"Qu'est-ce qu'une espèce selon le concept biologique ?|Un groupe de populations qui se croisent et ont une descendance fertile|Un groupe d'animaux qui se ressemblent|Un genre|Une famille|Elle est définie par l'isolement reproductif.",
+"Que sont des structures homologues ?|Des structures héritées d'un ancêtre commun|Des structures de même fonction mais d'origine différente|Des gènes mutants|Des fossiles|La convergence donne des analogies.",
+"Qu'est-ce que la spéciation allopatrique ?|La formation d'espèces après isolement géographique|La formation d'espèces sur le même territoire|Une hybridation|Une mutation unique|Les populations isolées divergent."],
+"Supérieur|Microbiologie":[
+"Qu'est-ce qui distingue une bactérie d'une cellule eucaryote ?|L'absence de noyau délimité par une membrane|L'absence d'ADN|L'absence de ribosomes|Sa grande taille|C'est une cellule procaryote.",
+"Que contient la paroi des bactéries à Gram positif ?|Une épaisse couche de peptidoglycane|Aucune paroi|De la cellulose|De la chitine|Elle retient le violet de gentiane.",
+"Qu'est-ce qu'un virus ?|Un agent infectieux acellulaire qui se multiplie dans une cellule hôte|Une bactérie|Un champignon|Un protozoaire|Il détourne la machinerie de l'hôte.",
+"Comment agit un antibiotique ?|Il bloque la multiplication des bactéries ou les tue|Il détruit les virus|Il renforce les anticorps|Il vaccine|Il est inefficace contre les virus.",
+"Comment se multiplie une bactérie ?|Par scissiparité (fission binaire)|Par méiose|Par mitose|Par bourgeonnement|Une cellule donne deux cellules filles."],
+"Supérieur|Biologie des organismes":[
+"Quel tissu transporte la sève élaborée chez les plantes ?|Le phloème|Le xylème|Le méristème|L'épiderme|Il transporte les sucres de la photosynthèse.",
+"Quel tissu transporte la sève brute ?|Le xylème|Le phloème|Le parenchyme|Le collenchyme|Il achemine eau et sels minéraux.",
+"Quel est le rôle des stomates ?|Assurer les échanges gazeux et la transpiration|Absorber l'eau|Stocker l'amidon|Produire des hormones|Ils s'ouvrent et se ferment.",
+"Qu'est-ce qu'un organisme diploïde ?|Un organisme dont les cellules ont deux jeux de chromosomes|Un organisme à un seul jeu|Un organisme sans noyau|Un organisme à trois jeux|On note 2n.",
+"Quelle est la différence entre un tissu et un organe ?|Un organe associe plusieurs tissus|Un tissu associe plusieurs organes|Il n'y en a pas|Un organe n'a qu'un type de cellule|Les tissus s'organisent en organes."]
+};
+const NUC=n=>Array.from({length:n},()=>"ATGC"[R(0,3)]).join("");
+const CPL={A:"T",T:"A",G:"C",C:"G"},TRC={A:"U",T:"A",G:"C",C:"G"};
+const mutS=(s,al)=>{const i=R(0,s.length-1);let c;do{c=al[R(0,al.length-1)]}while(c===s[i]);return s.slice(0,i)+c+s.slice(i+1)};
+const altS=(s,al)=>{const o=new Set();let t=0;while(o.size<3&&t++<80){const v=mutS(s,al);if(v!==s)o.add(v)}return[...o]};
+const genSeq=(c,l)=>[
+()=>{const s=NUC(R(6,9)),a=[...s].map(x=>CPL[x]).join("");return Q(`Un brin d'ADN s'écrit 3'-${s}-5'. Quel est le brin complémentaire (5'→3') ?`,`5'-${a}-3'`,altS(a,"ATGC").map(x=>`5'-${x}-3'`),"A s'apparie avec T et G avec C.",c,l)},
+()=>{const s=NUC(R(6,9)),a=[...s].map(x=>TRC[x]).join("");return Q(`Le brin matrice d'un gène s'écrit 3'-${s}-5'. Quelle est la séquence de l'ARNm (5'→3') ?`,`5'-${a}-3'`,altS(a,"AUGC").map(x=>`5'-${x}-3'`),"A→U, T→A, G→C, C→G : l'ARN contient de l'uracile.",c,l)},
+()=>{const n=R(3,12);return Qn(`Un ARNm contient ${3*n} nucléotides. Combien de codons comporte-t-il ?`,n,"Un codon est un triplet de nucléotides.",c,l)},
+()=>{const n=R(4,15);return Qn(`Un ARNm codant compte ${3*n} nucléotides, codon stop compris. Combien d'acides aminés a la protéine ?`,n-1,"Le codon stop ne code aucun acide aminé.",c,l)}
+];
+const CRO=[["Aa","Aa",25],["Aa","aa",50],["AA","aa",0],["AA","Aa",0],["aa","aa",100]],PC5=["0 %","25 %","50 %","75 %","100 %"];
+const genCroise=[
+()=>{const t=CRO[R(0,4)],r=t[2]+" %";return Q(`On croise deux individus de génotypes ${t[0]} et ${t[1]} (A est dominant sur a). Quelle est la probabilité d'un descendant de phénotype récessif ?`,r,shuf(PC5.filter(x=>x!==r)).slice(0,3),"On construit l'échiquier de croisement : seul aa donne le phénotype récessif.","Génétique","Collège")},
+()=>{const t=CRO[R(0,4)],r=(100-t[2])+" %";return Q(`On croise deux individus de génotypes ${t[0]} et ${t[1]} (A est dominant sur a). Quelle est la probabilité d'un descendant de phénotype dominant ?`,r,shuf(PC5.filter(x=>x!==r)).slice(0,3),"Phénotype dominant = 100 % moins la probabilité de aa.","Génétique","Collège")}
+];
+const genRepro=[
+()=>{const k=R(2,20);return Qn(`Les cellules du corps d'une espèce ont ${2*k} chromosomes. Combien en contient un gamète ?`,k,"Un gamète est haploïde : il a la moitié des chromosomes.","Reproduction","Collège")},
+()=>{const k=R(2,20);return Qn(`Un gamète d'une espèce contient ${k} chromosomes. Combien en contient la cellule-œuf ?`,2*k,"La fécondation reconstitue le nombre 2n.","Reproduction","Collège")}
+];
+const genResp=[()=>{const k=R(3,15);return Qn(`Un adulte au repos fait ${2*k} mouvements respiratoires par minute, chacun renouvelant 0,5 L d'air. Quel volume d'air est ventilé par minute ?`,k,"Volume par minute = fréquence × volume par mouvement.","Respiration","Collège","L")}];
+const genCard=(c,l,t)=>[
+()=>{const f=R(6,9)*10,v=R(5,10)*10;return Qn(`${t} ${f} fois par minute et éjecte ${v} mL de sang à chaque battement. Quel est le débit cardiaque ?`,f*v,"Débit cardiaque = fréquence × volume d'éjection systolique.",c,l,"mL/min",100)},
+()=>{const f=R(6,9)*10,v=R(5,10)*10;return Qn(`Un débit cardiaque de ${f*v} mL/min est assuré à ${f} battements par minute${l==="Supérieur"?" (sujet au repos)":""}. Quel est le volume éjecté à chaque battement ?`,v,"Volume d'éjection = débit / fréquence.",c,l,"mL",10)}
+];
+const QH=[1,2,3,4,6,7,8,9];
+const genHW=[
+()=>{const q=QH[R(0,7)]/10,b=q.toFixed(1),h=(2*q*(1-q)).toFixed(2),p2=((1-q)**2).toFixed(2);return Q(`Dans une population à l'équilibre de Hardy-Weinberg, l'allèle récessif a une fréquence de ${fr(b)}. Quelle est la fréquence des homozygotes récessifs ?`,fr((q*q).toFixed(2)),[b,h,p2].map(fr),"f(aa) = q².","Évolution","Supérieur")},
+()=>{const q=QH[R(0,7)]/10,b=q.toFixed(1),h=(2*q*(1-q)).toFixed(2),p2=((1-q)**2).toFixed(2);return Q(`Dans une population à l'équilibre de Hardy-Weinberg, l'allèle récessif a une fréquence de ${fr(b)}. Quelle est la fréquence des hétérozygotes ?`,fr(h),[(q*q).toFixed(2),p2,b].map(fr),"f(Aa) = 2pq avec p = 1 − q.","Évolution","Supérieur")}
+];
+const genEco=[
+()=>{const p=R(1,9),n=R(1,3),v=p*1000/10**n;return Qn(`Des producteurs fixent ${p*1000} kJ. Avec un rendement de 10 % à chaque transfert, quelle énergie atteint le niveau situé après ${n} transfert(s) ?`,v,"On multiplie par 0,1 à chaque transfert.","Écologie","Supérieur","kJ",Math.max(1,Math.round(v/4)))},
+()=>{const N=R(1,9)*10,t=R(2,6);return Qn(`Une population de ${N} individus double chaque année (croissance exponentielle). Combien d'individus après ${t} ans ?`,N*2**t,"N(t) = N₀ × 2ᵗ.","Écologie","Supérieur","",N*2**(t-1))}
+];
+const genMicro=[
+()=>{const g=R(1,6)*10,n=R(2,8);return Qn(`Une bactérie se divise toutes les ${g} minutes en conditions idéales. Combien de bactéries obtient-on après ${g*n} minutes à partir d'une seule ?`,2**n,"N = N₀ × 2ⁿ avec n le nombre de divisions.","Microbiologie","Supérieur","",2**(n-1))},
+()=>{const n=R(3,10);return Qn(`Une molécule d'ADN subit ${n} cycles de PCR (rendement idéal de 100 %). Combien de copies obtient-on ?`,2**n,"Chaque cycle double le nombre de molécules.","Génétique moléculaire","Supérieur","",2**(n-1))}
+];
+pools["SVT"]=()=>[...defQs(SVTL),
+...Object.entries(SV).flatMap(([k,a])=>{const [l,c]=k.split("|");return lq(c,l,a)}),
+...genSeq("Expression du patrimoine génétique","Lycée").flatMap(g=>repK(g,12)),
+...genSeq("Génétique moléculaire","Supérieur").slice(0,2).flatMap(g=>repK(g,10)),
+...genCroise.flatMap(g=>repK(g,10)),...genRepro.flatMap(g=>repK(g,10)),...genResp.flatMap(g=>repK(g,10)),
+...genCard("Fonctionnement du corps humain","Lycée","Un cœur bat").flatMap(g=>repK(g,8)),
+...genCard("Physiologie","Supérieur","Chez un sujet au repos, le cœur bat").flatMap(g=>repK(g,8)),
+...genHW.flatMap(g=>repK(g,8)),...genEco.flatMap(g=>repK(g,8)),...genMicro.flatMap(g=>repK(g,8))];
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
