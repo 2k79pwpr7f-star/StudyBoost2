@@ -1361,6 +1361,54 @@ const prev=el.value,m=chapCounts(subject);
 el.innerHTML=items.map(c=>{const ok=c==="Révisions générales"||(m[level+"|"+c]||0)>=5;return `<option value="${escapeHTML(c)}">${escapeHTML(ok?c:c+" (bientôt)")}</option>`}).join("");
 if(items.includes(prev))el.value=prev}
 function quizAllChapters(){document.getElementById("quizChapter").value="Révisions générales";startQuiz()}
+/* ===== MATHS : TOUS LES CHAPITRES ===== */
+const fq=(p,q)=>{const g=gcd(p,q);return q/g===1?String(p/g):`${p/g}/${q/g}`};
+const repK=(g,n=30)=>{const o=[],s=new Set();for(let i=0;i<n*5&&o.length<n;i++){const q=g();if(!s.has(q.q)){s.add(q.q);o.push(q)}}return o};
+const MX=[
+()=>{const a=R(100,900),b=R(100,900);return Qn(`Combien vaut ${a} + ${b} ?`,a+b,`${a} + ${b} = ${a+b}.`,"Addition et soustraction","Primaire","",10)},
+()=>{const b=R(100,500),a=b+R(50,400);return Qn(`Combien vaut ${a} − ${b} ?`,a-b,`${a} − ${b} = ${a-b}.`,"Addition et soustraction","Primaire","",10)},
+()=>{const a=R(3,12),b=R(3,12);return Qn(`Combien vaut ${a*b} ÷ ${a} ?`,b,`${a} × ${b} = ${a*b}.`,"Multiplication et division","Primaire")},
+()=>{const n=[5,8,10][R(0,2)];let k=R(1,n-1);if(2*k===n)k++;return Q(`Un gâteau est coupé en ${n} parts égales. On en mange ${k}. Quelle fraction a été mangée ?`,`${k}/${n}`,[`${n-k}/${n}`,`${k}/${n+k}`,`${n}/${k}`],`${k} parts sur ${n}.`,"Fractions simples","Primaire")},
+()=>{const a=R(2,9);return Qn(`Convertis ${a} km en mètres.`,a*1000,"1 km = 1 000 m.","Mesures et conversions","Primaire","m",1000)},
+()=>{const L=R(3,15),l=R(2,L-1);return Qn(`Quel est le périmètre d'un rectangle de ${L} cm sur ${l} cm ?`,2*(L+l),"Périmètre = 2 × (longueur + largeur).","Géométrie","Primaire","cm",2)},
+()=>{const a=R(20,60),b=R(5,20),c=R(1,15);return Qn(`Léa a ${a} billes. Elle en gagne ${b} puis en perd ${c}. Combien lui en reste-t-il ?`,a+b-c,`${a} + ${b} − ${c} = ${a+b-c}.`,"Problèmes","Primaire")},
+()=>{const a=R(2,12),b=R(2,12);return Qn(`Calcule (−${a}) × (−${b}).`,a*b,"Le produit de deux nombres négatifs est positif.","Nombres relatifs","Collège")},
+()=>{const a=R(2,15),b=R(2,15);return Qn(`Calcule (−${a}) + ${b}.`,b-a,`On calcule ${b} − ${a}.`,"Nombres relatifs","Collège")},
+()=>{const d=R(5,12),a=R(1,3),b=R(1,3);return Q(`Calcule ${a}/${d} + ${b}/${d}.`,fq(a+b,d),[`${a+b}/${2*d}`,`${a*b}/${d}`,fq(a+b,d+1)],"On additionne les numérateurs, le dénominateur ne change pas.","Fractions et puissances","Collège")},
+()=>{const b=R(2,5),n=R(2,4);return Qn(`Calcule ${b}^${n}.`,b**n,`${b}^${n} = ${b**n}.`,"Fractions et puissances","Collège","",b)},
+()=>{const a=R(2,9),b=R(2,9);return Q(`Développe ${a}(x + ${b}).`,`${a}x + ${a*b}`,[`${a}x + ${b}`,`${a+b}x`,`${a*b}x + ${a}`],`${a}(x + ${b}) = ${a}x + ${a*b}.`,"Calcul littéral","Collège")},
+()=>{const a=R(2,9),b=R(1,9),x=R(2,9);return Qn(`Calcule ${a}x + ${b} pour x = ${x}.`,a*x+b,`${a}×${x} + ${b} = ${a*x+b}.`,"Calcul littéral","Collège")},
+()=>{const a=R(2,5),k=R(2,4),n=R(2,6);return Qn(`Dans le triangle ABC, M est sur [AB] et N sur [AC] avec (MN) // (BC). On donne AM = ${a}, AB = ${a*k} et AN = ${n}. Calcule AC.`,n*k,"Thalès : AN / AC = AM / AB.","Théorème de Thalès","Collège","",n)},
+()=>{const a=R(2,6),b=R(1,9),x=R(1,9);return Qn(`On donne f(x) = ${a}x + ${b}. Calcule f(${x}).`,a*x+b,`f(${x}) = ${a}×${x} + ${b}.`,"Fonctions","Collège")},
+()=>{const m=R(5,15),d=R(1,4);return Qn(`Quelle est la moyenne de ${m-d} ; ${m} ; ${m+d} ?`,m,"La moyenne est la somme divisée par le nombre de valeurs.","Statistiques et probabilités","Collège")},
+()=>{const r=R(1,6);let b=R(1,6);if(b===r)b++;return Q(`Un sac contient ${r} boule(s) rouge(s) et ${b} boule(s) bleue(s). Quelle est la probabilité de tirer une boule rouge ?`,fq(r,r+b),[fq(b,r+b),fq(r,b),fq(r+b,r)],"Probabilité = cas favorables / cas possibles.","Statistiques et probabilités","Collège")},
+()=>{const b=R(1,9)*2,h=R(2,9);return Qn(`Quelle est l'aire d'un triangle de base ${b} cm et de hauteur ${h} cm ?`,b*h/2,"Aire = base × hauteur / 2.","Géométrie","Collège","cm²")},
+()=>{const [o,a,h]=[[3,4,5],[5,12,13],[8,15,17]][R(0,2)],k=R(0,2),r=[[a,h],[o,h],[o,a]];return Q(`Dans un triangle rectangle, le côté opposé à α mesure ${o}, le côté adjacent mesure ${a} et l'hypoténuse mesure ${h}. Quel est ${["cos","sin","tan"][k]}(α) ?`,`${r[k][0]}/${r[k][1]}`,[...r.filter((_,j)=>j!==k).map(x=>`${x[0]}/${x[1]}`),`${r[k][1]}/${r[k][0]}`],"cos = adjacent / hypoténuse, sin = opposé / hypoténuse, tan = opposé / adjacent.","Trigonométrie","Collège")},
+()=>{const k=R(1,9),a=R(1,5)*10,b=R(0,3)*10;return Qn(`X prend la valeur ${a} avec la probabilité ${fr(k/10)} et la valeur ${b} avec la probabilité ${fr((10-k)/10)}. Quelle est son espérance ?`,(k*a+(10-k)*b)/10,"E(X) = Σ xᵢ × pᵢ.","Variables aléatoires","Lycée")},
+()=>{const n=R(2,9);return Qn(`Que vaut ln(e^${n}) ?`,n,"ln et exp sont réciproques : ln(e^x) = x.","Exponentielle et logarithme","Lycée")},
+()=>{const a=R(1,4),b=a+R(1,4);return Q(`Simplifie e^${a} × e^${b}.`,`e^${a+b}`,[`e^${a*b}`,`e^${b-a}`,`e^${2*(a+b)}`],"e^a × e^b = e^(a+b).","Exponentielle et logarithme","Lycée")},
+()=>{const t=[["0","1"],["π/6","√3/2"],["π/4","√2/2"],["π/3","1/2"],["π/2","0"],["π","−1"]],k=R(0,5);return Q(`Que vaut cos(${t[k][0]}) ?`,t[k][1],shuf(t.filter((_,j)=>j!==k).map(x=>x[1])).slice(0,3),"Valeur remarquable du cosinus.","Trigonométrie","Lycée")},
+()=>{const a=R(2,9),k=R(1,9);return Qn(`Calcule l'intégrale de 0 à ${a} de ${2*k}x dx.`,k*a*a,"Une primitive de 2k·x est k·x².","Primitives et intégrales","Lycée")},
+()=>{const a=R(1,5),c=R(1,5),b=R(1,9),d=R(1,9);return Q(`Quelle est la limite en +∞ de (${a}x + ${b}) / (${c}x + ${d}) ?`,fq(a,c),["0","+∞",fq(b,d)],"On compare les termes de plus haut degré : a / c.","Limites et continuité","Lycée")},
+()=>{const a=R(2,9),b=R(2,9),c=R(2,9);return Qn(`Quel est le volume d'un pavé droit de ${a} cm sur ${b} cm sur ${c} cm ?`,a*b*c,"V = longueur × largeur × hauteur.","Géométrie dans l'espace","Lycée","cm³",a*b)},
+()=>{const u=R(1,9);let v=R(1,9);if(v===u)v++;return Q(`Résous (x − ${u})(x − ${v}) = 0.`,`x = ${u} ou x = ${v}`,[`x = ${-u} ou x = ${-v}`,`x = ${u} ou x = ${-v}`,`x = ${-u} ou x = ${v}`],"Un produit est nul si l'un de ses facteurs est nul.","Équations","Lycée")},
+()=>{const a=R(2,9),x=R(2,6);return Qn(`On donne f(x) = x² − ${a}. Calcule f(${x}).`,x*x-a,`f(${x}) = ${x}² − ${a}.`,"Fonctions","Lycée")},
+()=>{const x1=R(-5,5),y1=R(-5,5),dx=R(1,4),dy=R(1,4);return Q(`Donne les coordonnées du milieu de [AB] avec A(${x1} ; ${y1}) et B(${x1+2*dx} ; ${y1+2*dy}).`,`(${x1+dx} ; ${y1+dy})`,[`(${2*x1+2*dx} ; ${2*y1+2*dy})`,`(${2*dx} ; ${2*dy})`,`(${x1+dx} ; ${y1})`],"Milieu : moyenne des abscisses et des ordonnées.","Géométrie","Lycée")},
+()=>{const k=R(2,12);return Qn(`Une série a pour variance ${k*k}. Quel est son écart-type ?`,k,"L'écart-type est la racine carrée de la variance.","Statistiques et probabilités","Lycée")},
+()=>{const a=R(1,6),b=R(1,6),c=R(1,6),d=R(1,6);return Qn(`Calcule le déterminant de la matrice [[${a}, ${b}], [${c}, ${d}]].`,a*d-b*c,"det = ad − bc.","Algèbre linéaire","Supérieur")},
+()=>{const x=R(2,9),y=R(1,x-1);return Q(`Résous le système x + y = ${x+y} et x − y = ${x-y}.`,`x = ${x} et y = ${y}`,[`x = ${y} et y = ${x}`,`x = ${x+y} et y = ${x-y}`,`x = ${x-y} et y = ${x+y}`],"On additionne puis on soustrait les deux équations.","Matrices et systèmes","Supérieur")},
+()=>{const a=R(2,9);return Qn(`Quelle est la limite de sin(${a}x) / x quand x tend vers 0 ?`,a,"sin(u)/u tend vers 1 : on factorise par a.","Analyse et limites","Supérieur")},
+()=>{const a=R(2,9);return Q(`Quelle est la dérivée de e^(${a}x) ?`,`${a}e^(${a}x)`,[`e^(${a}x)`,`${a}e^x`,`e^(${a}x)/${a}`],"(e^u)' = u'·e^u.","Dérivation et intégration","Supérieur")},
+()=>{const n=R(2,9);return Qn(`Calcule 1 + 2 + 4 + ... + 2^${n}.`,2**(n+1)-1,"Somme géométrique de raison 2 : 2^(n+1) − 1.","Suites et séries","Supérieur","",2**n)},
+()=>{const n=R(3,12);return Q(`X suit la loi uniforme sur {1, 2, ..., ${n}}. Quelle est son espérance ?`,fq(n+1,2),[fq(n,2),`${n}`,fq(n-1,2)],"E(X) = (n + 1) / 2.","Probabilités","Supérieur")},
+()=>{const a=R(1,5),b=R(1,3)*2,c=R(-2,2),r=fr(c/2);return Q(`Deux variables ont pour écarts-types ${a} et ${b} et pour covariance ${c*a*b/2}. Quel est leur coefficient de corrélation ?`,r,["-1","-0,5","0","0,5","1"].filter(x=>x!==r).slice(0,3),"ρ = cov(X, Y) / (σX × σY).","Statistiques","Supérieur")},
+()=>{const k=R(2,6);let y0=R(2,6);if(y0===k)y0++;return Q(`y' = ${k}y avec y(0) = ${y0}. Quelle est la solution ?`,`y = ${y0}e^(${k}x)`,[`y = ${k}e^(${y0}x)`,`y = ${y0}e^x`,`y = ${y0}e^(${k})`],"Solution de y' = ky : y = y(0)·e^(kx).","Équations différentielles","Supérieur")},
+()=>{const t=[[3,4,5],[5,12,13],[8,15,17],[6,8,10]][R(0,3)];return Qn(`Quel est le module du nombre complexe ${t[0]} + ${t[1]}i ?`,t[2],"|a + ib| = √(a² + b²).","Nombres complexes","Supérieur")},
+()=>{const a=R(1,9),b=R(1,9);return Q(`Quel est le conjugué de ${a} + ${b}i ?`,`${a} − ${b}i`,[`−${a} + ${b}i`,`−${a} − ${b}i`,`${b} + ${a}i`],"On change le signe de la partie imaginaire.","Nombres complexes","Supérieur")},
+()=>{const a=R(2,5);return Q(`Soit f(x, y) = ${a}x²y. Quelle est la dérivée partielle ∂f/∂x ?`,`${2*a}xy`,[`${a}x²`,`${2*a}x²y`,`${a}xy`],"On dérive par rapport à x en gardant y constant.","Calcul multivariable","Supérieur")},
+()=>{const a=R(2,5);return Q(`Soit f(x, y) = ${a}x²y. Quelle est la dérivée partielle ∂f/∂y ?`,`${a}x²`,[`${2*a}xy`,`${a}xy`,`${a}x²y`],"On dérive par rapport à y en gardant x constant.","Calcul multivariable","Supérieur")}
+];
+pools["Mathématiques"]=()=>[...rep(genMath),...MX.flatMap(g=>repK(g,30))];
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
