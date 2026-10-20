@@ -552,11 +552,11 @@ function updateChapters(prefix){
 const level=document.getElementById(prefix+"Level")?.value || "Lycée";
 const subject=document.getElementById(prefix+"Subject")?.value || "Mathématiques";
 const grade=document.getElementById(prefix+"Class")?.value;
-const choices=getChapters(subject,level,grade);
+let choices=getChapters(subject,level,grade);
+if(!choices.includes("Révisions générales"))choices=[...choices,"Révisions générales"];
 const id=prefix==="card"?"cardChapter":prefix==="note"?"noteChapter":"quizChapter";
-fillSelect(id,choices);
+if(prefix==="quiz")fillChapters(id,choices,subject,level);else fillSelect(id,choices);
 }
-
 /* =========================
 NAVIGATION
 ========================= */
