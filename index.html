@@ -512,10 +512,9 @@ Object.assign(CC,{
 function classChaps(subject,grade){
 const s=CC[subject];if(!s||!grade)return null;
 for(const part of s.split(";")){const i=part.indexOf("=");if(part.slice(0,i)===grade)return part.slice(i+1).split("|")}
-return null}
 function getChapters(subject,level,grade){
-const byClass=classChaps(subject,grade);
-if(byClass)return [...byClass,"Révisions générales"];
+const byClass=classChaps(subject,grade)||classChaps(subject,"*"+level);
+if(byClass)return [...new Set([...byClass,"Révisions générales"])];
 const specific=chapterCatalog[subject]?.[level];
 if(specific && specific.length) return specific;
 if(level==="Primaire") return ["Notions fondamentales","Vocabulaire et définitions","Exercices d'application","Révisions générales"];
