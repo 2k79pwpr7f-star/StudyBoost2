@@ -2000,6 +2000,187 @@ pools["SVT"]=()=>[...defQs(SVTL),
 ...genCard("Fonctionnement du corps humain","Lycée","Un cœur bat").flatMap(g=>repK(g,8)),
 ...genCard("Physiologie","Supérieur","Chez un sujet au repos, le cœur bat").flatMap(g=>repK(g,8)),
 ...genHW.flatMap(g=>repK(g,8)),...genEco.flatMap(g=>repK(g,8)),...genMicro.flatMap(g=>repK(g,8))];
+/* ===== LOT 5 : BIOLOGIE, CHIMIE, MÉCANIQUE, ÉLECTRONIQUE ===== */
+const grab=(P,key,to)=>{const [l,c]=key.split("|");return P.filter(q=>q.l===l&&q.c===c).map(q=>to?{...q,c:to}:q)};
+const GR=(c,l,...gs)=>gs.flatMap(g=>repK(g,15).map(q=>({...q,c,l})));
+
+/* --- chapitres par classe --- */
+CC["Biologie"]=`CP=Le vivant;CE1=Le vivant|Corps humain et santé;CE2=Le vivant|Corps humain et santé|Écosystèmes;CM1=Le vivant|Corps humain et santé|Écosystèmes;CM2=Le vivant|Corps humain et santé|Écosystèmes;6e=Cellules et êtres vivants|Digestion et nutrition|Écosystèmes;5e=Respiration|Digestion et nutrition|Cellules et êtres vivants;4e=Reproduction|Cellules et êtres vivants|Écosystèmes;3e=Génétique|Reproduction|Cellules et êtres vivants;Seconde=Écosystèmes|Génétique et évolution|Fonctionnement du corps humain;Première=Génétique et évolution|Expression du patrimoine génétique|Immunité|Écosystèmes;Terminale=Génétique et évolution|Expression du patrimoine génétique|Immunité|Fonctionnement du corps humain|Enjeux planétaires;*Supérieur=Biologie cellulaire|Génétique moléculaire|Physiologie|Écologie|Évolution|Microbiologie|Biologie des organismes`;
+CC["Chimie"]+=";*Supérieur=Chimie générale|Cinétique chimique|Équilibres chimiques|Chimie organique";
+CC["Mécanique"]+=";*Primaire=Révisions générales;*Supérieur=Dynamique du point|Énergétique|Oscillateurs|Statique des solides";
+CC["Électronique"]=CC["Électronique"].split("Électricité simple|Circuits électriques").join("Électricité simple")+";*Primaire=Révisions générales;*Supérieur=Régimes transitoires|Régime sinusoïdal|Amplificateur opérationnel|Électronique numérique";
+
+/* --- BIOLOGIE : reprend les questions de la SVT (contenu commun) --- */
+pools["Biologie"]=()=>[...defQs(BIO),...pools["SVT"]().filter(q=>q.c)];
+
+/* --- CHIMIE --- */
+const CHK=new Set(["Primaire|Matière et états","Collège|Matière et transformations","Collège|Atomes et molécules","Lycée|Constitution de la matière","Lycée|Quantité de matière","Lycée|Transformations chimiques","Lycée|Réactions acide-base","Supérieur|Chimie générale","Supérieur|Cinétique chimique"]);
+const CHM={
+"Primaire|Mélanges et solutions":[
+"Que se passe-t-il quand on mélange du sucre dans de l'eau ?|Le sucre se dissout|Le sucre devient de l'eau|Le sucre se transforme en gaz|Le sucre flotte toujours|Le sucre est dissous dans l'eau.",
+"Lequel est un mélange où l'on ne distingue pas les constituants ?|De l'eau salée|Du sable et des cailloux|De l'eau et de l'huile|Du riz et des lentilles|C'est un mélange homogène.",
+"Comment séparer du sable d'un mélange eau et sable ?|En filtrant|En congelant|En ajoutant du sel|En chauffant le sable|Le filtre retient le sable.",
+"Comment récupérer le sel d'une eau salée ?|En faisant évaporer l'eau|En filtrant|En congelant|En agitant|Le sel reste quand l'eau s'évapore.",
+"Que devient l'huile quand on la verse dans l'eau ?|Elle flotte sans se mélanger|Elle se dissout|Elle devient de l'eau|Elle coule au fond|L'huile et l'eau ne sont pas miscibles."],
+"Collège|Mélanges et solutions":[
+"Dans de l'eau sucrée, quel est le solvant ?|L'eau|Le sucre|Le verre|L'air|Le solvant est ce qui dissout le soluté.",
+"Que signifie qu'une solution est saturée ?|On ne peut plus y dissoudre de soluté|Elle est très diluée|Elle est gazeuse|Elle est acide|Elle contient la quantité maximale de soluté dissous.",
+"Quelle technique sépare deux liquides de températures d'ébullition différentes ?|La distillation|La filtration|La décantation|La centrifugation|Elle utilise l'évaporation puis la condensation.",
+"Comment séparer l'huile de l'eau ?|Par décantation|Par filtration|Par évaporation|Par aimantation|L'huile surnage et peut être séparée.",
+"Une solution de concentration massique 10 g/L contient quelle masse de soluté dans 2 L ?|20 g|5 g|10 g|12 g|m = Cm × V."],
+"Collège|Transformations chimiques":[
+"Lors d'une transformation chimique, comment appelle-t-on les espèces de départ ?|Les réactifs|Les produits|Les catalyseurs|Les solvants|Elles sont consommées.",
+"Que se conserve toujours lors d'une transformation chimique ?|La masse totale|Le nombre de molécules|Les espèces chimiques|La couleur|Les atomes se conservent.",
+"Quel gaz trouble l'eau de chaux ?|Le dioxyde de carbone|Le dioxygène|Le dihydrogène|L'azote|C'est le test d'identification du CO₂.",
+"Quel produit forme la combustion complète du carbone dans le dioxygène ?|Du dioxyde de carbone|De l'eau|De l'ozone|Du dihydrogène|C + O₂ → CO₂.",
+"Quel gaz produit un petit bruit en s'enflammant près d'une flamme ?|Le dihydrogène|Le dioxygène|Le dioxyde de carbone|L'azote|C'est le test du dihydrogène."],
+"Collège|Réactions acide-base":[
+"Quelle valeur du pH correspond à une solution neutre ?|7|0|14|1|Le pH de l'eau pure est 7 à 25 °C.",
+"Quel outil permet de mesurer approximativement un pH ?|Le papier pH|Le thermomètre|La balance|Le chronomètre|Il change de couleur selon le pH.",
+"Une solution de pH 2 est…|Acide|Basique|Neutre|Salée|Un pH inférieur à 7 indique une solution acide.",
+"Une solution de pH 12 est…|Basique|Acide|Neutre|Gazeuse|Un pH supérieur à 7 indique une solution basique.",
+"Quel ion est responsable du caractère acide d'une solution ?|H⁺ (H₃O⁺)|HO⁻|Na⁺|Cl⁻|Les ions hydrogène rendent la solution acide."],
+"Lycée|Oxydoréduction":[
+"Un oxydant est une espèce capable de…|Capter des électrons|Céder des électrons|Capter des protons|Céder des protons|Ox + n e⁻ = Red.",
+"Que se passe-t-il à l'anode d'une pile ?|Une oxydation|Une réduction|Une neutralisation|Une précipitation|Anode et oxydation commencent toutes deux par une voyelle.",
+"Dans la pile Daniell, quelle électrode est le pôle négatif ?|L'électrode de zinc|L'électrode de cuivre|Le pont salin|Le voltmètre|Le zinc est oxydé et libère des électrons.",
+"Quelle est la demi-équation du couple Cu²⁺ / Cu ?|Cu²⁺ + 2 e⁻ = Cu|Cu = Cu²⁺ + e⁻|Cu²⁺ = Cu + 2 e⁻|Cu + 2 e⁻ = Cu²⁺|On écrit Ox + n e⁻ = Red.",
+"À quoi sert le pont salin d'une pile ?|À assurer la neutralité électrique des solutions|À produire des électrons|À augmenter la température|À fournir du métal|Il permet la circulation des ions."],
+"Lycée|Cinétique chimique":[
+"Quels facteurs augmentent la vitesse d'une réaction ?|La température et la concentration|La dilution et le froid|Le vide|L'absence de contact|Les chocs efficaces sont plus nombreux.",
+"Qu'est-ce qu'un catalyseur ?|Une espèce qui accélère une réaction sans être consommée|Un réactif limitant|Un produit final|Un solvant|Il n'apparaît pas dans l'équation de la réaction.",
+"Que représente le temps de demi-réaction ?|La durée pour atteindre la moitié de l'avancement final|La durée totale de la réaction|La durée avant le début|Le temps de mélange|On le note t½.",
+"Quelle méthode suit l'évolution d'une espèce colorée ?|La spectrophotométrie|La pesée|La filtration|La distillation|L'absorbance est proportionnelle à la concentration.",
+"Comment varie en général la vitesse volumique de réaction au cours du temps ?|Elle diminue|Elle augmente|Elle est constante|Elle est nulle|Les réactifs sont peu à peu consommés."],
+"Lycée|Équilibres chimiques":[
+"Que signifie qu'un système chimique est à l'équilibre ?|Sa composition n'évolue plus à l'échelle macroscopique|La réaction s'est arrêtée|Les réactifs ont disparu|Les produits ont disparu|Les deux sens de la réaction se compensent.",
+"Quelle est l'expression du quotient de réaction pour A + B ⇌ C + D ?|[C][D] / ([A][B])|[A][B] / ([C][D])|[C] + [D]|[A] − [B]|Les produits au numérateur, les réactifs au dénominateur.",
+"Si Qr < K, dans quel sens évolue le système ?|Dans le sens direct|Dans le sens inverse|Il n'évolue pas|Il ne peut pas être prédit|Qr tend vers K.",
+"À l'équilibre, que vaut Qr ?|K|0|1|L'infini|Qr,éq = K.",
+"De quoi dépend la constante d'équilibre K d'une réaction ?|De la température|De la concentration initiale|Du volume|De la masse|Elle ne dépend que de la température."],
+"Lycée|Chimie organique":[
+"Quelle est la formule du méthane ?|CH₄|C₂H₆|CO₂|C₃H₈|C'est l'alcane à un atome de carbone.",
+"Quelle est la formule brute de l'éthanol ?|C₂H₆O|C₂H₄O₂|C₂H₆|CH₄O|C'est un alcool à deux carbones.",
+"Quel groupe caractéristique définit un alcool ?|−OH|−COOH|C=O|−NH₂|Il est lié à un carbone saturé.",
+"Combien d'atomes de carbone compte le propane ?|3|2|4|5|Le préfixe prop- correspond à 3 carbones.",
+"Quel groupe caractéristique définit un acide carboxylique ?|−COOH|−OH|−NH₂|−Cl|C'est le cas de l'acide éthanoïque."],
+"Supérieur|Équilibres chimiques":[
+"Que dit le principe de Le Chatelier ?|Un système à l'équilibre perturbé évolue de façon à s'opposer à la perturbation|Un équilibre ne bouge jamais|K change avec la concentration|La température n'a aucun effet|C'est une loi de modération.",
+"Quelle relation lie ΔrG° et K° ?|ΔrG° = −RT ln K°|ΔrG° = RT ln K°|ΔrG° = K°/RT|ΔrG° = −K°|À l'équilibre ΔrG = 0.",
+"Pour une réaction endothermique, une hausse de température…|Favorise le sens direct|Favorise le sens inverse|Ne change rien|Annule la réaction|L'équilibre se déplace dans le sens endothermique.",
+"Qu'est-ce que le produit de solubilité Ks ?|La constante d'équilibre de dissolution d'un solide ionique|Une masse|Un volume|Un pH|Par exemple AgCl ⇌ Ag⁺ + Cl⁻.",
+"Que vaut le pH d'une solution tampon à la demi-équivalence d'un acide faible ?|pH = pKa|pH = 7|pH = 2 pKa|pH = pKa + 1|C'est la relation de Henderson-Hasselbalch."],
+"Supérieur|Chimie organique":[
+"Quel mécanisme décrit le remplacement d'un groupe partant par un nucléophile en une seule étape ?|SN2|SN1|E1|E2|Substitution nucléophile bimoléculaire.",
+"Quelle est l'hybridation d'un carbone engagé dans une double liaison C=C ?|sp²|sp³|sp|d²sp³|La géométrie est plane.",
+"Que donne l'oxydation ménagée d'un alcool primaire ?|Un aldéhyde, puis un acide carboxylique|Une cétone|Un alcane|Un éther|Selon la force de l'oxydant.",
+"Que dit la règle de Markovnikov pour l'addition de HX sur un alcène ?|H se fixe sur le carbone le plus hydrogéné|X se fixe sur le carbone le plus hydrogéné|Aucun carbone n'est favorisé|La réaction est impossible|Elle passe par le carbocation le plus stable.",
+"Que sont des énantiomères ?|Des stéréoisomères images l'un de l'autre dans un miroir et non superposables|Des isomères de position|Des conformères|Des isotopes|Ils dévient la lumière polarisée en sens inverse."]
+};
+const _chim0=pools["Chimie"];
+pools["Chimie"]=()=>[..._chim0(),...pools["Physique-chimie"]().filter(q=>CHK.has(q.l+"|"+q.c)),...Object.entries(CHM).flatMap(([k,a])=>{const [l,c]=k.split("|");return lq(c,l,a)})];
+
+/* --- MÉCANIQUE --- */
+const PMG=[
+()=>{const m=R(1,10)*5;return Qn(`Quel est le poids d'un objet de ${m} kg sur la Lune (g = 1,6 N/kg) ?`,m*8/5,"P = m × g.","","","N",8)},
+()=>{const m=R(2,60);return Qn(`Un objet de ${m} kg est emporté sur la Lune. Quelle est sa masse là-bas ?`,m,"La masse ne dépend pas du lieu.","","","kg",5)},
+()=>{const P=R(2,60)*10;return Qn(`Un objet pèse ${P} N sur Terre (g = 10 N/kg). Quelle est sa masse ?`,P/10,"m = P / g.","","","kg",5)}];
+const LEV=[
+()=>{const F=R(2,10)*10,d=R(1,4),k=R(2,4);return Qn(`Un levier est en équilibre autour de son pivot. Une force de ${F} N s'exerce à ${k*d} m du pivot. Quelle force faut-il exercer de l'autre côté, à ${d} m du pivot, pour l'équilibrer ?`,F*k,"F₁ × d₁ = F₂ × d₂.","","","N",F)},
+()=>{const z=R(1,5)*10,k=[2,3,4,5][R(0,3)],w=R(1,5)*60;return Qn(`Une roue de ${z} dents tourne à ${w*k} tr/min et entraîne une roue de ${z*k} dents. Quelle est la vitesse de la roue entraînée ?`,w,"Le produit nombre de dents × vitesse de rotation est conservé.","","","tr/min",60)}];
+const LEVT=[
+"Autour de quel point un levier pivote-t-il ?|Le point d'appui (pivot)|Le point de charge|Le centre de gravité|Le sommet|Le bras de levier se mesure à partir de ce point.",
+"Pourquoi une brouette facilite-t-elle le transport d'une charge ?|Le bras de levier de la force exercée est plus grand que celui du poids|La charge devient plus légère|Le poids est supprimé|La roue fournit de l'énergie|Elle amplifie la force mais pas l'énergie.",
+"Quand une petite roue dentée entraîne une grande roue, la vitesse de rotation…|Diminue|Augmente|Ne change pas|Devient nulle|Le couple augmente en contrepartie."];
+const NW1=()=>{const F=R(2,10)*10,m=R(2,9)*10;return Qn(`Un patineur de ${m} kg pousse un mur avec une force de ${F} N. Quelle est la valeur de la force exercée par le mur sur lui ?`,F,"3e loi de Newton : forces de même valeur et de sens opposés.","","","N",10)};
+const NW2=()=>{const m=R(2,10),v=R(2,9),t=R(2,6);return Qn(`Un objet de ${m} kg passe du repos à ${v*t} m/s en ${t} s sous une force constante. Quelle est la valeur de cette force ?`,m*v,"a = Δv / Δt puis F = m × a.","","","N",m)};
+const EM1=()=>{const v=[10,20,30][R(0,2)];return Qn(`Un objet est lâché sans vitesse d'une hauteur de ${v*v/20} m (g = 10 m/s², sans frottements). Quelle est sa vitesse en arrivant au sol ?`,v,"Conservation de l'énergie mécanique : v = √(2gh).","","","m/s",10)};
+const EM2=()=>{const m=R(1,5)*2,v=R(2,8),h=R(1,6);return Qn(`Un objet de ${m} kg est à ${h} m du sol avec une vitesse de ${v} m/s (g = 10 N/kg, Ep = 0 au sol). Quelle est son énergie mécanique ?`,m*v*v/2+m*10*h,"Em = Ec + Ep.","","","J",10)};
+const EM3=()=>{const v=[10,20][R(0,1)];return Qn(`Un objet est lancé verticalement vers le haut à ${v} m/s (g = 10 m/s², sans frottements). Quelle hauteur maximale atteint-il ?`,v*v/20,"Ec initiale = Ep finale : h = v² / 2g.","","","m",5)};
+const MC1=()=>{const v=R(2,9)*5,t=R(1,5);return Qn(`Un projectile est lancé horizontalement à ${v} m/s (sans frottements). Quelle distance horizontale parcourt-il en ${t} s ?`,v*t,"Le mouvement horizontal est uniforme : x = v·t.","","","m",v)};
+const MC2=()=>{const t=R(1,5);return Qn(`Un projectile est lancé horizontalement du haut d'une falaise (g = 10 m/s²). De quelle hauteur est-il tombé au bout de ${t} s ?`,5*t*t,"Le mouvement vertical est une chute libre : y = ½·g·t².","","","m",5)};
+const MC3=()=>{const q=R(1,5),E=R(2,9);return Qn(`Une charge de ${q} µC est placée dans un champ électrique uniforme de ${E} kV/m. Quelle est la valeur de la force électrique (en mN) ?`,q*E,"F = q × E (µC × kV/m = mN).","","","mN")};
+const ST1=()=>{const m=R(2,20);return Qn(`Un objet de ${m} kg est suspendu immobile à un fil (g = 10 N/kg). Quelle est la tension du fil ?`,10*m,"À l'équilibre, la tension compense le poids.","","","N",10)};
+const ST2=()=>{const F=R(2,9)*10,d=R(1,5);return Qn(`Une force de ${F} N est appliquée à ${d} m de l'axe de rotation, perpendiculairement au bras de levier. Quel est son moment ?`,F*d,"M = F × d.","","","N·m",10)};
+const ST3=()=>{const a=R(1,3),F=R(1,5)*4;return Qn(`Une barre de poids négligeable repose sur deux appuis A et B distants de 4 m. Une charge de ${F} N est placée à ${a} m de A. Quelle force supporte l'appui B ?`,F*a/4,"Moments par rapport à A : F_B × 4 = F × a.","","","N",F)};
+const OS1=()=>{const t=[[0.5,2],[0.25,4],[0.2,5],[0.1,10],[1,1]][R(0,4)];return Qn(`Un oscillateur a une période de ${fr(t[0])} s. Quelle est sa fréquence ?`,t[1],"f = 1 / T.","","","Hz",1)};
+const OS2=()=>{const f=R(1,10)*5,n=R(2,6);return Qn(`Un oscillateur a une fréquence de ${f} Hz. Combien d'oscillations effectue-t-il en ${n} s ?`,f*n,"N = f × durée.","","","",f)};
+const OS3=()=>{const m=R(1,4),w=R(2,9);return Qn(`Un oscillateur masse-ressort a une masse de ${m} kg et une raideur de ${m*w*w} N/m. Quelle est sa pulsation propre ?`,w,"ω₀ = √(k / m).","","","rad/s")};
+const OS5=()=>{const f=R(1,9);return Q(`Quelle est la pulsation d'un oscillateur de fréquence ${f} Hz ?`,`${2*f}π rad/s`,[`${f}π rad/s`,`${4*f}π rad/s`,`${f+1}π rad/s`],"ω = 2π f.","","")};
+const SS1=()=>{const F=R(1,9)*10,L=R(1,5);return Qn(`Une poutre encastrée de ${L} m porte une force de ${F} N à son extrémité libre, perpendiculairement à la poutre. Quel est le moment d'encastrement ?`,F*L,"M = F × L.","","","N·m",10)};
+const SS2=()=>{const a=R(0,5),k=R(1,5);return Qn(`Deux masses égales sont placées aux abscisses ${a} m et ${a+2*k} m. Quelle est l'abscisse de leur centre de masse ?`,a+k,"Le centre de masse de deux masses égales est le milieu.","","","m")};
+const _mec0=pools["Mécanique"];
+pools["Mécanique"]=()=>{const P=pools["Physique-chimie"]();return [..._mec0(),
+...grab(P,"Collège|Mouvement et vitesse"),...grab(P,"Collège|Forces et interactions"),
+...GR("Poids et masse","Collège",genMeca[1],...PMG),
+...GR("Leviers et engrenages","Collège",...LEV),...lq("Leviers et engrenages","Collège",LEVT),
+...GR("Énergie mécanique","Collège",genMeca[4],genMeca[5]),
+...grab(P,"Lycée|Cinématique"),...grab(P,"Lycée|Mouvement et forces","Forces et mouvement"),
+...GR("Énergie et travail","Lycée",genMeca[4],genMeca[6]),
+...GR("Lois de Newton","Lycée",genMeca[0],NW1,NW2),
+...GR("Énergie mécanique","Lycée",genMeca[5],EM1,EM2,EM3),
+...GR("Mouvements dans un champ","Lycée",genMeca[7],MC1,MC2,MC3),
+...GR("Statique","Lycée",ST1,ST2,ST3),
+...GR("Oscillateurs","Lycée",OS1,OS2,OS3),
+...grab(P,"Supérieur|Mécanique classique","Dynamique du point"),...GR("Dynamique du point","Supérieur",genMeca[10]),
+...GR("Énergétique","Supérieur",genMeca[11],genMeca[12]),
+...GR("Statique des solides","Supérieur",genMeca[8],SS1,SS2),
+...GR("Oscillateurs","Supérieur",OS3,OS5)]};
+
+/* --- ÉLECTRONIQUE --- */
+const CI=[
+"Lequel de ces matériaux est un bon conducteur ?|Le cuivre|Le plastique|Le bois sec|Le verre|Les métaux conduisent bien le courant.",
+"Lequel de ces matériaux est un isolant ?|Le caoutchouc|L'aluminium|L'argent|Le fer|Il ne laisse pas passer le courant.",
+"Quelles particules se déplacent dans un fil métallique parcouru par un courant ?|Les électrons libres|Les protons|Les neutrons|Les atomes entiers|Ils circulent dans le sens inverse du sens conventionnel.",
+"Quel est le sens conventionnel du courant à l'extérieur du générateur ?|Du pôle + vers le pôle −|Du pôle − vers le pôle +|Il alterne toujours|Il n'y en a pas|C'est une convention.",
+"L'eau salée conduit-elle le courant ?|Oui, grâce aux ions dissous|Non, jamais|Seulement si elle est gelée|Seulement si elle est bouillante|Les ions sont les porteurs de charge."];
+const COND=[
+"Quelle est l'unité de la capacité d'un condensateur ?|Le farad|Le henry|L'ohm|Le watt|1 F = 1 C / V.",
+"Quelle relation lie la charge, la capacité et la tension d'un condensateur ?|q = C × u|q = C / u|q = u / C|q = C + u|La charge est proportionnelle à la tension.",
+"Que devient un condensateur en régime permanent continu ?|Un interrupteur ouvert|Un fil|Une source|Une résistance nulle|Le courant qui le traverse est nul.",
+"Que valent les capacités de deux condensateurs associés en parallèle ?|Elles s'additionnent|Elles se multiplient|On garde la plus petite|On garde la plus grande|C = C₁ + C₂.",
+"Quelle est l'allure de la tension aux bornes d'un condensateur qui se charge à travers une résistance ?|Une exponentielle croissante|Une droite décroissante|Une sinusoïde|Une constante|u = E(1 − e^(−t/τ))."];
+const FIL=[
+"Que laisse passer un filtre passe-bas ?|Les basses fréquences|Les hautes fréquences|Toutes les fréquences|Aucune fréquence|Il atténue les hautes fréquences.",
+"Que laisse passer un filtre passe-haut ?|Les hautes fréquences|Les basses fréquences|Toutes les fréquences|Aucune fréquence|Il atténue les basses fréquences.",
+"Quelle est la fréquence de coupure d'un filtre RC passe-bas ?|fc = 1 / (2πRC)|fc = RC|fc = 2πRC|fc = R / C|À cette fréquence le gain est divisé par √2.",
+"Quel est le gain en décibels à la fréquence de coupure, par rapport au maximum ?|−3 dB|0 dB|−20 dB|+3 dB|Le gain vaut Gmax / √2.",
+"Qu'est-ce qu'un diagramme de Bode ?|Le tracé du gain en dB et de la phase en fonction de la fréquence|Un schéma de câblage|Une courbe de charge|Un spectre de couleurs|Il caractérise un filtre."];
+const CAP=[
+"Quel est le rôle d'un capteur ?|Convertir une grandeur physique en signal électrique|Fournir de l'énergie|Stocker des données|Remplacer le microcontrôleur|Par exemple une thermistance.",
+"Une thermistance CTN est une résistance dont la valeur…|Diminue quand la température augmente|Augmente quand la température augmente|Est constante|Ne dépend que de la lumière|Son coefficient de température est négatif.",
+"À quoi sert un convertisseur analogique-numérique ?|À convertir une tension en nombre|À convertir un nombre en tension|À filtrer un signal|À amplifier un courant|Il échantillonne puis quantifie.",
+"À quoi sert l'étage de conditionnement d'un capteur ?|Adapter le signal du capteur à l'entrée de la chaîne|Produire de l'énergie|Stocker le signal|Remplacer le capteur|Il met le signal à l'échelle.",
+"Un capteur est dit linéaire si…|Sa sortie est proportionnelle à la grandeur mesurée|Sa sortie est constante|Il est très grand|Il est numérique|s = k × m."];
+const NUM=[
+"Combien de valeurs différentes peut coder un mot de 8 bits ?|256|128|255|64|2⁸ = 256.",
+"Quand la sortie d'une porte ET vaut-elle 1 ?|Quand les deux entrées valent 1|Quand une entrée vaut 1|Jamais|Toujours|AND.",
+"Quelle porte donne 1 quand ses deux entrées sont différentes ?|OU exclusif (XOR)|ET|OU|NON|XOR.",
+"Que fait une bascule D ?|Elle mémorise un bit sur un front d'horloge|Elle additionne deux bits|Elle multiplie deux bits|Elle inverse un bit en continu|Elle recopie D sur Q.",
+"Quelle est la valeur décimale de 1011 en binaire ?|11|13|9|7|8 + 2 + 1."];
+const RL=()=>{const r=R(1,5)*10,k=R(1,9);return Qn(`Un circuit RL a R = ${r} Ω et L = ${r*k} mH. Quelle est sa constante de temps ?`,k,"τ = L / R (mH / Ω = ms).","","","ms")};
+const _ele0=pools["Électronique"];
+pools["Électronique"]=()=>{const P=pools["Physique-chimie"]();return [..._ele0(),
+...grab(P,"Primaire|Électricité simple"),
+...grab(P,"Collège|Circuits électriques"),...grab(P,"Collège|Tension et intensité"),
+...GR("Loi d'Ohm","Collège",genElec[0],genElec[1],genElec[2]),
+...GR("Tension et intensité","Collège",genElec[3],genElec[4]),
+...GR("Circuits électriques","Collège",genElec[5]),
+...GR("Puissance et énergie électriques","Collège",genElec[7],genElec[8]),
+...lq("Conducteurs et isolants","Collège",CI),
+...GR("Loi d'Ohm","Lycée",genElec[0],genElec[1],genElec[2]),
+...GR("Dipôles et associations","Lycée",genElec[5],genElec[6]),
+...GR("Puissance et énergie électriques","Lycée",genElec[7],genElec[8]),
+...GR("Lois des nœuds et des mailles","Lycée",genElec[3],genElec[4]),
+...GR("Diviseur de tension","Lycée",genElec[9]),
+...GR("Signaux","Lycée",genElec[10]),
+...GR("Circuits RC","Lycée",genElec[11]),
+...GR("Amplificateur opérationnel","Lycée",genElec[12]),
+...lq("Condensateur","Lycée",COND),...lq("Filtres","Lycée",FIL),...lq("Capteurs et conditionnement","Lycée",CAP),
+...grab(P,"Supérieur|Électricité et circuits","Régime sinusoïdal"),
+...GR("Régimes transitoires","Supérieur",genElec[11],RL),
+...GR("Amplificateur opérationnel","Supérieur",genElec[12]),
+...lq("Électronique numérique","Supérieur",NUM)]};
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
