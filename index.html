@@ -1988,6 +1988,255 @@ pools["Électronique"]=()=>{const P=pools["Physique-chimie"]();return [..._ele0(
 ...GR("Régimes transitoires","Supérieur",genElec[11],RL),
 ...GR("Amplificateur opérationnel","Supérieur",genElec[12]),
 ...lq("Électronique numérique","Supérieur",NUM)]};
+/* ===== LOT 6 : GÉOLOGIE, TECHNOLOGIE, SCIENCES DE L'INGÉNIEUR, INFORMATIQUE, PROGRAMMATION, ALGORITHMIQUE ===== */
+const RN=(qs,c,l)=>qs.map(q=>({...q,c,l}));
+const gen=(...gs)=>gs.flatMap(g=>repK(g,15));
+const txt=a=>a.map(r=>{const p=r.split("|");return Q(p[0],p[1],[p[2],p[3],p[4]],p[5],"","")});
+const grp=(raw,G,t1,t2)=>{const rows=parse(raw),out=[];
+for(const [k,ts] of Object.entries(G)){const [l,c]=k.split("|");
+rows.filter(r=>ts.includes(r[0])).forEach(r=>{const o=i=>shuf([...new Set(rows.filter(x=>x[0]!==r[0]).map(x=>x[i]))]).slice(0,3),e=`${r[0]} : ${r[1]}.`;
+out.push(Q(t1(r[0]),r[1],o(1),e,c,l),Q(t2(r[1]),r[0],o(0),e,c,l))})}
+return out};
+const DEF1=t=>`Que désigne le terme « ${t} » ?`,DEF2=d=>`Quel terme correspond à cette définition : ${d} ?`;
+
+/* --- chapitres par classe --- */
+CC["Géologie"]=`CP=Paysages;CE1=Paysages;CE2=Paysages|Volcans et séismes;CM1=Paysages|Volcans et séismes;CM2=Paysages|Volcans et séismes;6e=Roches et minéraux|Érosion et sédimentation;5e=Roches et minéraux|Érosion et sédimentation|Volcans et séismes;4e=Volcans et séismes|Tectonique des plaques|Roches et minéraux;3e=Tectonique des plaques|Volcans et séismes|Ressources et risques;Seconde=Tectonique des plaques|Séismes et failles|Roches et minéraux;Première=Roches et minéraux|Sédimentation et eau|Tectonique des plaques;Terminale=Tectonique des plaques|Sédimentation et eau|Enjeux planétaires;*Supérieur=Minéralogie|Pétrologie|Géodynamique`;
+CC["Technologie"]=`CP=Objets techniques;CE1=Objets techniques|Électricité et énergie;CE2=Objets techniques|Électricité et énergie|Numérique;CM1=Objets techniques|Électricité et énergie|Numérique;CM2=Objets techniques|Électricité et énergie|Numérique;6e=Besoin et conception|Mécanismes|Informatique et réseaux;5e=Énergie|Capteurs et actionneurs|Algorithmes et programmes;4e=Capteurs et actionneurs|Algorithmes et programmes|Informatique et réseaux;3e=Énergie|Besoin et conception|Capteurs et actionneurs|Algorithmes et programmes;Seconde=Réseaux et sécurité|Systèmes numériques;Première=Systèmes numériques|Chaînes d'énergie et d'information|Développement durable;Terminale=Chaînes d'énergie et d'information|Réseaux et sécurité|Développement durable;*Supérieur=Réseaux et sécurité|Systèmes numériques`;
+CC["Sciences de l'ingénieur"]=`Seconde=Analyse fonctionnelle|Chaînes d'énergie et d'information|Mécanismes et liaisons;Première=Chaînes d'énergie et d'information|Asservissement|Mécanismes et liaisons|Énergie et performance;Terminale=Asservissement|Automatismes|Cinématique et statique|Énergie et performance;*Primaire=Révisions générales;*Collège=Révisions générales;*Supérieur=Régulation et stabilité|Modélisation SysML|Mécanique des systèmes|Commande de puissance`;
+CC["Algorithmique"]=`CE2=Algorithmes simples;CM1=Algorithmes simples;CM2=Algorithmes simples|Séquences et boucles;6e=Séquences et instructions|Boucles;5e=Boucles|Conditions;4e=Variables|Conditions|Boucles;3e=Variables|Boucles|Fonctions;Seconde=Variables et conditions|Boucles|Fonctions|Listes;Première=Parcours de tableaux|Tris|Recherche dichotomique|Complexité;Terminale=Récursivité|Arbres|Graphes|Complexité;*Primaire=Révisions générales;*Supérieur=Complexité|Graphes|Arbres|Récursivité`;
+CC["Informatique"]+=";*Supérieur=Structures de données|Complexité algorithmique|Systèmes d'exploitation|Réseaux|Bases de données|Architecture des ordinateurs";
+CC["Programmation"]+=";*Supérieur=Programmation orientée objet|Récursivité|Structures de données|Algorithmes de tri|Tests et débogage|Architecture logicielle";
+
+/* --- GÉOLOGIE : on classe les définitions existantes par chapitre --- */
+const GG={
+"Primaire|Paysages":["glacier","dune","fossile"],
+"Primaire|Volcans et séismes":["volcan","cratère"],
+"Collège|Roches et minéraux":["roche magmatique","roche sédimentaire","granite","basalte","calcaire"],
+"Collège|Volcans et séismes":["magma","lave","cheminée volcanique","séisme","sismographe"],
+"Collège|Tectonique des plaques":["croûte terrestre","manteau terrestre","noyau terrestre"],
+"Collège|Érosion et sédimentation":["érosion"],
+"Collège|Ressources et risques":["charbon","pétrole","nappe phréatique","tsunami"],
+"Lycée|Tectonique des plaques":["lithosphère","plaque tectonique","dorsale océanique","subduction","dérive des continents"],
+"Lycée|Séismes et failles":["hypocentre","épicentre","magnitude","faille"],
+"Lycée|Roches et minéraux":["roche métamorphique","grès","argile","marbre","ponce","minéral","quartz","calcite","talc","diamant"],
+"Lycée|Sédimentation et eau":["altération","sédimentation","stratigraphie","aquifère","moraine","delta"],
+"Supérieur|Minéralogie":["halite"],
+"Supérieur|Pétrologie":["gneiss","quartzite","obsidienne","diagenèse","karst"],
+"Supérieur|Géodynamique":["asthénosphère","discontinuité de Mohorovičić","point chaud","caldeira"]};
+const GEOV=[
+"Comment appelle-t-on la roche en fusion qui sort d'un volcan ?|La lave|Le sable|La glace|Le calcaire|En refroidissant, la lave devient une roche.",
+"Qu'est-ce qu'un séisme ?|Un tremblement de terre|Une tempête|Une inondation|Une éclipse|Le sol vibre et peut se fissurer.",
+"Comment appelle-t-on l'ouverture au sommet d'un volcan ?|Le cratère|La falaise|La vallée|La plage|Les gaz et la lave en sortent."];
+const _geo0=pools["Géologie"];
+pools["Géologie"]=()=>{const S=pools["SVT"]();return [..._geo0(),
+...grp(GEO,GG,DEF1,DEF2),
+...pairQs(MOH,m=>`Quelle est la dureté du minéral « ${m} » sur l'échelle de Mohs ?`,d=>`Quel minéral a pour dureté ${d} sur l'échelle de Mohs ?`).map(q=>({...q,c:q.l==="Lycée"?"Roches et minéraux":"Minéralogie"})),
+...grab(S,"Collège|Géologie externe","Érosion et sédimentation"),
+...grab(S,"Lycée|Géosciences","Tectonique des plaques"),
+...grab(S,"Lycée|Enjeux planétaires","Enjeux planétaires"),
+...lq("Volcans et séismes","Primaire",GEOV)]};
+
+/* --- TECHNOLOGIE --- */
+const GTG={
+"Primaire|Objets techniques":["objet technique","besoin","maquette","recyclage"],
+"Primaire|Électricité et énergie":["conducteur","isolant","circuit électrique","éolienne","pile"],
+"Primaire|Numérique":["navigateur web","pixel","Internet"],
+"Collège|Besoin et conception":["fonction d'usage","cahier des charges","prototype","impression 3D"],
+"Collège|Énergie":["énergie renouvelable","panneau photovoltaïque","batterie","développement durable"],
+"Collège|Mécanismes":["engrenage","levier","moteur"],
+"Collège|Capteurs et actionneurs":["capteur","actionneur","automatisme","GPS"],
+"Collège|Algorithmes et programmes":["algorithme","programme","variable","boucle","condition"],
+"Collège|Informatique et réseaux":["processeur","mémoire vive","disque dur","système d'exploitation","réseau informatique","bit","octet"],
+"Lycée|Réseaux et sécurité":["adresse IP","routeur","serveur","cybersécurité","chiffrement","réseau informatique"],
+"Lycée|Systèmes numériques":["microcontrôleur","HTML","CSS","processeur","système d'exploitation"],
+"Lycée|Chaînes d'énergie et d'information":["chaîne d'énergie","chaîne d'information","capteur","actionneur"],
+"Lycée|Développement durable":["cycle de vie","obsolescence programmée","recyclage","développement durable"],
+"Supérieur|Réseaux et sécurité":["adresse IP","routeur","serveur","cybersécurité","chiffrement"],
+"Supérieur|Systèmes numériques":["microcontrôleur","système d'exploitation","processeur","serveur","HTML"]};
+const _tec0=pools["Technologie"];
+pools["Technologie"]=()=>[..._tec0(),...grp(TEC,GTG,DEF1,DEF2),
+...GR("Informatique et réseaux","Collège",genTech[0],genTech[2],genTech[4]),
+...GR("Systèmes numériques","Lycée",genTech[3],genTech[6]),
+...GR("Chaînes d'énergie et d'information","Lycée",genTech[1],genTech[5])];
+
+/* --- SCIENCES DE L'INGÉNIEUR --- */
+const GSI={
+"Lycée|Analyse fonctionnelle":["cahier des charges","diagramme des exigences","diagramme de cas d'utilisation","diagramme de blocs internes"],
+"Lycée|Chaînes d'énergie et d'information":["capteur","actionneur","préactionneur","chaîne d'information","chaîne d'énergie","microcontrôleur"],
+"Lycée|Asservissement":["asservissement","consigne","boucle ouverte","boucle fermée","comparateur","perturbation"],
+"Lycée|Mécanismes et liaisons":["réducteur","engrenage","liaison pivot","liaison glissière","liaison rotule","degré de liberté"],
+"Lycée|Automatismes":["automate programmable","GRAFCET","microcontrôleur","modulation de largeur d'impulsion"],
+"Lycée|Cinématique et statique":["cinématique","statique","dynamique","mobilité"],
+"Lycée|Énergie et performance":["rendement","réducteur"],
+"Supérieur|Régulation et stabilité":["correcteur","précision","stabilité","rapidité","dépassement","fonction de transfert","transformée de Laplace"],
+"Supérieur|Modélisation SysML":["diagramme des exigences","diagramme de blocs internes","diagramme de cas d'utilisation","cahier des charges"],
+"Supérieur|Mécanique des systèmes":["contrainte","module d'Young","dynamique","mobilité","liaison rotule"],
+"Supérieur|Commande de puissance":["modulation de largeur d'impulsion","rendement","réducteur"]};
+const _si0=pools["Sciences de l'ingénieur"];
+pools["Sciences de l'ingénieur"]=()=>[..._si0(),...grp(SIL,GSI,DEF1,DEF2),
+...GR("Énergie et performance","Lycée",genSI[0],genSI[1],genSI[3]),
+...GR("Commande de puissance","Supérieur",genSI[2])];
+
+/* --- INFORMATIQUE / PROGRAMMATION / ALGORITHMIQUE : briques communes --- */
+const NUMPT=[
+"Quel appareil permet d'écrire un texte et de naviguer sur Internet ?|Un ordinateur|Un grille-pain|Une bouilloire|Un ventilateur|Il traite l'information.",
+"Comment appelle-t-on un écran sur lequel on touche avec le doigt ?|Un écran tactile|Un clavier|Une souris|Une imprimante|Il réagit au toucher.",
+"À quoi sert la souris d'un ordinateur ?|À déplacer le pointeur sur l'écran|À écrire du texte|À imprimer|À recharger la batterie|On clique pour choisir.",
+"Où range-t-on ses documents sur un ordinateur ?|Dans des dossiers|Dans la corbeille|Dans le clavier|Dans l'écran|Un dossier regroupe des fichiers.",
+"Quelle touche efface la lettre située avant le curseur ?|La touche d'effacement (retour arrière)|La touche Entrée|La barre d'espace|La touche Majuscule|Elle supprime le caractère précédent."];
+const SECUT=[
+"Que faut-il faire avant de donner ses informations personnelles sur Internet ?|En parler à un adulte|Les donner tout de suite|Les écrire partout|Les publier|On protège sa vie privée.",
+"Un bon mot de passe est…|Long et difficile à deviner|Son prénom|1234|Sa date de naissance|Il mélange lettres, chiffres et symboles.",
+"Que faire si un message inconnu te demande tes coordonnées ?|Ne pas répondre et prévenir un adulte|Répondre vite|Donner son adresse|Partager le message|Cela peut être une arnaque.",
+"À qui peut-on confier son mot de passe ?|À ses parents seulement|À tous ses amis|À un inconnu|À toute la classe|Un mot de passe est secret.",
+"Pourquoi se déconnecter d'un ordinateur partagé ?|Pour protéger son compte|Pour économiser l'écran|Pour couper Internet|Pour supprimer ses fichiers|Sinon quelqu'un pourrait utiliser ton compte."];
+const ALGPT=[
+"Qu'est-ce qu'un algorithme ?|Une suite d'instructions pour résoudre un problème|Un jeu vidéo|Un ordinateur|Un câble|Il décrit les étapes à suivre.",
+"Dans quel ordre s'exécutent les instructions d'une suite simple ?|L'une après l'autre|Toutes en même temps|Au hasard|À l'envers|C'est une séquence.",
+"Un robot avance de 3 pas, tourne à droite puis avance de 2 pas. Combien d'instructions a-t-il exécutées ?|3|2|5|1|Avancer, tourner, avancer.",
+"Que fait l'instruction « répéter 4 fois : avancer » ?|Elle fait avancer 4 fois|Elle fait avancer 1 fois|Elle fait reculer|Elle fait tourner|C'est une boucle.",
+"Pour dessiner un carré, combien de fois répète-t-on « avancer puis tourner de 90° » ?|4|3|2|8|Un carré a 4 côtés.",
+"À quoi sert un test « si… alors… » ?|À choisir une action selon une condition|À répéter une action|À arrêter l'ordinateur|À dessiner|Il adapte le programme à la situation."];
+const BLOCT=[
+"Dans Scratch, que fait le bloc « répéter 10 fois » ?|Il exécute les blocs contenus dix fois|Il lance le programme une fois|Il efface le lutin|Il change le décor|C'est une boucle.",
+"À quoi sert une variable dans Scratch ?|À mémoriser une valeur qui peut changer|À dessiner|À jouer un son|À changer le fond|Par exemple un score.",
+"Quel bloc exécute des instructions seulement si une condition est vraie ?|Le bloc « si … alors »|Le bloc « répéter »|Le bloc « avancer »|Le bloc « attendre »|C'est une instruction conditionnelle.",
+"Qu'est-ce qui déclenche un script « quand le drapeau vert est cliqué » ?|Le clic sur le drapeau vert|L'appui sur une touche|Le mouvement de la souris|La fin du programme|C'est un bloc d'événement.",
+"Que fait « répéter indéfiniment » ?|Les blocs s'exécutent sans fin|Les blocs s'exécutent une fois|Le programme s'arrête|Le lutin disparaît|C'est une boucle infinie."];
+const ALGCT=[
+"Que signifie « déboguer » un programme ?|Chercher et corriger les erreurs|L'effacer|L'imprimer|Le copier|Un bug est une erreur.",
+"Quelle structure permet de répéter des instructions ?|La boucle|La condition|La variable|Le commentaire|Boucle for ou while.",
+"Quelle structure choisit entre deux actions selon un test ?|La condition (si/sinon)|La boucle|La variable|La fonction|Elle teste une expression.",
+"Comment appelle-t-on la valeur donnée à une fonction quand on l'appelle ?|Un argument|Une boucle|Un commentaire|Une erreur|Par exemple f(3).",
+"Pourquoi écrit-on des commentaires dans un programme ?|Pour expliquer le code aux lecteurs|Pour accélérer le programme|Pour corriger des erreurs|Pour changer la couleur|L'ordinateur les ignore."];
+const DONNT=[
+"Quelle extension correspond à un fichier image ?|.jpg|.mp3|.txt|.exe|JPEG est un format d'image.",
+"Combien de bits contient un octet ?|8|4|16|2|1 octet = 8 bits.",
+"Un dossier peut contenir…|Des fichiers et d'autres dossiers|Seulement des images|Seulement des programmes|Rien|C'est une structure en arbre.",
+"Quelle unité est la plus grande ?|Le gigaoctet|Le kilooctet|L'octet|Le mégaoctet|1 Go = 1 000 Mo.",
+"Quel format est utilisé pour un fichier de texte brut ?|.txt|.png|.mp4|.zip|Il ne contient pas de mise en forme."];
+const RESCT=[
+"Que signifie « Wi-Fi » dans l'usage courant ?|Une technologie de réseau sans fil|Un câble réseau|Un logiciel de dessin|Un navigateur|Il relie des appareils sans câble.",
+"Que fait un navigateur web ?|Il affiche les pages web|Il fabrique de l'électricité|Il imprime les documents|Il protège le matériel|Par exemple Firefox.",
+"Que désigne « https://www.exemple.fr » ?|L'adresse d'une page web (URL)|Un mot de passe|Un fichier audio|Une adresse e-mail|Elle localise la page.",
+"Qu'est-ce qu'une adresse IP ?|Un identifiant d'un appareil sur un réseau|Un mot de passe|Un moteur de recherche|Un logiciel|Elle permet de l'identifier.",
+"Que signifie le « s » de https ?|Sécurisé|Simple|Seul|Serveur|La connexion est chiffrée."];
+const RESLT=[
+"Quel protocole sert à transférer les pages web ?|HTTP (HTTPS)|SMTP|SSH|Bluetooth|HyperText Transfer Protocol.",
+"Que fait un routeur ?|Il oriente les paquets entre réseaux|Il stocke les fichiers|Il affiche les pages|Il protège des virus|Il relie des réseaux différents.",
+"Que traduit le DNS ?|Les noms de domaine en adresses IP|Les mots de passe en codes|Les images en sons|Les fichiers en dossiers|Domain Name System.",
+"Combien d'octets compte une adresse IPv4 ?|4|2|6|16|Quatre octets, soit 32 bits.",
+"Comment s'appellent les blocs de données échangés sur un réseau ?|Des paquets|Des fichiers|Des dossiers|Des pixels|Le message est découpé en paquets."];
+const STRUT=[
+"Une pile fonctionne selon quel principe ?|LIFO (dernier entré, premier sorti)|FIFO|Aléatoire|Alphabétique|Le dernier ajouté est retiré en premier.",
+"Une file fonctionne selon quel principe ?|FIFO (premier entré, premier sorti)|LIFO|Aléatoire|Alphabétique|Comme une file d'attente.",
+"Quelle structure Python associe une clé à une valeur ?|Un dictionnaire|Une liste|Un tuple|Un booléen|Les clés sont uniques.",
+"Quelle structure Python ne peut pas être modifiée après sa création ?|Un tuple|Une liste|Un dictionnaire|Un ensemble|Il est immuable.",
+"Comment accède-t-on au premier élément d'une liste L en Python ?|L[0]|L[1]|L(0)|L.first|Les indices commencent à 0."];
+const BDDT=[
+"Que signifie SQL ?|Structured Query Language|Simple Question List|System Quick Load|Standard Query Link|C'est un langage de requêtes.",
+"Quelle commande SQL lit des données ?|SELECT|INSERT|DELETE|UPDATE|SELECT … FROM … WHERE.",
+"Comment appelle-t-on l'identifiant unique d'une ligne d'une table ?|La clé primaire|La clé étrangère|La colonne|Le schéma|Elle identifie chaque enregistrement.",
+"Que fait la clause WHERE ?|Elle filtre les lignes selon une condition|Elle trie les lignes|Elle supprime la table|Elle crée une colonne|Par exemple WHERE x > 3.",
+"Quelle commande SQL ajoute une ligne à une table ?|INSERT INTO|SELECT|DROP|ALTER|INSERT INTO t VALUES (…)."];
+const TRIST=[
+"Quel tri compare des éléments voisins et les échange s'ils sont mal rangés ?|Le tri à bulles|Le tri par sélection|La dichotomie|Le hachage|Les plus grands remontent.",
+"Que fait le tri par sélection ?|Il place le minimum restant à sa position|Il échange tous les voisins|Il coupe le tableau en deux|Il mélange les valeurs|À chaque étape il cherche le plus petit élément restant.",
+"Quel est le coût du tri par insertion dans le pire cas ?|O(n²)|O(n)|O(log n)|O(1)|Il est quadratique.",
+"Que doit vérifier un tableau pour une recherche dichotomique ?|Être trié|Être vide|Contenir des doublons|Être de taille paire|On compare avec l'élément du milieu."];
+const ARBT=[
+"Comment appelle-t-on le sommet tout en haut d'un arbre ?|La racine|La feuille|Le nœud fils|La branche|Il n'a pas de parent.",
+"Comment appelle-t-on un nœud sans fils ?|Une feuille|Une racine|Un parent|Une branche|Il termine l'arbre.",
+"Combien de fils au maximum a un nœud d'un arbre binaire ?|2|1|3|4|Un fils gauche et un fils droit.",
+"Que donne un parcours infixe d'un arbre binaire de recherche ?|Les valeurs dans l'ordre croissant|Les valeurs dans l'ordre décroissant|Les valeurs au hasard|Seulement les feuilles|Gauche, racine, droite.",
+"Dans un arbre binaire de recherche, où sont les valeurs plus petites que la racine ?|Dans le sous-arbre gauche|Dans le sous-arbre droit|Aux feuilles uniquement|Hors de l'arbre|C'est la règle des ABR."];
+const GRAT=[
+"Comment appelle-t-on les points d'un graphe ?|Des sommets (nœuds)|Des arêtes|Des cycles|Des chemins|Ils sont reliés par des arêtes.",
+"Quel parcours utilise une file ?|Le parcours en largeur|Le parcours en profondeur|Le tri fusion|La dichotomie|Il visite le graphe par niveaux.",
+"Quel parcours utilise une pile (ou la récursivité) ?|Le parcours en profondeur|Le parcours en largeur|Le tri à bulles|Le hachage|Il va au bout d'une branche avant de revenir.",
+"Comment appelle-t-on un chemin qui revient à son point de départ ?|Un cycle|Une feuille|Une racine|Un degré|Il ne répète aucun autre sommet.",
+"Que représente le degré d'un sommet ?|Le nombre d'arêtes qui y sont reliées|Sa taille|Son numéro|Sa couleur|Dans un graphe non orienté."];
+const OSST=[
+"Quel est le rôle du noyau d'un système d'exploitation ?|Gérer les ressources matérielles et les processus|Afficher les pages web|Écrire des documents|Protéger du soleil|Il fait l'interface avec le matériel.",
+"Qu'est-ce qu'un processus ?|Un programme en cours d'exécution|Un fichier|Un disque|Une adresse|Chaque processus a son espace mémoire.",
+"Que fait l'ordonnanceur ?|Il répartit le temps du processeur entre les processus|Il compresse les fichiers|Il gère le réseau|Il affiche l'écran|Il choisit quel processus s'exécute.",
+"Qu'est-ce que la mémoire virtuelle ?|Une abstraction qui étend la mémoire grâce au disque|Une mémoire plus rapide que le cache|Une RAM supplémentaire physique|Un fichier texte|Elle repose sur la pagination.",
+"Qu'est-ce qu'un interblocage ?|Des processus s'attendent mutuellement sans fin|Un processus très rapide|Une panne électrique|Un virus|Chacun détient une ressource qu'attend l'autre."];
+const ARCHT=[
+"Quelle est la différence entre RAM et disque dur ?|La RAM est volatile et rapide, le disque est persistant|La RAM est persistante|Le disque est volatile|Il n'y en a aucune|La RAM perd son contenu hors tension.",
+"Que contient une unité arithmétique et logique ?|Les circuits de calcul|La mémoire|Le disque|Le clavier|Elle effectue additions et opérations logiques.",
+"Que décrit le cycle fetch-decode-execute ?|La lecture, le décodage puis l'exécution d'une instruction|Un cycle de mémoire|Un type de réseau|Une compression|C'est le fonctionnement du processeur.",
+"À quoi sert la mémoire cache ?|À accélérer l'accès aux données fréquemment utilisées|À stocker les fichiers définitivement|À afficher l'image|À refroidir|Elle est très rapide et petite.",
+"Que mesure la fréquence d'un processeur ?|Le nombre de cycles d'horloge par seconde|Sa taille|Sa capacité mémoire|Son prix|Elle s'exprime en GHz."];
+const POOT=[
+"Qu'est-ce qu'une classe en programmation orientée objet ?|Un modèle qui décrit des objets|Un objet précis|Une variable|Une boucle|Elle définit attributs et méthodes.",
+"Qu'est-ce que l'héritage ?|Une classe qui reprend les attributs et méthodes d'une autre|Une copie de fichier|Un type de boucle|Une variable globale|Par exemple class B(A).",
+"Qu'est-ce que l'encapsulation ?|Protéger l'état interne d'un objet derrière une interface|Copier un objet|Supprimer un objet|Transformer un objet en texte|On cache les détails d'implémentation.",
+"Qu'est-ce que le polymorphisme ?|Des objets différents répondent au même appel de méthode à leur manière|Une classe n'a qu'une méthode|Une variable change de type en mémoire|Un fichier prend plusieurs formes|Un même message, plusieurs comportements.",
+"Que fait le constructeur d'une classe ?|Initialiser un nouvel objet|Détruire un objet|Copier la classe|Afficher l'objet|En Python c'est __init__."];
+const TESTT=[
+"À quoi sert un test unitaire ?|Vérifier le comportement d'une petite unité de code|Tester tout le logiciel|Mesurer la vitesse du réseau|Compiler le code|Il vérifie une fonction isolée.",
+"Que fait un débogueur ?|Il exécute pas à pas et inspecte les variables|Il écrit le code|Il compresse le code|Il chiffre les données|Il aide à trouver les erreurs.",
+"Qu'est-ce qu'un test de non-régression ?|Vérifier qu'une modification n'a pas cassé l'existant|Tester la vitesse|Tester seulement une nouvelle fonction|Tester le matériel|On relance les tests anciens.",
+"Que fait l'instruction assert en Python ?|Elle vérifie qu'une condition est vraie|Elle affiche un message|Elle importe un module|Elle définit une classe|Elle lève une erreur sinon.",
+"Que mesure la couverture de tests ?|La part du code exécutée par les tests|Le nombre de bugs|La vitesse des tests|Le nombre de testeurs|Elle s'exprime en pourcentage."];
+const ARCLT=[
+"Que désigne le motif MVC ?|Modèle-Vue-Contrôleur|Mémoire-Vitesse-Calcul|Méthode-Variable-Classe|Module-Version-Code|Il sépare données, affichage et logique.",
+"Qu'est-ce que la dette technique ?|Le coût futur de choix rapides mais imparfaits|Une dette d'argent|Une panne|Un bug précis|Elle ralentit les évolutions.",
+"Quel principe dit qu'une classe n'a qu'une seule raison de changer ?|La responsabilité unique|La substitution de Liskov|L'inversion de dépendances|L'ouvert-fermé|C'est le S de SOLID.",
+"Qu'est-ce qu'une API ?|Une interface pour utiliser les fonctions d'un logiciel|Un type de réseau|Un langage|Un disque|Application Programming Interface.",
+"À quoi sert un gestionnaire de versions comme Git ?|À suivre l'historique des modifications du code|À compiler le code|À chiffrer les fichiers|À créer des images|Il permet de revenir en arrière."];
+
+const VARG=[
+()=>{const a=R(2,20),b=R(2,20);return Qn(`En Python : x = ${a} ; x = x + ${b} ; print(x). Qu'affiche-t-on ?`,a+b,`x vaut d'abord ${a}, puis ${a} + ${b}.`,"","")},
+()=>{const a=R(2,9),b=R(2,9);return Qn(`a = ${a} ; b = ${b} ; a = b ; b = a + 1 ; print(b). Qu'affiche-t-on ?`,b+1,`Après a = b, a vaut ${b} : b devient ${b} + 1.`,"","")},
+()=>{const a=R(2,9),k=R(2,5);return Qn(`x = ${a} ; x = x * ${k} ; x = x - 1 ; print(x). Qu'affiche-t-on ?`,a*k-1,`${a} × ${k} − 1 = ${a*k-1}.`,"","")}];
+const CONDG=[
+()=>{const x=R(1,20),t=R(5,15),r=x>t?"grand":"petit";return Q(`x = ${x} ; if x > ${t} : print("grand") else : print("petit"). Qu'affiche-t-on ?`,r,[x>t?"petit":"grand","rien","une erreur"],`On teste si ${x} est supérieur à ${t}.`,"","")},
+()=>{const x=R(1,50),r=x%2?"impair":"pair";return Q(`x = ${x} ; if x % 2 == 0 : print("pair") else : print("impair"). Qu'affiche-t-on ?`,r,[r==="pair"?"impair":"pair","rien","une erreur"],`${x} % 2 vaut ${x%2}.`,"","")}];
+const BOUG=[
+()=>{const n=R(3,9),k=R(2,5);return Qn(`s = 0 ; for i in range(${n}) : s = s + ${k} ; print(s). Qu'affiche-t-on ?`,n*k,`La boucle s'exécute ${n} fois et ajoute ${k} à chaque tour.`,"","")},
+()=>{const n=R(3,10);return Qn(`s = 0 ; for i in range(1, ${n+1}) : s = s + i ; print(s). Qu'affiche-t-on ?`,n*(n+1)/2,`On additionne 1 + 2 + … + ${n}.`,"","")},
+()=>{const k=R(2,5),n=R(6,20);return Qn(`i = 0 ; while i < ${n} : i = i + ${k} ; print(i). Qu'affiche-t-on ?`,Math.ceil(n/k)*k,`On s'arrête dès que i atteint ou dépasse ${n}.`,"","")}];
+const FONG=[
+()=>{const a=R(2,6),b=R(1,9),c=R(2,9);return Qn(`def f(x) : return ${a}*x + ${b} ; print(f(${c})). Qu'affiche-t-on ?`,a*c+b,`f(${c}) = ${a}×${c} + ${b}.`,"","")},
+()=>{const n=R(2,9),m=R(1,9);return Qn(`def carre(x) : return x*x ; print(carre(${n}) + ${m}). Qu'affiche-t-on ?`,n*n+m,`${n}² + ${m}.`,"","")}];
+const CBG=[
+()=>{const a=R(2,64);return Qn(`n = ${a} ; c = 0 ; while n > 1 : n = n // 2 ; c = c + 1 ; print(c). Qu'affiche-t-on ?`,Math.floor(Math.log2(a)),"On compte combien de fois on peut diviser par 2 avant d'atteindre 1.","","")},
+()=>{const k=R(2,5),a=R(1,5),b=a+R(10,30);let c=0;for(let i=a;i<b;i++)if(i%k===0)c++;return Qn(`c = 0 ; for i in range(${a}, ${b}) : if i % ${k} == 0 : c = c + 1 ; print(c). Qu'affiche-t-on ?`,c,`On compte les multiples de ${k} dans [${a} ; ${b}[.`,"","")},
+()=>{const n=R(5,20);let s=0;for(let i=0;i<n;i++)if(i%2===0)s+=i;return Qn(`s = 0 ; for i in range(${n}) : if i % 2 == 0 : s = s + i ; print(s). Qu'affiche-t-on ?`,s,`On additionne les entiers pairs inférieurs à ${n}.`,"","")}];
+const FNG=[
+()=>{const a=R(1,9),b=a+2*R(1,5);return Qn(`def moyenne(a, b) : return (a + b) // 2 ; print(moyenne(${a}, ${b})). Qu'affiche-t-on ?`,(a+b)/2,`(${a} + ${b}) // 2.`,"","")},
+()=>{const a=R(2,9);return Qn(`def f(x, y = 2) : return x ** y ; print(f(${a})). Qu'affiche-t-on ?`,a*a,`y vaut 2 par défaut : ${a}² = ${a*a}.`,"","")}];
+const LSG=[
+()=>{const L=Array.from({length:R(4,6)},()=>R(1,9)),i=R(0,L.length-1);return Qn(`L = [${L}] ; print(L[${i}]). Qu'affiche-t-on ?`,L[i],`Les indices commencent à 0 : L[${i}] = ${L[i]}.`,"","")},
+()=>{const n=R(3,6);return Qn(`L = [${Array.from({length:n},(_,i)=>i+1)}] ; L.append(9) ; print(len(L)). Qu'affiche-t-on ?`,n+1,`La liste avait ${n} éléments et append en ajoute un.`,"","")},
+()=>{const L=Array.from({length:5},()=>R(1,9));return Qn(`L = [${L}] ; print(sum(L[1:4])). Qu'affiche-t-on ?`,L[1]+L[2]+L[3],"L[1:4] contient les indices 1, 2 et 3.","","")}];
+
+const CSP=()=>({
+NUMP:txt(NUMPT),SECU:txt(SECUT),ALGP:txt(ALGPT),BLOC:txt(BLOCT),ALGC:txt(ALGCT),DONN:txt(DONNT),RESC:txt(RESCT),
+VAR:gen(...VARG),COND:gen(...CONDG),VC:gen(...VARG,...CONDG),BOUC:gen(...BOUG),FONC:gen(...FONG),
+PYTH:gen(...genPy("")),CB:gen(...CBG),FONL:gen(...FNG),LIST:gen(...LSG),
+ALGL:gen(genAlgo[4],genAlgo[5],genAlgo[6],genAlgo[7]),PARC:gen(genAlgo[0],genAlgo[1]),
+DICH:gen(genAlgo[9],genAlgo[10]),REC:gen(genAlgo[2],genAlgo[3],genAlgo[8]),
+TRIS:[...txt(TRIST),...gen(genAlgo[10])],CPX:oneQs(CPX,n=>`Quelle est la complexité de : ${n} ?`),
+RESL:txt(RESLT),STRU:txt(STRUT),BDD:txt(BDDT),ARB:txt(ARBT),GRA:txt(GRAT),
+OSS:txt(OSST),ARCH:txt(ARCHT),POO:txt(POOT),TEST:txt(TESTT),ARCL:txt(ARCLT)});
+const CSM={
+"Informatique":{"Primaire|Découverte du numérique":"NUMP","Primaire|Sécurité sur Internet":"SECU","Primaire|Algorithmes simples":"ALGP",
+"Collège|Données et fichiers":"DONN","Collège|Programmation par blocs":"BLOC","Collège|Algorithmes":"ALGC","Collège|Internet et réseaux":"RESC",
+"Lycée|Python":"PYTH","Lycée|Algorithmique":"ALGL","Lycée|Réseaux":"RESL","Lycée|Structures de données":"STRU","Lycée|Bases de données":"BDD",
+"Supérieur|Structures de données":"STRU","Supérieur|Complexité algorithmique":"CPX","Supérieur|Réseaux":"RESL","Supérieur|Bases de données":"BDD","Supérieur|Systèmes d'exploitation":"OSS","Supérieur|Architecture des ordinateurs":"ARCH"},
+"Programmation":{"Primaire|Logique et instructions":"ALGP","Primaire|Algorithmes simples":"ALGP",
+"Collège|Variables":"VAR","Collège|Conditions":"COND","Collège|Boucles":"BOUC","Collège|Fonctions simples":"FONC",
+"Lycée|Python et variables":"PYTH","Lycée|Conditions et boucles":"CB","Lycée|Fonctions":"FONL","Lycée|Listes":"LIST","Lycée|Algorithmes":"ALGL",
+"Supérieur|Programmation orientée objet":"POO","Supérieur|Récursivité":"REC","Supérieur|Structures de données":"STRU","Supérieur|Algorithmes de tri":"TRIS","Supérieur|Tests et débogage":"TEST","Supérieur|Architecture logicielle":"ARCL"},
+"Algorithmique":{"Primaire|Algorithmes simples":"ALGP","Primaire|Séquences et boucles":"ALGP",
+"Collège|Séquences et instructions":"ALGC","Collège|Variables":"VAR","Collège|Conditions":"COND","Collège|Boucles":"BOUC","Collège|Fonctions":"FONC",
+"Lycée|Variables et conditions":"VC","Lycée|Boucles":"CB","Lycée|Fonctions":"FONL","Lycée|Listes":"LIST","Lycée|Parcours de tableaux":"PARC","Lycée|Tris":"TRIS","Lycée|Recherche dichotomique":"DICH","Lycée|Récursivité":"REC","Lycée|Complexité":"CPX","Lycée|Arbres":"ARB","Lycée|Graphes":"GRA",
+"Supérieur|Complexité":"CPX","Supérieur|Graphes":"GRA","Supérieur|Arbres":"ARB","Supérieur|Récursivité":"REC"}};
+for(const s of ["Informatique","Programmation","Algorithmique"]){const _old=pools[s];
+pools[s]=()=>{const P=CSP();return [..._old(),...Object.entries(CSM[s]).flatMap(([k,p])=>{const [l,c]=k.split("|");return RN(P[p],c,l)})]}}
 function pickQuestions(subject,level,chapter,count){
 const pool=[...(quizBank[subject]||[]),...(pools[subject]?pools[subject]():[])];
 const lv=q=>!q.l||q.l===level;
